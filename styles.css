@@ -34,6 +34,9 @@ body {
 .main {
 }
 
+.container {
+}
+
 .footer {
   user-select: none;
   height: 10vh;
