@@ -2,7 +2,17 @@
   display: none;
 }
 
+.hr {
+  border-left: 2px solid white;
+  height: 40%;
+  margin-left:5%;
+  margin-right:5%;
+  border-radius: 10px;
+}
 body {
+  display:flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: rgb(28, 28, 28);
   margin: 0%;
   padding: 0%;
@@ -32,15 +42,78 @@ body {
 }
 
 .main {
+  flex:1;
 }
 
 .container {
+  width: 100vw;
+  display: inline-flex;
+  height: 90vh;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  background-color: blueviolet;
+  position:relative;
 }
 
-.footer {
-  user-select: none;
-  height: 10vh;
+.controls {
+  margin-top:15%;
+  display: flex; 
   width: 100vw;
+  height: 100px;
+  position: absolute;
+  align-items: center; 
+  justify-content: space-between; 
+}
+
+.timer {
+  width:10vw;
+  height:7vh;
+  background-color: black;
+  color: white;
+  margin-left: 15%;
+  margin-right: 7.5%;
+  border-radius:15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+  width:40vw;
+  height:7vh;
+  margin-right: 5%;
+  margin-left: 7.5%;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  border-radius:15px;
+  justify-content: center;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.time svg{
+  margin-right:8px;
+}
+.time span{
+  display:inline-block;
+  margin-right:5%;
+}
+
+.buttons button{
+
+  cursor:pointer;
+  border:none;
+  color: white;
+  background-color: transparent;
+}
+
+
+/* .footer {
+  position:;
+  height: 10vh;
+  width: 100%;
   background-color: rgb(20, 20, 20);
   color: rgb(200, 200, 200);
   display: flex;
@@ -48,6 +121,12 @@ body {
   align-items: center;
 }
 
+.footer pre{
+  font-size: 20px;
+  color: white;
+}
+
 .footer a {
   text-decoration: underline;
-}
+  color: gray;
+} */
