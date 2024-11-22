@@ -12,7 +12,7 @@ export const words = [
   "that",
   "for",
   "they",
-  "I",
+  "i",
   "with",
   "as",
   "not",
