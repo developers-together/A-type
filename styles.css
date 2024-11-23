@@ -5,12 +5,21 @@
 .hr {
   border-left: 2px solid white;
   height: 40%;
-  margin-left:5%;
-  margin-right:5%;
+  margin-left: 5%;
+  margin-right: 5%;
   border-radius: 10px;
 }
+
+.hr2 {
+  border-left: 2px solid white;
+  height: 40%;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 10px;
+}
+
 body {
-  display:flex;
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: rgb(28, 28, 28);
@@ -42,7 +51,7 @@ body {
 }
 
 .main {
-  flex:1;
+  flex: 1;
 }
 
 .container {
@@ -53,27 +62,42 @@ body {
   justify-items: center;
   justify-self: center;
   background-color: blueviolet;
-  position:relative;
+  position: relative;
 }
 
-.controls {
-  margin-top:15%;
-  display: flex; 
+.controls-line {
+  margin-top: 5%;
+  display: flex;
   width: 100vw;
   height: 100px;
   position: absolute;
-  align-items: center; 
-  justify-content: space-between; 
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.controls {
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
 }
 
 .timer {
-  width:10vw;
-  height:7vh;
+  width: 8vw;
+  min-width: 5vw;
+  max-width: 10vw;
+  height: 6vh;
+  min-height: 4vw;
+  max-height: 6vh;
   background-color: black;
   color: white;
-  margin-left: 15%;
-  margin-right: 7.5%;
-  border-radius:15px;
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,34 +105,84 @@ body {
 }
 
 .buttons {
-  width:40vw;
-  height:7vh;
-  margin-right: 5%;
-  margin-left: 7.5%;
+  width: 28vw;
+  min-width: 25vw;
+  max-width: 30vw;
+  height: 6vh;
+  min-height: 4vw;
+  max-height: 6vh;
+  margin-right: 1%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
-  border-radius:15px;
+  border-radius: 15px;
   justify-content: center;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
-.time svg{
+/* .time svg{
   margin-right:8px;
 }
 .time span{
   display:inline-block;
   margin-right:5%;
+} */
+
+.buttons2 {
+  width: 30vw;
+  min-width: 28vw;
+  max-width: 30vw;
+  height: 6vh;
+  min-height: 4vw;
+  max-height: 6vh;
+  margin-right: 1%;
+  margin-left: 1%;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  justify-content: center;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-.buttons button{
+.buttons3 {
+  width: 30vw;
+  min-width: 28vw;
+  max-width: 30vw;
+  height: 6vh;
+  min-height: 4vw;
+  max-height: 6vh;
+  margin-left: 1%;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  justify-content: center;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
 
-  cursor:pointer;
-  border:none;
+.buttons button {
+  cursor: pointer;
+  border: none;
   color: white;
   background-color: transparent;
 }
 
+.buttons2 button {
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: transparent;
+}
+
+.buttons3 button {
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: transparent;
+}
 
 /* .footer {
   position:;
