@@ -1,20 +1,14 @@
 ::-webkit-scrollbar {
   display: none;
 }
-
+html {
+  font-size: 1.8vw;
+}
 .hr {
   border-left: 2px solid white;
-  height: 40%;
-  margin-left: 5%;
-  margin-right: 5%;
-  border-radius: 10px;
-}
-
-.hr2 {
-  border-left: 2px solid white;
-  height: 40%;
-  margin-left: 2%;
-  margin-right: 2%;
+  height: 35%;
+  margin-left: auto-fit;
+  margin-right: auto-fit;
   border-radius: 10px;
 }
 
@@ -53,10 +47,9 @@ body {
 .main {
   flex: 1;
 }
-
 .container {
   width: 100vw;
-  display: inline-flex;
+  display: flex;
   height: 90vh;
   justify-content: center;
   justify-items: center;
@@ -69,96 +62,138 @@ body {
   margin-top: 5%;
   display: flex;
   width: 100vw;
-  height: 100px;
+  height: 10px;
   position: absolute;
   align-items: center;
   justify-content: space-between;
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .controls {
-  margin-left: 2%;
+  margin-left: 1%;
   margin-right: 2%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100vw;
+  width: 90vw;
+}
+.controls button {
+  padding: 0.1rem 0.5rem;
+  font-size: 0.7rem; /* Adjust text size */
+}
+
+.mobile-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .controls .buttons,
+  .controls .buttons2,
+  .controls .buttons3 {
+    display: none;
+  }
+  .controls .mobile-button {
+    font-size: 1.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto-fill;
+    height: 4vh;
+    min-height: 4vh;
+    max-height: 4vh;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: 4vh;
+    max-height: 4vh;
+    background-color: black;
+    color: white;
+    border-radius: 15vw;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-align: center;
+  }
 }
 
 .timer {
-  width: 8vw;
-  min-width: 5vw;
-  max-width: 10vw;
-  height: 6vh;
-  min-height: 4vw;
-  max-height: 6vh;
+  width: 3vw;
+  min-width: 3vw;
+  max-width: 3vw;
+  height: 4vh;
+  min-height: 4vh;
+  max-height: 4vh;
+  padding-left: 10px;
+  padding-right: 10px;
   background-color: black;
   color: white;
-  margin-left: 2%;
-  margin-right: 2%;
-  border-radius: 15px;
+  margin-right: 1%;
+  margin-left: 10px;
+  border-radius: 15vw;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
-
+.controls *:hover {
+  transition: background 0.125s, color 0.125s, opacity 0.125s;
+  color: rgb(89, 10, 105); /* change this color*/
+}
+/* .container * {
+  font-size: 1.8vw;
+} */
 .buttons {
-  width: 28vw;
-  min-width: 25vw;
-  max-width: 30vw;
-  height: 6vh;
-  min-height: 6vw;
-  max-height: 8vh;
+  font-size: 1rem;
+  width: 30%;
+  min-width: 30%;
+  max-width: 30%;
+  height: 4vh;
+  min-height: 4vh;
+  max-height: 4vh;
   margin-right: 1%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 15vw;
   justify-content: center;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
-/* .time svg{
-  margin-right:8px;
-}
-.time span{
-  display:inline-block;
-  margin-right:5%;
-} */
 
 .buttons2 {
-  width: 30vw;
-  min-width: 28vw;
-  max-width: 30vw;
-  height: 6vh;
-  min-height: 6vw;
-  max-height: 8vh;
+  width: 25vw;
+  min-width: 25vw;
+  max-width: 25vw;
+  height: 4vh;
+  min-height: 4vh;
+  max-height: 4vh;
   margin-right: 1%;
   margin-left: 1%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 15vw;
   justify-content: center;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .buttons3 {
-  width: 30vw;
-  min-width: 28vw;
-  max-width: 30vw;
-  height: 6vh;
-  min-height: 6vw;
-  max-height: 8vh;
+  width: 25vw;
+  min-width: 25vw;
+  max-width: 25vw;
+  height: 4vh;
+  min-height: 4vh;
+  max-height: 4vh;
   margin-left: 1%;
+  margin-right: 10px;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 15vw;
   justify-content: center;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
