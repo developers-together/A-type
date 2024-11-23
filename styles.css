@@ -1,12 +1,27 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+:root {
+  --height: 4vh;
+  --width: auto-fill;
+}
+
 html {
   font-size: 1.8vw;
 }
+
 .hr {
   border-left: 2px solid white;
-  height: 35%;
+  height: 7%;
+  margin-left: auto-fit;
+  margin-right: auto-fit;
+  border-radius: 10px;
+}
+
+.hr2 {
+  border-left: 3px solid gray;
+  height: 30%;
   margin-left: auto-fit;
   margin-right: auto-fit;
   border-radius: 10px;
@@ -68,13 +83,23 @@ body {
   justify-content: space-between;
 }
 
+.controls-line2 {
+  margin-top: 15%;
+  display: flex;
+  width: 100vw;
+  height: 10px;
+  position: absolute;
+  align-items: center;
+  justify-content: end;
+}
+
 .controls {
   margin-left: 1%;
   margin-right: 2%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90vw;
+  width: 53%;
 }
 .controls button {
   padding: 0.1rem 0.5rem;
@@ -101,14 +126,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto-fill;
-    height: 4vh;
-    min-height: 4vh;
-    max-height: 4vh;
+    width: var(--width);
+    height: var(--height);
+    min-height: var(--height);
+    max-height: var(--height);
     padding-left: 10px;
     padding-right: 10px;
-    min-height: 4vh;
-    max-height: 4vh;
     background-color: black;
     color: white;
     border-radius: 15vw;
@@ -119,14 +142,12 @@ body {
 }
 
 .timer {
-  width: 3vw;
-  min-width: 3vw;
-  max-width: 3vw;
-  height: 4vh;
-  min-height: 4vh;
-  max-height: 4vh;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: var(--width);
+  height: var(--height);
+  min-height: var(--height);
+  max-height: var(--height);
+  padding: 5px;
+  padding-right: 5px;
   background-color: black;
   color: white;
   margin-right: 1%;
@@ -139,20 +160,19 @@ body {
 }
 .controls *:hover {
   transition: background 0.125s, color 0.125s, opacity 0.125s;
-  color: rgb(89, 10, 105); /* change this color*/
+  color: rgb(191, 125, 252); /* change this color*/
 }
 /* .container * {
   font-size: 1.8vw;
 } */
 .buttons {
   font-size: 1rem;
-  width: 30%;
-  min-width: 30%;
-  max-width: 30%;
-  height: 4vh;
-  min-height: 4vh;
-  max-height: 4vh;
-  margin-right: 1%;
+  width: var(--width);
+  height: var(--height);
+  min-height: var(--height);
+  max-height: var(--height);
+  padding-left: 5px;
+  padding-right: 5px;
   background-color: black;
   color: white;
   display: flex;
@@ -163,14 +183,12 @@ body {
 }
 
 .buttons2 {
-  width: 25vw;
-  min-width: 25vw;
-  max-width: 25vw;
-  height: 4vh;
-  min-height: 4vh;
-  max-height: 4vh;
-  margin-right: 1%;
-  margin-left: 1%;
+  width: var(--width);
+  height: var(--height);
+  min-height: var(--height);
+  max-height: var(--height);
+  padding-left: 5px;
+  padding-right: 5px;
   background-color: black;
   color: white;
   display: flex;
@@ -181,14 +199,12 @@ body {
 }
 
 .buttons3 {
-  width: 25vw;
-  min-width: 25vw;
-  max-width: 25vw;
-  height: 4vh;
-  min-height: 4vh;
-  max-height: 4vh;
-  margin-left: 1%;
-  margin-right: 10px;
+  width: var(--width);
+  height: var(--height);
+  min-height: var(--height);
+  max-height: var(--height);
+  padding-left: 5px;
+  padding-right: 5px;
   background-color: black;
   color: white;
   display: flex;
