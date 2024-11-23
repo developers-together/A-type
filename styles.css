@@ -109,8 +109,8 @@ body {
   min-width: 25vw;
   max-width: 30vw;
   height: 6vh;
-  min-height: 4vw;
-  max-height: 6vh;
+  min-height: 6vw;
+  max-height: 8vh;
   margin-right: 1%;
   background-color: black;
   color: white;
@@ -133,8 +133,8 @@ body {
   min-width: 28vw;
   max-width: 30vw;
   height: 6vh;
-  min-height: 4vw;
-  max-height: 6vh;
+  min-height: 6vw;
+  max-height: 8vh;
   margin-right: 1%;
   margin-left: 1%;
   background-color: black;
@@ -151,8 +151,8 @@ body {
   min-width: 28vw;
   max-width: 30vw;
   height: 6vh;
-  min-height: 4vw;
-  max-height: 6vh;
+  min-height: 6vw;
+  max-height: 8vh;
   margin-left: 1%;
   background-color: black;
   color: white;
