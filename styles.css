@@ -168,7 +168,7 @@ body {
   margin-top: 17vh;
   background-color: #404040;
   width: 90vw;
-  height: 15vh;
+  height: 8em;
   border-radius: 2.5vw;
   border-width: 2px;
   border-style: black;
@@ -182,13 +182,17 @@ body {
 }
 
 .typing-lines {
+  overflow: auto;
+  height:100%;
+  width:100%;
   /* margin-top: 15px;
   margin-bottom: 15px; */
   margin-left: 25px;
   margin-right: 25px;
   font-size: 1.6rem;
   color: white;
-  line-height: 30px;
+  line-height: 150%;
+  
 }
 
 /* .footer {
