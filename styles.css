@@ -41,7 +41,7 @@ body {
   user-select: none;
   height: 10vh;
   width: 100vw;
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(10, 10, 10);
   color: rgb(200, 200, 200);
   display: flex;
   justify-content: center;
@@ -69,37 +69,24 @@ body {
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  background-color: blueviolet;
+  background-color: #202020;
   position: relative;
 }
 
 .controls-line {
-  margin-top: 5%;
+  margin-top: 3%;
   display: flex;
   width: 100vw;
   height: 10px;
   position: absolute;
   align-items: center;
-  justify-content: space-between;
-}
-
-.controls-line2 {
-  margin-top: 15%;
-  display: flex;
-  width: 100vw;
-  height: 10px;
-  position: absolute;
-  align-items: center;
-  justify-content: end;
+  justify-content: center;
 }
 
 .controls {
-  margin-left: 1%;
-  margin-right: 2%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 53%;
 }
 .controls button {
   padding: 0.1rem 0.5rem;
@@ -132,7 +119,7 @@ body {
     max-height: var(--height);
     padding-left: 10px;
     padding-right: 10px;
-    background-color: black;
+    background-color: #404040;
     color: white;
     border-radius: 15vw;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -141,30 +128,15 @@ body {
   }
 }
 
-.timer {
-  width: var(--width);
-  height: var(--height);
-  min-height: var(--height);
-  max-height: var(--height);
-  padding: 5px;
-  padding-right: 5px;
-  background-color: black;
-  color: white;
-  margin-right: 1%;
-  margin-left: 10px;
-  border-radius: 15vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-}
 .controls *:hover {
   transition: background 0.125s, color 0.125s, opacity 0.125s;
   color: rgb(191, 125, 252); /* change this color*/
 }
+
 /* .container * {
   font-size: 1.8vw;
 } */
+
 .buttons {
   font-size: 1rem;
   width: var(--width);
@@ -173,7 +145,7 @@ body {
   max-height: var(--height);
   padding-left: 5px;
   padding-right: 5px;
-  background-color: black;
+  background-color: #404040;
   color: white;
   display: flex;
   align-items: center;
@@ -182,57 +154,39 @@ body {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-.buttons2 {
-  width: var(--width);
-  height: var(--height);
-  min-height: var(--height);
-  max-height: var(--height);
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  border-radius: 15vw;
-  justify-content: center;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.buttons3 {
-  width: var(--width);
-  height: var(--height);
-  min-height: var(--height);
-  max-height: var(--height);
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  border-radius: 15vw;
-  justify-content: center;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.buttons button {
-  cursor: pointer;
-  border: none;
-  color: white;
-  background-color: transparent;
-}
-
-.buttons2 button {
-  cursor: pointer;
-  border: none;
-  color: white;
-  background-color: transparent;
-}
-
+.buttons button,
+.buttons2 button,
 .buttons3 button {
   cursor: pointer;
   border: none;
   color: white;
   background-color: transparent;
+}
+
+.typing-area {
+  margin-top: 20vh;
+  background-color: #404040;
+  width: 90vw;
+  height: 15vh;
+  border-radius: 4vw;
+  border-width: 2px;
+  display: flex;
+  position: relative;
+  align-self: baseline;
+  align-items: center;
+  cursor: text;
+  user-select: none;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.typing-lines {
+  /* margin-top: 15px;
+  margin-bottom: 15px; */
+  margin-left: 25px;
+  margin-right: 25px;
+  font-size: 1.6rem;
+  color: white;
+  line-height: 30px;
 }
 
 /* .footer {

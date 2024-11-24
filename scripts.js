@@ -1,42 +1,38 @@
-// Select all time buttons, words buttons, and buttons3 containers
-const timeButtons = document.querySelectorAll(".time-button");
-const wordsButtons = document.querySelectorAll(".words-button");
-const buttonGroups = document.querySelectorAll(".buttons3");
+// document.addEventListener("DOMContentLoaded", () => {
+//   const timeButton = document.querySelector(".time-button");
+//   const wordsButton = document.querySelector(".words-button");
+//   const valueButtons = document.querySelectorAll(".controls .words"); // Buttons for values (Button 3)
 
-// Define the options for each mode
-const timeOptions = [15, 30, 60, 120];
-const wordOptions = [10, 25, 50, 100];
+//   let mode = "time"; // Default mode
 
-// Helper function to find the nearest `.buttons3` container
-function findButtons3Container(button) {
-  return button.closest(".controls").querySelector(".buttons3");
-}
+//   // Define the values for each mode
+//   const values = {
+//     time: [15, 30, 60, 120], // Updated Time values
+//     words: [25, 50, 75, 100], // Words values
+//   };
 
-// Function to update the text content of existing buttons
-function updateButtonContent(buttonGroup, options) {
-  const buttons = buttonGroup.querySelectorAll("button"); // Select all buttons inside buttonGroup
-  buttons.forEach((button, index) => {
-    if (index < options.length) {
-      button.textContent = options[index]; // Set the text content from options
-      button.style.display = ""; // Ensure the button is visible
-    } else {
-      button.style.display = "none"; // Hide extra buttons if not needed
-    }
-  });
-}
+//   // Function to update button values
+//   function updateValues() {
+//     const newValues = values[mode];
+//     valueButtons.forEach((button, index) => {
+//       button.textContent = newValues[index];
+//     });
+//   }
 
-// Add event listeners to time buttons
-timeButtons.forEach((timeButton) => {
-  timeButton.addEventListener("click", () => {
-    const buttonGroup = findButtons3Container(timeButton);
-    updateButtonContent(buttonGroup, timeOptions);
-  });
-});
+//   // Event listeners for mode toggle
+//   timeButton.addEventListener("click", () => {
+//     mode = "time";
+//     updateValues();
+//   });
 
-// Add event listeners to words buttons
-wordsButtons.forEach((wordsButton) => {
-  wordsButton.addEventListener("click", () => {
-    const buttonGroup = findButtons3Container(wordsButton);
-    updateButtonContent(buttonGroup, wordOptions);
-  });
-});
+//   wordsButton.addEventListener("click", () => {
+//     mode = "words";
+//     updateValues();
+//   });
+
+//   // Make sure the words button is visible
+//   wordsButton.style.display = "inline-block";
+
+//   // Initialize with default mode
+//   updateValues();
+// });
