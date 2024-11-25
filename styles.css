@@ -215,3 +215,6 @@ body {
   text-decoration: underline;
   color: gray;
 } */
+.highlight {
+  color: red; /* Or any color you want for the highlighted letter */
+}

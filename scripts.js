@@ -1,38 +1,46 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   const timeButton = document.querySelector(".time-button");
-//   const wordsButton = document.querySelector(".words-button");
-//   const valueButtons = document.querySelectorAll(".controls .words"); // Buttons for values (Button 3)
+import {words} from './words.js'
 
-//   let mode = "time"; // Default mode
+document.onkeypress = function (key) {
+    console.log(key);
+};
 
-//   // Define the values for each mode
-//   const values = {
-//     time: [15, 30, 60, 120], // Updated Time values
-//     words: [25, 50, 75, 100], // Words values
-//   };
+function renderWords() {
+    const letterSpan = document.getElementById("words");
+    words.forEach((word, wordIndex) => {
+        word.split("").forEach((letter, letterIndex) => {
+            // console.log(letter,letterIndex);
+            letterSpan.textContent += letter;
+            letterSpan.dataset.wordIndex = wordIndex;
+            letterSpan.dataset.letterIndex = letterIndex;
+        });
+        letterSpan.textContent+=" ";
+    });
+}
 
-//   // Function to update button values
-//   function updateValues() {
-//     const newValues = values[mode];
-//     valueButtons.forEach((button, index) => {
-//       button.textContent = newValues[index];
-//     });
-//   }
+function highlightLetter(wordIndex, letterIndex) {
+    console.log('hi');
+    // Remove the highlight from all spans
+    //document.querySelectorAll("span").forEach(span => span.classList.remove("highlight"));
 
-//   // Event listeners for mode toggle
-//   timeButton.addEventListener("click", () => {
-//     mode = "time";
-//     updateValues();
-//   });
+    // Add highlight to the target letter
+    const targetLetter = document.querySelector(
+        `span[data-word-index="${wordIndex}"][data-letter-index="${letterIndex}"]`
+    );
+    if (targetLetter) {
+        console.log(targetLetter);
+        targetLetter.classList.add("highlight");
+    }
+}
+let currentWordIndex = 0;
+let currentLetterIndex = 0;
+function cycleHighlights() {
+    highlightLetter(currentWordIndex, currentLetterIndex);
 
-//   wordsButton.addEventListener("click", () => {
-//     mode = "words";
-//     updateValues();
-//   });
-
-//   // Make sure the words button is visible
-//   wordsButton.style.display = "inline-block";
-
-//   // Initialize with default mode
-//   updateValues();
-// });
+    currentLetterIndex++;
+    if (currentLetterIndex >= words[currentWordIndex].length) {
+        currentLetterIndex = 0;
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+    }
+}
+renderWords();
+setInterval(cycleHighlights, 0.5);
