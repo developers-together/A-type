@@ -92,7 +92,7 @@ body {
   margin-top: 3vh;
 }
 .controls button {
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 0.7rem;
   font-size: 0.7rem;
 }
 
@@ -131,8 +131,9 @@ body {
   }
 }
 
-.controls *:hover {
-  transition: background 0.125s, color 0.125s, opacity 0.125s;
+.controls button:hover {
+  transition:ease 0.1s;
+  /* transition: background 0.125s, color 0.125s, opacity 0.125s; */
   color: rgb(191, 125, 252);
   transform: scale(1.1);
 }
@@ -256,6 +257,8 @@ body {
 }
 
 .reset :hover {
+  transition:ease 0.1s;
+  color:rgb(191, 125, 252);
   transform: scale(1.1);
   background: #404040;
 }
