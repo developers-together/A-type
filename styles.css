@@ -80,16 +80,17 @@ body {
   display: flex;
   width: 100vw;
   height: 10px;
+  justify-content: center;
   position: absolute;
   align-items: center;
   justify-content: center;
 }
 
 .controls {
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: space-between;
-  margin-top: 3vh;
+  margin-top: 4vh;
 }
 .controls button {
   padding: 0.1rem 0.7rem;
@@ -194,7 +195,7 @@ body {
   margin-bottom: 15px; */
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 1.6rem;
+  font-size: 3.8vw;
   color: white;
   line-height: 150%;
 }
@@ -222,8 +223,8 @@ body {
 .highlight {
   color: red; /* Or any color you want for the highlighted letter */
 }
-.word {
-  margin: 0.5%;
+.word{
+  margin: 1%;
   display: inline-flex;
 }
 .letter {
