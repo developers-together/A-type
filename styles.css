@@ -5,6 +5,10 @@
 :root {
   --height: 4vh;
   --width: auto-fill;
+  --bgcolor: #111111; /* background color */
+  --btncolor: #191919; /* background color of a button */
+  --dtext: #444444; /* default color of text */
+  --text: #eeeeee; /* focused color of text */
 }
 
 html {
@@ -12,7 +16,7 @@ html {
 }
 
 .hr {
-  border-left: 2px solid white;
+  border-left: 2px solid transparent;
   height: 7%;
   margin-left: auto-fit;
   margin-right: auto-fit;
@@ -20,8 +24,8 @@ html {
 }
 
 .hr2 {
-  border-left: 3px solid gray;
-  height: 30%;
+  border-left: 5px solid var(--bgcolor);
+  height: 40%;
   margin-left: auto-fit;
   margin-right: auto-fit;
   border-radius: 10px;
@@ -31,7 +35,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: rgb(28, 28, 28);
+  background-color: var(--bgcolor);
   margin: 0%;
   padding: 0%;
   user-select: none;
@@ -41,13 +45,13 @@ body {
   user-select: none;
   height: 10vh;
   width: 100vw;
-  background-color: rgb(10, 10, 10);
-  color: rgb(200, 200, 200);
+  color: var(--text);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding-bottom: 5px;
   padding-top: 5px;
+  padding-left: 5%;
 }
 
 .header div {
@@ -71,7 +75,6 @@ body {
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  background-color: #202020;
   position: relative;
 }
 
@@ -123,20 +126,24 @@ body {
     max-height: var(--height);
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #404040;
-    color: white;
+    background-color: var(--btncolor);
+    color: var(--dtext);
     border-radius: 15vw;
-    box-shadow: 0em 0em 0.8em white;
+    /* box-shadow: 0em 0em 0.8em white; */
     cursor: pointer;
     text-align: center;
   }
 }
 
-.controls button:hover {
-  transition:ease 0.1s;
+.controls *:hover {
   /* transition: background 0.125s, color 0.125s, opacity 0.125s; */
-  color: rgb(191, 125, 252);
-  transform: scale(1.1);
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+  /* transform: scale(1.1); */
+}
+
+.controls *:active {
+  color: var(--dtext);
 }
 
 /* .container * {
@@ -151,13 +158,13 @@ body {
   max-height: var(--height);
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #404040;
-  color: white;
+  background-color: var(--btncolor);
+  color: var(--dtext);
   display: flex;
   align-items: center;
   border-radius: 15vw;
   justify-content: center;
-  box-shadow: 0em 0em 0.8em white;
+  /* box-shadow: 0em 0em 0.8em white; */
 }
 
 .buttons button,
@@ -165,25 +172,29 @@ body {
 .buttons3 button {
   cursor: pointer;
   border: none;
-  color: white;
+  color: var(--dtext);
   background-color: transparent;
+}
+
+.buttons :hover {
+  transform: scale(1.02);
 }
 
 .typing-area {
   margin-top: 17vh;
-  background-color: #404040;
+  background-color: var(--btncolor);
   width: 90vw;
   height: 8em;
   border-radius: 2.5vw;
   border-width: 2px;
-  border-style: black;
+  border-style: none;
   display: flex;
   position: relative;
   align-self: baseline;
   align-items: center;
   cursor: text;
   user-select: none;
-  box-shadow: 0em 0em 1em white;
+  /* box-shadow: 0em 0em 1em white; */
   margin-bottom: 3em;
 }
 
@@ -191,12 +202,12 @@ body {
   overflow: auto;
   height: 100%;
   width: 100%;
-  /* margin-top: 15px;
-  margin-bottom: 15px; */
+  /* margin-top: 15px; */
+  margin-bottom: -15px;
   margin-left: 25px;
   margin-right: 25px;
-  font-size: 3.8vw;
-  color: white;
+  font-size: 1.6rem;
+  color: var(--dtext);
   line-height: 150%;
 }
 
@@ -220,53 +231,66 @@ body {
   text-decoration: underline;
   color: gray;
 } */
+
 .highlight {
   color: red; /* Or any color you want for the highlighted letter */
 }
-.word{
+.word {
   margin: 1%;
   display: inline-flex;
 }
+
 .letter {
 }
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .reset {
   width: 2rem;
   height: 2rem;
-  margin-top: 30%;
-  margin-left:47%;
+  margin-top: 52vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: absolute;
-  /* padding-left: 10px; */
-  /* padding-right: 10px; */
-  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.reset button:hover {
-  cursor: pointer;
-}
+
 .reset button {
   font-size: 0.8rem;
   height: 100%;
   width: 100%;
   border-style: none;
   border-radius: 15vw;
-  background-color: #404040;
+  background-color: transparent;
   align-items: center;
-  color: white;
+  color: var(--dtext);
   justify-content: center;
   display: flex;
-  box-shadow: 0em 0em 1em white;
 }
 
-.reset :hover {
-  transition:ease 0.1s;
-  color:rgb(191, 125, 252);
-  transform: scale(1.1);
-  background: #404040;
+.reset button i:hover {
+  transform: scale(1.02);
+  color: var(--text);
+  cursor: pointer;
 }
 
-/* @media (max-width: 768px) {
+.reset button i:active {
+  color: var(--dtext);
+}
+
+.rotate-animation {
+  animation: rotate 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
   .reset {
     width: 2rem;
     height: 2rem;
@@ -275,4 +299,4 @@ body {
   .typing-area {
     margin-top: 10vh;
   }
-} */
+}
