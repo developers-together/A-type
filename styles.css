@@ -46,6 +46,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 .header div {
@@ -127,15 +129,12 @@ body {
     cursor: pointer;
     text-align: center;
   }
-
-  .reset {
-    margin-top: 22rem;
-  }
 }
 
 .controls *:hover {
   transition: background 0.125s, color 0.125s, opacity 0.125s;
-  color: rgb(191, 125, 252); /* change this color*/
+  color: rgb(191, 125, 252);
+  transform: scale(1.1);
 }
 
 /* .container * {
@@ -183,6 +182,7 @@ body {
   cursor: text;
   user-select: none;
   box-shadow: 0em 0em 1em white;
+  margin-bottom: 3em;
 }
 
 .typing-lines {
@@ -228,22 +228,45 @@ body {
 .letter {
 }
 .reset {
-  width: 5rem;
-  height: 5rem;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 52vh;
   display: flex;
   align-items: center;
-  margin-top: 18rem;
-  position: fixed;
-  overflow: hidden;
+  position: absolute;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.reset button:hover {
+  cursor: pointer;
 }
 .reset button {
+  font-size: 0.8rem;
   height: 100%;
   width: 100%;
   border-style: none;
-  background-color: rgb(191, 125, 252);
+  border-radius: 15vw;
+  background-color: #404040;
   align-items: center;
+  color: white;
   justify-content: center;
   display: flex;
-  align-self: center;
-  justify-self: center;
+  box-shadow: 0em 0em 1em white;
+}
+
+.reset :hover {
+  transform: scale(1.1);
+  background: #404040;
+}
+
+@media (max-width: 768px) {
+  .reset {
+    width: 2rem;
+    height: 2rem;
+    margin-top: 25vh;
+  }
+  .typing-area {
+    margin-top: 10vh;
+  }
 }

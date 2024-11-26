@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
     <link
@@ -19,6 +19,7 @@
       href="/images/favicon/favicon.ico"
     />
     <title>A-type</title>
+    <script type="module" src="scripts.js"></script>
   </head>
   <body>
     <section class="header">
@@ -43,23 +44,23 @@
                 Numbers
               </button>
               <div class="hr2"></div>
-              <button class="time-button time">
+              <button class="time-button">
                 <i class="fas fa-fw fa-clock"></i>
                 Time
               </button>
               <div class="hr"></div>
-              <button class="words-button words">
+              <button class="words-button">
                 <i class="fas fa-fw fa-font"></i>
                 Words
               </button>
               <div class="hr2"></div>
-              <button class="words">10</button>
+              <button class="num">10</button>
               <div class="hr"></div>
-              <button class="words">25</button>
+              <button class="num">25</button>
               <div class="hr"></div>
-              <button class="words">50</button>
+              <button class="num">50</button>
               <div class="hr"></div>
-              <button class="words">100</button>
+              <button class="num">100</button>
             </div>
             <div class="mobile-button">
               <i class="fas fa-bars"></i>
@@ -68,15 +69,17 @@
           </div>
         </div>
         <div class="typing-area">
-          <span class="typing-lines" id="words">
-          </span>
+          <span class="typing-lines" id="words"> </span>
         </div>
-        <div class="reset"><button>New Game</button></div>
+        <div class="reset">
+          <button id="reset-button" onclick="newGame">
+            <i class="fas fa-rotate-right"></i>
+          </button>
+        </div>
       </div>
-    </section> 
+    </section>
     <!-- <footer class="footer">
       <pre>Made by <a href="https://github.com/adhamhaithameid">Adham</a> and <a href="https://github.com/Rouby-py">Rouby</a></pre>
     </footer> -->
-    <script type="module" src="scripts.js"></script>
   </body>
 </html>
