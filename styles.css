@@ -218,3 +218,30 @@ body {
 .highlight {
   color: red; /* Or any color you want for the highlighted letter */
 }
+.word{
+  margin:0.5%;
+  display:inline-flex;
+}
+.letter{
+
+}
+.reset{
+  width:5rem;
+  height:5rem;
+  display:flex;
+  align-items: center;
+  margin-top:40%;
+  position:absolute;
+  overflow:hidden;
+}
+.reset button{
+  height:100%;
+  width:100%;
+  border-style:none;
+  background-color:rgb(191, 125, 252);
+  align-items: center;
+  justify-content: center;
+  display:flex;
+  align-self: center;
+  justify-self: center;
+}

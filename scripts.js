@@ -1,46 +1,33 @@
 import {words} from './words.js'
-
+const wordCount = words.length;
 document.onkeypress = function (key) {
-    console.log(key);
+    // console.log(key);
 };
-
-function renderWords() {
-    const letterSpan = document.getElementById("words");
-    words.forEach((word, wordIndex) => {
-        word.split("").forEach((letter, letterIndex) => {
-            // console.log(letter,letterIndex);
-            letterSpan.textContent += letter;
-            letterSpan.dataset.wordIndex = wordIndex;
-            letterSpan.dataset.letterIndex = letterIndex;
-        });
-        letterSpan.textContent+=" ";
-    });
+function formatWord(word){
+    return `<div class="word">
+        <span class="letter">
+        ${word.split('').join('</span><span class="letter">')}
+        </span>
+    </div>`;
 }
+function randomWord(){
+    const randInd = Math.ceil(Math.random()*wordCount-1);
+    console.log(randInd);
+    return words[randInd];
+}
+function renderWords(wordNum) {
+    const wordSpan = document.getElementById("words");
+    for(let i=0;i<wordNum;i++){
+        wordSpan.innerHTML+=formatWord(randomWord());
 
-function highlightLetter(wordIndex, letterIndex) {
-    console.log('hi');
-    // Remove the highlight from all spans
-    //document.querySelectorAll("span").forEach(span => span.classList.remove("highlight"));
-
-    // Add highlight to the target letter
-    const targetLetter = document.querySelector(
-        `span[data-word-index="${wordIndex}"][data-letter-index="${letterIndex}"]`
-    );
-    if (targetLetter) {
-        console.log(targetLetter);
-        targetLetter.classList.add("highlight");
     }
+};
+function newGame(){
+    let wordSpan = document.getElementById("words");
+    wordSpan.innerHTML='';
+    renderWords(20);
 }
-let currentWordIndex = 0;
-let currentLetterIndex = 0;
-function cycleHighlights() {
-    highlightLetter(currentWordIndex, currentLetterIndex);
 
-    currentLetterIndex++;
-    if (currentLetterIndex >= words[currentWordIndex].length) {
-        currentLetterIndex = 0;
-        currentWordIndex = (currentWordIndex + 1) % words.length;
-    }
-}
-renderWords();
-setInterval(cycleHighlights, 0.5);
+
+newGame();
+// setInterval(cycleHighlights, 0.5);
