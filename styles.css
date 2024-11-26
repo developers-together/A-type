@@ -308,3 +308,25 @@ body {
     transform: rotate(360deg);
   }
 }
+
+#cursor{
+  background-color: white;
+  height:1em;
+  width:2px;
+  position:fixed; 
+  /* margin-top:1.5%; */  
+  animation: blink 0.8s steps(30) infinite;
+  transition: ease 0.2s;
+}
+#cursor.no-blink {
+  transition:ease 0.2s;
+  animation: none; /* Stop blinking */
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
