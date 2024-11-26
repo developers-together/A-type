@@ -26,6 +26,6 @@ function newGame() {
   wordSpan.innerHTML = "";
   renderWords(20);
 }
-const reset = (document.getElementById("reset-button").onclick = newGame);
 newGame();
-// setInterval(cycleHighlights, 0.5);
+const reset = (document.getElementById("reset-button").onclick = newGame);
+

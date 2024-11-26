@@ -232,12 +232,13 @@ body {
   width: 2rem;
   height: 2rem;
   margin-top: 30%;
-  margin-left:45%;
+  margin-left:47%;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
   cursor: pointer;
 }
 .reset button:hover {
