@@ -69,7 +69,7 @@ function newGame() {
   wIndex = 0;
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
-  renderWords(20);
+  renderWords(50);
   allLetters = wordSpan.querySelectorAll("span");
   allWords = wordSpan.querySelectorAll("div");
 }
