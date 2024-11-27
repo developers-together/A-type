@@ -74,8 +74,6 @@ function renderWords(wordNum) {
   }
 }
 
-
-
 function newGame() {
   lIndex = 0;
   wIndex = 0;
@@ -104,20 +102,30 @@ function moveCursor() {
   let cursor = document.getElementById("cursor");
   cursor.hidden=false;
   let letter = allLetters[lIndex];
-
+  
   if (!letter) return; // Avoid errors if `lIndex` is out of range
-
+  
   const letterRect = letter.getBoundingClientRect();
   const wordsRect = document.getElementById("words").getBoundingClientRect();
-
+  
   // Update cursor size and position
   cursor.style.height = `${letterRect.height}px`;
-
+  
+  
   // Calculate position relative to #words
+  let offsetRight=0;
+  if(lIndex!=0){  
+    let prevLetter = allLetters[lIndex-1];
+    let prevLetterRect = prevLetter.getBoundingClientRect();
+    offsetRight = prevLetterRect.right - wordsRect.left;
+  }
+  
   const offsetLeft = letterRect.left - wordsRect.left;
   const offsetTop = letterRect.top - wordsRect.top;
-
-  cursor.style.left = `${offsetLeft}px`;
+  if(lIndex==wordSizes[wIndex]){
+    cursor.style.left = `${offsetRight}px`;
+  }
+  else cursor.style.left = `${offsetLeft}px`;
   cursor.style.top = `${offsetTop}px`;
 
 }

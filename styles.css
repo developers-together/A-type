@@ -313,6 +313,7 @@ body {
   }
 }
 #cursor {
+  border-radius:5rem;
   background-color: white;
   width:0.02rem;
   position: absolute; /* Position relative to #words */
