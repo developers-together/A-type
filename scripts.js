@@ -8,7 +8,10 @@ let allLetters = [];
 let allWords = [];
 
 document.onkeydown = function (key) {
-  if(lIndex==allLetters.length-1){newGame();return;}
+  if (lIndex == allLetters.length - 1) {
+    newGame();
+    return;
+  }
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
@@ -21,13 +24,11 @@ document.onkeydown = function (key) {
     lIndex = Math.max(lIndex - 1, 0);
     letter = allLetters[lIndex];
     letter.style.color = "#444444";
-    if(lIndex==wordSizes[wIndex-1]-1){
-      allWords[wIndex-1].style.textDecoration="none";
+    if (lIndex == wordSizes[wIndex - 1] - 1) {
+      allWords[wIndex - 1].style.textDecoration = "none";
       wIndex--;
     }
-    
-  } else if (key.key.length == 1 && key.key != " ") { 
-    
+  } else if (key.key.length == 1 && key.key != " ") {
     if (lIndex == wordSizes[wIndex]) {
       let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
@@ -39,13 +40,12 @@ document.onkeydown = function (key) {
       lIndex--;
       wIndex++;
     } else if (letter.textContent == key.key) {
-      letter.style.color = "green";
+      letter.style.color = "#eeeeee";
     } else {
       letter.style.color = "red";
     }
     console.log(lIndex, allLetters.length);
     lIndex++;
-    
   } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) {
     allWords[wIndex].style.textDecoration = "underline";
     lIndex = wordSizes[wIndex];
@@ -55,7 +55,9 @@ document.onkeydown = function (key) {
 
 function formatWord(word) {
   return `<div class="word">
-    <span class="letter">${word.split("").join('</span><span class="letter">')}</span>
+    <span class="letter">${word
+      .split("")
+      .join('</span><span class="letter">')}</span>
     </div>`;
 }
 
@@ -77,17 +79,17 @@ function renderWords(wordNum) {
 function newGame() {
   lIndex = 0;
   wIndex = 0;
-  
+
   // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
-  
+
   // Rendering new words
   renderWords(10);
-  
+
   allLetters = wordSpan.querySelectorAll("span");
   allWords = wordSpan.querySelectorAll("div");
-  
+
   // Adding cursor
   let cursor = document.getElementById("cursor");
   if (!cursor) {
@@ -100,34 +102,31 @@ function newGame() {
 
 function moveCursor() {
   let cursor = document.getElementById("cursor");
-  cursor.hidden=false;
+  cursor.hidden = false;
   let letter = allLetters[lIndex];
-  
+
   if (!letter) return; // Avoid errors if `lIndex` is out of range
-  
+
   const letterRect = letter.getBoundingClientRect();
   const wordsRect = document.getElementById("words").getBoundingClientRect();
-  
+
   // Update cursor size and position
   cursor.style.height = `${letterRect.height}px`;
-  
-  
+
   // Calculate position relative to #words
-  let offsetRight=0;
-  if(lIndex!=0){  
-    let prevLetter = allLetters[lIndex-1];
+  let offsetRight = 0;
+  if (lIndex != 0) {
+    let prevLetter = allLetters[lIndex - 1];
     let prevLetterRect = prevLetter.getBoundingClientRect();
     offsetRight = prevLetterRect.right - wordsRect.left;
   }
-  
+
   const offsetLeft = letterRect.left - wordsRect.left;
   const offsetTop = letterRect.top - wordsRect.top;
-  if(lIndex==wordSizes[wIndex]){
+  if (lIndex == wordSizes[wIndex]) {
     cursor.style.left = `${offsetRight}px`;
-  }
-  else cursor.style.left = `${offsetLeft}px`;
+  } else cursor.style.left = `${offsetLeft}px`;
   cursor.style.top = `${offsetTop}px`;
-
 }
 
 let lastZoom = window.devicePixelRatio;
@@ -135,9 +134,20 @@ window.addEventListener("resize", () => {
   if (window.devicePixelRatio !== lastZoom) {
     lastZoom = window.devicePixelRatio;
     let cursor = document.getElementById("cursor");
-    cursor.hidden=true;
+    cursor.hidden = true;
   }
 });
 
-setInterval(moveCursor,0);
+setInterval(moveCursor, 0);
 newGame();
+
+const reset = (document.getElementById("reset-button").onclick = newGame);
+// the reset button rotation activity
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", () => {
+  resetButton.classList.add("rotate-animation");
+
+  setTimeout(() => {
+    resetButton.classList.remove("rotate-animation");
+  }, 500);
+});
