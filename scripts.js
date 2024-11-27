@@ -8,6 +8,7 @@ let allLetters = [];
 let allWords = [];
 
 document.onkeydown = function (key) {
+  if(lIndex==allLetters.length-1){newGame();return;}
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
@@ -26,15 +27,13 @@ document.onkeydown = function (key) {
     }
     
   } else if (key.key.length == 1 && key.key != " ") { 
-    moveCursor();
-
+    
     if (lIndex == wordSizes[wIndex]) {
       let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
       newSpan.classList.add("incorrect");
       newSpan.textContent = key.key;
       newSpan.style.color = "red";
-      // allLetters.splice(lIndex, 0, newSpan);
       wordSizes[wIndex]++;
       allWords[wIndex].appendChild(newSpan);
       lIndex--;
@@ -44,7 +43,9 @@ document.onkeydown = function (key) {
     } else {
       letter.style.color = "red";
     }
+    console.log(lIndex, allLetters.length);
     lIndex++;
+    
   } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) {
     allWords[wIndex].style.textDecoration = "underline";
     lIndex = wordSizes[wIndex];
@@ -74,42 +75,21 @@ function renderWords(wordNum) {
 }
 
 
-function moveCursor() {
-  let cursor = document.getElementById("cursor");
-  let letter = allLetters[lIndex];
-
-  if (!letter) return; // Avoid errors if `lIndex` is out of range
-
-  const letterRect = letter.getBoundingClientRect();
-  const wordsRect = document.getElementById("words").getBoundingClientRect();
-
-  // Update cursor size and position
-  cursor.style.height = `${letterRect.height}px`;
-  cursor.style.width = `${letterRect.width*20/100}px`; // Adjust width if necessary
-
-  // Calculate position relative to #words
-  const offsetLeft = letterRect.left - wordsRect.left;
-  const offsetTop = letterRect.top - wordsRect.top;
-
-  cursor.style.left = `${offsetLeft-1}px`;
-  cursor.style.top = `${offsetTop}px`;
-
-}
 
 function newGame() {
   lIndex = 0;
   wIndex = 0;
-
+  
   // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
-
+  
   // Rendering new words
-  renderWords(20);
-
+  renderWords(10);
+  
   allLetters = wordSpan.querySelectorAll("span");
   allWords = wordSpan.querySelectorAll("div");
-
+  
   // Adding cursor
   let cursor = document.getElementById("cursor");
   if (!cursor) {
@@ -120,7 +100,36 @@ function newGame() {
   moveCursor();
 }
 
+function moveCursor() {
+  let cursor = document.getElementById("cursor");
+  cursor.hidden=false;
+  let letter = allLetters[lIndex];
 
+  if (!letter) return; // Avoid errors if `lIndex` is out of range
 
-setInterval(moveCursor,1);
+  const letterRect = letter.getBoundingClientRect();
+  const wordsRect = document.getElementById("words").getBoundingClientRect();
+
+  // Update cursor size and position
+  cursor.style.height = `${letterRect.height}px`;
+
+  // Calculate position relative to #words
+  const offsetLeft = letterRect.left - wordsRect.left;
+  const offsetTop = letterRect.top - wordsRect.top;
+
+  cursor.style.left = `${offsetLeft}px`;
+  cursor.style.top = `${offsetTop}px`;
+
+}
+
+let lastZoom = window.devicePixelRatio;
+window.addEventListener("resize", () => {
+  if (window.devicePixelRatio !== lastZoom) {
+    lastZoom = window.devicePixelRatio;
+    let cursor = document.getElementById("cursor");
+    cursor.hidden=true;
+  }
+});
+
+setInterval(moveCursor,0);
 newGame();

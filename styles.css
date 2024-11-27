@@ -293,7 +293,7 @@ body {
 
 .word {
   font-size:2vw;
-  margin: 1%;
+  margin: 0.5%;
   display: inline-flex;
 }
 
@@ -312,12 +312,11 @@ body {
     transform: rotate(360deg);
   }
 }
-
 #cursor {
   background-color: white;
-  width: 2px; 
+  width:0.02rem;
   position: absolute; /* Position relative to #words */
-  animation: blink 0.8s steps(30) infinite; 
+  /* animation: blink 0.8s steps(30) infinite;  */
   transition: all 0.1s ease; /* Smooth movement */
 }
 #cursor.no-blink {
