@@ -226,6 +226,7 @@ body {
 }
 
 .typing-lines {
+  position:relative;
   overflow: auto;
   height: 100%;
   width: 100%;
@@ -233,7 +234,7 @@ body {
   margin-right: 25px;
   font-size: 1.8rem;
   color: var(--dtext);
-  line-height: 100%;
+  line-height: normal;
 }
 
 .reset {
@@ -291,11 +292,16 @@ body {
 }
 
 .word {
+  font-size:2vw;
   margin: 1%;
   display: inline-flex;
 }
 
-.letter {
+.letter { 
+  display: inline-block; /* Treat letters as individual blocks */
+  position: relative; /* Align cursor correctly */
+  margin: 0; /* Prevent unintended spacing */
+  padding: 0; /* Prevent unintended spacing */
 }
 
 @keyframes rotate {
@@ -307,19 +313,17 @@ body {
   }
 }
 
-#cursor{
+#cursor {
   background-color: white;
-  height:1em;
-  width:2px;
-  position:fixed; 
-  /* margin-top:1.5%; */  
-  animation: blink 0.8s steps(30) infinite;
-  transition: ease 0.2s;
+  width: 2px; 
+  position: absolute; /* Position relative to #words */
+  animation: blink 0.8s steps(30) infinite; 
+  transition: all 0.1s ease; /* Smooth movement */
 }
 #cursor.no-blink {
-  transition:ease 0.2s;
   animation: none; /* Stop blinking */
 }
+
 @keyframes blink {
   0%, 100% {
     opacity: 1;

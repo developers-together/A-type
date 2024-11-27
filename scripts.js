@@ -17,11 +17,14 @@ document.onkeydown = function (key) {
   } else if (key.key == "Alt") {
     key.preventDefault();
   } else if (key.key == "Backspace") {
-    // else{
     lIndex = Math.max(lIndex - 1, 0);
     letter = allLetters[lIndex];
     letter.style.color = "#444444";
-    // }
+    if(lIndex==wordSizes[wIndex-1]-1){
+      allWords[wIndex-1].style.textDecoration="none";
+      wIndex--;
+    }
+    
   } else if (key.key.length == 1 && key.key != " ") { 
     moveCursor();
 
@@ -70,62 +73,54 @@ function renderWords(wordNum) {
   }
 }
 
+
+function moveCursor() {
+  let cursor = document.getElementById("cursor");
+  let letter = allLetters[lIndex];
+
+  if (!letter) return; // Avoid errors if `lIndex` is out of range
+
+  const letterRect = letter.getBoundingClientRect();
+  const wordsRect = document.getElementById("words").getBoundingClientRect();
+
+  // Update cursor size and position
+  cursor.style.height = `${letterRect.height}px`;
+  cursor.style.width = `${letterRect.width*20/100}px`; // Adjust width if necessary
+
+  // Calculate position relative to #words
+  const offsetLeft = letterRect.left - wordsRect.left;
+  const offsetTop = letterRect.top - wordsRect.top;
+
+  cursor.style.left = `${offsetLeft-1}px`;
+  cursor.style.top = `${offsetTop}px`;
+
+}
+
 function newGame() {
   lIndex = 0;
   wIndex = 0;
 
-  //clearing previous words
+  // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
 
-  //rendering new words
+  // Rendering new words
   renderWords(20);
 
-  //adding cursor
-  let cursor = document.createElement("section");
-  cursor.id='cursor';
   allLetters = wordSpan.querySelectorAll("span");
   allWords = wordSpan.querySelectorAll("div");
-  let letter = allLetters[lIndex];
-  wordSpan.appendChild(cursor);
-  const letterRect = letter.getBoundingClientRect();
-  cursor.style.left = (letterRect.left) + "px";
-  cursor.style.top = (letterRect.top) + "px";
 
-}
-
-newGame();
-const reset = (document.getElementById("reset-button").onclick = newGame);
-
-// the reset button rotation activity
-const resetButton = document.getElementById("reset-button");
-resetButton.addEventListener("click", () => {
-  resetButton.classList.add("rotate-animation");
-
-  setTimeout(() => {
-    resetButton.classList.remove("rotate-animation");
-  }, 500);
-});
-
-let lastZoom = window.devicePixelRatio;
-window.addEventListener("resize", () => {
-  if (window.devicePixelRatio !== lastZoom) {
-    moveCursor();
-  }
-});
-window.addEventListener("scroll", () => {
-  moveCursor();
-});
-function moveCursor(){
+  // Adding cursor
   let cursor = document.getElementById("cursor");
-  cursor.classList.add("no-blink");
-  cursor.hidden = true;
-  let letter = allLetters[lIndex];
-  const letterRect = letter.getBoundingClientRect();
-  cursor.style.left = (letterRect.left) + "px";
-  cursor.style.top = (letterRect.top)  + "px";
-  cursor.hidden=false;
-  setTimeout(() => {
-    cursor.classList.remove("no-blink");
-  }, 300);
+  if (!cursor) {
+    cursor = document.createElement("section");
+    cursor.id = "cursor";
+    wordSpan.appendChild(cursor);
+  }
+  moveCursor();
 }
+
+
+
+setInterval(moveCursor,1);
+newGame();
