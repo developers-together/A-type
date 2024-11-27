@@ -297,12 +297,7 @@ body {
   display: inline-flex;
 }
 
-.letter {
-  display: inline-block; /* Treat letters as individual blocks */
-  position: relative; /* Align cursor correctly */
-  margin: 0; /* Prevent unintended spacing */
-  padding: 0; /* Prevent unintended spacing */
-}
+
 
 @keyframes rotate {
   from {
@@ -332,4 +327,18 @@ body {
   50% {
     opacity: 0;
   }
+}
+
+/* letter colors section */
+.letter {
+  display: inline-block; /* Treat letters as individual blocks */
+  position: relative; /* Align cursor correctly */
+  margin: 0; /* Prevent unintended spacing */
+  padding: 0; /* Prevent unintended spacing */
+}
+.correct{
+  color:#eeeeee;
+}
+.incorrect{
+  color:red;
 }

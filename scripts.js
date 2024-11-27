@@ -23,7 +23,8 @@ document.onkeydown = function (key) {
   } else if (key.key == "Backspace") {
     lIndex = Math.max(lIndex - 1, 0);
     letter = allLetters[lIndex];
-    letter.style.color = "#444444";
+    letter.classList.remove('correct');
+    letter.classList.remove('incorrect');
     if (lIndex == wordSizes[wIndex - 1] - 1) {
       allWords[wIndex - 1].style.textDecoration = "none";
       wIndex--;
@@ -40,11 +41,12 @@ document.onkeydown = function (key) {
       lIndex--;
       wIndex++;
     } else if (letter.textContent == key.key) {
-      letter.style.color = "#eeeeee";
+      letter.classList.add('correct');
+      letter.classList.remove('incorrect');
     } else {
-      letter.style.color = "red";
+      letter.classList.add('incorrect');
+      letter.classList.add('correct');
     }
-    console.log(lIndex, allLetters.length);
     lIndex++;
   } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) {
     allWords[wIndex].style.textDecoration = "underline";
