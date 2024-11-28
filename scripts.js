@@ -83,6 +83,7 @@ function renderWords(wordNum) {
 }
 
 function newGame() {
+  wordsAnimation();
   lIndex = 0;
   wIndex = 0;
 
@@ -143,6 +144,15 @@ window.addEventListener("resize", () => {
     cursor.hidden = true;
   }
 });
+
+function wordsAnimation(){
+  let typingLines = document.getElementById("words");
+  typingLines.classList.add("fade");
+  setTimeout(() => {
+    typingLines.classList.remove("fade");
+  }, 500);
+}
+
 
 setInterval(moveCursor, 0);
 newGame();

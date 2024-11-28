@@ -236,6 +236,18 @@ body {
   color: var(--dtext);
   line-height: normal;
 }
+.typing-lines.fade{
+  animation: fade 0.5s ;
+}
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 
 .reset {
   margin-top: 25%;
@@ -319,15 +331,6 @@ body {
   animation: none; /* Stop blinking */
 }
 
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
 
 /* letter colors section */
 .letter {
