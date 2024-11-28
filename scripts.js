@@ -7,6 +7,9 @@ let wordSizes = [];
 let allLetters = [];
 let allWords = [];
 
+let cursor = document.getElementById("cursor");
+
+
 document.onkeydown = function (key) {
   if (lIndex == allLetters.length - 1) { 
     newGame(); //make it go to stats screen instead
@@ -30,6 +33,7 @@ document.onkeydown = function (key) {
       wIndex--;
     }
   } else if (key.key.length == 1 && key.key != " ") { //letter
+    cursor.classList.add("no-blink");
     if (lIndex == wordSizes[wIndex]) {
       let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
@@ -57,6 +61,9 @@ document.onkeydown = function (key) {
     lIndex = wordSizes[wIndex];
     wIndex++;
   }
+  setTimeout(() => {
+    cursor.classList.remove("no-blink");
+  }, 800);
 };
 
 function formatWord(word) {
@@ -152,6 +159,7 @@ function wordsAnimation(){
     typingLines.classList.remove("fade");
   }, 500);
 }
+
 
 
 setInterval(moveCursor, 0);
