@@ -226,6 +226,7 @@ body {
 }
 
 .typing-lines {
+  padding-left:0.05rem;
   position: relative;
   overflow: auto;
   height: 100%;
@@ -320,7 +321,7 @@ body {
 #cursor {
   border-radius: 5rem;
   background-color: #eeeeee;
-  width: 0.11rem;
+  width: 0.07rem;
   position: absolute; /* Position relative to #words */
   animation: blink 0.8s steps(30) infinite; 
   transition: all 0.1s ease; /* Smooth movement */

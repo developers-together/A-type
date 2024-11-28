@@ -10,6 +10,7 @@ let allWords = [];
 let cursor = document.getElementById("cursor");
 
 
+let cursorTimeout;
 document.onkeydown = function (key) {
   if (lIndex == allLetters.length - 1) { 
     newGame(); //make it go to stats screen instead
@@ -24,6 +25,7 @@ document.onkeydown = function (key) {
   } else if (key.key == "Alt") {
     key.preventDefault();
   } else if (key.key == "Backspace") { //backspace
+    cursor.classList.add("no-blink");
     lIndex = Math.max(lIndex - 1, 0);
     letter = allLetters[lIndex];
     letter.classList.remove('correct');
@@ -53,6 +55,7 @@ document.onkeydown = function (key) {
     }
     lIndex++;
   } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) { //space
+    cursor.classList.add("no-blink");
     if(wIndex==allWords.length-1){
       newGame(); //make it go to stats screen instead
       return;
@@ -61,9 +64,10 @@ document.onkeydown = function (key) {
     lIndex = wordSizes[wIndex];
     wIndex++;
   }
-  setTimeout(() => {
+  clearTimeout(cursorTimeout);
+  cursorTimeout=setTimeout(() => {
     cursor.classList.remove("no-blink");
-  }, 800);
+  }, 1000);
 };
 
 function formatWord(word) {
@@ -139,7 +143,7 @@ function moveCursor() {
   const offsetTop = letterRect.top - wordsRect.top;
   if (lIndex == wordSizes[wIndex]) {
     cursor.style.left = `${offsetRight}px`;
-  } else cursor.style.left = `${offsetLeft}px`;
+  } else cursor.style.left = `${offsetLeft-1}px`;
   cursor.style.top = `${offsetTop}px`;
 }
 
