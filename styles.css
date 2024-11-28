@@ -309,8 +309,6 @@ body {
   display: inline-flex;
 }
 
-
-
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -321,12 +319,13 @@ body {
 }
 #cursor {
   border-radius: 5rem;
-  background-color: white;
-  width: 0.02rem;
+  background-color: #eeeeee;
+  width: 0.11rem;
   position: absolute; /* Position relative to #words */
   /* animation: blink 0.8s steps(30) infinite;  */
   transition: all 0.1s ease; /* Smooth movement */
 }
+
 #cursor.no-blink {
   animation: none; /* Stop blinking */
 }
@@ -339,9 +338,9 @@ body {
   margin: 0; /* Prevent unintended spacing */
   padding: 0; /* Prevent unintended spacing */
 }
-.correct{
-  color:#eeeeee;
+.correct {
+  color: #eeeeee;
 }
-.incorrect{
-  color:red;
+.incorrect {
+  color: red;
 }
