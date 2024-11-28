@@ -12,10 +12,6 @@ let cursor = document.getElementById("cursor");
 
 let cursorTimeout;
 document.onkeydown = function (key) {
-  if (lIndex == allLetters.length - 1) { 
-    newGame(); //make it go to stats screen instead
-    return;
-  }
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
@@ -35,6 +31,10 @@ document.onkeydown = function (key) {
       wIndex--;
     }
   } else if (key.key.length == 1 && key.key != " ") { //letter
+    if (lIndex == allLetters.length - 1) { 
+      newGame(); //make it go to stats screen instead
+      return;
+    }
     cursor.classList.add("no-blink");
     if (lIndex == wordSizes[wIndex]) {
       let textArea = document.getElementById("words");
