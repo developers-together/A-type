@@ -8,19 +8,19 @@ let allLetters = [];
 let allWords = [];
 
 document.onkeydown = function (key) {
-  if (lIndex == allLetters.length - 1) {
-    newGame();
+  if (lIndex == allLetters.length - 1) { 
+    newGame(); //make it go to stats screen instead
     return;
   }
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
-  if (key.key == "Tab") {
+  if (key.key == "Tab") { //quick reset
     key.preventDefault();
     newGame();
   } else if (key.key == "Alt") {
     key.preventDefault();
-  } else if (key.key == "Backspace") {
+  } else if (key.key == "Backspace") { //backspace
     lIndex = Math.max(lIndex - 1, 0);
     letter = allLetters[lIndex];
     letter.classList.remove('correct');
@@ -29,7 +29,7 @@ document.onkeydown = function (key) {
       allWords[wIndex - 1].style.textDecoration = "none";
       wIndex--;
     }
-  } else if (key.key.length == 1 && key.key != " ") {
+  } else if (key.key.length == 1 && key.key != " ") { //letter
     if (lIndex == wordSizes[wIndex]) {
       let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
@@ -48,7 +48,11 @@ document.onkeydown = function (key) {
       letter.classList.add('correct');
     }
     lIndex++;
-  } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) {
+  } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) { //space
+    if(wIndex==allWords.length-1){
+      newGame(); //make it go to stats screen instead
+      return;
+    }
     allWords[wIndex].style.textDecoration = "underline";
     lIndex = wordSizes[wIndex];
     wIndex++;
