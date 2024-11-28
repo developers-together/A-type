@@ -3,14 +3,15 @@ const wordCount = words.length;
 
 let wIndex = 0;
 let lIndex = 1;
+let cursorIndex = 0;
+let cursorRight = 0;
+let prefixWordSizes = [];
 let wordSizes = [];
-let allLetters = [];
+let allLetters = Array.from([]);
 let allWords = [];
-
-let cursor = document.getElementById("cursor");
-
-
+let lettersInWord=0;
 let cursorTimeout;
+
 document.onkeydown = function (key) {
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
@@ -21,12 +22,18 @@ document.onkeydown = function (key) {
   } else if (key.key == "Alt") {
     key.preventDefault();
   } else if (key.key == "Backspace") { //backspace
+    lettersInWord--;
     cursor.classList.add("no-blink");
     lIndex = Math.max(lIndex - 1, 0);
+    if(allLetters[lIndex].classList.contains("extra")){
+      allLetters[lIndex].remove();
+      allLetters.splice(lIndex,1);
+    }
+    cursorIndex--;
     letter = allLetters[lIndex];
     letter.classList.remove('correct');
     letter.classList.remove('incorrect');
-    if (lIndex == wordSizes[wIndex - 1] - 1) {
+    if (lIndex == prefixWordSizes[wIndex - 1] - 1) {
       allWords[wIndex - 1].style.textDecoration = "none";
       wIndex--;
     }
@@ -35,33 +42,60 @@ document.onkeydown = function (key) {
       newGame(); //make it go to stats screen instead
       return;
     }
+    if(Math.max(lettersInWord-wordSizes[wIndex],0)==18){
+      return;
+    }
+    //move cursor
+    if(lettersInWord+1 == wordSizes[wIndex]){
+      cursorRight=1;
+    }
+    else if(lettersInWord+1 > wordSizes[wIndex]){
+      cursorIndex++;
+      cursorRight=1;
+    }
+    else {
+      cursorIndex++;
+      cursorRight=0;
+    }
+
+    lettersInWord++;
     cursor.classList.add("no-blink");
-    if (lIndex == wordSizes[wIndex]) {
+
+    if (lettersInWord > wordSizes[wIndex]) { //extra letter
       let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
       newSpan.classList.add("incorrect");
+      newSpan.classList.add("incorrect","extra");
       newSpan.textContent = key.key;
-      newSpan.style.color = "red";
-      wordSizes[wIndex]++;
+      
       allWords[wIndex].appendChild(newSpan);
-      lIndex--;
-      wIndex++;
-    } else if (letter.textContent == key.key) {
-      letter.classList.add('correct');
-      letter.classList.remove('incorrect');
-    } else {
-      letter.classList.add('incorrect');
-      letter.classList.add('correct');
-    }
-    lIndex++;
-  } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) { //space
+      allLetters.splice(lIndex,0,newSpan);
+      
+      } else if (letter.textContent == key.key) {
+        letter.classList.add('correct');
+        letter.classList.remove('incorrect');
+      } else {
+        letter.classList.add('incorrect');
+        letter.classList.remove('correct');
+      }
+      //deciding where the first letter of the next word is
+      let extraLetters = Math.max(lettersInWord-wordSizes[wIndex],0);
+      if(wIndex>0)prefixWordSizes[wIndex]=prefixWordSizes[wIndex-1]+wordSizes[wIndex];
+      else prefixWordSizes[wIndex]=wordSizes[0];
+      prefixWordSizes[wIndex]+=extraLetters;
+      
+      lIndex++;
+  } else if (key.key == " " && lIndex != 0 && lIndex != prefixWordSizes[wIndex - 1]) { //space
     cursor.classList.add("no-blink");
     if(wIndex==allWords.length-1){
       newGame(); //make it go to stats screen instead
       return;
     }
+    cursorRight=0;
     allWords[wIndex].style.textDecoration = "underline";
-    lIndex = wordSizes[wIndex];
+    lIndex = prefixWordSizes[wIndex];
+    cursorIndex = lIndex;
+    lettersInWord=0;
     wIndex++;
   }
   clearTimeout(cursorTimeout);
@@ -87,14 +121,16 @@ function renderWords(wordNum) {
   let wordSpan = document.getElementById("words");
   for (let i = 0; i < wordNum; i++) {
     let chosenWord = randomWord();
-    if (i != 0) wordSizes[i] = chosenWord.length + wordSizes[i - 1];
-    else wordSizes[i] = chosenWord.length;
+    wordSizes[i]=chosenWord.length;
     wordSpan.innerHTML += formatWord(chosenWord);
   }
 }
 
 function newGame() {
   wordsAnimation();
+  cursorIndex=0;
+  cursorRight=0;
+  lettersInWord = 0;
   lIndex = 0;
   wIndex = 0;
 
@@ -105,7 +141,7 @@ function newGame() {
   // Rendering new words
   renderWords(10);
 
-  allLetters = wordSpan.querySelectorAll("span");
+  allLetters = Array.from(wordSpan.querySelectorAll("span"));
   allWords = wordSpan.querySelectorAll("div");
 
   // Adding cursor
@@ -119,32 +155,30 @@ function newGame() {
 }
 
 function moveCursor() {
+  // console.log(cursorIndex);
   let cursor = document.getElementById("cursor");
   cursor.hidden = false;
-  let letter = allLetters[lIndex];
+  let letter = allLetters[cursorIndex];
 
   if (!letter) return; // Avoid errors if `lIndex` is out of range
 
   const letterRect = letter.getBoundingClientRect();
   const wordsRect = document.getElementById("words").getBoundingClientRect();
+  
+  // Calculate position relative to #words
+  const offsetLeft = letterRect.left - wordsRect.left;
+  const offsetTop = letterRect.top - wordsRect.top;
+  let prevLetter = allLetters[cursorIndex]; 
+  let prevLetterRect = prevLetter.getBoundingClientRect();
+  let offsetRight = prevLetterRect.right - wordsRect.left;
 
   // Update cursor size and position
   cursor.style.height = `${letterRect.height}px`;
+  cursor.style.top = `${offsetTop}px`;
 
-  // Calculate position relative to #words
-  let offsetRight = 0;
-  if (lIndex != 0) {
-    let prevLetter = allLetters[lIndex - 1];
-    let prevLetterRect = prevLetter.getBoundingClientRect();
-    offsetRight = prevLetterRect.right - wordsRect.left;
-  }
-
-  const offsetLeft = letterRect.left - wordsRect.left;
-  const offsetTop = letterRect.top - wordsRect.top;
-  if (lIndex == wordSizes[wIndex]) {
+  if (cursorRight) {
     cursor.style.left = `${offsetRight}px`;
   } else cursor.style.left = `${offsetLeft-1}px`;
-  cursor.style.top = `${offsetTop}px`;
 }
 
 let lastZoom = window.devicePixelRatio;
@@ -179,3 +213,5 @@ resetButton.addEventListener("click", () => {
     resetButton.classList.remove("rotate-animation");
   }, 500);
 });
+
+
