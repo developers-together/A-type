@@ -175,6 +175,10 @@ body {
   color: var(--dtext);
 }
 
+.controls *.active {
+  color: var(--text);
+}
+
 .buttons {
   font-size: 0.7rem;
   width: var(--width);
@@ -198,8 +202,41 @@ body {
   background-color: transparent;
 }
 
-.buttons :hover {
-  transform: scale(1.02);
+.buttons *:active {
+  color: var(--dtext);
+}
+
+.buttons *.active {
+  color: var(--text);
+}
+
+.timer {
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  justify-self: center;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  width: auto;
+  height: 4vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border-style: none;
+  border-radius: 2.5vw;
+  user-select: none;
+  cursor: default;
+  z-index: 10;
+  margin-right: 86%;
+  margin-bottom: 60vh;
+}
+
+.timer :hover {
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
 }
 
 .typing-area {
@@ -210,7 +247,7 @@ body {
   border-radius: 2.5vw;
   border-style: none;
   display: flex;
-  position: relative;
+  position: absolute;
   align-self: baseline;
   align-items: center;
   cursor: text;
@@ -226,7 +263,8 @@ body {
 }
 
 .typing-lines {
-  padding-left:0.05rem;
+
+  padding-left: 0.05rem;
   position: relative;
   overflow: auto;
   height: 100%;
@@ -237,8 +275,8 @@ body {
   color: var(--dtext);
   line-height: normal;
 }
-.typing-lines.fade{
-  animation: fade 0.5s ;
+.typing-lines.fade {
+  animation: fade 0.5s;
 }
 @keyframes fade {
   0%,
@@ -323,7 +361,7 @@ body {
   background-color: #eeeeee;
   width: 0.07rem;
   position: absolute; /* Position relative to #words */
-  animation: blink 0.8s steps(30) infinite; 
+  animation: blink 0.8s steps(30) infinite;
   transition: all 0.1s ease; /* Smooth movement */
 }
 
