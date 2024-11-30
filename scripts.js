@@ -257,6 +257,10 @@ resetButton.addEventListener("click", () => {
   }, 500);
 });
 
+function resetActiveButtons(buttonGroup) {
+  buttonGroup.forEach((button) => button.classList.remove("active"));
+}
+
 const timeButton = document.getElementById("time-button");
 const wordsButton = document.getElementById("words-button");
 
@@ -280,6 +284,11 @@ window.addEventListener("load", () => {
 
 timeButton.addEventListener("click", () => {
   activateButton(timeButton, wordsButton);
+
+  // Reset words buttons and activate default time button
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn1.classList.add("active"); // Default time button
+
   message1.textContent = "15";
   message2.textContent = "30";
   message3.textContent = "60";
@@ -288,6 +297,10 @@ timeButton.addEventListener("click", () => {
 
 wordsButton.addEventListener("click", () => {
   activateButton(wordsButton, timeButton);
+
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn1.classList.add("active");
+
   message1.textContent = "10";
   message2.textContent = "25";
   message3.textContent = "50";
@@ -324,30 +337,34 @@ function activateTimeButton(clickedButton) {
 }
 
 btn1.addEventListener("click", () => {
-  if (isTimeButtonActive()) {
-    activateTimeButton(btn1);
-    startCountdown(15);
+  if (isTimeButtonActive() || isWordsButtonActive()) {
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn1.classList.add("active");
+    if (isTimeButtonActive()) startCountdown(15); // Time mode logic
   }
 });
 
 btn2.addEventListener("click", () => {
-  if (isTimeButtonActive()) {
-    activateTimeButton(btn2);
-    startCountdown(30);
+  if (isTimeButtonActive() || isWordsButtonActive()) {
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn2.classList.add("active");
+    if (isTimeButtonActive()) startCountdown(30); // Time mode logic
   }
 });
 
 btn3.addEventListener("click", () => {
-  if (isTimeButtonActive()) {
-    activateTimeButton(btn3);
-    startCountdown(60);
+  if (isTimeButtonActive() || isWordsButtonActive()) {
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn3.classList.add("active");
+    if (isTimeButtonActive()) startCountdown(60); // Time mode logic
   }
 });
 
 btn4.addEventListener("click", () => {
-  if (isTimeButtonActive()) {
-    activateTimeButton(btn4);
-    startCountdown(120);
+  if (isTimeButtonActive() || isWordsButtonActive()) {
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn4.classList.add("active");
+    if (isTimeButtonActive()) startCountdown(120); // Time mode logic
   }
 });
 
