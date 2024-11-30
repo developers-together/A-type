@@ -202,6 +202,28 @@ body {
   background-color: transparent;
 }
 
+.timer {
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  justify-self: center;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  width: 3vw;
+  height: 3vw;
+  border-style: none;
+  border-radius: 2.5vw;
+  user-select: none;
+  cursor: default;
+  z-index: 10;
+  margin-right: 86%;
+  margin-bottom: 60vh;
+}
+
 .typing-area {
   margin-top: 11%;
   background-color: var(--btncolor);
