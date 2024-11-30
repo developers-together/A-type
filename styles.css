@@ -202,6 +202,14 @@ body {
   background-color: transparent;
 }
 
+.buttons *:active {
+  color: var(--dtext);
+}
+
+.buttons *.active {
+  color: var(--text);
+}
+
 .timer {
   align-self: center;
   align-items: center;
@@ -213,8 +221,10 @@ body {
   position: absolute;
   background-color: var(--btncolor);
   color: var(--dtext);
-  width: 3vw;
-  height: 3vw;
+  width: auto;
+  height: 4vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
   border-style: none;
   border-radius: 2.5vw;
   user-select: none;
@@ -222,6 +232,11 @@ body {
   z-index: 10;
   margin-right: 86%;
   margin-bottom: 60vh;
+}
+
+.timer :hover {
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
 }
 
 .typing-area {

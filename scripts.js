@@ -272,10 +272,10 @@ function activateButton(activeButton, inactiveButton) {
 
 window.addEventListener("load", () => {
   activateButton(timeButton, wordsButton);
-  message1.textContent = "15s";
-  message2.textContent = "30s";
-  message3.textContent = "60s";
-  message4.textContent = "120s";
+  message1.textContent = "15";
+  message2.textContent = "30";
+  message3.textContent = "60";
+  message4.textContent = "120";
 });
 
 timeButton.addEventListener("click", () => {
@@ -293,3 +293,64 @@ wordsButton.addEventListener("click", () => {
   message3.textContent = "50";
   message4.textContent = "100";
 });
+
+const timerElement = document.querySelector(".timernum");
+
+let currentTimerValue = 15;
+let countdownInterval;
+
+function startCountdown(value) {
+  clearInterval(countdownInterval);
+
+  currentTimerValue = value;
+  timerElement.textContent = `${currentTimerValue}s`;
+
+  countdownInterval = setInterval(() => {
+    if (currentTimerValue > 0) {
+      currentTimerValue--;
+      timerElement.textContent = `${currentTimerValue}s`;
+    } else {
+      clearInterval(countdownInterval);
+    }
+  }, 1000);
+}
+
+const timeButtons = [btn1, btn2, btn3, btn4];
+
+function activateTimeButton(clickedButton) {
+  timeButtons.forEach((button) => button.classList.remove("active"));
+
+  clickedButton.classList.add("active");
+}
+
+btn1.addEventListener("click", () => {
+  if (isTimeButtonActive()) {
+    activateTimeButton(btn1);
+    startCountdown(15);
+  }
+});
+
+btn2.addEventListener("click", () => {
+  if (isTimeButtonActive()) {
+    activateTimeButton(btn2);
+    startCountdown(30);
+  }
+});
+
+btn3.addEventListener("click", () => {
+  if (isTimeButtonActive()) {
+    activateTimeButton(btn3);
+    startCountdown(60);
+  }
+});
+
+btn4.addEventListener("click", () => {
+  if (isTimeButtonActive()) {
+    activateTimeButton(btn4);
+    startCountdown(120);
+  }
+});
+
+function isTimeButtonActive() {
+  return timeButton.classList.contains("active");
+}
