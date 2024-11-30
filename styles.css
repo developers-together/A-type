@@ -175,6 +175,10 @@ body {
   color: var(--dtext);
 }
 
+.controls *.active {
+  color: var(--text);
+}
+
 .buttons {
   font-size: 0.7rem;
   width: var(--width);
@@ -198,10 +202,6 @@ body {
   background-color: transparent;
 }
 
-.buttons :hover {
-  transform: scale(1.02);
-}
-
 .typing-area {
   margin-top: 11%;
   background-color: var(--btncolor);
@@ -210,7 +210,7 @@ body {
   border-radius: 2.5vw;
   border-style: none;
   display: flex;
-  position: relative;
+  position: absolute;
   align-self: baseline;
   align-items: center;
   cursor: text;
@@ -226,6 +226,11 @@ body {
 }
 
 .typing-lines {
+<<<<<<< Updated upstream
+=======
+  padding-left: 0.05rem;
+  position: relative;
+>>>>>>> Stashed changes
   overflow: auto;
   height: 100%;
   width: 100%;
@@ -233,7 +238,23 @@ body {
   margin-right: 25px;
   font-size: 1.8rem;
   color: var(--dtext);
+<<<<<<< Updated upstream
   line-height: 100%;
+=======
+  line-height: normal;
+}
+.typing-lines.fade {
+  animation: fade 0.5s;
+}
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+>>>>>>> Stashed changes
 }
 
 .reset {
@@ -306,3 +327,41 @@ body {
     transform: rotate(360deg);
   }
 }
+<<<<<<< Updated upstream
+=======
+#cursor {
+  border-radius: 5rem;
+  background-color: #eeeeee;
+  width: 0.07rem;
+  position: absolute; /* Position relative to #words */
+  animation: blink 0.8s steps(30) infinite;
+  transition: all 0.1s ease; /* Smooth movement */
+}
+
+#cursor.no-blink {
+  animation: none; /* Stop blinking */
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* letter colors section */
+.letter {
+  display: inline-block; /* Treat letters as individual blocks */
+  position: relative; /* Align cursor correctly */
+  margin: 0; /* Prevent unintended spacing */
+  padding: 0; /* Prevent unintended spacing */
+}
+.correct {
+  color: #eeeeee;
+}
+.incorrect {
+  color: red;
+}
+>>>>>>> Stashed changes
