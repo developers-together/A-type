@@ -226,11 +226,8 @@ body {
 }
 
 .typing-lines {
-<<<<<<< Updated upstream
-=======
   padding-left: 0.05rem;
   position: relative;
->>>>>>> Stashed changes
   overflow: auto;
   height: 100%;
   width: 100%;
@@ -238,9 +235,6 @@ body {
   margin-right: 25px;
   font-size: 1.8rem;
   color: var(--dtext);
-<<<<<<< Updated upstream
-  line-height: 100%;
-=======
   line-height: normal;
 }
 .typing-lines.fade {
@@ -254,7 +248,6 @@ body {
   50% {
     opacity: 0;
   }
->>>>>>> Stashed changes
 }
 
 .reset {
@@ -312,11 +305,9 @@ body {
 }
 
 .word {
-  margin: 1%;
+  font-size: 2vw;
+  margin: 0.5%;
   display: inline-flex;
-}
-
-.letter {
 }
 
 @keyframes rotate {
@@ -327,8 +318,6 @@ body {
     transform: rotate(360deg);
   }
 }
-<<<<<<< Updated upstream
-=======
 #cursor {
   border-radius: 5rem;
   background-color: #eeeeee;
@@ -364,4 +353,3 @@ body {
 .incorrect {
   color: red;
 }
->>>>>>> Stashed changes

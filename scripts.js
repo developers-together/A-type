@@ -2,62 +2,27 @@ import { words } from "./words.js";
 const wordCount = words.length;
 
 let wIndex = 0;
-let lIndex = 0;
+let lIndex = 1;
+let cursorIndex = 0;
+let cursorRight = 0;
+let prefixWordSizes = [];
 let wordSizes = [];
-let allLetters = [];
+let allLetters = Array.from([]);
 let allWords = [];
-<<<<<<< Updated upstream
-=======
 let lettersInWord = 0;
 let cursorTimeout;
 
->>>>>>> Stashed changes
 document.onkeydown = function (key) {
-  console.log(key.key);
   let letter = allLetters[lIndex];
-<<<<<<< Updated upstream
-  if (key.key == "Tab") {
-=======
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
   if (key.key == "Tab") {
     //quick reset
->>>>>>> Stashed changes
     key.preventDefault();
     newGame();
   } else if (key.key == "Alt") {
     key.preventDefault();
   } else if (key.key == "Backspace") {
-<<<<<<< Updated upstream
-    // else{
-    lIndex = Math.max(lIndex - 1, 0);
-    letter = allLetters[lIndex];
-    letter.style.color = "white";
-    // }
-  } else if (key.key.length == 1 && key.key != " ") {
-    if (lIndex == wordSizes[wIndex]) {
-      let textArea = document.getElementById("words");
-      let newSpan = document.createElement("span");
-      newSpan.classList.add("bad");
-      newSpan.textContent = key.key;
-      newSpan.style.color = "red";
-      // allLetters.splice(lIndex, 0, newSpan);
-      wordSizes[wIndex]++;
-      allWords[wIndex].appendChild(newSpan);
-      lIndex--;
-      wIndex++;
-    } else if (letter.textContent == key.key) {
-      letter.style.color = "green";
-    } else {
-      letter.style.color = "red";
-    }
-    lIndex++;
-  } else if (key.key == " " && lIndex != 0 && lIndex != wordSizes[wIndex - 1]) {
-    allWords[wIndex].style.textDecoration = "underline";
-    lIndex = wordSizes[wIndex];
-    wIndex++;
-  }
-=======
     //backspace
     lettersInWord--;
     cursor.classList.add("no-blink");
@@ -144,8 +109,8 @@ document.onkeydown = function (key) {
   cursorTimeout = setTimeout(() => {
     cursor.classList.remove("no-blink");
   }, 1000);
->>>>>>> Stashed changes
 };
+
 function formatWord(word) {
   return `<div class="word">
     <span class="letter">${word
@@ -153,49 +118,87 @@ function formatWord(word) {
       .join('</span><span class="letter">')}</span>
     </div>`;
 }
+
 function randomWord() {
   const randInd = Math.ceil(Math.random() * wordCount - 1);
   return words[randInd];
 }
+
 function renderWords(wordNum) {
-  const wordSpan = document.getElementById("words");
+  let wordSpan = document.getElementById("words");
   for (let i = 0; i < wordNum; i++) {
     let chosenWord = randomWord();
-<<<<<<< Updated upstream
-    if (i != 0) wordSizes[i] = chosenWord.length + wordSizes[i - 1];
-    else wordSizes[i] = chosenWord.length;
-=======
     wordSizes[i] = chosenWord.length;
->>>>>>> Stashed changes
     wordSpan.innerHTML += formatWord(chosenWord);
   }
 }
+
+const btn1 = document.querySelector(".btn1");
+const btn2 = document.querySelector(".btn2");
+const btn3 = document.querySelector(".btn3");
+const btn4 = document.querySelector(".btn4");
+
+let currentWordsCount = 10;
+
+function isWordsButtonActive() {
+  return wordsButton.classList.contains("active");
+}
+
+btn1.addEventListener("click", () => {
+  if (isWordsButtonActive()) {
+    currentWordsCount = 10;
+    newGame();
+  }
+});
+
+btn2.addEventListener("click", () => {
+  if (isWordsButtonActive()) {
+    currentWordsCount = 25;
+    newGame();
+  }
+});
+
+btn3.addEventListener("click", () => {
+  if (isWordsButtonActive()) {
+    currentWordsCount = 50;
+    newGame();
+  }
+});
+
+btn4.addEventListener("click", () => {
+  if (isWordsButtonActive()) {
+    currentWordsCount = 100;
+    newGame();
+  }
+});
+
 function newGame() {
-<<<<<<< Updated upstream
-=======
   wordsAnimation();
   cursorIndex = 0;
   cursorRight = 0;
   lettersInWord = 0;
->>>>>>> Stashed changes
   lIndex = 0;
   wIndex = 0;
+
+  // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
-<<<<<<< Updated upstream
-  renderWords(50);
-  allLetters = wordSpan.querySelectorAll("span");
-=======
 
   // Rendering new words
   renderWords(currentWordsCount);
 
   allLetters = Array.from(wordSpan.querySelectorAll("span"));
->>>>>>> Stashed changes
   allWords = wordSpan.querySelectorAll("div");
+
+  // Adding cursor
+  let cursor = document.getElementById("cursor");
+  if (!cursor) {
+    cursor = document.createElement("section");
+    cursor.id = "cursor";
+    wordSpan.appendChild(cursor);
+  }
+  moveCursor();
 }
-<<<<<<< Updated upstream
-=======
 
 function moveCursor() {
   // console.log(cursorIndex);
@@ -242,14 +245,9 @@ function wordsAnimation() {
 }
 
 setInterval(moveCursor, 0);
->>>>>>> Stashed changes
 newGame();
-const reset = (document.getElementById("reset-button").onclick = newGame);
-<<<<<<< Updated upstream
 
-// the reset button rotation activity
-=======
->>>>>>> Stashed changes
+const reset = (document.getElementById("reset-button").onclick = newGame);
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
   resetButton.classList.add("rotate-animation");
@@ -258,8 +256,6 @@ resetButton.addEventListener("click", () => {
     resetButton.classList.remove("rotate-animation");
   }, 500);
 });
-<<<<<<< Updated upstream
-=======
 
 const timeButton = document.getElementById("time-button");
 const wordsButton = document.getElementById("words-button");
@@ -297,4 +293,3 @@ wordsButton.addEventListener("click", () => {
   message3.textContent = "50";
   message4.textContent = "100";
 });
->>>>>>> Stashed changes
