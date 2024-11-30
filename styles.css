@@ -263,6 +263,7 @@ body {
 }
 
 .typing-lines {
+
   padding-left: 0.05rem;
   position: relative;
   overflow: auto;
