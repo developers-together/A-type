@@ -209,11 +209,9 @@ body {
 .buttons *.active {
   color: var(--text);
 }
-.timer p{
-  color:var(--text);
-}
+
 .timer {
-  align-self: center;
+  align-self: baseline;
   align-items: center;
   align-content: center;
   justify-self: center;
@@ -222,24 +220,20 @@ body {
   display: flex;
   position: absolute;
   background-color: var(--btncolor);
-  color: var(--dtext);
+  color: var(--text);
   width: auto;
-  height: 4vh;
-  padding-left: 1vw;
-  padding-right: 1vw;
+  height: 35px;
+  padding-left: 1%;
+  padding-right: 1%;
   border-style: none;
   border-radius: 2.5vw;
   user-select: none;
   cursor: default;
-  z-index: 10;
+  z-index: 1;
   margin-right: 86%;
-  margin-bottom: 60vh;
+  margin-top: 8%;
+  flex-wrap: wrap;
 }
-
-/* .timer :hover {
-  color: var(--text);
-  transition: all 0.2s ease-in-out;
-} */
 
 .typing-area {
   margin-top: 11%;
