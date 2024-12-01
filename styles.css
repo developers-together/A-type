@@ -209,7 +209,9 @@ body {
 .buttons *.active {
   color: var(--text);
 }
-
+.timer p{
+  color:var(--text);
+}
 .timer {
   align-self: center;
   align-items: center;
@@ -234,10 +236,10 @@ body {
   margin-bottom: 60vh;
 }
 
-.timer :hover {
+/* .timer :hover {
   color: var(--text);
   transition: all 0.2s ease-in-out;
-}
+} */
 
 .typing-area {
   margin-top: 11%;
