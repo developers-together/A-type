@@ -88,6 +88,7 @@ body {
   height: 50px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
 }
 
 .hsbtns .icon-container {
@@ -99,7 +100,7 @@ body {
 }
 
 .hsbtns button:hover {
-  transform: scale(1.1);
+  transform: translateZ(0) scale(1.1);
   color: var(--text);
 }
 
@@ -136,6 +137,7 @@ body {
   height: 50px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
 }
 
 .hebtns .icon-container {
@@ -147,7 +149,7 @@ body {
 }
 
 .hebtns button:hover {
-  transform: scale(1.1);
+  transform: translateZ(0) scale(1.1);
   color: var(--text);
 }
 
@@ -265,6 +267,7 @@ body {
 .controls *:hover {
   color: var(--text);
   transition: all 0.2s ease-in-out;
+  transform: translateZ(0);
 }
 
 .controls *:active {
@@ -299,7 +302,7 @@ body {
 }
 
 .buttons *:hover {
-  transform: scale(1.02);
+  transform: translateZ(0) scale(1.02);
 }
 
 .buttons *:active {
@@ -409,7 +412,7 @@ body {
 }
 
 .reset button i:hover {
-  transform: scale(1.02);
+  transform: translateZ(0) scale(1.02);
   color: var(--text);
   cursor: pointer;
 }
