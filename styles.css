@@ -43,10 +43,11 @@ body {
   align-items: center;
   padding-bottom: 5px;
   padding-top: 5px;
-  padding-left: 5%;
+  padding-left: 4%;
 }
 
 .header div {
+  cursor: pointer;
   align-items: center;
   justify-items: center;
   display: flex;
@@ -117,11 +118,12 @@ body {
 .hebtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  padding-left: 65%;
+  padding-left: 85%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  position: absolute;
 }
 
 .hebtns button {

@@ -47,10 +47,10 @@ document.onkeydown = function (key) {
       newGame(); //make it go to stats screen instead
       return;
     }
-    if(timerOn == 0){
+    if (timerOn == 0) {
       startCountdown(timerNum);
       console.log(timerNum);
-      timerOn=1;
+      timerOn = 1;
     }
     if (Math.max(lettersInWord - wordSizes[wIndex], 0) == 18) {
       return;
@@ -65,7 +65,7 @@ document.onkeydown = function (key) {
       cursorIndex++;
       cursorRight = 0;
     }
-    
+
     lettersInWord++;
     cursor.classList.add("no-blink");
 
@@ -253,7 +253,6 @@ function wordsAnimation() {
   }, 500);
 }
 
-
 const reset = (document.getElementById("reset-button").onclick = newGame);
 const resetButton = document.getElementById("reset-button");
 resetButton.addEventListener("click", () => {
@@ -332,14 +331,14 @@ function startCountdown(value) {
     }
   }, 1000);
 }
-function resetCountdown(){
-  timerOn=0;
+function resetCountdown() {
+  timerOn = 0;
   clearInterval(countdownInterval);
   timerElement.textContent = `${timerNum}s`;
 }
 
 const timeButtons = [btn1, btn2, btn3, btn4];
-btn1.classList.add('active'); 
+btn1.classList.add("active");
 function activateTimeButton(clickedButton) {
   timeButtons.forEach((button) => button.classList.remove("active"));
   clickedButton.classList.add("active");
@@ -370,7 +369,7 @@ btn4.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn4.classList.add("active");
   timerNum = 120;
-  timerElement.textContent = "120s"
+  timerElement.textContent = "120s";
 });
 
 function isTimeButtonActive() {
