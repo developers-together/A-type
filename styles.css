@@ -14,7 +14,7 @@ html {
   font-size: clamp(1rem, 1.8vw, 1.2rem);
 }
 
-.hr2 {
+.hr {
   border-left: 5px solid var(--bgcolor);
   height: 40%;
   margin-left: auto-fit;
@@ -63,6 +63,102 @@ body {
     padding-top: 2%;
     padding-bottom: 2%;
   }
+}
+
+.hsbtns {
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+  padding-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hsbtns button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0rem;
+  font-style: bold;
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.hsbtns .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.hsbtns button:hover {
+  transform: scale(1.1);
+  color: var(--text);
+}
+
+.hsbtns button:active {
+  transform: scale(0.95);
+  color: var(--dtext);
+}
+
+.hsbtns .icon-container i {
+  pointer-events: none;
+  font-size: 1.3rem;
+}
+
+.hebtns {
+  padding-top: 12.5px;
+  padding-bottom: 12.5px;
+  padding-left: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hebtns button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0rem;
+  font-style: bold;
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.hebtns .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.hebtns button:hover {
+  transform: scale(1.1);
+  color: var(--text);
+}
+
+.hebtns button:active {
+  transform: scale(0.95);
+  color: var(--dtext);
+}
+
+.hebtns .icon-container i {
+  pointer-events: none;
+  font-size: 1.3rem;
 }
 
 .main {
@@ -116,9 +212,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  padding: 1rem;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
 }
 
 @media (max-height: 600px) {
@@ -202,12 +298,18 @@ body {
   background-color: transparent;
 }
 
+.buttons *:hover {
+  transform: scale(1.02);
+}
+
 .buttons *:active {
   color: var(--dtext);
+  transform: scale(0.95);
 }
 
 .buttons *.active {
   color: var(--text);
+  transform: scale(0.95);
 }
 
 .timer {
@@ -231,7 +333,7 @@ body {
   cursor: default;
   z-index: 1;
   margin-right: 86%;
-  margin-top: 8%;
+  margin-top: 7%;
   flex-wrap: wrap;
 }
 
@@ -294,7 +396,6 @@ body {
 }
 
 .reset button {
-  font-size: 0.8rem;
   font-size: clamp(1.2rem, 1.6vw, 1.6rem);
   height: 100%;
   width: 100%;
@@ -315,6 +416,7 @@ body {
 
 .reset button i:active {
   color: var(--dtext);
+  transform: scale(0.95);
 }
 
 .rotate-animation {
