@@ -11,7 +11,9 @@ let allLetters = Array.from([]);
 let allWords = [];
 let lettersInWord = 0;
 let cursorTimeout;
-
+let timerNum = 15;
+let wordNum = 10;
+let timerOn = 0;
 document.onkeydown = function (key) {
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
@@ -45,6 +47,11 @@ document.onkeydown = function (key) {
       newGame(); //make it go to stats screen instead
       return;
     }
+    if(timerOn == 0){
+      startCountdown(timerNum);
+      console.log(timerNum);
+      timerOn=1;
+    }
     if (Math.max(lettersInWord - wordSizes[wIndex], 0) == 18) {
       return;
     }
@@ -58,7 +65,7 @@ document.onkeydown = function (key) {
       cursorIndex++;
       cursorRight = 0;
     }
-
+    
     lettersInWord++;
     cursor.classList.add("no-blink");
 
@@ -174,6 +181,8 @@ btn4.addEventListener("click", () => {
 
 function newGame() {
   wordsAnimation();
+  resetCountdown();
+
   cursorIndex = 0;
   cursorRight = 0;
   lettersInWord = 0;
@@ -244,8 +253,6 @@ function wordsAnimation() {
   }, 500);
 }
 
-setInterval(moveCursor, 0);
-newGame();
 
 const reset = (document.getElementById("reset-button").onclick = newGame);
 const resetButton = document.getElementById("reset-button");
@@ -309,12 +316,10 @@ wordsButton.addEventListener("click", () => {
 
 const timerElement = document.querySelector(".timernum");
 
-let currentTimerValue = 15;
+let currentTimerValue = timerNum;
 let countdownInterval;
-
 function startCountdown(value) {
   clearInterval(countdownInterval);
-
   currentTimerValue = value;
   timerElement.textContent = `${currentTimerValue}s`;
 
@@ -327,47 +332,50 @@ function startCountdown(value) {
     }
   }, 1000);
 }
+function resetCountdown(){
+  timerOn=0;
+  clearInterval(countdownInterval);
+  timerElement.textContent = `${timerNum}s`;
+}
 
 const timeButtons = [btn1, btn2, btn3, btn4];
-
+btn1.classList.add('active'); 
 function activateTimeButton(clickedButton) {
   timeButtons.forEach((button) => button.classList.remove("active"));
-
   clickedButton.classList.add("active");
 }
 
 btn1.addEventListener("click", () => {
-  if (isTimeButtonActive() || isWordsButtonActive()) {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn1.classList.add("active");
-    if (isTimeButtonActive()) startCountdown(15); // Time mode logic
-  }
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn1.classList.add("active");
+  timerNum = 15;
+  timerElement.textContent = "15s";
 });
 
 btn2.addEventListener("click", () => {
-  if (isTimeButtonActive() || isWordsButtonActive()) {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn2.classList.add("active");
-    if (isTimeButtonActive()) startCountdown(30); // Time mode logic
-  }
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn2.classList.add("active");
+  timerNum = 30;
+  timerElement.textContent = "30s";
 });
 
 btn3.addEventListener("click", () => {
-  if (isTimeButtonActive() || isWordsButtonActive()) {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn3.classList.add("active");
-    if (isTimeButtonActive()) startCountdown(60); // Time mode logic
-  }
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn3.classList.add("active");
+  timerNum = 60;
+  timerElement.textContent = "60s";
 });
 
 btn4.addEventListener("click", () => {
-  if (isTimeButtonActive() || isWordsButtonActive()) {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn4.classList.add("active");
-    if (isTimeButtonActive()) startCountdown(120); // Time mode logic
-  }
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  btn4.classList.add("active");
+  timerNum = 120;
+  timerElement.textContent = "120s"
 });
 
 function isTimeButtonActive() {
   return timeButton.classList.contains("active");
 }
+
+setInterval(moveCursor, 0);
+newGame();
