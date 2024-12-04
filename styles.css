@@ -12,6 +12,7 @@
 
 html {
   font-size: clamp(1rem, 1.8vw, 1.2rem);
+  user-select: none;
 }
 
 .hr {
@@ -47,7 +48,6 @@ body {
 }
 
 .header div {
-  cursor: pointer;
   align-items: center;
   justify-items: center;
   display: flex;
@@ -56,6 +56,11 @@ body {
 .header div img {
   width: clamp(50px, 10vw, 80px);
   height: auto;
+}
+
+.header div h1 {
+  text-wrap: nowrap;
+  cursor: pointer;
 }
 
 @media (max-height: 600px) {
@@ -69,11 +74,11 @@ body {
 .hsbtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  padding-left: 30px;
+  margin-left: 30px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .hsbtns button {
@@ -118,12 +123,14 @@ body {
 .hebtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  padding-left: 85%;
+  /* margin-left: 500px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  justify-self: center; */
   position: absolute;
+  right: 4%;
 }
 
 .hebtns button {
@@ -190,7 +197,7 @@ body {
 
 @media (min-height: 800px) {
   .container {
-    gap: 2rem; /* Increase vertical gaps for taller views */
+    gap: 2rem;
   }
 }
 
@@ -317,7 +324,7 @@ body {
   transform: scale(0.95);
 }
 
-.timer {
+/* .timer {
   align-self: baseline;
   align-items: center;
   align-content: center;
@@ -340,6 +347,28 @@ body {
   margin-right: 86%;
   margin-top: 7%;
   flex-wrap: wrap;
+} */
+
+.timer {
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  width: auto;
+  height: 35px;
+  padding-left: 1%;
+  padding-right: 1%;
+  border-style: none;
+  border-radius: 2.5vw;
+  user-select: none;
+  cursor: default;
+  z-index: 1;
+  background-color: var(--btncolor);
+  color: var(--text);
+  position: absolute;
+  left: 4%;
+  margin-top: 6%;
 }
 
 .typing-area {
