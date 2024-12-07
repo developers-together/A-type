@@ -31,3 +31,217 @@ body {
 .main {
   flex: 1;
 }
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  align-self: center;
+  justify-self: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-x: hidden;
+  border: none;
+  flex-wrap: nowrap;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.7rem;
+  border: none;
+  text-overflow: nowrap;
+}
+
+/* .header {
+  font-family: "Lexend Deca", sans-serif;
+  user-select: none;
+  height: 10vh;
+  width: 100%;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.header div svg {
+  width: clamp(50px, 10vw, 80px);
+  height: auto;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.header div svg:hover {
+  opacity: 0.6;
+}
+
+.header div h1 {
+  font-size: clamp(25px, 5vw, 40px);
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  display: flex;
+  transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  opacity: 0;
+}
+
+.header div svg:hover + h1 {
+  max-width: 500px;
+  opacity: 1;
+} */
+
+.input {
+  align-self: center;
+  justify-self: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  height: 15vh;
+  width: 20vw;
+  color: var(--text);
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.username {
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 5px;
+  display: flex;
+  margin-bottom: 10px;
+  text-overflow: nowrap;
+}
+
+.username input {
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  width: 15vw;
+  text-align: center;
+  padding: 10px;
+  border-radius: 15vw;
+  cursor: text;
+  border-color: var(--dtext);
+  border-width: 2px;
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.password {
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 5px;
+  display: flex;
+  text-overflow: nowrap;
+}
+
+.password input {
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  width: 15vw;
+  text-align: center;
+  padding: 10px;
+  border-radius: 15vw;
+  cursor: text;
+  border-color: var(--dtext);
+  border-width: 2px;
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.buttons {
+  margin-top: -18px;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  height: 20vh;
+  width: 20vw;
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.buttons .submit {
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.buttons .submit input {
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  width: 10vw;
+  text-align: center;
+  padding: 10px;
+  border-radius: 15vw;
+  cursor: pointer;
+  border-color: var(--dtext);
+  border-width: 2px;
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.buttons .a1 {
+  margin-top: 10px;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  width: 20vw;
+  text-align: center;
+  color: var(--text);
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
+
+.buttons .a2 {
+  margin-top: 5px;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  width: 20vw;
+  text-align: center;
+  color: var(--text);
+  overflow: hidden;
+  overflow-x: hidden;
+  text-overflow: nowrap;
+}
