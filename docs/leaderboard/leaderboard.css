@@ -1,0 +1,32 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --width: auto-fill;
+  --bgcolor: #111111; /* background color */
+  --btncolor: #191919; /* background color of a button */
+  --dtext: #444444; /* default color of text */
+  --text: #eeeeee; /* focused color of text */
+}
+
+html {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bgcolor);
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.main {
+  flex: 1;
+}
