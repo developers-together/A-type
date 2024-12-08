@@ -1,4 +1,4 @@
-import { words } from "./words.js";
+import { words } from "/data/words.js";
 const wordCount = words.length;
 
 let wIndex = 0;

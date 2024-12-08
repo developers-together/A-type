@@ -26,18 +26,20 @@ html {
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: var(--bgcolor);
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   user-select: none;
+  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .header {
   font-family: "Lexend Deca", sans-serif;
   user-select: none;
   height: 10vh;
-  width: 100vw;
+  width: 100%;
   color: var(--text);
   display: flex;
   justify-content: flex-start;
@@ -45,22 +47,41 @@ body {
   padding-bottom: 5px;
   padding-top: 5px;
   padding-left: 4%;
+  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .header div {
+  display: flex;
   align-items: center;
   justify-items: center;
-  display: flex;
 }
 
-.header div img {
+.header div svg {
   width: clamp(50px, 10vw, 80px);
   height: auto;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.header div svg:hover {
+  opacity: 0.6;
 }
 
 .header div h1 {
-  text-wrap: nowrap;
-  cursor: pointer;
+  font-size: clamp(25px, 5vw, 40px);
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  display: flex;
+  transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  opacity: 0;
+}
+
+.header div svg:hover + h1 {
+  max-width: 500px;
+  opacity: 1;
 }
 
 @media (max-height: 600px) {
@@ -74,7 +95,7 @@ body {
 .hsbtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  margin-left: 30px;
+  margin-left: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,21 +199,20 @@ body {
 
 .container {
   font-family: "Nunito", sans-serif;
-  width: 100vw;
+  width: 100%;
   display: flex;
   height: 90vh;
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  position: relative;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: stretch;
   justify-content: space-evenly;
-  padding: 1rem;
+  padding: 0rem;
   gap: 1rem;
   overflow-y: auto;
-  margin-top: -45px;
+  top: -45px;
 }
 
 @media (min-height: 800px) {
@@ -210,13 +230,13 @@ body {
 
 .controls-line {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 50px;
   justify-content: center;
   position: absolute;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  top: 120px;
 }
 
 .controls {
