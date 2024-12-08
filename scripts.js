@@ -324,6 +324,7 @@ function startCountdown(value) {
   timerElement.textContent = `${currentTimerValue}s`;
 
   countdownInterval = setInterval(() => {
+    if(currentTimerValue==0)newGame(); // stats screen TODO
     if (currentTimerValue > 0) {
       currentTimerValue--;
       timerElement.textContent = `${currentTimerValue}s`;
