@@ -57,14 +57,14 @@ body {
   justify-items: center;
 }
 
-.header div svg {
+.header div img {
   width: clamp(50px, 10vw, 80px);
   height: auto;
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.header div svg:hover {
+.header div img:hover {
   opacity: 0.6;
 }
 
@@ -79,7 +79,7 @@ body {
   opacity: 0;
 }
 
-.header div svg:hover + h1 {
+.header div img:hover + h1 {
   max-width: 500px;
   opacity: 1;
 }
