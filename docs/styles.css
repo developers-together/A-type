@@ -390,7 +390,9 @@ body {
   left: 4%;
   margin-top: 6%;
 }
-
+.hidden{
+  display:none;
+}
 .typing-area {
   margin-top: 11%;
   background-color: var(--btncolor);

@@ -14,6 +14,7 @@ let cursorTimeout;
 let timerNum = 15;
 let wordNum = 10;
 let timerOn = 0;
+const timeButton = document.getElementById("time-button");
 document.onkeydown = function (key) {
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
@@ -48,7 +49,7 @@ document.onkeydown = function (key) {
       newGame(); //make it go to stats screen instead
       return;
     }
-    if (timerOn == 0) {
+    if (timerOn == 0 && timeButton.classList.contains("active")) {
       startCountdown(timerNum);
       console.log(timerNum);
       timerOn = 1;
@@ -135,50 +136,23 @@ function randomWord() {
 function renderWords(wordNum) {
   let wordSpan = document.getElementById("words");
   for (let i = 0; i < wordNum; i++) {
-    let chosenWord = randomWord();
+    let chosenWord;
+    if (numbers.classList.contains("active") && Math.random() < 0.1) {
+      chosenWord=String(Math.floor(Math.random() * 1000))
+
+    } else {
+       chosenWord=randomWord();
+    }
+    if(punctuation.classList.contains("active")){
+      const suffix = [',','.','?','!',';',':']
+      if(Math.random() < 0.3){
+        chosenWord+=suffix[Math.floor(Math.random()*suffix.length)];
+      }
+    }
     wordSizes[i] = chosenWord.length;
     wordSpan.innerHTML += formatWord(chosenWord);
   }
 }
-
-const btn1 = document.querySelector(".btn1");
-const btn2 = document.querySelector(".btn2");
-const btn3 = document.querySelector(".btn3");
-const btn4 = document.querySelector(".btn4");
-
-let currentWordsCount = 10;
-
-function isWordsButtonActive() {
-  return wordsButton.classList.contains("active");
-}
-
-btn1.addEventListener("click", () => {
-  if (isWordsButtonActive()) {
-    currentWordsCount = 10;
-    newGame();
-  }
-});
-
-btn2.addEventListener("click", () => {
-  if (isWordsButtonActive()) {
-    currentWordsCount = 25;
-    newGame();
-  }
-});
-
-btn3.addEventListener("click", () => {
-  if (isWordsButtonActive()) {
-    currentWordsCount = 50;
-    newGame();
-  }
-});
-
-btn4.addEventListener("click", () => {
-  if (isWordsButtonActive()) {
-    currentWordsCount = 100;
-    newGame();
-  }
-});
 
 function newGame() {
   wordsAnimation();
@@ -267,55 +241,6 @@ resetButton.addEventListener("click", () => {
 function resetActiveButtons(buttonGroup) {
   buttonGroup.forEach((button) => button.classList.remove("active"));
 }
-
-const timeButton = document.getElementById("time-button");
-const wordsButton = document.getElementById("words-button");
-
-const message1 = document.querySelector(".num1");
-const message2 = document.querySelector(".num2");
-const message3 = document.querySelector(".num3");
-const message4 = document.querySelector(".num4");
-
-function activateButton(activeButton, inactiveButton) {
-  activeButton.classList.add("active");
-  inactiveButton.classList.remove("active");
-}
-
-window.addEventListener("load", () => {
-  activateButton(timeButton, wordsButton);
-  message1.textContent = "15";
-  message2.textContent = "30";
-  message3.textContent = "60";
-  message4.textContent = "120";
-});
-
-timeButton.addEventListener("click", () => {
-  activateButton(timeButton, wordsButton);
-
-  // Reset words buttons and activate default time button
-  resetActiveButtons([btn1, btn2, btn3, btn4]);
-  btn1.classList.add("active"); // Default time button
-
-  message1.textContent = "15";
-  message2.textContent = "30";
-  message3.textContent = "60";
-  message4.textContent = "120";
-});
-
-wordsButton.addEventListener("click", () => {
-  activateButton(wordsButton, timeButton);
-
-  resetActiveButtons([btn1, btn2, btn3, btn4]);
-  btn1.classList.add("active");
-
-  message1.textContent = "10";
-  message2.textContent = "25";
-  message3.textContent = "50";
-  message4.textContent = "100";
-});
-
-const timerElement = document.querySelector(".timernum");
-
 let currentTimerValue = timerNum;
 let countdownInterval;
 function startCountdown(value) {
@@ -338,45 +263,142 @@ function resetCountdown() {
   clearInterval(countdownInterval);
   timerElement.textContent = `${timerNum}s`;
 }
-
-const timeButtons = [btn1, btn2, btn3, btn4];
-btn1.classList.add("active");
-function activateTimeButton(clickedButton) {
-  timeButtons.forEach((button) => button.classList.remove("active"));
-  clickedButton.classList.add("active");
+function isTimeButtonActive() {
+  return timeButton.classList.contains("active");
 }
 
-btn1.addEventListener("click", () => {
-  resetActiveButtons([btn1, btn2, btn3, btn4]);
+//words and time
+const btn1 = document.querySelector(".btn1");
+const btn2 = document.querySelector(".btn2");
+const btn3 = document.querySelector(".btn3");
+const btn4 = document.querySelector(".btn4");
+const timerElement = document.querySelector(".timernum");
+
+const wordsButton = document.getElementById("words-button");
+let timer = document.getElementById("timer");
+let currentWordsCount = 10;
+let lastTimeSetting=btn1;
+let lastWordSetting=btn1;
+
+function isWordsButtonActive() {
+  return wordsButton.classList.contains("active");
+}
+
+function activateButton(activeButton, inactiveButton) {
+  activeButton.classList.add("active");
+  inactiveButton.classList.remove("active");
+}
+
+window.addEventListener("load", () => { //when loading page
+  activateButton(timeButton, wordsButton);
   btn1.classList.add("active");
   timerNum = 15;
   timerElement.textContent = "15s";
+  btn1.textContent = "15";
+  btn2.textContent = "30";
+  btn3.textContent = "60";
+  btn4.textContent = "120";
+});
+
+timeButton.addEventListener("click", () => { //when time button is pressed
+  newGame();
+  activateButton(timeButton, wordsButton);
+  timer.classList.remove("hidden");
+  // Reset words buttons and activate default time button
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  lastTimeSetting.classList.add("active");
+  btn1.textContent = "15";
+  btn2.textContent = "30";
+  btn3.textContent = "60";
+  btn4.textContent = "120";
+});
+
+
+wordsButton.addEventListener("click", () => {  // when words button is pressed
+  newGame();
+  timer.classList.add("hidden"); // hide timer
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  lastWordSetting.classList.add("active");
+  activateButton(wordsButton, timeButton);
+
+  btn1.textContent = "10";
+  btn2.textContent = "25";
+  btn3.textContent = "50";
+  btn4.textContent = "100";
+});
+
+
+btn1.addEventListener("click", () => {
+  if (isWordsButtonActive()) {
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn1.classList.add("active");
+    lastWordSetting=btn1;
+    currentWordsCount = 10;
+  }
+  else{
+    resetActiveButtons([btn1, btn2, btn3, btn4]);
+    btn1.classList.add("active");
+    timerElement.textContent = "15s";
+    timerNum = 15;
+  }
+  newGame();
 });
 
 btn2.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn2.classList.add("active");
-  timerNum = 30;
-  timerElement.textContent = "30s";
+  if (isWordsButtonActive()) {
+    lastWordSetting=btn2;
+    currentWordsCount = 25;
+  }
+  else{
+    lastTimeSetting=btn2;
+    timerNum = 30;
+    timerElement.textContent = "30s";
+  }
+  newGame();
 });
 
 btn3.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn3.classList.add("active");
-  timerNum = 60;
-  timerElement.textContent = "60s";
+  if (isWordsButtonActive()) {
+    lastWordSetting=btn3;
+    currentWordsCount = 50;
+  }
+  else{
+    lastTimeSetting=btn3;
+    timerNum = 60;
+    timerElement.textContent = "60s";
+  }
+  newGame();
 });
 
 btn4.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn4.classList.add("active");
-  timerNum = 120;
-  timerElement.textContent = "120s";
+  if (isWordsButtonActive()) {
+    lastWordSetting=btn4;
+    currentWordsCount = 100;
+  }
+  else{
+    lastTimeSetting=btn2;
+    timerNum = 120;
+    timerElement.textContent = "120s";
+  }
+  newGame();
 });
 
-function isTimeButtonActive() {
-  return timeButton.classList.contains("active");
-}
+const numbers = document.getElementById('numbers');
+const punctuation = document.getElementById('punctuation');
+numbers.addEventListener("click", () => {
+  numbers.classList.toggle("active");
+  newGame();
+});
+punctuation.addEventListener("click", () => {
+  punctuation.classList.toggle("active");
+  newGame();
+});
 
 setInterval(moveCursor, 0);
 newGame();
