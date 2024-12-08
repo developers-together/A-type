@@ -43,7 +43,11 @@
   <body>
     <section class="header">
       <div>
-        <img src="/assets/Logo/logo.svg" alt="logo" onclick="window.open('/docs/index.html', '_parent')">
+        <img
+          src="/assets/Logo/logo.svg"
+          alt="logo"
+          onclick="window.open('/docs/index.html', '_parent')"
+        />
         <h1>A-Type</h1>
       </div>
       <div class="hsbtns">
@@ -80,15 +84,11 @@
         <div class="signup">
           <pre><i class="fa-solid fa-user-plus"></i> Register</pre>
           <form>
-            <input type="text" placeholder="username" required /><br />
-            <input type="text" placeholder="Email" required /><br />
-            <input type="text" placeholder="Verify Email" required /><br />
-            <input type="password" placeholder="Password" required /><br />
-            <input
-              type="password"
-              placeholder="Verify Password"
-              required
-            /><br />
+            <input type="text" placeholder="username" />
+            <input type="text" placeholder="Email" />
+            <input type="text" placeholder="Verify Email" />
+            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Verify Password" />
             <button>
               <pre><i class="fa-solid fa-user-plus"></i> Sign up</pre>
               <input type="submit" value="" hidden />
@@ -100,20 +100,24 @@
           <button>
             <i class="fa-brands fa-google"></i>
           </button>
-          <div class="hr"></div>
-          <pre> or </pre>
-          <div class="hr"></div>
+          <div class="or-line">
+            <div class="hr"></div>
+            <pre> or </pre>
+            <div class="hr"></div>
+          </div>
           <form>
-            <input type="text" placeholder="Email" required /> <br />
-            <input type="password" placeholder="Password" required /> <br />
-            <div><input type="checkbox" /> <label>Remeber Me</label></div>
+            <input type="text" placeholder="Email" /> <br />
+            <input type="password" placeholder="Password" /> <br />
+            <div class="rememberme">
+              <input type="checkbox" /> <label>Remeber Me</label>
+            </div>
             <br />
-            <button>
-              <pre><i class="fa-solid fa-right-to-bracket"></i> Login</pre>
+            <button class="button">
+              <pre><i class="fa-solid fa-right-to-bracket"></i> Sign in</pre>
               <input type="submit" value="" hidden /></button
             ><br />
-            <a href="" target="">Reset Password?</a>
           </form>
+          <a href="" target="">Reset Password?</a>
         </div>
       </div>
     </section>
