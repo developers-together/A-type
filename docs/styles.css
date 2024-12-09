@@ -246,6 +246,8 @@ body {
   padding: 1rem;
   justify-content: center;
   align-items: center;
+
+  outline: none;
 }
 
 @media (max-height: 600px) {
@@ -390,8 +392,8 @@ body {
   left: 4%;
   margin-top: 6%;
 }
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 .typing-area {
   margin-top: 11%;
