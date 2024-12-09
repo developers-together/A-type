@@ -246,7 +246,6 @@ body {
   padding: 1rem;
   justify-content: center;
   align-items: center;
-
   outline: none;
 }
 
@@ -309,6 +308,18 @@ body {
   color: var(--text);
 }
 
+.controls *:focus {
+  outline: none;
+}
+
+.controls *:focus-visible {
+  outline: none;
+}
+
+.controls *:focus-within {
+  outline: none;
+}
+
 .buttons {
   font-size: 0.7rem;
   width: var(--width);
@@ -344,6 +355,18 @@ body {
 .buttons *.active {
   color: var(--text);
   transform: scale(0.95);
+}
+
+.buttons *:focus {
+  outline: none;
+}
+
+.buttons *:focus-visible {
+  outline: none;
+}
+
+.buttons *:focus-within {
+  outline: none;
 }
 
 /* .timer {
@@ -409,6 +432,7 @@ body {
   cursor: text;
   user-select: none;
   margin-bottom: 5%;
+  overflow-y: hidden;
 }
 
 @media (max-height: 600px) {
@@ -429,6 +453,7 @@ body {
   font-size: 1.8rem;
   color: var(--dtext);
   line-height: normal;
+  overflow-y: hidden;
 }
 .typing-lines.fade {
   animation: fade 0.5s;

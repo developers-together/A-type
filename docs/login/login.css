@@ -280,6 +280,10 @@ body {
   transform: scale(0.95);
 }
 
+.signup button:focus {
+  outline: 1px solid var(--text);
+}
+
 .login {
   margin-right: 10px;
   margin-left: 10px;
@@ -444,9 +448,29 @@ body {
   transform: translateZ(0) scale(1.05);
 }
 
+.login .button:hover {
+  color: var(--btncolor);
+  background-color: var(--text);
+  border-color: var(--btncolor);
+  transform: translateZ(0) scale(1.05);
+}
+
 .login button:active {
   border-color: var(--text);
   transform: scale(0.95);
+}
+
+.login .button:active {
+  border-color: var(--text);
+  transform: scale(0.95);
+}
+
+.login button:focus {
+  outline: 1px solid var(--text);
+}
+
+.login .button:focus {
+  outline: 1px solid var(--text);
 }
 
 .login a {
