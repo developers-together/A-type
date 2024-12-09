@@ -83,19 +83,19 @@
       <div class="container">
         <div class="signup">
           <pre><i class="fa-solid fa-user-plus"></i> Register</pre>
-          <form>
+          <form id="signup-form">
             <input type="text" placeholder="username" />
-            <input type="text" placeholder="Email" />
-            <input type="text" placeholder="Verify Email" />
+            <input type="email" placeholder="Email" />
+            <input type="email" placeholder="Verify Email" />
             <input type="password" placeholder="Password" />
             <input type="password" placeholder="Verify Password" />
-            <button>
+            <button id ="signup-button" type="submit" disabled>
               <pre><i class="fa-solid fa-user-plus"></i> Sign up</pre>
-              <input type="submit" value="" hidden />
+              <!-- <input type="submit" value="" hidden /> -->
             </button>
           </form>
         </div>
-        <div class="login">
+        <div class="login" id="login-form">
           <pre><i class="fa-solid fa-right-to-bracket"></i> Login</pre>
           <button>
             <i class="fa-brands fa-google"></i>
@@ -106,20 +106,21 @@
             <div class="hr"></div>
           </div>
           <form>
-            <input type="text" placeholder="Email" /> <br />
+            <input type="email" placeholder="Email" /> <br />
             <input type="password" placeholder="Password" /> <br />
             <div class="rememberme">
               <input type="checkbox" /> <label>Remember Me</label>
             </div>
             <br />
-            <button class="button">
+            <button class="button" id="login-button" type="submit" disabled>
               <pre><i class="fa-solid fa-right-to-bracket"></i> Sign in</pre>
-              <input type="submit" value="" hidden /></button
-            ><br />
+              </button>
+              <br />
           </form>
           <a href="" target="">Reset Password?</a>
         </div>
       </div>
     </section>
+    <script type="text/javascript" src="loginscript.js"></script>
   </body>
 </html>

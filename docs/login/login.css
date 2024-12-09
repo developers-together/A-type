@@ -284,6 +284,14 @@ body {
   outline: 1px solid var(--text);
 }
 
+button:disabled:hover, button:disabled:active {
+  transform:none;
+  border-color: var(--dtext);
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  cursor:default;
+}
+
 .login {
   margin-right: 10px;
   margin-left: 10px;
@@ -402,6 +410,14 @@ body {
   margin-left: 5px;
 }
 
+#login-button:disabled, #login-button:active{
+  border-color: var(--dtext);
+  background-color: var(--btncolor);
+  color: var(--text);
+  cursor: default;
+  transform:none;
+}
+
 .login button {
   height: 30px;
   width: 210px;
@@ -416,8 +432,8 @@ body {
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--text);
-  margin-top: 0px;
   cursor: pointer;
+  margin-top: 0px;
   transition: all 0.2s ease-in-out;
 }
 
