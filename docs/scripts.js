@@ -19,7 +19,7 @@ document.onkeydown = function (key) {
   let letter = allLetters[lIndex];
   let cursor = document.getElementById("cursor");
   const letterRect = letter.getBoundingClientRect();
-  key.preventDefault();
+  if(key.key==" ")key.preventDefault();
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
