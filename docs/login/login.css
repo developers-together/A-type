@@ -23,7 +23,7 @@ body {
   margin: 0;
   padding: 0;
   user-select: none;
-  overflow: hidden;
+  overflow: auto;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -44,8 +44,8 @@ body {
   padding-bottom: 5px;
   padding-top: 5px;
   padding-left: 4%;
-  overflow: hidden;
-  overflow-y: hidden;
+  overflow: auto;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -80,14 +80,6 @@ body {
 .header div img:hover + h1 {
   max-width: 500px;
   opacity: 1;
-}
-
-@media (max-height: 600px) {
-  .header {
-    height: auto;
-    padding-top: 2%;
-    padding-bottom: 2%;
-  }
 }
 
 .hsbtns {
