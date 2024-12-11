@@ -23,7 +23,7 @@ body {
   margin: 0;
   padding: 0;
   user-select: none;
-  overflow: hidden;
+  overflow: auto;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -44,8 +44,8 @@ body {
   padding-bottom: 5px;
   padding-top: 5px;
   padding-left: 4%;
-  overflow: hidden;
-  overflow-y: hidden;
+  overflow: auto;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -80,14 +80,6 @@ body {
 .header div img:hover + h1 {
   max-width: 500px;
   opacity: 1;
-}
-
-@media (max-height: 600px) {
-  .header {
-    height: auto;
-    padding-top: 2%;
-    padding-bottom: 2%;
-  }
 }
 
 .hsbtns {
@@ -285,6 +277,9 @@ body {
 }
 
 .button:disabled, .button:active {
+.signup button:disabled:hover,
+.signup button:disabled:active {
+  transform: none;
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
@@ -410,17 +405,29 @@ body {
   margin-left: 5px;
 }
 
-#login-button:disabled, #login-button:active{
+#login-button:disabled,
+#login-button:active {
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
   cursor: default;
-  transform:none;
+  transform: none;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  gap: 10px;
 }
 
 .login button {
   height: 30px;
-  width: 210px;
+  width: 200px;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -500,7 +507,7 @@ body {
   justify-items: center;
   justify-self: center;
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: -15px;
   color: var(--dtext);
   outline: none;
   display: flex;

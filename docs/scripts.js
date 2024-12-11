@@ -12,7 +12,14 @@ const timeButton = document.getElementById("time-button");
 
 
 document.onkeydown = function (key) {
+<<<<<<< HEAD
   if(key.key==" ")key.preventDefault();
+=======
+  let letter = allLetters[lIndex];
+  let cursor = document.getElementById("cursor");
+  const letterRect = letter.getBoundingClientRect();
+  if (key.key == " ") key.preventDefault();
+>>>>>>> bf64188b170b4e44c141807a5c273293113a3346
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
@@ -68,6 +75,7 @@ document.onkeydown = function (key) {
       timerOn = 1;
     }
     cursor.classList.add("no-blink");
+<<<<<<< HEAD
    
     if (typedLetters > originalWordSize) {
       //extra letter
@@ -106,7 +114,7 @@ document.onkeydown = function (key) {
     cursor.classList.remove("no-blink");
   }, 1000);
 };
-
+//----------------------------- there is a problem above ----------------------
 function formatWord(word) {
   return `<div class="word">
     <span class="letter">${word
@@ -125,15 +133,14 @@ function renderWords(wordNum) {
   for (let i = 0; i < wordNum; i++) {
     let chosenWord;
     if (numbers.classList.contains("active") && Math.random() < 0.1) {
-      chosenWord=String(Math.floor(Math.random() * 1000))
-
+      chosenWord = String(Math.floor(Math.random() * 1000));
     } else {
-       chosenWord=randomWord();
+      chosenWord = randomWord();
     }
-    if(punctuation.classList.contains("active")){
-      const suffix = [',','.','?','!',';',':']
-      if(Math.random() < 0.3){
-        chosenWord+=suffix[Math.floor(Math.random()*suffix.length)];
+    if (punctuation.classList.contains("active")) {
+      const suffix = [",", ".", "?", "!", ";", ":"];
+      if (Math.random() < 0.3) {
+        chosenWord += suffix[Math.floor(Math.random() * suffix.length)];
       }
     }
     // wordSizes[i] = chosenWord.length;
@@ -243,7 +250,7 @@ function startCountdown(value) {
   timerElement.textContent = `${currentTimerValue}s`;
 
   countdownInterval = setInterval(() => {
-    if(currentTimerValue==0)newGame(); // stats screen TODO
+    if (currentTimerValue == 0) newGame(); // stats screen TODO
     if (currentTimerValue > 0) {
       currentTimerValue--;
       timerElement.textContent = `${currentTimerValue}s`;
@@ -271,8 +278,8 @@ const timerElement = document.querySelector(".timernum");
 const wordsButton = document.getElementById("words-button");
 let timer = document.getElementById("timer");
 let currentWordsCount = 10;
-let lastTimeSetting=btn1;
-let lastWordSetting=btn1;
+let lastTimeSetting = btn1;
+let lastWordSetting = btn1;
 
 function isWordsButtonActive() {
   return wordsButton.classList.contains("active");
@@ -283,7 +290,8 @@ function activateButton(activeButton, inactiveButton) {
   inactiveButton.classList.remove("active");
 }
 
-window.addEventListener("load", () => { //when loading page
+window.addEventListener("load", () => {
+  //when loading page
   activateButton(timeButton, wordsButton);
   btn1.classList.add("active");
   timerNum = 15;
@@ -294,7 +302,8 @@ window.addEventListener("load", () => { //when loading page
   btn4.textContent = "120";
 });
 
-timeButton.addEventListener("click", () => { //when time button is pressed
+timeButton.addEventListener("click", () => {
+  //when time button is pressed
   newGame();
   activateButton(timeButton, wordsButton);
   timer.classList.remove("hidden");
@@ -307,8 +316,8 @@ timeButton.addEventListener("click", () => { //when time button is pressed
   btn4.textContent = "120";
 });
 
-
-wordsButton.addEventListener("click", () => {  // when words button is pressed
+wordsButton.addEventListener("click", () => {
+  // when words button is pressed
   newGame();
   timer.classList.add("hidden"); // hide timer
   resetActiveButtons([btn1, btn2, btn3, btn4]);
@@ -321,15 +330,13 @@ wordsButton.addEventListener("click", () => {  // when words button is pressed
   btn4.textContent = "100";
 });
 
-
 btn1.addEventListener("click", () => {
   if (isWordsButtonActive()) {
     resetActiveButtons([btn1, btn2, btn3, btn4]);
     btn1.classList.add("active");
-    lastWordSetting=btn1;
+    lastWordSetting = btn1;
     currentWordsCount = 10;
-  }
-  else{
+  } else {
     resetActiveButtons([btn1, btn2, btn3, btn4]);
     btn1.classList.add("active");
     timerElement.textContent = "15s";
@@ -342,11 +349,10 @@ btn2.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn2.classList.add("active");
   if (isWordsButtonActive()) {
-    lastWordSetting=btn2;
+    lastWordSetting = btn2;
     currentWordsCount = 25;
-  }
-  else{
-    lastTimeSetting=btn2;
+  } else {
+    lastTimeSetting = btn2;
     timerNum = 30;
     timerElement.textContent = "30s";
   }
@@ -357,11 +363,10 @@ btn3.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn3.classList.add("active");
   if (isWordsButtonActive()) {
-    lastWordSetting=btn3;
+    lastWordSetting = btn3;
     currentWordsCount = 50;
-  }
-  else{
-    lastTimeSetting=btn3;
+  } else {
+    lastTimeSetting = btn3;
     timerNum = 60;
     timerElement.textContent = "60s";
   }
@@ -372,19 +377,18 @@ btn4.addEventListener("click", () => {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   btn4.classList.add("active");
   if (isWordsButtonActive()) {
-    lastWordSetting=btn4;
+    lastWordSetting = btn4;
     currentWordsCount = 100;
-  }
-  else{
-    lastTimeSetting=btn2;
+  } else {
+    lastTimeSetting = btn2;
     timerNum = 120;
     timerElement.textContent = "120s";
   }
   newGame();
 });
 
-const numbers = document.getElementById('numbers');
-const punctuation = document.getElementById('punctuation');
+const numbers = document.getElementById("numbers");
+const punctuation = document.getElementById("punctuation");
 numbers.addEventListener("click", () => {
   numbers.classList.toggle("active");
   newGame();
