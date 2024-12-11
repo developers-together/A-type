@@ -12,14 +12,7 @@ const timeButton = document.getElementById("time-button");
 
 
 document.onkeydown = function (key) {
-<<<<<<< HEAD
   if(key.key==" ")key.preventDefault();
-=======
-  let letter = allLetters[lIndex];
-  let cursor = document.getElementById("cursor");
-  const letterRect = letter.getBoundingClientRect();
-  if (key.key == " ") key.preventDefault();
->>>>>>> bf64188b170b4e44c141807a5c273293113a3346
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
@@ -75,13 +68,8 @@ document.onkeydown = function (key) {
       timerOn = 1;
     }
     cursor.classList.add("no-blink");
-<<<<<<< HEAD
    
     if (typedLetters > originalWordSize) {
-=======
-    //----------------- there is a problem here -----------------------
-    if (lettersInWord > wordSizes[wIndex]) {
->>>>>>> bf64188b170b4e44c141807a5c273293113a3346
       //extra letter
       let newSpan = document.createElement("span");
       newSpan.classList.add("incorrect", "extra");

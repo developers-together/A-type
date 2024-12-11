@@ -276,8 +276,8 @@ body {
   outline: 1px solid var(--text);
 }
 
-.signup button:disabled:hover,
-.signup button:disabled:active {
+.button:disabled,
+.button:disabled:hover {
   transform: none;
   border-color: var(--dtext);
   background-color: var(--btncolor);
