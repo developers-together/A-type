@@ -12,7 +12,6 @@ const timeButton = document.getElementById("time-button");
 
 
 document.onkeydown = function (key) {
-  if(key.key==" ")key.preventDefault();
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
@@ -50,7 +49,6 @@ document.onkeydown = function (key) {
         currentLetter=prevLetter;
       }
       catch{
-
       }
     }
     
