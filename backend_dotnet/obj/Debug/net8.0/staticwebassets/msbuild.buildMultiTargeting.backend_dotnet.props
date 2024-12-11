@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/backend_dotnet.props" />
+</Project>
