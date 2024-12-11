@@ -262,13 +262,13 @@ body {
   border-width: 1px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
-  color: var(--dtext);
+  color: var(--text);
   margin-top: 10px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
-.signup button:hover {
+.button:hover {
   color: var(--btncolor);
   background-color: var(--text);
   border-color: var(--btncolor);
@@ -284,12 +284,12 @@ body {
   outline: 1px solid var(--text);
 }
 
-button:disabled:hover, button:disabled:active {
-  transform:none;
+.button:disabled, .button:active {
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
-  cursor:default;
+  cursor: default;
+  transform:none;
 }
 
 .login {
@@ -413,7 +413,7 @@ button:disabled:hover, button:disabled:active {
 #login-button:disabled, #login-button:active{
   border-color: var(--dtext);
   background-color: var(--btncolor);
-  color: var(--text);
+  color: var(--dtext);
   cursor: default;
   transform:none;
 }
@@ -457,12 +457,12 @@ button:disabled:hover, button:disabled:active {
   transition: all 0.2s ease-in-out;
 }
 
-.login button:hover {
+/* .login button:hover {
   color: var(--btncolor);
   background-color: var(--text);
   border-color: var(--btncolor);
   transform: translateZ(0) scale(1.05);
-}
+} */
 
 .login .button:hover {
   color: var(--btncolor);
@@ -471,19 +471,19 @@ button:disabled:hover, button:disabled:active {
   transform: translateZ(0) scale(1.05);
 }
 
-.login button:active {
+/* .button:active {
   border-color: var(--text);
   transform: scale(0.95);
 }
 
-.login .button:active {
+.button:active {
   border-color: var(--text);
   transform: scale(0.95);
-}
+} */
 
-.login button:focus {
+/* .login button:focus {
   outline: 1px solid var(--text);
-}
+} */
 
 .login .button:focus {
   outline: 1px solid var(--text);

@@ -1,25 +1,18 @@
 import { words } from "/data/words.js";
 const wordCount = words.length;
 
-let wIndex = 0;
-let lIndex = 1;
-let cursorIndex = 0;
-let cursorRight = 0;
-let prefixWordSizes = [];
-let wordSizes = [];
-let allLetters = Array.from([]);
-let allWords = [];
-let lettersInWord = 0;
 let cursorTimeout;
 let timerNum = 15;
 let wordNum = 10;
 let timerOn = 0;
+let currentWord;
+let currentLetter;
+let lastLetter;
 const timeButton = document.getElementById("time-button");
+
+
 document.onkeydown = function (key) {
-  let letter = allLetters[lIndex];
-  let cursor = document.getElementById("cursor");
-  const letterRect = letter.getBoundingClientRect();
-  key.preventDefault();
+  if(key.key==" ")key.preventDefault();
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
@@ -28,91 +21,85 @@ document.onkeydown = function (key) {
     key.preventDefault();
   } else if (key.key == "Backspace") {
     //backspace
-    lettersInWord--;
     cursor.classList.add("no-blink");
-    lIndex = Math.max(lIndex - 1, 0);
-    if (allLetters[lIndex].classList.contains("extra")) {
-      allLetters[lIndex].remove();
-      allLetters.splice(lIndex, 1);
+    let prevLetter = currentLetter.previousElementSibling;
+    let prevWord = currentWord.previousElementSibling;
+    if(!prevWord && !prevLetter)return;
+    let typedLetters=parseInt(currentWord.getAttribute("typedletters"))-1;
+    currentWord.setAttribute("typedletters", typedLetters);
+    if(!prevLetter&&prevWord){
+      let prevWordLetters=prevWord.getAttribute("typedletters");
+      console.log(prevWordLetters)
+      if(prevWordLetters==prevWord.children.length){
+        currentLetter=prevWord.lastElementChild;
+      }
+      else currentLetter=prevWord.children[prevWordLetters];
+      currentWord=prevWord;
     }
-    cursorIndex--;
-    letter = allLetters[lIndex];
-    letter.classList.remove("correct");
-    letter.classList.remove("incorrect");
-    if (lIndex == prefixWordSizes[wIndex - 1] - 1) {
-      allWords[wIndex - 1].style.textDecoration = "none";
-      wIndex--;
+    else if (currentLetter.classList.contains("extra")) {
+      currentLetter.remove();
+      currentLetter=prevLetter;
     }
+    else if(currentLetter==currentWord.lastElementChild &&(currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect")) ){
+      currentLetter.classList.remove("correct");
+      currentLetter.classList.remove("incorrect");
+    }
+    else{
+      prevLetter.classList.remove("correct");
+      prevLetter.classList.remove("incorrect");
+      currentLetter=prevLetter;
+    }
+    
   } else if (key.key.length == 1 && key.key != " ") {
     //letter
-    if (lIndex == allLetters.length - 1) {
+    let originalWordSize=currentWord.getAttribute("size");
+    let typedLetters=parseInt(currentWord.getAttribute("typedletters"))+1;
+
+    if (currentLetter == lastLetter) {
       newGame(); //make it go to stats screen instead
       return;
     }
-    if (timerOn == 0 && timeButton.classList.contains("active")) {
-      startCountdown(timerNum);
-      console.log(timerNum);
-      timerOn = 1;
-    }
-    if (Math.max(lettersInWord - wordSizes[wIndex], 0) == 18) {
+    if (Math.max(typedLetters - originalWordSize, 0) == 18) { // if extra letters more than 18 don't do anything
       return;
     }
-    //move cursor
-    if (lettersInWord + 1 == wordSizes[wIndex]) {
-      cursorRight = 1;
-    } else if (lettersInWord + 1 > wordSizes[wIndex]) {
-      cursorIndex++;
-      cursorRight = 1;
-    } else {
-      cursorIndex++;
-      cursorRight = 0;
+    currentWord.setAttribute("typedletters",typedLetters);
+    if (timerOn == 0 && timeButton.classList.contains("active")) {
+      startCountdown(timerNum);
+      timerOn = 1;
     }
-
-    lettersInWord++;
     cursor.classList.add("no-blink");
-
-    if (lettersInWord > wordSizes[wIndex]) {
+   
+    if (typedLetters > originalWordSize) {
       //extra letter
-      let textArea = document.getElementById("words");
       let newSpan = document.createElement("span");
-      newSpan.classList.add("incorrect");
       newSpan.classList.add("incorrect", "extra");
       newSpan.textContent = key.key;
+      currentWord.appendChild(newSpan);
 
-      allWords[wIndex].appendChild(newSpan);
-      allLetters.splice(lIndex, 0, newSpan);
-    } else if (letter.textContent == key.key) {
-      letter.classList.add("correct");
-      letter.classList.remove("incorrect");
+    } else if (currentLetter.textContent == key.key) {
+      currentLetter.classList.add("correct");
+      currentLetter.classList.remove("incorrect");
     } else {
-      letter.classList.add("incorrect");
-      letter.classList.remove("correct");
+      currentLetter.classList.add("incorrect");
+      currentLetter.classList.remove("correct");
     }
-    //deciding where the first letter of the next word is
-    let extraLetters = Math.max(lettersInWord - wordSizes[wIndex], 0);
-    if (wIndex > 0)
-      prefixWordSizes[wIndex] = prefixWordSizes[wIndex - 1] + wordSizes[wIndex];
-    else prefixWordSizes[wIndex] = wordSizes[0];
-    prefixWordSizes[wIndex] += extraLetters;
-
-    lIndex++;
+    let nextLetter=currentLetter.nextElementSibling;
+    if(nextLetter){
+      currentLetter=nextLetter;
+    }
   } else if (
     key.key == " " &&
-    lIndex != 0 &&
-    lIndex != prefixWordSizes[wIndex - 1]
+    currentLetter!=currentWord.firstElementChild
   ) {
     //space
     cursor.classList.add("no-blink");
-    if (wIndex == allWords.length - 1) {
+    if (currentWord == lastLetter.parentElement) {
       newGame(); //make it go to stats screen instead
       return;
     }
-    cursorRight = 0;
-    allWords[wIndex].style.textDecoration = "underline";
-    lIndex = prefixWordSizes[wIndex];
-    cursorIndex = lIndex;
-    lettersInWord = 0;
-    wIndex++;
+    // currentWord.style.textDecoration = "underline";
+    currentWord=currentWord.nextElementSibling;
+    currentLetter=currentWord.firstElementChild;
   }
   clearTimeout(cursorTimeout);
   cursorTimeout = setTimeout(() => {
@@ -149,7 +136,7 @@ function renderWords(wordNum) {
         chosenWord+=suffix[Math.floor(Math.random()*suffix.length)];
       }
     }
-    wordSizes[i] = chosenWord.length;
+    // wordSizes[i] = chosenWord.length;
     wordSpan.innerHTML += formatWord(chosenWord);
   }
 }
@@ -157,22 +144,19 @@ function renderWords(wordNum) {
 function newGame() {
   wordsAnimation();
   resetCountdown();
-
-  cursorIndex = 0;
-  cursorRight = 0;
-  lettersInWord = 0;
-  lIndex = 0;
-  wIndex = 0;
-
   // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
-
   // Rendering new words
   renderWords(currentWordsCount);
 
-  allLetters = Array.from(wordSpan.querySelectorAll("span"));
-  allWords = wordSpan.querySelectorAll("div");
+  for (const word of wordSpan.children){ //setting attribute for original size of words and typedletters
+    word.setAttribute("size", word.children.length);
+    word.setAttribute("typedletters", 0);
+  };
+  currentWord = wordSpan.firstElementChild;
+  currentLetter = currentWord.firstElementChild;
+  lastLetter = wordSpan.lastElementChild.lastElementChild;
 
   // Adding cursor
   let cursor = document.getElementById("cursor");
@@ -181,34 +165,44 @@ function newGame() {
     cursor.id = "cursor";
     wordSpan.appendChild(cursor);
   }
-  moveCursor();
 }
 
 function moveCursor() {
-  // console.log(cursorIndex);
+  if(!currentLetter)return;
   let cursor = document.getElementById("cursor");
   cursor.hidden = false;
-  let letter = allLetters[cursorIndex];
-
-  if (!letter) return; // Avoid errors if `lIndex` is out of range
-
-  const letterRect = letter.getBoundingClientRect();
-  const wordsRect = document.getElementById("words").getBoundingClientRect();
+  let wordSpan = document.getElementById("words");  
+  let letterRect = currentLetter.getBoundingClientRect();
+  const wordsRect = wordSpan.getBoundingClientRect();
 
   // Calculate position relative to #words
   const offsetLeft = letterRect.left - wordsRect.left;
   const offsetTop = letterRect.top - wordsRect.top;
-  let prevLetter = allLetters[cursorIndex];
-  let prevLetterRect = prevLetter.getBoundingClientRect();
-  let offsetRight = prevLetterRect.right - wordsRect.left;
+  let offsetRight = letterRect.right - wordsRect.left;
 
   // Update cursor size and position
   cursor.style.height = `${letterRect.height}px`;
   cursor.style.top = `${offsetTop}px`;
+  let typedLetters=currentWord.getAttribute("typedletters");
 
-  if (cursorRight) {
+  if ((currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect"))) {
     cursor.style.left = `${offsetRight}px`;
   } else cursor.style.left = `${offsetLeft - 1}px`;
+
+  // const lineHeight = parseFloat(getComputedStyle(document.getElementById("words")).lineHeight);
+  // const scrollThreshold = lineHeight; // Distance from top/bottom to trigger scroll (one line)
+  
+  // const containerHeight = wordsRect.height;
+  // const cursorBottom = offsetTop + letterRect.height;
+
+  // // Scroll the container up if cursor is too close to the top
+  // if (offsetTop < scrollThreshold) {
+  //   document.getElementById("words").scrollTop -= lineHeight;
+  // }
+  // // Scroll the container down if cursor is too close to the bottom
+  // else if (cursorBottom > containerHeight - scrollThreshold) {
+  //   document.getElementById("words").scrollTop += lineHeight;
+  // }
 }
 
 let lastZoom = window.devicePixelRatio;
