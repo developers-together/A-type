@@ -565,9 +565,11 @@ body {
   margin: 0; /* Prevent unintended spacing */
   padding: 0; /* Prevent unintended spacing */
 }
+
 .correct {
   color: #eeeeee;
 }
+
 .incorrect {
   color: red;
 }
