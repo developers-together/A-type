@@ -276,15 +276,21 @@ body {
   outline: 1px solid var(--text);
 }
 
+<<<<<<< HEAD
 .button:disabled, .button:active {
+=======
 .signup button:disabled:hover,
 .signup button:disabled:active {
   transform: none;
+>>>>>>> bf64188b170b4e44c141807a5c273293113a3346
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
   cursor: default;
+<<<<<<< HEAD
   transform:none;
+=======
+>>>>>>> bf64188b170b4e44c141807a5c273293113a3346
 }
 
 .login {

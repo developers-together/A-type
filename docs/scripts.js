@@ -78,6 +78,10 @@ document.onkeydown = function (key) {
 <<<<<<< HEAD
    
     if (typedLetters > originalWordSize) {
+=======
+    //----------------- there is a problem here -----------------------
+    if (lettersInWord > wordSizes[wIndex]) {
+>>>>>>> bf64188b170b4e44c141807a5c273293113a3346
       //extra letter
       let newSpan = document.createElement("span");
       newSpan.classList.add("incorrect", "extra");
