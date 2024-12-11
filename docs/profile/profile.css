@@ -141,11 +141,11 @@ body {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
   /* margin-left: 500px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    justify-self: center; */
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      justify-self: center; */
   position: absolute;
   right: 4%;
 }
@@ -187,134 +187,4 @@ body {
 .hebtns .icon-container i {
   pointer-events: none;
   font-size: 1.3rem;
-}
-
-.screen {
-  font-family: "Nunito", sans-serif;
-  width: 100%;
-  display: flex;
-  height: 90vh;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-evenly;
-  padding: 0rem;
-  overflow-y: auto;
-}
-
-.container {
-  width: 90vw;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  background-color: var(--btncolor);
-  border-radius: 2.5vw;
-  border-style: none;
-}
-
-.containerhead {
-  width: 85vw;
-  height: 10vh;
-  align-items: center;
-  align-self: baseline;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  display: flex;
-  margin-top: 15px;
-  background-color: green;
-  overflow: hidden;
-}
-
-.title {
-  width: 80%;
-  display: flex;
-  align-items: baseline;
-  align-self: center;
-  align-content: baseline;
-  justify-content: baseline;
-  justify-items: baseline;
-  justify-self: baseline;
-  background-color: red;
-}
-
-.filters {
-  width: 240px;
-  height: 70px;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  text-align: center;
-  gap: 10px;
-  background-color: blue;
-}
-
-.filters .buttons {
-  width: 240px;
-  height: 30px;
-  align-items: baseline;
-  align-self: baseline;
-  align-content: baseline;
-  justify-content: baseline;
-  justify-items: baseline;
-  justify-self: baseline;
-  text-align: center;
-  display: flex;
-  gap: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.filters button {
-  height: 30px;
-  width: 110px;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  text-align: center;
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--dtext);
-  background-color: var(--btncolor);
-  color: var(--text);
-  cursor: pointer;
-  margin-top: 0px;
-  transition: all 0.2s ease-in-out;
-}
-
-.filters select {
-  height: 30px;
-  width: 230px;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  text-align: center;
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--dtext);
-  background-color: var(--btncolor);
-  color: var(--text);
-  cursor: pointer;
-  margin-top: 5px;
-  transition: all 0.2s ease-in-out;
 }

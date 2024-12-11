@@ -341,10 +341,12 @@ body {
   border: none;
   color: var(--dtext);
   background-color: transparent;
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons *:hover {
   transform: translateZ(0) scale(1.02);
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons *:active {
@@ -495,6 +497,7 @@ body {
   transform: translateZ(0) scale(1.02);
   color: var(--text);
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .reset button i:active {
