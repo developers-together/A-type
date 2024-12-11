@@ -24,19 +24,10 @@ document.onkeydown = function (key) {
     cursor.classList.add("no-blink");
     let prevLetter = currentLetter.previousElementSibling;
     let prevWord = currentWord.previousElementSibling;
-    if(!prevWord && !prevLetter)return;
+    if(!prevWord && !prevLetter&&currentWord.children.length!=1)return;
     let typedLetters=parseInt(currentWord.getAttribute("typedletters"))-1;
     currentWord.setAttribute("typedletters", typedLetters);
-    if(!prevLetter&&prevWord){
-      let prevWordLetters=prevWord.getAttribute("typedletters");
-      console.log(prevWordLetters)
-      if(prevWordLetters==prevWord.children.length){
-        currentLetter=prevWord.lastElementChild;
-      }
-      else currentLetter=prevWord.children[prevWordLetters];
-      currentWord=prevWord;
-    }
-    else if (currentLetter.classList.contains("extra")) {
+    if (currentLetter.classList.contains("extra")) {
       currentLetter.remove();
       currentLetter=prevLetter;
     }
@@ -44,10 +35,23 @@ document.onkeydown = function (key) {
       currentLetter.classList.remove("correct");
       currentLetter.classList.remove("incorrect");
     }
+    else if(!prevLetter&&prevWord){
+      let prevWordLetters=prevWord.getAttribute("typedletters");
+      if(prevWordLetters==prevWord.children.length){
+        currentLetter=prevWord.lastElementChild;
+      }
+      else currentLetter=prevWord.children[prevWordLetters];
+      currentWord=prevWord;
+    }
     else{
-      prevLetter.classList.remove("correct");
-      prevLetter.classList.remove("incorrect");
-      currentLetter=prevLetter;
+      try{
+        prevLetter.classList.remove("correct");
+        prevLetter.classList.remove("incorrect");
+        currentLetter=prevLetter;
+      }
+      catch{
+
+      }
     }
     
   } else if (key.key.length == 1 && key.key != " ") {
@@ -88,9 +92,14 @@ document.onkeydown = function (key) {
       currentLetter=nextLetter;
     }
   } else if (
-    key.key == " " &&
-    currentLetter!=currentWord.firstElementChild
+    key.key == " " 
   ) {
+    key.preventDefault();
+    if(currentWord.children.length==1&&(currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect"))){
+      currentWord=currentWord.nextElementSibling;
+      currentLetter=currentWord.firstElementChild;
+    }
+    if(currentLetter==currentWord.firstElementChild) return;
     //space
     cursor.classList.add("no-blink");
     if (currentWord == lastLetter.parentElement) {
@@ -106,7 +115,7 @@ document.onkeydown = function (key) {
     cursor.classList.remove("no-blink");
   }, 1000);
 };
-//----------------------------- there is a problem above ----------------------
+
 function formatWord(word) {
   return `<div class="word">
     <span class="letter">${word
