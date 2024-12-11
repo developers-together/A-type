@@ -25,6 +25,7 @@ body {
   user-select: none;
   overflow: hidden;
   overflow-x: hidden;
+  outline: none;
 }
 
 .main {
@@ -206,6 +207,7 @@ body {
 }
 
 .container {
+  font-family: "Nunito", sans-serif;
   width: 90vw;
   height: 80vh;
   display: flex;
@@ -223,45 +225,61 @@ body {
 .containerhead {
   width: 85vw;
   height: 10vh;
-  align-items: center;
   align-self: baseline;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
+  justify-content: baseline;
   display: flex;
   margin-top: 15px;
-  background-color: green;
   overflow: hidden;
 }
 
 .title {
-  width: 80%;
+  width: 50%;
+  height: 5vh;
+  font-size: clamp(25px, 5vw, 40px);
   display: flex;
   align-items: baseline;
-  align-self: center;
+  align-self: baseline;
   align-content: baseline;
   justify-content: baseline;
   justify-items: baseline;
   justify-self: baseline;
-  background-color: red;
+  position: fixed;
+  top: 120px;
+  z-index: 1;
+  color: var(--text);
+}
+
+.span {
+  width: 25%;
+  height: 5vh;
+  display: flex;
+  align-items: baseline;
+  align-self: baseline;
+  align-content: baseline;
+  justify-content: baseline;
+  justify-items: baseline;
+  justify-self: baseline;
+  position: fixed;
+  top: 170px;
+  color: var(--text);
 }
 
 .filters {
   width: 240px;
   height: 70px;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
+  align-items: end;
+  align-self: end;
+  align-content: end;
+  justify-content: end;
+  justify-items: end;
+  justify-self: end;
   text-align: center;
-  gap: 10px;
-  background-color: blue;
+  right: 7.5vw;
+  position: fixed;
+  gap: 5px;
 }
 
-.filters .buttons {
+.buttons {
   width: 240px;
   height: 30px;
   align-items: baseline;
@@ -277,7 +295,7 @@ body {
   padding-right: 5px;
 }
 
-.filters button {
+.buttons button {
   height: 30px;
   width: 110px;
   display: flex;
@@ -296,12 +314,25 @@ body {
   cursor: pointer;
   margin-top: 0px;
   transition: all 0.2s ease-in-out;
+  user-select: none;
+}
+
+.buttons :hover {
+  background-color: var(--text);
+  color: var(--btncolor);
+  transform: translateZ(0) scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons :active {
+  color: var(--text);
+  background-color: var(--btncolor);
+  transform: scale(0.95);
 }
 
 .filters select {
   height: 30px;
   width: 230px;
-  display: flex;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -317,4 +348,6 @@ body {
   cursor: pointer;
   margin-top: 5px;
   transition: all 0.2s ease-in-out;
+  padding-left: 5px;
+  padding-right: 5px;
 }
