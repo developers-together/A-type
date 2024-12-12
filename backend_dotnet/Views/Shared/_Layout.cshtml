@@ -35,16 +35,17 @@
     href="~/css/site.css" 
     /> *@
 
-<link rel="stylesheet" 
-href="~/backend_dotnet.styles.css" asp-append-version="true" />
 
+@RenderSection("Layout", required: false)
+
+@RenderSection("Styles", required: false)
 
   
     <link
       rel="icon"
       type="image/x-icon"
       sizes="32x32"
-      href="/assets/Logo/favicon/A-Type-Logo.ico"
+      href="~/favicon.ico"
     />
     <title>A-type | A minimalistic typing test website</title>
     <meta
@@ -62,11 +63,13 @@ href="~/backend_dotnet.styles.css" asp-append-version="true" />
     <meta property="og:type" content="website" />
     <script type="module" src="scripts.js" defer></script>
   </head>
+
+  @* =============================================================================================================== *@
   <body>
     <section class="header">
       <div>
         <img
-          src="/assets/Logo/logo.svg"
+          src="~/assets/logo.svg"
           alt="logo"
           onclick="window.open('/docs/index.html', '_parent')"
         />

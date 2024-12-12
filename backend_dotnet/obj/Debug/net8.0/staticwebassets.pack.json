@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets/backend_dotnet.bundle.scp.css"
     },
     {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/assets/logo.svg",
+      "PackagePath": "staticwebassets/assets/logo.svg"
+    },
+    {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Layout.css",
+      "PackagePath": "staticwebassets/css/Layout.css"
+    },
+    {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Login.css",
+      "PackagePath": "staticwebassets/css/Login.css"
+    },
+    {
       "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

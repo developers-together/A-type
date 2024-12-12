@@ -13,15 +13,21 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int wpm , int accuracy , string ChallengeTime ,
+     string date , string lang)
+     
     {
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+    
+
+    // public IActionResult Privacy()
+    // {
+    //     return View();
+    // }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

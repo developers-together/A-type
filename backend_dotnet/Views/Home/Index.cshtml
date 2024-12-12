@@ -1,44 +1,16 @@
 ﻿@{
     Layout = "_Layout";
 }
-    <section class="header">
-      <div>
-        <img
-          src="/assets/Logo/logo.svg"
-          alt="logo"
-          onclick="window.open('/docs/index.html', '_parent')"
-        />
-        <h1>A-Type</h1>
-      </div>
-      <div class="hsbtns">
-        <button
-          onclick="window.open('/docs/leaderboard/leaderboard.html', '_parent')"
-        >
-          <div class="icon-container">
-            <i class="fas fa-fw fa-crown fa-lg"></i>
-          </div>
-        </button>
-        <button onclick="window.open('/docs/info/info.html', '_parent')">
-          <div class="icon-container">
-            <i class="fas fa-fw fa-info fa-lg"></i>
-          </div>
-        </button>
-      </div>
-      <div class="hebtns">
-        <button
-          onclick="window.open('https://github.com/developers-together/A-type.github.io', '_blank')"
-        >
-          <div class="icon-container">
-            <i class="fa-brands fa-github"></i>
-          </div>
-        </button>
-        <button onclick="window.open('/docs/login/login.html', '_parent')">
-          <div class="icon-container">
-            <i class="fas fa-fw fa-user fa-lg"></i>
-          </div>
-        </button>
-      </div>
-    </section>
+@section Styles {
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+}  
+@section Layout {
+  <link rel="stylesheet" 
+href="~/css/Layout.css" asp-append-version="true" />
+}
+
+  </section>
     <section class="main">
       <div class="container">
         <div class="controls-line">
