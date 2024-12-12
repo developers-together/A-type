@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Dd3QCeOFj4uEg482mcXTq827H7ZKE4Q+ZV0dDb4YoDE=",
+  "Hash": "mKU5JdHZAV5P7OAkR9STDzdLa78fg2XijoTyQ4BRXi0=",
   "Source": "backend_dotnet",
   "BasePath": "_content/backend_dotnet",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/Layout.css"
+    },
+    {
+      "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Leaderboard.css",
+      "SourceId": "backend_dotnet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/",
+      "BasePath": "_content/backend_dotnet",
+      "RelativePath": "css/Leaderboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Leaderboard.css"
     },
     {
       "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Login.css",

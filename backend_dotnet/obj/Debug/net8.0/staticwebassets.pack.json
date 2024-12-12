@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets/css/Layout.css"
     },
     {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Leaderboard.css",
+      "PackagePath": "staticwebassets/css/Leaderboard.css"
+    },
+    {
       "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Login.css",
       "PackagePath": "staticwebassets/css/Login.css"
     },

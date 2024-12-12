@@ -1,0 +1,388 @@
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  :root {
+    --width: auto-fill;
+    --bgcolor: #111111; /* background color */
+    --btncolor: #191919; /* background color of a button */
+    --dtext: #444444; /* default color of text */
+    --text: #eeeeee; /* focused color of text */
+  }
+  
+  html {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    user-select: none;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bgcolor);
+    font-family: "Nunito", sans-serif;
+    user-select: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .header {
+    font-family: "Lexend Deca", sans-serif;
+    user-select: none;
+    height: 10vh;
+    width: 100%;
+    color: var(--text);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 4%;
+    overflow: hidden;
+    overflow-x: hidden;
+  }
+  
+  .header div {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  .header div img {
+    width: clamp(50px, 10vw, 80px);
+    height: auto;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .header div img:hover {
+    opacity: 0.6;
+  }
+  
+  .header div h1 {
+    font-size: clamp(25px, 5vw, 40px);
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    display: flex;
+    transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+  }
+  
+  .header div img:hover + h1 {
+    max-width: 500px;
+    opacity: 1;
+  }
+  
+  @media (max-height: 600px) {
+    .header {
+      height: auto;
+      padding-top: 2%;
+      padding-bottom: 2%;
+    }
+  }
+  
+  .hsbtns {
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .hsbtns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0rem;
+    font-style: bold;
+    border: none;
+    background-color: transparent;
+    color: var(--dtext);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .hsbtns .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hsbtns button:hover {
+    transform: translateZ(0) scale(1.1);
+    color: var(--text);
+  }
+  
+  .hsbtns button:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .hsbtns .icon-container i {
+    pointer-events: none;
+    font-size: 1.3rem;
+  }
+  
+  .hebtns {
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    /* margin-left: 500px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    justify-self: center; */
+    position: absolute;
+    right: 4%;
+  }
+  
+  .hebtns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0rem;
+    font-style: bold;
+    border: none;
+    background-color: transparent;
+    color: var(--dtext);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .hebtns .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hebtns button:hover {
+    transform: translateZ(0) scale(1.1);
+    color: var(--text);
+  }
+  
+  .hebtns button:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .hebtns .icon-container i {
+    pointer-events: none;
+    font-size: 1.3rem;
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .screen {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    font-family: "Nunito", sans-serif;
+    width: 100%;
+    background-color: var(--btncolor);
+    border-radius: 20px;
+    border-style: none;
+    box-sizing: border-box;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: auto;
+  }
+  
+  .containerhead {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .left-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .title {
+    font-size: clamp(25px, 5vw, 40px);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  
+  .span {
+    color: var(--text);
+  }
+  
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .buttons button {
+    height: 30px;
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--dtext);
+    background-color: var(--btncolor);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+  }
+  
+  .buttons button:hover {
+    background-color: var(--text);
+    color: var(--btncolor);
+    transform: scale(1.02);
+  }
+  
+  .buttons button:active {
+    color: var(--text);
+    background-color: var(--btncolor);
+    transform: scale(0.95);
+  }
+  
+  .filters select {
+    height: 30px;
+    width: 230px;
+    border: 1px solid var(--dtext);
+    border-radius: 10px;
+    background-color: var(--btncolor);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    padding: 0 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23eeeeee' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+  }
+  
+  .filters select option {
+    background-color: var(--btncolor);
+    color: var(--text);
+  }
+  
+  .lists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .llist,
+  .rlist {
+    width: 45%;
+    max-width: 600px;
+  }
+  
+  .llist table,
+  .rlist table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .llist caption,
+  .rlist caption {
+    text-align: left;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  
+  .llist th,
+  .rlist th {
+    color: var(--dtext);
+    border-bottom: 1px solid var(--dtext);
+    padding: 0.5rem;
+  }
+  
+  .llist td,
+  .rlist td {
+    padding: 0.5rem;
+    color: var(--text);
+    word-wrap: break-word;
+  }
+  
+  .llist .col1,
+  .rlist .col1 {
+    text-align: center;
+    width: 1px;
+  }
+  
+  .llist .col3,
+  .rlist .col3 {
+    text-align: center;
+  }
+  
+  .llist td i,
+  .rlist td i {
+    font-size: 15px;
+    color: yellow;
+  }
+  
+  tr:nth-child(even) {
+    background-color: var(--bgcolor);
+  }
+  
+  tr:nth-child(odd) {
+    background-color: var(--btncolor);
+  }
+  
+  @media (max-width: 768px) {
+    .lists {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .llist,
+    .rlist {
+      width: 90%;
+    }
+  }
