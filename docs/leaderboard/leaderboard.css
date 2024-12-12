@@ -16,20 +16,13 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: var(--bgcolor);
   margin: 0;
   padding: 0;
+  background-color: var(--bgcolor);
+  font-family: "Nunito", sans-serif;
   user-select: none;
-  overflow: hidden;
   overflow-x: hidden;
-  outline: none;
-}
-
-.main {
-  flex: 1;
+  overflow-y: auto;
 }
 
 .header {
@@ -142,11 +135,11 @@ body {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
   /* margin-left: 500px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    justify-self: center; */
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  justify-self: center; */
   position: absolute;
   right: 4%;
 }
@@ -190,109 +183,73 @@ body {
   font-size: 1.3rem;
 }
 
-.screen {
-  font-family: "Nunito", sans-serif;
-  width: 100%;
+.main {
+  flex: 1;
   display: flex;
-  height: 90vh;
   justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-evenly;
-  padding: 0rem;
-  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.screen {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-sizing: border-box;
 }
 
 .container {
   font-family: "Nunito", sans-serif;
-  width: 90vw;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
+  width: 100%;
   background-color: var(--btncolor);
-  border-radius: 2.5vw;
+  border-radius: 20px;
   border-style: none;
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: auto;
 }
 
 .containerhead {
-  width: 85vw;
-  height: 10vh;
-  align-self: baseline;
-  justify-content: baseline;
+  width: 100%;
   display: flex;
-  margin-top: 15px;
-  overflow: hidden;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+.left-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .title {
-  width: 50%;
-  height: 5vh;
   font-size: clamp(25px, 5vw, 40px);
-  display: flex;
-  align-items: baseline;
-  align-self: baseline;
-  align-content: baseline;
-  justify-content: baseline;
-  justify-items: baseline;
-  justify-self: baseline;
-  position: fixed;
-  top: 120px;
-  z-index: 1;
   color: var(--text);
+  white-space: nowrap;
 }
 
 .span {
-  width: 25%;
-  height: 5vh;
-  display: flex;
-  align-items: baseline;
-  align-self: baseline;
-  align-content: baseline;
-  justify-content: baseline;
-  justify-items: baseline;
-  justify-self: baseline;
-  position: fixed;
-  top: 170px;
   color: var(--text);
 }
 
 .filters {
-  width: 240px;
-  height: 70px;
-  align-items: end;
-  align-self: end;
-  align-content: end;
-  justify-content: end;
-  justify-items: end;
-  justify-self: end;
-  text-align: center;
-  right: 7.5vw;
-  position: fixed;
-  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 
 .buttons {
-  width: 240px;
-  height: 30px;
-  align-items: baseline;
-  align-self: baseline;
-  align-content: baseline;
-  justify-content: baseline;
-  justify-items: baseline;
-  justify-self: baseline;
-  text-align: center;
   display: flex;
-  gap: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
+  gap: 0.5rem;
 }
 
 .buttons button {
@@ -300,31 +257,23 @@ body {
   width: 110px;
   display: flex;
   align-items: center;
-  align-self: center;
-  align-content: center;
   justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  text-align: center;
   border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--dtext);
+  border: 1px solid var(--dtext);
   background-color: var(--btncolor);
   color: var(--text);
   cursor: pointer;
-  margin-top: 0px;
   transition: all 0.2s ease-in-out;
   user-select: none;
 }
 
-.buttons :hover {
+.buttons button:hover {
   background-color: var(--text);
   color: var(--btncolor);
-  transform: translateZ(0) scale(1.02);
-  transition: all 0.2s ease-in-out;
+  transform: scale(1.02);
 }
 
-.buttons :active {
+.buttons button:active {
   color: var(--text);
   background-color: var(--btncolor);
   transform: scale(0.95);
@@ -333,21 +282,107 @@ body {
 .filters select {
   height: 30px;
   width: 230px;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  text-align: center;
+  border: 1px solid var(--dtext);
   border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--text);
   cursor: pointer;
-  margin-top: 5px;
   transition: all 0.2s ease-in-out;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 0 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23eeeeee' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+}
+
+.filters select option {
+  background-color: var(--btncolor);
+  color: var(--text);
+}
+
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-around;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.llist,
+.rlist {
+  width: 45%;
+  max-width: 600px;
+}
+
+.llist table,
+.rlist table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.llist caption,
+.rlist caption {
+  text-align: left;
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.llist th,
+.rlist th {
+  color: var(--dtext);
+  border-bottom: 1px solid var(--dtext);
+  padding: 0.5rem;
+}
+
+.llist td,
+.rlist td {
+  padding: 0.5rem;
+  color: var(--text);
+  word-wrap: break-word;
+}
+
+.llist .col1,
+.rlist .col1 {
+  text-align: center;
+  width: 1px;
+}
+
+.llist .col3,
+.rlist .col3 {
+  text-align: center;
+}
+
+.llist td i,
+.rlist td i {
+  font-size: 15px;
+  color: yellow;
+}
+
+tr:nth-child(even) {
+  background-color: var(--bgcolor);
+}
+
+tr:nth-child(odd) {
+  background-color: var(--btncolor);
+}
+
+@media (max-width: 768px) {
+  .lists {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .llist,
+  .rlist {
+    width: 90%;
+  }
 }
