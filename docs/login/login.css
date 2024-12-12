@@ -260,7 +260,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.button:hover {
+.signup button:hover {
   color: var(--btncolor);
   background-color: var(--text);
   border-color: var(--btncolor);
@@ -404,7 +404,7 @@ body {
 }
 
 #login-button:disabled,
-#login-button:active {
+#login-button:disabled:hover {
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
@@ -421,11 +421,12 @@ body {
   justify-items: center;
   justify-self: center;
   gap: 10px;
+  overflow: hidden;
 }
 
 .login button {
   height: 30px;
-  width: 200px;
+  width: 100px;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -462,12 +463,12 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-/* .login button:hover {
+.login button:hover {
   color: var(--btncolor);
   background-color: var(--text);
   border-color: var(--btncolor);
   transform: translateZ(0) scale(1.05);
-} */
+}
 
 .login .button:hover {
   color: var(--btncolor);
@@ -476,19 +477,19 @@ body {
   transform: translateZ(0) scale(1.05);
 }
 
-/* .button:active {
+.login button:active {
   border-color: var(--text);
   transform: scale(0.95);
 }
 
-.button:active {
+.login .button:active {
   border-color: var(--text);
   transform: scale(0.95);
-} */
+}
 
-/* .login button:focus {
-  outline: 1px solid var(--text);
-} */
+.login button:focus {
+  outline: 0px solid var(--text);
+}
 
 .login .button:focus {
   outline: 1px solid var(--text);
