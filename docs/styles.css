@@ -576,3 +576,7 @@ body {
 .incorrect {
   color: red;
 }
+
+.extra {
+  color: darkred;
+}
