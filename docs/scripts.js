@@ -10,8 +10,16 @@ let currentLetter;
 let lastLetter;
 const timeButton = document.getElementById("time-button");
 
+let wpm;
+let accuracy;
+let correct;
+let incorrect;
+let extra;
+let missed;
+let time;
 
 document.onkeydown = function (key) {
+  if(key.ctrlKey)return;
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
