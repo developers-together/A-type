@@ -134,12 +134,6 @@ body {
 .hebtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  /* margin-left: 500px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  justify-self: center; */
   position: absolute;
   right: 4%;
 }
