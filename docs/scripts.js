@@ -24,9 +24,6 @@ document.onkeydown = function (key) {
     let prevLetter = currentLetter.previousElementSibling;
     let prevWord = currentWord.previousElementSibling;
     let typedLetters=parseInt(currentWord.getAttribute("typedletters"))-1;
-    
-    console.log(prevWord);
-    console.log(currentWord);
     if(!prevWord && !prevLetter&&currentWord.children.length!=1)return;
     
     if (currentLetter.classList.contains("extra")) { // extra letter
@@ -95,12 +92,10 @@ document.onkeydown = function (key) {
     if(nextLetter){
       currentLetter=nextLetter;
     }
-    console.log(currentWord.getAttribute("typedletters"));
   } else if (
     key.key == " " 
   ) {
     //space
-    console.log(currentWord,currentWord.getAttribute("typedletters"));
     key.preventDefault();
     cursor.classList.add("no-blink");
     if(currentWord.children.length==1&&(currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect"))){
