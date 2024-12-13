@@ -23,18 +23,24 @@ document.onkeydown = function (key) {
     cursor.classList.add("no-blink");
     let prevLetter = currentLetter.previousElementSibling;
     let prevWord = currentWord.previousElementSibling;
-    if(!prevWord && !prevLetter&&currentWord.children.length!=1)return;
     let typedLetters=parseInt(currentWord.getAttribute("typedletters"))-1;
-    currentWord.setAttribute("typedletters", typedLetters);
-    if (currentLetter.classList.contains("extra")) {
+    
+    console.log(prevWord);
+    console.log(currentWord);
+    if(!prevWord && !prevLetter&&currentWord.children.length!=1)return;
+    
+    if (currentLetter.classList.contains("extra")) { // extra letter
       currentLetter.remove();
       currentLetter=prevLetter;
+      currentWord.setAttribute("typedletters", typedLetters);
     }
     else if(currentLetter==currentWord.lastElementChild &&(currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect")) ){
+      //when last letter in word and already typed
       currentLetter.classList.remove("correct");
       currentLetter.classList.remove("incorrect");
+      currentWord.setAttribute("typedletters", typedLetters);
     }
-    else if(!prevLetter&&prevWord){
+    else if(!prevLetter&&prevWord){ //when first letter in word and there is a previous word
       let prevWordLetters=prevWord.getAttribute("typedletters");
       if(prevWordLetters==prevWord.children.length){
         currentLetter=prevWord.lastElementChild;
@@ -47,21 +53,21 @@ document.onkeydown = function (key) {
         prevLetter.classList.remove("correct");
         prevLetter.classList.remove("incorrect");
         currentLetter=prevLetter;
+        currentWord.setAttribute("typedletters", typedLetters);
       }
       catch{
       }
     }
-    
   } else if (key.key.length == 1 && key.key != " ") {
     //letter
     let originalWordSize=currentWord.getAttribute("size");
     let typedLetters=parseInt(currentWord.getAttribute("typedletters"))+1;
-
-    if (currentLetter == lastLetter) {
-      newGame(); //make it go to stats screen instead
+    if (Math.max(typedLetters - originalWordSize, 0) == 18) { // if extra letters more than 18 don't do anything
       return;
     }
-    if (Math.max(typedLetters - originalWordSize, 0) == 18) { // if extra letters more than 18 don't do anything
+    
+    if (currentLetter == lastLetter) {
+      newGame(); //make it go to stats screen instead
       return;
     }
     currentWord.setAttribute("typedletters",typedLetters);
@@ -89,18 +95,20 @@ document.onkeydown = function (key) {
     if(nextLetter){
       currentLetter=nextLetter;
     }
+    console.log(currentWord.getAttribute("typedletters"));
   } else if (
     key.key == " " 
   ) {
+    //space
+    console.log(currentWord,currentWord.getAttribute("typedletters"));
     key.preventDefault();
+    cursor.classList.add("no-blink");
     if(currentWord.children.length==1&&(currentLetter.classList.contains("correct")||currentLetter.classList.contains("incorrect"))){
       currentWord=currentWord.nextElementSibling;
       currentLetter=currentWord.firstElementChild;
     }
-    if(currentLetter==currentWord.firstElementChild) return;
-    //space
-    cursor.classList.add("no-blink");
-    if (currentWord == lastLetter.parentElement) {
+    else if(currentLetter==currentWord.firstElementChild) return;
+    else if (currentWord == lastLetter.parentElement) {
       newGame(); //make it go to stats screen instead
       return;
     }
