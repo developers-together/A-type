@@ -19,7 +19,7 @@ let missed;
 let time;
 
 document.onkeydown = function (key) {
-  if(key.ctrlKey)return;
+  if(key.ctrlKey||key.metaKey)return;
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
