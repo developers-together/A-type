@@ -10,13 +10,22 @@ let currentLetter;
 let lastLetter;
 const timeButton = document.getElementById("time-button");
 
-let wpm;
-let accuracy;
-let correct;
-let incorrect;
-let extra;
-let missed;
-let time;
+let currentTimerValue = timerNum;
+let countdownInterval;
+
+let wpm=0;
+let accuracy=0;
+let correct=0;
+let incorrect=0;
+let extra=0;
+let missed=0;
+let time=0;
+
+let typed=0;
+let totalLetters=0;
+let rawWpm=0;
+let startTime=0;
+let endTime=0;
 
 document.onkeydown = function (key) {
   if(key.ctrlKey||key.metaKey)return;
@@ -72,13 +81,15 @@ document.onkeydown = function (key) {
       return;
     }
 
-    if (currentLetter == lastLetter) {
-      newGame(); //make it go to stats screen instead
-      return;
-    }
+    
     currentWord.setAttribute("typedletters", typedLetters);
     if (timerOn == 0 && timeButton.classList.contains("active")) {
+      startTime=Date.now();
       startCountdown(timerNum);
+      timerOn = 1;
+    }
+    else if(timerOn==0){
+      startTime=Date.now();
       timerOn = 1;
     }
     cursor.classList.add("no-blink");
@@ -96,6 +107,10 @@ document.onkeydown = function (key) {
       currentLetter.classList.add("incorrect");
       currentLetter.classList.remove("correct");
     }
+    if (currentLetter == lastLetter) {
+      newGame(); //make it go to stats screen instead
+      return;
+    }
     let nextLetter = currentLetter.nextElementSibling;
     if (nextLetter) {
       currentLetter = nextLetter;
@@ -111,14 +126,17 @@ document.onkeydown = function (key) {
     ) {
       currentWord = currentWord.nextElementSibling;
       currentLetter = currentWord.firstElementChild;
+      console.log(currentLetter);
     } else if (currentLetter == currentWord.firstElementChild) return;
     else if (currentWord == lastLetter.parentElement) {
       newGame(); //make it go to stats screen instead
       return;
     }
+    else{
+      currentWord = currentWord.nextElementSibling;
+      currentLetter = currentWord.firstElementChild;
+    }
     // currentWord.style.textDecoration = "underline";
-    currentWord = currentWord.nextElementSibling;
-    currentLetter = currentWord.firstElementChild;
   }
   clearTimeout(cursorTimeout);
   cursorTimeout = setTimeout(() => {
@@ -159,9 +177,64 @@ function renderWords(wordNum) {
   }
 }
 
+function checkCorrect(){
+  let wordSpan = document.getElementById("words");
+  for(let word of wordSpan.children){
+    for(let letter of word.children){
+      totalLetters++;
+      typed++;
+      if(letter.classList.contains("correct"))correct++;
+      else if(letter.classList.contains("extra")){
+        extra++;
+      }
+      else if(letter.classList.contains("incorrect")){
+        incorrect++;
+      }
+      else {
+        typed--;
+        missed++;
+      }
+    }
+  }
+
+}
+function printVariables(){
+  console.log("--------------------");
+  console.log("Time: ",time,"s");
+  console.log("correct: ", correct);
+  console.log("incorrect: ", incorrect);
+  console.log("extra: ", extra);
+  console.log("missed: ", missed);
+  console.log("Accuracy: ", accuracy,"%");
+  console.log("Raw WPM: ", rawWpm);
+  console.log("typed: ", typed);
+  console.log("WPM: ", wpm);
+  console.log("--------------------");
+}
+function calculateMetrics(){
+  accuracy=0;
+  correct=0;
+  incorrect=0;
+  extra=0;
+  missed=0;
+  wpm=0;
+  rawWpm=0;
+  totalLetters=0;
+  typed=0;
+
+  endTime=Date.now();
+  time=parseFloat((endTime-startTime)/ 1000);
+  checkCorrect();
+  accuracy=(correct/totalLetters)*100;
+  rawWpm=(typed+wordNum)/(5*time/60);
+  wpm=((correct+wordNum)/5)/(time/60);
+}
 function newGame() {
   wordsAnimation();
   resetCountdown();
+  calculateMetrics();
+  printVariables();
+
   // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
@@ -257,9 +330,10 @@ resetButton.addEventListener("click", () => {
 function resetActiveButtons(buttonGroup) {
   buttonGroup.forEach((button) => button.classList.remove("active"));
 }
-let currentTimerValue = timerNum;
-let countdownInterval;
+
+
 function startCountdown(value) {
+  // startTime = Date.now();
   clearInterval(countdownInterval);
   currentTimerValue = value;
   timerElement.textContent = `${currentTimerValue}s`;
