@@ -3,10 +3,9 @@
 }
 
 :root {
-  --width: auto-fill;
   --bgcolor: #111111; /* background color */
   --btncolor: #191919; /* background color of a button */
-  --dtext: #444444; /* default color of text */
+  --dtext: #444444; /* default color of headers/text */
   --text: #eeeeee; /* focused color of text */
 }
 
@@ -16,19 +15,12 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: var(--bgcolor);
   margin: 0;
   padding: 0;
-  user-select: none;
+  background-color: var(--bgcolor);
+  font-family: "Nunito", sans-serif;
+  color: var(--text);
   overflow: hidden;
-  overflow-x: hidden;
-}
-
-.main {
-  flex: 1;
 }
 
 .header {
@@ -38,19 +30,14 @@ body {
   width: 100%;
   color: var(--text);
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  padding-left: 4%;
+  padding: 5px 4%;
   overflow: hidden;
-  overflow-x: hidden;
 }
 
 .header div {
   display: flex;
   align-items: center;
-  justify-items: center;
 }
 
 .header div img {
@@ -80,82 +67,27 @@ body {
   opacity: 1;
 }
 
-@media (max-height: 600px) {
-  .header {
-    height: auto;
-    padding-top: 2%;
-    padding-bottom: 2%;
-  }
-}
-
-.hsbtns {
-  padding-top: 12.5px;
-  padding-bottom: 12.5px;
-  margin-left: 10px;
+.hsbtns,
+.hebtns {
   display: flex;
-  justify-content: center;
   align-items: center;
   position: relative;
 }
 
-.hsbtns button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0rem;
-  font-style: bold;
-  border: none;
-  background-color: transparent;
-  color: var(--dtext);
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-sizing: border-box;
-}
-
-.hsbtns .icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.hsbtns button:hover {
-  transform: translateZ(0) scale(1.1);
-  color: var(--text);
-}
-
-.hsbtns button:active {
-  transform: scale(0.95);
-  color: var(--dtext);
-}
-
-.hsbtns .icon-container i {
-  pointer-events: none;
-  font-size: 1.3rem;
+.hsbtns {
+  margin-left: 10px;
 }
 
 .hebtns {
-  padding-top: 12.5px;
-  padding-bottom: 12.5px;
-  /* margin-left: 500px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    justify-self: center; */
   position: absolute;
   right: 4%;
 }
 
+.hsbtns button,
 .hebtns button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0rem;
-  font-style: bold;
   border: none;
   background-color: transparent;
   color: var(--dtext);
@@ -163,59 +95,131 @@ body {
   height: 50px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-sizing: border-box;
 }
 
-.hebtns .icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
+.hsbtns button:hover,
 .hebtns button:hover {
-  transform: translateZ(0) scale(1.1);
+  transform: scale(1.1);
   color: var(--text);
 }
 
+.hsbtns button:active,
 .hebtns button:active {
   transform: scale(0.95);
   color: var(--dtext);
 }
 
-.hebtns .icon-container i {
+.icon-container i {
   pointer-events: none;
   font-size: 1.3rem;
 }
 
-.container {
-  font-family: "Nunito", sans-serif;
+.main {
+  flex: 1;
   width: 100%;
-  display: flex;
   height: 90vh;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-evenly;
-  padding: 0rem;
-  gap: 1rem;
   overflow-y: auto;
-  top: -45px;
+  padding: 2rem 5%;
+  box-sizing: border-box;
 }
 
-@media (min-height: 800px) {
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Headings and text colors */
+.container h1,
+.container h2,
+.container h3 {
+  color: var(--dtext);
+  font-family: "Lexend Deca", sans-serif;
+  margin: 0;
+}
+
+.container h2,
+.container h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.container p,
+.container ul,
+.container li,
+.container a,
+.container span {
+  color: var(--text);
+  font-family: "Nunito", sans-serif;
+  line-height: 1.5;
+}
+
+.container ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.container li b {
+  color: var(--text);
+}
+
+.container a {
+  text-decoration: underline;
+  color: var(--text);
+}
+
+.container a:hover {
+  text-decoration: none;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.container a:active {
+  transform: scale(0.95);
+  color: var(--dtext);
+}
+
+.github-icon {
+  margin-right: 4px;
+}
+
+@media (max-width: 600px) {
+  .header div img {
+    width: 50px;
+  }
+
+  .header div h1 {
+    font-size: 20px;
+  }
+
   .container {
-    gap: 2rem;
+    padding: 1rem;
   }
 }
 
-@media (max-height: 600px) {
-  .container {
-    justify-content: space-evenly;
-    gap: 0.5rem;
-  }
+.hidden {
+  display: none;
 }
+
+.collapsible-btn {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+.collapsible-btn:hover {
+  text-decoration: underline;
+}
+
+/* Optionally add an icon or change hover states */
