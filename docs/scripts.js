@@ -109,6 +109,7 @@ document.onkeydown = function (key) {
     }
     if (currentLetter == lastLetter) {
       newGame(); //make it go to stats screen instead
+      statsScreen();
       return;
     }
     let nextLetter = currentLetter.nextElementSibling;
@@ -126,10 +127,10 @@ document.onkeydown = function (key) {
     ) {
       currentWord = currentWord.nextElementSibling;
       currentLetter = currentWord.firstElementChild;
-      console.log(currentLetter);
     } else if (currentLetter == currentWord.firstElementChild) return;
     else if (currentWord == lastLetter.parentElement) {
       newGame(); //make it go to stats screen instead
+      statsScreen();
       return;
     }
     else{
@@ -175,6 +176,26 @@ function renderWords(wordNum) {
     // wordSizes[i] = chosenWord.length;
     wordSpan.innerHTML += formatWord(chosenWord);
   }
+}
+
+function mainScreen(){
+  let container = document.getElementById("container");
+  let container2 = document.getElementById("container2");
+  container2.style.display="none";
+  container.style.display="flex";
+}
+
+function statsScreen(){
+  let container = document.getElementById("container");
+  let container2 = document.getElementById("container2");
+  container2.style.display="flex";
+  container.style.display="none";
+  document.getElementById("wpm").innerHTML=wpm.toFixed(0);
+  document.getElementById("rawwpm").innerHTML=rawWpm.toFixed(0);
+  document.getElementById("characters").innerHTML=`${correct}/${incorrect}/${extra}/${missed}`
+  document.getElementById("acc").innerHTML=accuracy.toFixed(0);
+  document.getElementById("time").innerHTML=time.toFixed(1)+"s";
+ 
 }
 
 function checkCorrect(){
@@ -230,10 +251,12 @@ function calculateMetrics(){
   wpm=((correct+wordNum)/5)/(time/60);
 }
 function newGame() {
+  
+  mainScreen();
   wordsAnimation();
   resetCountdown();
   calculateMetrics();
-  printVariables();
+  // printVariables();
 
   // Clearing previous words
   let wordSpan = document.getElementById("words");
@@ -339,7 +362,7 @@ function startCountdown(value) {
   timerElement.textContent = `${currentTimerValue}s`;
 
   countdownInterval = setInterval(() => {
-    if (currentTimerValue == 0) newGame(); // stats screen TODO
+    if (currentTimerValue == 0){ newGame();statsScreen();} // stats screen TODO
     if (currentTimerValue > 0) {
       currentTimerValue--;
       timerElement.textContent = `${currentTimerValue}s`;
@@ -358,13 +381,13 @@ function isTimeButtonActive() {
 }
 
 //words and time
-const btn1 = document.querySelector(".btn1");
-const btn2 = document.querySelector(".btn2");
-const btn3 = document.querySelector(".btn3");
-const btn4 = document.querySelector(".btn4");
-const timerElement = document.querySelector(".timernum");
+let btn1 = document.querySelector(".btn1");
+let btn2 = document.querySelector(".btn2");
+let btn3 = document.querySelector(".btn3");
+let btn4 = document.querySelector(".btn4");
+let timerElement = document.querySelector(".timernum");
 
-const wordsButton = document.getElementById("words-button");
+let wordsButton = document.getElementById("words-button");
 let timer = document.getElementById("timer");
 let currentWordsCount = 10;
 let lastTimeSetting = btn1;

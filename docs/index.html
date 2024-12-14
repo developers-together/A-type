@@ -92,8 +92,8 @@
         </button>
       </div>
     </section>
-    <section class="main">
-      <div class="container">
+    <section class="main" id="main">
+      <div class="container", id="container">
         <div class="controls-line">
           <div class="controls">
             <div class="buttons">
@@ -115,10 +115,10 @@
                 Words
               </button>
               <div class="hr"></div>
-              <button class="btn1">10</button>
-              <button class="btn2">25</button>
-              <button class="btn3">50</button>
-              <button class="btn4">100</button>
+              <button class="btn1" id="btn1">10</button>
+              <button class="btn2" id="btn2">25</button>
+              <button class="btn3" id="btn3">50</button>
+              <button class="btn4" id="btn4">100</button>
             </div>
             <div class="mobile-button">
               <i class="fas fa-bars"></i>
@@ -138,26 +138,28 @@
           </button>
         </div>
       </div>
-      <!-- <div class="container2">
+
+      <div class="container2" id="container2" style="display:none">
         <div class="list">
           <table>
             <tr>
-              <th>WPM</th>
+              <th>wpm</th>
+              <th>raw wpm</th>
+              <th>characters</th>
               <th>acc</th>
-              <th>Characters</th>
-              <th>Consistency</th>
-              <th>Time</th>
+              <th>time</th>
             </tr>
             <tr>
-              <td>47</td>
-              <td>100%</td>
-              <td class="hover">1/2/3/4</td>
-              <td>10%</td>
-              <td>15s</td>
+              <td id="wpm"></td>
+              <td id="rawwpm"></td>
+              <td class="hover" id="characters"></td>
+              <td id="acc"></td>
+              <td id="time"></td>
             </tr>
           </table>
         </div>
-      </div> -->
+      </div>
+
     </section>
   </body>
 </html>

@@ -147,6 +147,7 @@ body {
   justify-content: space-evenly;
   padding: 0;
   gap: 1rem;
+  animation: fadeInContainer2 0.8s ease-in-out forwards;
 }
 
 /* @media (min-height: 800px) {
@@ -442,12 +443,12 @@ body {
 .extra {
   color: darkred;
 }
-/* 
+
 .container2 {
   position: absolute;
   top: 41.5%;
   width: 90vw;
-  height: 7vw;
+  height: 10vw;
   border-radius: 1.5vw;
   box-sizing: border-box;
   display: flex;
@@ -542,4 +543,17 @@ body {
 .list table tr:hover {
   background-color: var(--btncolor);
   transition: background-color 0.3s ease-in-out;
-} */
+}
+
+.typing-lines.fade {
+  animation: fade 0.5s;
+}
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
