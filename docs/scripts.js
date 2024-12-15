@@ -27,10 +27,10 @@ let rawWpm = 0;
 let startTime = 0;
 let endTime = 0;
 
-// let backButton = document.getElementById("back-button");
-// backButton.addEventListener("click", () => {
-//   newGame();
-// });
+let backButton = document.getElementById("back-button");
+backButton.addEventListener("click", () => {
+  newGame();
+});
 document.onkeydown = function (key) {
   if (key.ctrlKey || key.metaKey) return;
   if (key.key == "Tab") {
