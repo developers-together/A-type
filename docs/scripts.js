@@ -13,22 +13,26 @@ const timeButton = document.getElementById("time-button");
 let currentTimerValue = timerNum;
 let countdownInterval;
 
-let wpm=0;
-let accuracy=0;
-let correct=0;
-let incorrect=0;
-let extra=0;
-let missed=0;
-let time=0;
+let wpm = 0;
+let accuracy = 0;
+let correct = 0;
+let incorrect = 0;
+let extra = 0;
+let missed = 0;
+let time = 0;
 
-let typed=0;
-let totalLetters=0;
-let rawWpm=0;
-let startTime=0;
-let endTime=0;
+let typed = 0;
+let totalLetters = 0;
+let rawWpm = 0;
+let startTime = 0;
+let endTime = 0;
 
+// let backButton = document.getElementById("back-button");
+// backButton.addEventListener("click", () => {
+//   newGame();
+// });
 document.onkeydown = function (key) {
-  if(key.ctrlKey||key.metaKey)return;
+  if (key.ctrlKey || key.metaKey) return;
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
@@ -81,15 +85,13 @@ document.onkeydown = function (key) {
       return;
     }
 
-    
     currentWord.setAttribute("typedletters", typedLetters);
     if (timerOn == 0 && timeButton.classList.contains("active")) {
-      startTime=Date.now();
+      startTime = Date.now();
       startCountdown(timerNum);
       timerOn = 1;
-    }
-    else if(timerOn==0){
-      startTime=Date.now();
+    } else if (timerOn == 0) {
+      startTime = Date.now();
       timerOn = 1;
     }
     cursor.classList.add("no-blink");
@@ -132,8 +134,7 @@ document.onkeydown = function (key) {
       newGame(); //make it go to stats screen instead
       statsScreen();
       return;
-    }
-    else{
+    } else {
       currentWord = currentWord.nextElementSibling;
       currentLetter = currentWord.firstElementChild;
     }
@@ -178,80 +179,77 @@ function renderWords(wordNum) {
   }
 }
 
-function mainScreen(){
+function mainScreen() {
   let container = document.getElementById("container");
   let container2 = document.getElementById("container2");
-  container2.style.display="none";
-  container.style.display="flex";
+  container2.style.display = "none";
+  container.style.display = "flex";
 }
 
-function statsScreen(){
+function statsScreen() {
   let container = document.getElementById("container");
   let container2 = document.getElementById("container2");
-  container2.style.display="flex";
-  container.style.display="none";
-  document.getElementById("wpm").innerHTML=wpm.toFixed(0);
-  document.getElementById("rawwpm").innerHTML=rawWpm.toFixed(0);
-  document.getElementById("characters").innerHTML=`${correct}/${incorrect}/${extra}/${missed}`
-  document.getElementById("acc").innerHTML=accuracy.toFixed(0);
-  document.getElementById("time").innerHTML=time.toFixed(1)+"s";
- 
+  container2.style.display = "flex";
+  container.style.display = "none";
+  document.getElementById("wpm").innerHTML = wpm.toFixed(0);
+  document.getElementById("rawwpm").innerHTML = rawWpm.toFixed(0);
+  document.getElementById(
+    "characters"
+  ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
+  document.getElementById("acc").innerHTML = accuracy.toFixed(0);
+  document.getElementById("time").innerHTML = time.toFixed(1) + "s";
 }
 
-function checkCorrect(){
+function checkCorrect() {
   let wordSpan = document.getElementById("words");
-  for(let word of wordSpan.children){
-    for(let letter of word.children){
+  for (let word of wordSpan.children) {
+    for (let letter of word.children) {
       totalLetters++;
       typed++;
-      if(letter.classList.contains("correct"))correct++;
-      else if(letter.classList.contains("extra")){
+      if (letter.classList.contains("correct")) correct++;
+      else if (letter.classList.contains("extra")) {
         extra++;
-      }
-      else if(letter.classList.contains("incorrect")){
+      } else if (letter.classList.contains("incorrect")) {
         incorrect++;
-      }
-      else {
+      } else {
         typed--;
         missed++;
       }
     }
   }
-
 }
-function printVariables(){
+function printVariables() {
   console.log("--------------------");
-  console.log("Time: ",time,"s");
+  console.log("Time: ", time, "s");
   console.log("correct: ", correct);
   console.log("incorrect: ", incorrect);
   console.log("extra: ", extra);
   console.log("missed: ", missed);
-  console.log("Accuracy: ", accuracy,"%");
+  console.log("Accuracy: ", accuracy, "%");
   console.log("Raw WPM: ", rawWpm);
   console.log("typed: ", typed);
   console.log("WPM: ", wpm);
   console.log("--------------------");
 }
-function calculateMetrics(){
-  accuracy=0;
-  correct=0;
-  incorrect=0;
-  extra=0;
-  missed=0;
-  wpm=0;
-  rawWpm=0;
-  totalLetters=0;
-  typed=0;
+function calculateMetrics() {
+  accuracy = 0;
+  correct = 0;
+  incorrect = 0;
+  extra = 0;
+  missed = 0;
+  wpm = 0;
+  rawWpm = 0;
+  totalLetters = 0;
+  typed = 0;
 
-  endTime=Date.now();
-  time=parseFloat((endTime-startTime)/ 1000);
+  endTime = Date.now();
+  time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
-  accuracy=(correct/totalLetters)*100;
-  rawWpm=(typed+wordNum)/(5*time/60);
-  wpm=((correct+wordNum)/5)/(time/60);
+  accuracy = (correct / totalLetters) * 100;
+  rawWpm = (typed + wordNum) / ((5 * time) / 60);
+  wpm = (correct + wordNum) / 5 / (time / 60);
 }
 function newGame() {
-  
   mainScreen();
   wordsAnimation();
   resetCountdown();
@@ -354,7 +352,6 @@ function resetActiveButtons(buttonGroup) {
   buttonGroup.forEach((button) => button.classList.remove("active"));
 }
 
-
 function startCountdown(value) {
   // startTime = Date.now();
   clearInterval(countdownInterval);
@@ -362,7 +359,10 @@ function startCountdown(value) {
   timerElement.textContent = `${currentTimerValue}s`;
 
   countdownInterval = setInterval(() => {
-    if (currentTimerValue == 0){ newGame();statsScreen();} // stats screen TODO
+    if (currentTimerValue == 0) {
+      newGame();
+      statsScreen();
+    } // stats screen TODO
     if (currentTimerValue > 0) {
       currentTimerValue--;
       timerElement.textContent = `${currentTimerValue}s`;

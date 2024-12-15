@@ -444,6 +444,17 @@ body {
   color: darkred;
 }
 
+#container2 {
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+
 .container2 {
   position: absolute;
   top: 41.5%;
@@ -556,4 +567,42 @@ body {
   50% {
     opacity: 0;
   }
+}
+
+.back-btn {
+  top: 70vh;
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .back-btn {
+    margin-top: 35%;
+  }
+}
+
+.back-btn button {
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  border: none;
+  border-radius: 15vw;
+  background-color: transparent;
+  color: var(--dtext);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn button i:hover {
+  transform: scale(1.02);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-btn button i:active {
+  color: var(--dtext);
+  transform: scale(0.95);
 }
