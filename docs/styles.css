@@ -150,19 +150,6 @@ body {
   animation: fadeInContainer2 0.8s ease-in-out forwards;
 }
 
-/* @media (min-height: 800px) {
-  .container {
-    gap: 2rem;
-  }
-} */
-
-/* @media (max-height: 600px) {
-  .container {
-    justify-content: space-evenly;
-    gap: 0.5rem;
-  }
-} */
-
 .controls-line {
   display: flex;
   width: 100%;
@@ -182,13 +169,6 @@ body {
   align-items: center;
   outline: none;
 }
-
-/* @media (max-height: 600px) {
-  .controls {
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-} */
 
 .controls button {
   padding: 0.1rem 0.7rem;
@@ -321,13 +301,6 @@ body {
   margin-bottom: 5%;
   overflow-y: hidden;
 }
-
-/* @media (max-height: 600px) {
-  .typing-area {
-    margin-top: 11%;
-    height: 6em;
-  }
-} */
 
 .typing-lines {
   padding-left: 0.05rem;
@@ -535,7 +508,7 @@ body {
   padding: 0.5rem;
   border-radius: 5px;
   white-space: nowrap;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translateY(-50%);
   font-size: 0.9rem;

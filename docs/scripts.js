@@ -27,21 +27,20 @@ let rawWpm = 0;
 let startTime = 0;
 let endTime = 0;
 
-let lastY=null;
-function checkCursorPosition(){
+let lastY = null;
+function checkCursorPosition() {
   let cursor = document.getElementById("cursor");
   const rect = cursor.getBoundingClientRect();
-  const currentY=rect.top;
-  if(lastY!=null && currentY!=lastY){
-    if(currentY>lastY){
+  const currentY = rect.top;
+  if (lastY != null && currentY != lastY) {
+    if (currentY > lastY) {
       // console.log("down");
       // renderWords(20);
-    }
-    else{
+    } else {
       // console.log("up");
     }
   }
-  lastY=currentY;
+  lastY = currentY;
   requestAnimationFrame(checkCursorPosition);
 }
 
@@ -127,7 +126,7 @@ document.onkeydown = function (key) {
       currentLetter.classList.add("incorrect");
       currentLetter.classList.remove("correct");
     }
-    if (currentLetter == lastLetter&&isWordsButtonActive()) {
+    if (currentLetter == lastLetter && isWordsButtonActive()) {
       newGame(); //make it go to stats screen instead
       statsScreen();
       return;
@@ -193,14 +192,14 @@ function renderWords(wordNum) {
       }
     }
     // wordSizes[i] = chosenWord.length;
-    if(wordSpan.lastElementChild&&wordSpan.lastElementChild.id=="cursor"){
-      console.log("hi");  
-      wordSpan.lastElementChild.insertAdjacentHTML("beforebegin",formatWord(chosenWord));
-
-    }
-    else{
-
-      wordSpan.innerHTML+=formatWord(chosenWord);
+    if (wordSpan.lastElementChild && wordSpan.lastElementChild.id == "cursor") {
+      console.log("hi");
+      wordSpan.lastElementChild.insertAdjacentHTML(
+        "beforebegin",
+        formatWord(chosenWord)
+      );
+    } else {
+      wordSpan.innerHTML += formatWord(chosenWord);
     }
   }
 }
@@ -276,8 +275,8 @@ function calculateMetrics() {
   wpm = (correct + wordNum) / 5 / (time / 60);
 }
 function newGame() {
-  lastY=null;
-  
+  lastY = null;
+
   mainScreen();
   wordsAnimation();
   resetCountdown();
@@ -288,8 +287,7 @@ function newGame() {
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
   // Rendering new words
-  if(isWordsButtonActive())
-    renderWords(currentWordsCount);
+  if (isWordsButtonActive()) renderWords(currentWordsCount);
   else renderWords(20);
 
   for (const word of wordSpan.children) {
@@ -542,5 +540,4 @@ punctuation.addEventListener("click", () => {
 
 setInterval(moveCursor, 0);
 newGame();
-requestAnimationFrame(checkCursorPosition);  
-
+requestAnimationFrame(checkCursorPosition);

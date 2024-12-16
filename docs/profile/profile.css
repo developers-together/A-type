@@ -140,12 +140,6 @@ body {
 .hebtns {
   padding-top: 12.5px;
   padding-bottom: 12.5px;
-  /* margin-left: 500px;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-      justify-self: center; */
   position: absolute;
   right: 4%;
 }
@@ -187,4 +181,219 @@ body {
 .hebtns .icon-container i {
   pointer-events: none;
   font-size: 1.3rem;
+}
+
+.container {
+  font-family: "Nunito", sans-serif;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-evenly;
+  padding: 0;
+  gap: 1rem;
+}
+
+.personalinfo {
+  height: 15vw;
+  width: 100%;
+  font-size: 1vw;
+  /* background-color: red; */
+  font-family: "Lexend Deca", sans-serif;
+  user-select: none;
+  margin-top: 15px;
+  margin-left: 50%;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+  overflow: visible;
+  color: var(--dtext);
+}
+
+.personalinfo .pp {
+  font-size: 10vw;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  padding-bottom: 1vw;
+  position: relative;
+  cursor: pointer;
+}
+
+.pp:hover::after {
+  content: "\f304";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  color: var(--bgcolor);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: 35%;
+  left: 70%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+}
+
+.personalinfo .span1 {
+  font-size: 1.5vw;
+  color: var(--text);
+  position: relative;
+  cursor: pointer;
+}
+
+.span1:hover::after {
+  content: "Joined on dd/mm/yyyy";
+  position: absolute;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: -20%;
+  left: 200%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+}
+
+.personalinfo .text {
+  width: 15vw;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.personalinfo .level {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.personalinfo .span2 {
+  position: relative;
+  cursor: pointer;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+  padding-left: 0.5vw;
+  font-size: 1.2vw;
+  color: var(--text);
+}
+
+.span2:hover::after {
+  content: "current level number";
+  position: absolute;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: 100%;
+  left: 90%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+}
+
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.personalinfo .levelbar {
+  padding-left: 2.2vw;
+  padding-right: 1vw;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.levelbar:hover::after {
+  content: "levelbar";
+  position: absolute;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: 100%;
+  left: 55%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+}
+
+.personalinfo .span3 {
+  position: relative;
+  cursor: pointer;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  text-align: center;
+  padding-right: 0.5vw;
+  font-size: 0.8vw;
+}
+
+.span3:hover::after {
+  content: "current xp / total xp";
+  position: absolute;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: 100%;
+  left: 10%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
 }
