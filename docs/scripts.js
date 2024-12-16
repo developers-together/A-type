@@ -28,21 +28,21 @@ let startTime = 0;
 let endTime = 0;
 
 let lastY = null;
-function checkCursorPosition() {
-  let cursor = document.getElementById("cursor");
-  const rect = cursor.getBoundingClientRect();
-  const currentY = rect.top;
-  if (lastY != null && currentY != lastY) {
-    if (currentY > lastY) {
-      // console.log("down");
-      // renderWords(20);
-    } else {
-      // console.log("up");
-    }
-  }
-  lastY = currentY;
-  requestAnimationFrame(checkCursorPosition);
-}
+// function checkCursorPosition() {
+//   let cursor = document.getElementById("cursor");
+//   const rect = cursor.getBoundingClientRect();
+//   const currentY = rect.top;
+//   if (lastY != null && currentY != lastY) {
+//     if (currentY > lastY) {
+//       // console.log("down");
+//       // renderWords(20);
+//     } else {
+//       // console.log("up");
+//     }
+//   }
+//   lastY = currentY;
+//   requestAnimationFrame(checkCursorPosition);
+// }
 
 let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
@@ -276,19 +276,19 @@ function calculateMetrics() {
 }
 function newGame() {
   lastY = null;
-
   mainScreen();
   wordsAnimation();
   resetCountdown();
   calculateMetrics();
   // printVariables();
-
+  
   // Clearing previous words
   let wordSpan = document.getElementById("words");
+  wordSpan.scrollTop = 0;
   wordSpan.innerHTML = "";
   // Rendering new words
   if (isWordsButtonActive()) renderWords(currentWordsCount);
-  else renderWords(20);
+  else renderWords(90);
 
   for (const word of wordSpan.children) {
     //setting attribute for original size of words and typedletters
@@ -310,44 +310,58 @@ function newGame() {
 
 function moveCursor() {
   if (!currentLetter) return;
+
   let cursor = document.getElementById("cursor");
   cursor.hidden = false;
   let wordSpan = document.getElementById("words");
-  let letterRect = currentLetter.getBoundingClientRect();
+
+  const letterRect = currentLetter.getBoundingClientRect();
   const wordsRect = wordSpan.getBoundingClientRect();
 
-  // Calculate position relative to #words
+  // Calculate position relative to the #words container
   const offsetLeft = letterRect.left - wordsRect.left;
-  const offsetTop = letterRect.top - wordsRect.top;
-  let offsetRight = letterRect.right - wordsRect.left;
+  const offsetTop = letterRect.top - wordsRect.top + wordSpan.scrollTop; // Add scrollTop adjustment
+  const offsetRight = letterRect.right - wordsRect.left;
 
   // Update cursor size and position
   cursor.style.height = `${letterRect.height}px`;
-  cursor.style.top = `${offsetTop}px`;
-  let typedLetters = currentWord.getAttribute("typedletters");
+  cursor.style.top = `${offsetTop}px`; // Adjust for scrolling
 
   if (
     currentLetter.classList.contains("correct") ||
     currentLetter.classList.contains("incorrect")
   ) {
     cursor.style.left = `${offsetRight}px`;
-  } else cursor.style.left = `${offsetLeft - 1}px`;
+  } else {
+    cursor.style.left = `${offsetLeft - 1}px`;
+  }
 
-  // const lineHeight = parseFloat(getComputedStyle(document.getElementById("words")).lineHeight);
-  // const scrollThreshold = lineHeight; // Distance from top/bottom to trigger scroll (one line)
+  const lineHeight = currentWord.offsetHeight;
 
-  // const containerHeight = wordsRect.height;
-  // const cursorBottom = offsetTop + letterRect.height;
+  // Calculate the current scroll position
+  const scrollTop = wordSpan.scrollTop;
 
-  // // Scroll the container up if cursor is too close to the top
-  // if (offsetTop < scrollThreshold) {
-  //   document.getElementById("words").scrollTop -= lineHeight;
-  // }
-  // // Scroll the container down if cursor is too close to the bottom
-  // else if (cursorBottom > containerHeight - scrollThreshold) {
-  //   document.getElementById("words").scrollTop += lineHeight;
-  // }
+  // Find the closest "line" alignment
+  const alignedScrollTop = Math.round(scrollTop / lineHeight) * lineHeight;
+
+  // Set the scrollTop to align properly
+  wordSpan.scrollTop = alignedScrollTop;
+
+  // Scroll container logic (unchanged)
+  const currentLetterRect = currentLetter.getBoundingClientRect();
+  const wordSpanRect = wordSpan.getBoundingClientRect();
+  const outOfViewTop = currentLetterRect.top < wordSpanRect.top;
+  const outOfViewBottom = currentLetterRect.bottom > wordSpanRect.bottom;
+
+  if (outOfViewTop) {
+    wordSpan.scrollTop -= wordSpanRect.top - currentLetterRect.top+10;
+  } else if (outOfViewBottom) {
+    if(isTimeButtonActive())
+      renderWords(20);
+    wordSpan.scrollTop += currentLetterRect.bottom - wordSpanRect.bottom+10;
+  }
 }
+
 
 let lastZoom = window.devicePixelRatio;
 window.addEventListener("resize", () => {
@@ -540,4 +554,4 @@ punctuation.addEventListener("click", () => {
 
 setInterval(moveCursor, 0);
 newGame();
-requestAnimationFrame(checkCursorPosition);
+// requestAnimationFrame(checkCursorPosition);
