@@ -453,20 +453,19 @@ body {
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  display:none;
 }
 
 .container2 {
   position: absolute;
   top: 41.5%;
   width: 90vw;
-  height: 10vw;
+  height: 15vh;
   border-radius: 1.5vw;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  overflow: auto;
+  gap: 5vw;
+  overflow: hidden;
   background-color: var(--btncolor);
   animation: fadeInContainer2 0.8s ease-in-out forwards;
 }
@@ -490,8 +489,8 @@ body {
 
 .list th,
 .list td {
-  padding: 0.5rem;
-  word-wrap: break-word;
+  padding: 5px;
+  word-wrap: nowrap;
 }
 
 .list th {
@@ -502,6 +501,7 @@ body {
 
 .list td {
   color: var(--text);
+  padding: 15px;
 }
 
 @media (max-width: 768px) {
@@ -509,13 +509,17 @@ body {
     padding: 1rem;
   }
 
+  .container2 {
+    height: 11vh;
+  }
+
   .list table,
   .list td {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
   }
 
   .list th {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -527,13 +531,12 @@ body {
 .hover:hover::after {
   content: "correct, incorrect, extra, missed";
   position: absolute;
-  background-color: var(--btncolor);
   color: var(--text);
   padding: 0.5rem;
   border-radius: 5px;
   white-space: nowrap;
-  top: -0%;
-  left: 100%;
+  top: 60%;
+  left: 50%;
   transform: translateY(-50%);
   font-size: 0.9rem;
   z-index: 10;
@@ -577,11 +580,12 @@ body {
   height: 20px;
   align-items: center;
   justify-content: center;
+  animation: fadeInContainer2 0.8s ease-in-out forwards;
 }
 
 @media (max-width: 768px) {
   .back-btn {
-    margin-top: 35%;
+    top: 60vh;
   }
 }
 
