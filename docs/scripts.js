@@ -27,6 +27,24 @@ let rawWpm = 0;
 let startTime = 0;
 let endTime = 0;
 
+let lastY=null;
+function checkCursorPosition(){
+  let cursor = document.getElementById("cursor");
+  const rect = cursor.getBoundingClientRect();
+  const currentY=rect.top;
+  if(lastY!=null && currentY!=lastY){
+    if(currentY>lastY){
+      // console.log("down");
+      // renderWords(20);
+    }
+    else{
+      // console.log("up");
+    }
+  }
+  lastY=currentY;
+  requestAnimationFrame(checkCursorPosition);
+}
+
 let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
   newGame();
@@ -109,7 +127,7 @@ document.onkeydown = function (key) {
       currentLetter.classList.add("incorrect");
       currentLetter.classList.remove("correct");
     }
-    if (currentLetter == lastLetter) {
+    if (currentLetter == lastLetter&&isWordsButtonActive()) {
       newGame(); //make it go to stats screen instead
       statsScreen();
       return;
@@ -130,7 +148,7 @@ document.onkeydown = function (key) {
       currentWord = currentWord.nextElementSibling;
       currentLetter = currentWord.firstElementChild;
     } else if (currentLetter == currentWord.firstElementChild) return;
-    else if (currentWord == lastLetter.parentElement) {
+    else if (currentWord == lastLetter.parentElement && isWordsButtonActive()) {
       newGame(); //make it go to stats screen instead
       statsScreen();
       return;
@@ -175,7 +193,15 @@ function renderWords(wordNum) {
       }
     }
     // wordSizes[i] = chosenWord.length;
-    wordSpan.innerHTML += formatWord(chosenWord);
+    if(wordSpan.lastElementChild&&wordSpan.lastElementChild.id=="cursor"){
+      console.log("hi");  
+      wordSpan.lastElementChild.insertAdjacentHTML("beforebegin",formatWord(chosenWord));
+
+    }
+    else{
+
+      wordSpan.innerHTML+=formatWord(chosenWord);
+    }
   }
 }
 
@@ -250,6 +276,8 @@ function calculateMetrics() {
   wpm = (correct + wordNum) / 5 / (time / 60);
 }
 function newGame() {
+  lastY=null;
+  
   mainScreen();
   wordsAnimation();
   resetCountdown();
@@ -260,7 +288,9 @@ function newGame() {
   let wordSpan = document.getElementById("words");
   wordSpan.innerHTML = "";
   // Rendering new words
-  renderWords(currentWordsCount);
+  if(isWordsButtonActive())
+    renderWords(currentWordsCount);
+  else renderWords(20);
 
   for (const word of wordSpan.children) {
     //setting attribute for original size of words and typedletters
@@ -416,8 +446,8 @@ window.addEventListener("load", () => {
 
 timeButton.addEventListener("click", () => {
   //when time button is pressed
-  newGame();
   activateButton(timeButton, wordsButton);
+  newGame();
   timer.classList.remove("hidden");
   // Reset words buttons and activate default time button
   resetActiveButtons([btn1, btn2, btn3, btn4]);
@@ -430,11 +460,11 @@ timeButton.addEventListener("click", () => {
 
 wordsButton.addEventListener("click", () => {
   // when words button is pressed
+  activateButton(wordsButton, timeButton);
   newGame();
   timer.classList.add("hidden"); // hide timer
   resetActiveButtons([btn1, btn2, btn3, btn4]);
   lastWordSetting.classList.add("active");
-  activateButton(wordsButton, timeButton);
 
   btn1.textContent = "10";
   btn2.textContent = "25";
@@ -512,3 +542,5 @@ punctuation.addEventListener("click", () => {
 
 setInterval(moveCursor, 0);
 newGame();
+requestAnimationFrame(checkCursorPosition);  
+

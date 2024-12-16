@@ -453,6 +453,7 @@ body {
   justify-content: center;
   justify-items: center;
   justify-self: center;
+  display:none;
 }
 
 .container2 {
