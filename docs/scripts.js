@@ -48,12 +48,18 @@ let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
   newGame();
 });
+let cooldown = false;
 document.onkeydown = function (key) {
   if (key.ctrlKey || key.metaKey) return;
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
-    newGame();
+    if(cooldown)return;
+      newGame();
+    cooldown = true; // Set the flag to true
+    setTimeout(() => {
+      cooldown = false; // Reset the cooldown after X milliseconds
+    }, 400); // Cooldown duration in milliseconds (e.g., 2 seconds)
   } else if (key.key == "Alt") {
     key.preventDefault();
   } else if (key.key == "Backspace") {
@@ -377,7 +383,7 @@ function wordsAnimation() {
   typingLines.classList.add("fade");
   setTimeout(() => {
     typingLines.classList.remove("fade");
-  }, 500);
+  }, 400);
 }
 
 const reset = (document.getElementById("reset-button").onclick = newGame);
