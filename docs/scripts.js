@@ -28,21 +28,6 @@ let startTime = 0;
 let endTime = 0;
 
 let lastY = null;
-// function checkCursorPosition() {
-//   let cursor = document.getElementById("cursor");
-//   const rect = cursor.getBoundingClientRect();
-//   const currentY = rect.top;
-//   if (lastY != null && currentY != lastY) {
-//     if (currentY > lastY) {
-//       // console.log("down");
-//       // renderWords(20);
-//     } else {
-//       // console.log("up");
-//     }
-//   }
-//   lastY = currentY;
-//   requestAnimationFrame(checkCursorPosition);
-// }
 
 let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
