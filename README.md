@@ -1,9 +1,5 @@
 # A-Type
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](#contributing)
-[![Live Demo](https://img.shields.io/badge/demo-online-success.svg)](https://developers-together.github.io/A-type/)
-
 A-Type is a minimalistic, browser-based typing speed test designed to help users improve their typing speed and accuracy. Whether you’re a beginner or a seasoned typist, A-Type provides an intuitive platform for honing your skills.
 
 ## Table of Contents
