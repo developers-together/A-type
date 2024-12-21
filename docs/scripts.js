@@ -184,7 +184,6 @@ function renderWords(wordNum) {
     }
     // wordSizes[i] = chosenWord.length;
     if (wordSpan.lastElementChild && wordSpan.lastElementChild.id == "cursor") {
-      console.log("hi");
       wordSpan.lastElementChild.insertAdjacentHTML(
         "beforebegin",
         formatWord(chosenWord)
@@ -545,4 +544,3 @@ punctuation.addEventListener("click", () => {
 
 setInterval(moveCursor, 0);
 newGame();
-// requestAnimationFrame(checkCursorPosition);
