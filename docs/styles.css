@@ -303,8 +303,6 @@ body {
 }
 
 .typing-lines {
-  /* scroll-behavior: smooth; */
-  /* overflow: hidden; */
   padding-left: 0.05rem;
   position: relative;
   overflow: auto;

@@ -102,7 +102,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0rem;
   font-style: bold;
   border: none;
   background-color: transparent;
@@ -189,11 +188,11 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
   justify-content: space-evenly;
   padding: 0;
-  gap: 1rem;
+  gap: 2vw;
 }
 
 .personalinfo {
@@ -409,12 +408,12 @@ body {
   justify-items: center;
   justify-self: center;
   text-align: center;
-  text-align: center;
   display: flex;
   position: absolute;
   text-overflow: nowrap;
-  top: 13vh;
-  right: 20vw;
+  top: 15%;
+  right: 40%;
+  left: 45%;
   font-size: 2vw;
   color: var(--dtext);
 }
@@ -425,15 +424,14 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 10px;
-  left: 10px;
+  top: 5%;
+  left: 5vw;
 }
 
 .record .p2 {
@@ -442,15 +440,14 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 10px;
-  right: 100px;
+  top: 5%;
+  left: 25vw;
 }
 
 .record .p3 {
@@ -459,15 +456,14 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 80px;
-  left: 10px;
+  top: 33%;
+  left: 5vw;
 }
 
 .record .p4 {
@@ -476,15 +472,14 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 80px;
-  right: 100px;
+  top: 33%;
+  left: 25vw;
 }
 
 .record .p5 {
@@ -493,15 +488,14 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 150px;
-  left: 10px;
+  top: 60%;
+  left: 5vw;
 }
 
 .record .p6 {
@@ -510,18 +504,110 @@ body {
   display: flex;
   position: absolute;
   align-items: start;
-  align-self: start;
+  align-self: center;
   align-content: start;
   justify-content: start;
   justify-items: start;
-  justify-self: start;
+  justify-self: center;
   text-align: start;
-  text-align: start;
-  top: 150px;
-  right: 100px;
+  top: 60%;
+  left: 25vw;
 }
 
 .record span {
   color: var(--text);
   padding-left: 10px;
+}
+
+.tables {
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  left: 30%;
+  display: flex;
+  gap: 5vh;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+
+@media (max-width: 768px) {
+  .tables {
+    top: 30%;
+  }
+}
+
+.tables table {
+  border-collapse: collapse;
+  background-color: var(--btncolor);
+  color: var(--text);
+  font-size: clamp(9px, 1.75vw, 15px);
+  min-width: 150px;
+}
+
+.tables th,
+.tables td {
+  border: 1px solid var(--dtext);
+  padding: 1vw 2vh;
+}
+
+.tables th {
+  background-color: #222222;
+  font-weight: 600;
+}
+
+.buttons {
+  position: absolute;
+  top: 80%;
+  right: 30%;
+  left: 30%;
+  display: flex;
+  gap: 4vh;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+  width: max-content;
+}
+
+@media (max-width: 768px) {
+  .buttons {
+    top: 50%;
+  }
+}
+
+.buttons button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--btncolor);
+  color: var(--text);
+  font-size: clamp(9px, 1.75vw, 15px);
+  font-family: "Nunito", sans-serif;
+  border: none;
+  border-radius: 15vw;
+  padding: 1vw 2vh;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+  background-color: darkred;
+  color: var(--text);
+}
+
+.buttons button:active {
+  transform: scale(0.95);
+  filter: brightness(0.8);
+  color: darkred;
+  background-color: var(--text);
+}
+
+.buttons button i {
+  pointer-events: none;
+  font-size: clamp(9px, 1.75vw, 15px);
 }
