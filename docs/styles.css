@@ -21,6 +21,14 @@ html {
   border-radius: 10px;
 }
 
+.hr2 {
+  border-bottom: 5px solid var(--bgcolor);
+  width: 90%;
+  border-radius: 10px;
+  align-self: center;
+  justify-self: center;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -583,4 +591,57 @@ body {
 .back-btn button i:active {
   color: var(--dtext);
   transform: scale(0.95);
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: absolute;
+  top: 65px;
+  left: 35vw;
+  right: 35vw;
+  background-color: var(--btncolor);
+  border-radius: 1rem;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.mobile-menu:not(.hidden) {
+  display: flex;
+}
+
+.mobile-menu button {
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  align-self: center;
+  justify-self: center;
+}
+
+.mobile-menu button:hover {
+  color: var(--text);
+  transform: scale(1.02);
+}
+
+.mobile-menu button:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .controls .buttons {
+    display: none;
+  }
+
+  .controls .mobile-button {
+    display: flex;
+  }
 }

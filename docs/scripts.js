@@ -39,8 +39,8 @@ document.onkeydown = function (key) {
   if (key.key == "Tab") {
     //quick reset
     key.preventDefault();
-    if(cooldown)return;
-      newGame();
+    if (cooldown) return;
+    newGame();
     cooldown = true; // Set the flag to true
     setTimeout(() => {
       cooldown = false; // Reset the cooldown after X milliseconds
@@ -271,7 +271,7 @@ function newGame() {
   resetCountdown();
   calculateMetrics();
   // printVariables();
-  
+
   // Clearing previous words
   let wordSpan = document.getElementById("words");
   wordSpan.scrollTop = 0;
@@ -344,14 +344,12 @@ function moveCursor() {
   const outOfViewBottom = currentLetterRect.bottom > wordSpanRect.bottom;
 
   if (outOfViewTop) {
-    wordSpan.scrollTop -= wordSpanRect.top - currentLetterRect.top+10;
+    wordSpan.scrollTop -= wordSpanRect.top - currentLetterRect.top + 10;
   } else if (outOfViewBottom) {
-    if(isTimeButtonActive())
-      renderWords(20);
-    wordSpan.scrollTop += currentLetterRect.bottom - wordSpanRect.bottom+10;
+    if (isTimeButtonActive()) renderWords(20);
+    wordSpan.scrollTop += currentLetterRect.bottom - wordSpanRect.bottom + 10;
   }
 }
-
 
 let lastZoom = window.devicePixelRatio;
 window.addEventListener("resize", () => {
@@ -544,3 +542,21 @@ punctuation.addEventListener("click", () => {
 
 setInterval(moveCursor, 0);
 newGame();
+
+// Select the hamburger button and the mobile menu
+const mobileButton = document.querySelector(".mobile-button");
+const mobileMenu = document.getElementById("mobileMenu");
+
+// Toggle the display of the mobile menu
+mobileButton.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
+// Example: Attach the same event logic to the mobile buttons if needed
+// (e.g., punctuation-mobile, numbers-mobile, etc.)
+document.getElementById("punctuation-mobile").addEventListener("click", () => {
+  // Do the same logic as the original punctuation button, or call the same function
+  console.log("Punctuation clicked (mobile)");
+});
+
+// ...and similarly for other mobile buttons
