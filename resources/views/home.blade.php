@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.00, minimum-scale=1.00, maximum-scale=1.00, user-scalable=no"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=info"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="css/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=schedule"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="32x32"
+      href="/assets/Logo/favicon/A-Type-Logo.ico"
+    />
+    <title>A-type | A minimalistic typing test website</title>
+    <meta
+      name="description"
+      content="typing test website with a minimal design. Test yourself in various modes, track your progress and improve your speed."
+    />
+    <meta
+      name="keywords"
+      content="typing speed test, typing speedtest, typing test, speedtest, speed test, typing, test, typing-test, typing test, types, type, wpm, words per minute, typing website, minimalistic, custom typing test, customizable, customisable, themes, random words, smooth caret, smooth, new, new typing site, new typing website, minimalist typing website, minimalistic typing website, minimalist typing test"
+    />
+    <meta
+      property="og:title"
+      content="A-Type | A minimalistic typing test website"
+    />
+    <meta property="og:type" content="website" />
+    <script type="module" src="js/home.js" defer></script>
+  </head>
+  <body>
+    <section class="header">
+      <div>
+        <img
+          src="/assets/Logo/logo.svg"
+          alt="logo"
+          onclick="window.open('/', '_parent')"
+        />
+        <h1>A-Type</h1>
+      </div>
+      <div class="hsbtns">
+        <button
+          onclick="window.open('/leaderboard', '_parent')"
+        >
+          <div class="icon-container">
+            <i class="fas fa-fw fa-crown fa-lg"></i>
+          </div>
+        </button>
+        <button onclick="window.open('/info', '_parent')">
+          <div class="icon-container">
+            <i class="fas fa-fw fa-info fa-lg"></i>
+          </div>
+        </button>
+      </div>
+      <div class="hebtns">
+        <button onclick="window.open('/login', '_parent')">
+          <div class="icon-container">
+            <i class="fas fa-fw fa-user fa-lg"></i>
+          </div>
+        </button>
+      </div>
+    </section>
+    <section class="main" id="main">
+      <div class="container" id="container">
+        <div class="controls-line">
+          <div class="controls">
+            <div class="buttons">
+              <button id="punctuation">
+                <i class="fas fa-fw fa-at"></i>
+                Punctuation
+              </button>
+              <button id="numbers">
+                <i class="fas fa-fw fa-hashtag"></i>
+                Numbers
+              </button>
+              <div class="hr"></div>
+              <button id="time-button">
+                <i class="fas fa-fw fa-clock"></i>
+                Time
+              </button>
+              <button id="words-button">
+                <i class="fas fa-fw fa-font"></i>
+                Words
+              </button>
+              <div class="hr"></div>
+              <button class="btn1" id="btn1">10</button>
+              <button class="btn2" id="btn2">25</button>
+              <button class="btn3" id="btn3">50</button>
+              <button class="btn4" id="btn4">100</button>
+            </div>
+            <div class="mobile-button">
+              <i class="fas fa-bars"></i>
+              <pre> Controls</pre>
+            </div>
+            <div class="mobile-menu hidden" id="mobileMenu">
+              <button id="punctuation-mobile">
+                <i class="fas fa-fw fa-at"></i>
+                Punctuation
+              </button>
+              <button id="numbers-mobile">
+                <i class="fas fa-fw fa-hashtag"></i>
+                Numbers
+              </button>
+              <div class="hr2"></div>
+              <button id="time-mobile">
+                <i class="fas fa-fw fa-clock"></i>
+                Time
+              </button>
+              <button id="words-mobile">
+                <i class="fas fa-fw fa-font"></i>
+                Words
+              </button>
+              <div class="hr2"></div>
+              <button id="btn1-mobile">10</button>
+              <button id="btn2-mobile">25</button>
+              <button id="btn3-mobile">50</button>
+              <button id="btn4-mobile">100</button>
+            </div>
+          </div>
+        </div>
+        <div class="typing-area" id="area">
+          <span class="typing-lines" id="words"> </span>
+        </div>
+        <div class="timer" id="timer">
+          <p class="timernum">15s</p>
+        </div>
+        <div class="reset">
+          <button>
+            <i id="reset-button" class="fas fa-rotate-right"></i>
+          </button>
+        </div>
+      </div>
+      <div id="container2">
+        <div class="container2">
+          <div class="list">
+            <table>
+              <tr>
+                <th>wpm</th>
+                <th>raw wpm</th>
+                <th>characters</th>
+                <th>acc</th>
+                <th>time</th>
+              </tr>
+              <tr>
+                <td id="wpm"></td>
+                <td id="rawwpm"></td>
+                <td class="hover" id="characters"></td>
+                <td id="acc"></td>
+                <td id="time"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="back-btn">
+          <button id="back-button">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
