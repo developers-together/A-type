@@ -13,8 +13,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(int wpm , int accuracy , string ChallengeTime ,
-     string date , string lang)
+    public IActionResult Index()
      
     {
         return View();

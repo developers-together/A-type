@@ -7,10 +7,14 @@ namespace backend_dotnet.Models
     public class Users
     {
         public int id { get; set; }
+        [Required]
         public string username { get; set; }
-        [DataType(DataType.EmailAddress)]
-        public string email { get; set; } // Add semicolon here
+        [Required]
+        [EmailAddress]
+        public required string email { get; set; }
+        [Required]
         [DataType(DataType.Password)]
-        public string password { get; set; } // Add semicolon here
+        public required string password { get; set; }
+
     }
 }

@@ -1,0 +1,222 @@
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  :root {
+    --bgcolor: #111111; /* background color */
+    --btncolor: #191919; /* background color of a button */
+    --dtext: #444444; /* default color of headers/text */
+    --text: #eeeeee; /* focused color of text */
+  }
+  
+  html {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    user-select: none;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bgcolor);
+    font-family: "Nunito", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+  
+  .header {
+    font-family: "Lexend Deca", sans-serif;
+    user-select: none;
+    height: 10vh;
+    width: 100%;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    padding: 5px 4%;
+    overflow: hidden;
+  }
+  
+  .header div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header div img {
+    width: clamp(50px, 10vw, 80px);
+    height: auto;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .header div img:hover {
+    opacity: 0.6;
+  }
+  
+  .header div h1 {
+    font-size: clamp(25px, 5vw, 40px);
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    display: flex;
+    transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+  }
+  
+  .header div img:hover + h1 {
+    max-width: 500px;
+    opacity: 1;
+  }
+  
+  .hsbtns,
+  .hebtns {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .hsbtns {
+    margin-left: 10px;
+  }
+  
+  .hebtns {
+    position: absolute;
+    right: 4%;
+  }
+  
+  .hsbtns button,
+  .hebtns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: var(--dtext);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .hsbtns button:hover,
+  .hebtns button:hover {
+    transform: scale(1.1);
+    color: var(--text);
+  }
+  
+  .hsbtns button:active,
+  .hebtns button:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .icon-container i {
+    pointer-events: none;
+    font-size: 1.3rem;
+  }
+  
+  .main {
+    flex: 1;
+    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    padding: 2rem 5%;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .container h1,
+  .container h2,
+  .container h3 {
+    color: var(--dtext);
+    font-family: "Lexend Deca", sans-serif;
+    margin: 0;
+  }
+  
+  .container h2,
+  .container h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .container p,
+  .container ul,
+  .container li,
+  .container a,
+  .container span {
+    color: var(--text);
+    font-family: "Nunito", sans-serif;
+    line-height: 1.5;
+  }
+  
+  .container ul {
+    list-style: disc;
+    padding-left: 2rem;
+    margin: 0;
+  }
+  
+  .container li b {
+    color: var(--text);
+  }
+  
+  .container a {
+    text-decoration: underline;
+    color: var(--text);
+  }
+  
+  .container a:hover {
+    text-decoration: none;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .container a:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .github-icon {
+    margin-right: 4px;
+  }
+  
+  @media (max-width: 600px) {
+    .header div img {
+      width: 50px;
+    }
+  
+    .header div h1 {
+      font-size: 20px;
+    }
+  
+    .container {
+      padding: 1rem;
+    }
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .collapsible-btn {
+    text-decoration: underline;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .collapsible-btn:hover {
+    text-decoration: underline;
+  }

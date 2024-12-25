@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mKU5JdHZAV5P7OAkR9STDzdLa78fg2XijoTyQ4BRXi0=",
+  "Hash": "EuYuumMCOG7M8zZLzpIaAUVOsZiv7v4G2unsEAtHl7s=",
   "Source": "backend_dotnet",
   "BasePath": "_content/backend_dotnet",
   "Mode": "Default",
@@ -74,6 +74,25 @@
       "OriginalItemSpec": "wwwroot/assets/logo.svg"
     },
     {
+      "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Info.css",
+      "SourceId": "backend_dotnet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/",
+      "BasePath": "_content/backend_dotnet",
+      "RelativePath": "css/Info.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Info.css"
+    },
+    {
       "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Layout.css",
       "SourceId": "backend_dotnet",
       "SourceType": "Discovered",
@@ -129,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/Login.css"
+    },
+    {
+      "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Profile.css",
+      "SourceId": "backend_dotnet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/",
+      "BasePath": "_content/backend_dotnet",
+      "RelativePath": "css/Profile.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Profile.css"
     },
     {
       "Identity": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/site.css",

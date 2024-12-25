@@ -62,6 +62,7 @@
     />
     <meta property="og:type" content="website" />
     <script type="module" src="scripts.js" defer></script>
+    @RenderSection("Scripts", required: false)
   </head>
 
   @* =============================================================================================================== *@
@@ -71,7 +72,7 @@
         <img
           src="~/assets/logo.svg"
           alt="logo"
-          onclick="window.open('/docs/index.html', '_parent')"
+          onclick="window.open('Home', '_parent')"
         />
         <h1>A-Type</h1>
       </div>
@@ -83,7 +84,7 @@
             <i class="fas fa-fw fa-crown fa-lg"></i>
           </div>
         </button>
-        <button onclick="window.open('/docs/info/info.html', '_parent')">
+        <button onclick="window.open('/Info', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-info fa-lg"></i>
           </div>
@@ -97,7 +98,7 @@
             <i class="fa-brands fa-github"></i>
           </div>
         </button>
-        <button onclick="window.open('Login', '_parent')">
+        <button onclick="window.open('/Login', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-user fa-lg"></i>
           </div>

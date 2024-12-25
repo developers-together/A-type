@@ -1,6 +1,7 @@
 @{
     Layout = "_Layout";
 }
+@model backend_dotnet.Models.Users
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Login.css" />
@@ -11,13 +12,13 @@
       <div class="container">
         <div class="signup">
           <pre><i class="fa-solid fa-user-plus"></i> Register</pre>
-          <form id="signup-form">
-            <input type="text" placeholder="username" />
-            <input type="email" placeholder="Email" />
+          <form id="signup-form" asp-action="Register">
+            <input type="text" asp-for="username" placeholder="username" />
+            <input type="email"asp-for="email"  placeholder="Email" />
             <input type="email" placeholder="Verify Email" />
-            <input type="password" placeholder="Password" />
+            <input type="password"asp-for="password" placeholder="Password" />
             <input type="password" placeholder="Verify Password" />
-            <button class="button" id ="signup-button" type="submit" disabled>
+            <button class="button"value="Save" id ="signup-button" type="submit">
               <pre><i class="fa-solid fa-user-plus"></i> Sign up</pre>
               <!-- <input type="submit" value="" hidden /> -->
             </button>
@@ -38,14 +39,14 @@
             <pre> or </pre>
             <div class="hr"></div>
           </div>
-          <form>
-            <input type="email" placeholder="Email" /> <br />
-            <input type="password" placeholder="Password" /> <br />
+          <form asp-action="Login">
+            <input type="username" asp-for="username"placeholder="Username" /> <br />
+            <input type="password" asp-for="password" placeholder="Password" /> <br />
             <div class="rememberme">
               <input type="checkbox" /> <label>Remember Me</label>
             </div>
             <br />
-            <button class="button" id="login-button" type="submit" disabled>
+            <button class="button" id="login-button" type="submit">
               <pre><i class="fa-solid fa-right-to-bracket"></i> Sign in</pre>
             </button>
             <br />

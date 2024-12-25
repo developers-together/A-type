@@ -1,0 +1,527 @@
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  :root {
+    --width: auto-fill;
+    --bgcolor: #111111; /* background color */
+    --btncolor: #191919; /* background color of a button */
+    --dtext: #444444; /* default color of text */
+    --text: #eeeeee; /* focused color of text */
+  }
+  
+  html {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    user-select: none;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--bgcolor);
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    overflow: hidden;
+    overflow-x: hidden;
+  }
+  
+  .main {
+    flex: 1;
+  }
+  
+  .header {
+    font-family: "Lexend Deca", sans-serif;
+    user-select: none;
+    height: 10vh;
+    width: 100%;
+    color: var(--text);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 4%;
+    overflow: hidden;
+    overflow-x: hidden;
+  }
+  
+  .header div {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  .header div img {
+    width: clamp(50px, 10vw, 80px);
+    height: auto;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .header div img:hover {
+    opacity: 0.6;
+  }
+  
+  .header div h1 {
+    font-size: clamp(25px, 5vw, 40px);
+    margin-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    display: flex;
+    transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+  }
+  
+  .header div img:hover + h1 {
+    max-width: 500px;
+    opacity: 1;
+  }
+  
+  @media (max-height: 600px) {
+    .header {
+      height: auto;
+      padding-top: 2%;
+      padding-bottom: 2%;
+    }
+  }
+  
+  .hsbtns {
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .hsbtns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0rem;
+    font-style: bold;
+    border: none;
+    background-color: transparent;
+    color: var(--dtext);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .hsbtns .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hsbtns button:hover {
+    transform: translateZ(0) scale(1.1);
+    color: var(--text);
+  }
+  
+  .hsbtns button:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .hsbtns .icon-container i {
+    pointer-events: none;
+    font-size: 1.3rem;
+  }
+  
+  .hebtns {
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    position: absolute;
+    right: 4%;
+  }
+  
+  .hebtns button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0rem;
+    font-style: bold;
+    border: none;
+    background-color: transparent;
+    color: var(--dtext);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .hebtns .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hebtns button:hover {
+    transform: translateZ(0) scale(1.1);
+    color: var(--text);
+  }
+  
+  .hebtns button:active {
+    transform: scale(0.95);
+    color: var(--dtext);
+  }
+  
+  .hebtns .icon-container i {
+    pointer-events: none;
+    font-size: 1.3rem;
+  }
+  
+  .container {
+    font-family: "Nunito", sans-serif;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    padding: 0;
+    gap: 1rem;
+  }
+  
+  .personalinfo {
+    height: 15vw;
+    width: 100%;
+    font-size: 1vw;
+    /* background-color: red; */
+    font-family: "Lexend Deca", sans-serif;
+    user-select: none;
+    margin-top: 15px;
+    margin-left: 50%;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+    overflow: visible;
+    color: var(--dtext);
+  }
+  
+  .personalinfo .pp {
+    font-size: 10vw;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    padding-bottom: 1vw;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .pp:hover::after {
+    content: "\f304";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.5vw;
+    position: absolute;
+    color: var(--bgcolor);
+    padding: 0.5rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: 20%;
+    left: 11vw;
+    transform: translateY(-50%);
+    z-index: 10;
+    opacity: 0;
+    animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  }
+  
+  .personalinfo .span1 {
+    font-size: 2.5vw;
+    color: var(--text);
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .span1:hover::after {
+    content: "Joined on dd/mm/yyyy";
+    position: absolute;
+    color: var(--text);
+    padding: 0.5rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: 150%;
+    left: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    z-index: 10;
+    opacity: 0;
+    animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  }
+  
+  .personalinfo .text {
+    width: 15vw;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+    text-wrap: nowrap;
+  }
+  
+  .personalinfo .level {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+  
+  .personalinfo .span2 {
+    position: relative;
+    cursor: pointer;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+    padding-left: 0.5vw;
+    font-size: 1.2vw;
+    color: var(--text);
+  }
+  
+  .span2:hover::after {
+    content: "current level number";
+    position: absolute;
+    color: var(--text);
+    padding: 0.5rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: 100%;
+    left: 90%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    z-index: 10;
+    opacity: 0;
+    animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  }
+  
+  @keyframes tooltipFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
+  .personalinfo .levelbar {
+    padding-left: 2.2vw;
+    padding-right: 1vw;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+  
+  .levelbar:hover::after {
+    content: "levelbar";
+    position: absolute;
+    color: var(--text);
+    padding: 0.5rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: 100%;
+    left: 55%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    z-index: 10;
+    opacity: 0;
+    animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  }
+  
+  .personalinfo .span3 {
+    position: relative;
+    cursor: pointer;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+    padding-right: 0.5vw;
+    font-size: 0.8vw;
+  }
+  
+  .span3:hover::after {
+    content: "current xp / total xp";
+    position: absolute;
+    color: var(--text);
+    padding: 0.5rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: 100%;
+    left: 10%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    z-index: 10;
+    opacity: 0;
+    animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  }
+  
+  .record {
+    width: 50vw;
+    height: 15vw;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+    text-align: center;
+    display: flex;
+    position: absolute;
+    text-overflow: nowrap;
+    top: 13vh;
+    right: 20vw;
+    font-size: 2vw;
+    color: var(--dtext);
+  }
+  
+  .record .p1 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .record .p2 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 10px;
+    right: 100px;
+  }
+  
+  .record .p3 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 80px;
+    left: 10px;
+  }
+  
+  .record .p4 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 80px;
+    right: 100px;
+  }
+  
+  .record .p5 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 150px;
+    left: 10px;
+  }
+  
+  .record .p6 {
+    width: 250px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    align-items: start;
+    align-self: start;
+    align-content: start;
+    justify-content: start;
+    justify-items: start;
+    justify-self: start;
+    text-align: start;
+    text-align: start;
+    top: 150px;
+    right: 100px;
+  }
+  
+  .record span {
+    color: var(--text);
+    padding-left: 10px;
+  }

@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets/assets/logo.svg"
     },
     {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Info.css",
+      "PackagePath": "staticwebassets/css/Info.css"
+    },
+    {
       "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Layout.css",
       "PackagePath": "staticwebassets/css/Layout.css"
     },
@@ -19,6 +23,10 @@
     {
       "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Login.css",
       "PackagePath": "staticwebassets/css/Login.css"
+    },
+    {
+      "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/Profile.css",
+      "PackagePath": "staticwebassets/css/Profile.css"
     },
     {
       "Id": "/home/shehab/projects/A-type.github.io/backend_dotnet/wwwroot/css/site.css",
