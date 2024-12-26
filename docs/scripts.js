@@ -213,6 +213,27 @@ function statsScreen() {
   ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
   document.getElementById("acc").innerHTML = accuracy.toFixed(0);
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
+  sendData();
+}
+
+function sendData(){
+  let timeModeOn=isTimeButtonActive();
+  data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum};
+  fetch('http://127.0.0.1:8000/typing-sessions', {
+    method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
+    headers: {
+        'Content-Type': 'application/json' // Specify JSON data
+    },
+    body: JSON.stringify(data) // Convert data to JSON string
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse JSON from the response
+    })
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
 }
 
 function checkCorrect() {
