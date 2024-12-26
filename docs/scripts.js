@@ -29,6 +29,8 @@ let endTime = 0;
 
 let lastY = null;
 
+const numbers = document.getElementById("numbers");
+const punctuation = document.getElementById("punctuation");
 let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
   newGame();
@@ -218,7 +220,9 @@ function statsScreen() {
 
 function sendData(){
   let timeModeOn=isTimeButtonActive();
-  let data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum};
+  let punctuationOn=punctuation.classList.contains("active");
+  let numbersOn=numbers.classList.contains("active");
+  let data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum, punctuationOn, numbersOn};
   fetch('http://127.0.0.1:8000/typing-sessions', {
     method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
     headers: {
@@ -550,8 +554,7 @@ btn4.addEventListener("click", () => {
   newGame();
 });
 
-const numbers = document.getElementById("numbers");
-const punctuation = document.getElementById("punctuation");
+
 numbers.addEventListener("click", () => {
   numbers.classList.toggle("active");
   newGame();
