@@ -218,7 +218,7 @@ function statsScreen() {
 
 function sendData(){
   let timeModeOn=isTimeButtonActive();
-  data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum};
+  let data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum};
   fetch('http://127.0.0.1:8000/typing-sessions', {
     method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
     headers: {
