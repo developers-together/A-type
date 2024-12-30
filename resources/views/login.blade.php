@@ -65,14 +65,14 @@
         </button>
       </div>
       <div class="hebtns">
-        <button
+        {{-- <button
           <button
           onclick="window.open('/profile', '_parent')"
         >
           <div class="icon-container">
             <i class="fa-regular fa-user"></i>
           </div>
-        </button>
+        </button> --}}
         <button onclick="window.open('/login', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-user fa-lg"></i>

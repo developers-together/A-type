@@ -9,14 +9,13 @@ class TypingSession extends Model
 {
     use HasFactory;
 
+    protected $table ='typing_sessions';
+
     protected $fillable = [
         'user_id',
         'wpm',
         'accuracy',
         'time_taken',
-        'text',
-        'correct_characters',
-        'incorrect_characters',
         'mode',
         'duration',
         'word_count',

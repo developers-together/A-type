@@ -3,13 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeaderboardController;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::post('/typing-sessions', [HomeController::class, 'store'])->name('typing-sessions.store')
-    ->middleware('auth');
+
+Route::post('/', [HomeController::class, 'store'])
+->middleware('auth');
 
 
 Route::get('/login', [UserController::class, 'index'])->name('login');
@@ -30,6 +32,13 @@ Route::get('/info', function () {
 });
 
 
-Route::get('/leaderboard/{type}', function () {
-    return view('leaderboard');
-});
+Route::get('/leaderboard/{type}',
+[LeaderboardController::class, 'leaderboard'])->name('leaderboard');
+
+Route::redirect('/leaderboard', '/leaderboard/daily', 301);
+
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::post('/delete', [UserController::class, 'delete'])->name('delete');
+
+Route::post('/resetdata', [HomeController::class, 'resetdata'])->name('resetdata');

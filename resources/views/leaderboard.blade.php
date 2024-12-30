@@ -27,7 +27,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/leaderboard.css" />
+    <link rel="stylesheet" href="../css/leaderboard.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=schedule"
@@ -82,8 +82,8 @@
             </div>
             <div class="filters">
               <div class="buttons">
-                <button>All Time</button>
-                <button>Daily</button>
+                <button onclick="window.open('/leaderboard/alltime', '_parent')" >All Time</button>
+                <button onclick="window.open('/leaderboard/d', '_parent')">Daily</button>
               </div>
               <select name="languages">
                 <option>English</option>
@@ -104,66 +104,17 @@
                   <th class="col3">WPM</th>
                   <th class="col4">Date</th>
                 </tr>
-                <tr>
-                  <td class="col1"><i class="fas fa-fw fa-crown fa-lg"></i></td>
-                  <td class="col2">usename</td>
-                  <td class="col3">250</td>
-                  <td class="col4">2024/12/12</td>
-                </tr>
-                <tr>
-                  <td class="col1">2</td>
-                  <td class="col2">usename1</td>
-                  <td class="col3">240</td>
-                  <td class="col4">2024/12/11</td>
-                </tr>
-                <tr>
-                  <td class="col1">3</td>
-                  <td class="col2">usename2</td>
-                  <td class="col3">230</td>
-                  <td class="col4">2024/12/10</td>
-                </tr>
-                <tr>
-                  <td class="col1">4</td>
-                  <td class="col2">usename3</td>
-                  <td class="col3">220</td>
-                  <td class="col4">2024/12/9</td>
-                </tr>
-                <tr>
-                  <td class="col1">5</td>
-                  <td class="col2">usename4</td>
-                  <td class="col3">210</td>
-                  <td class="col4">2024/12/8</td>
-                </tr>
-                <tr>
-                  <td class="col1">6</td>
-                  <td class="col2">usename5</td>
-                  <td class="col3">200</td>
-                  <td class="col4">2024/12/7</td>
-                </tr>
-                <tr>
-                  <td class="col1">7</td>
-                  <td class="col2">usename6</td>
-                  <td class="col3">190</td>
-                  <td class="col4">2024/12/6</td>
-                </tr>
-                <tr>
-                  <td class="col1">8</td>
-                  <td class="col2">usename7</td>
-                  <td class="col3">180</td>
-                  <td class="col4">2024/12/5</td>
-                </tr>
-                <tr>
-                  <td class="col1">9</td>
-                  <td class="col2">usename8</td>
-                  <td class="col3">170</td>
-                  <td class="col4">2024/12/4</td>
-                </tr>
-                <tr>
-                  <td class="col1">10</td>
-                  <td class="col2">usename9</td>
-                  <td class="col3">160</td>
-                  <td class="col4">2024/12/3</td>
-                </tr>
+                @foreach ($leaderboard15 as $index => $session)
+                    <tr>
+                        <td class="col1 {{ $index === 0 ? 'first' : ($index === 1 ? 'second' : ($index === 2 ? 'third' : '')) }}">
+                            {{ $index + 1 }}<i class="fas fa-fw fa-crown fa-lg"></i>
+                        </td>
+                        <td class="col2">{{ $session->user->name }}</td>
+                        <td class="col3">{{ $session->wpm }}</td>
+                        <td class="col4">{{ $session->created_at }}</td>
+                    </tr>
+                @endforeach
+
               </table>
             </div>
             <div class="rlist">
@@ -177,66 +128,17 @@
                   <th class="col3">WPM</th>
                   <th class="col4">Date</th>
                 </tr>
+                @foreach ($leaderboard60 as $index => $session)
                 <tr>
-                  <td class="col1"><i class="fas fa-fw fa-crown fa-lg"></i></td>
-                  <td class="col2">usename</td>
-                  <td class="col3">150</td>
-                  <td class="col4">2024/12/12</td>
+                    <td class="col1 {{ $index === 0 ? 'first' : ($index === 1 ? 'second' : ($index === 2 ? 'third' : '')) }}">
+                        {{ $index + 1 }}<i class="fas fa-fw fa-crown fa-lg"></i>
+                    </td>
+                    <td class="col2">{{ $session->user->name }}</td>
+                    <td class="col3">{{ $session->wpm }}</td>
+                    <td class="col4">{{ $session->created_at }}</td>
                 </tr>
-                <tr>
-                  <td class="col1">2</td>
-                  <td class="col2">usename1</td>
-                  <td class="col3">140</td>
-                  <td class="col4">2024/12/11</td>
-                </tr>
-                <tr>
-                  <td class="col1">3</td>
-                  <td class="col2">usename2</td>
-                  <td class="col3">130</td>
-                  <td class="col4">2024/12/10</td>
-                </tr>
-                <tr>
-                  <td class="col1">4</td>
-                  <td class="col2">usename3</td>
-                  <td class="col3">120</td>
-                  <td class="col4">2024/12/9</td>
-                </tr>
-                <tr>
-                  <td class="col1">5</td>
-                  <td class="col2">usename4</td>
-                  <td class="col3">110</td>
-                  <td class="col4">2024/12/8</td>
-                </tr>
-                <tr>
-                  <td class="col1">6</td>
-                  <td class="col2">usename5</td>
-                  <td class="col3">100</td>
-                  <td class="col4">2024/12/7</td>
-                </tr>
-                <tr>
-                  <td class="col1">7</td>
-                  <td class="col2">usename6</td>
-                  <td class="col3">90</td>
-                  <td class="col4">2024/12/6</td>
-                </tr>
-                <tr>
-                  <td class="col1">8</td>
-                  <td class="col2">usename7</td>
-                  <td class="col3">80</td>
-                  <td class="col4">2024/12/5</td>
-                </tr>
-                <tr>
-                  <td class="col1">9</td>
-                  <td class="col2">usename8</td>
-                  <td class="col3">70</td>
-                  <td class="col4">2024/12/4</td>
-                </tr>
-                <tr>
-                  <td class="col1">10</td>
-                  <td class="col2">usename9</td>
-                  <td class="col3">60</td>
-                  <td class="col4">2024/12/3</td>
-                </tr>
+            @endforeach
+
               </table>
             </div>
           </div>

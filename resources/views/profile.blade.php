@@ -78,7 +78,7 @@
           <div class="pp">
             <i class="fa-solid fa-circle-user"></i>
           </div>
-          <span class="span1">USERNAME</span>
+          <span class="span1">{{$username}}</span>
           <div class="text">
             <div class="level">
               <span class="span2">1</span>
@@ -88,12 +88,12 @@
           </div>
         </div>
         <div class="record">
-          <p class="p1">Tests Started: <span>1</span></p>
-          <p class="p2">Tests Finished: <span>2</span></p>
-          <p class="p3">Total Words: <span>3</span></p>
-          <p class="p4">Total Time: <span>4</span></p>
-          <p class="p5">Highest WPM: <span>5</span></p>
-          <p class="p6">Highest acc: <span>6</span></p>
+          <p class="p1">Total Typing sessions: <span>{{$totalcount}}</span></p>
+          {{-- <p class="p2">Tests Finished: <span>2</span></p> --}}
+          {{-- <p class="p3">Total Words: <span>3</span></p> --}}
+          {{-- <p class="p4">Total Time: <span>4</span></p> --}}
+          <p class="p5">Highest WPM: <span>{{$highestwpm->wpm}}</span></p>
+          <p class="p6">Highest acc: <span>{{$hightestaccuracy->accuracy}}</span></p>
         </div>
         <div class="tables">
           <table class="table1">
@@ -104,16 +104,32 @@
               <th>120s</th>
             </tr>
             <tr>
-              <td>WPM</td>
-              <td>WPM</td>
-              <td>WPM</td>
-              <td>WPM</td>
+              @isset($duration15)
+                <td>{{$duration15->wpm}}</td>
+              @endisset
+              @isset($duration30)
+                <td>{{$duration30->wpm}}</td>
+              @endisset
+              @isset($duration60)
+                <td>{{$duration60->wpm}}</td>
+              @endisset
+              @isset($duration120)
+                <td>{{$duration120->wpm}}</td>
+              @endisset
             </tr>
             <tr>
-              <td>acc</td>
-              <td>acc</td>
-              <td>acc</td>
-              <td>acc</td>
+              @isset($duration15)
+                <td>{{$duration15->accuracy}}</td>
+              @endisset
+              @isset($duration30)
+                <td>{{$duration30->accuracy}}</td>
+              @endisset
+              @isset($duration60)
+                <td>{{$duration60->accuracy}}</td>
+              @endisset
+              @isset($duration120)
+                <td>{{$duration120->accuracy}}</td>
+              @endisset
             </tr>
           </table>
           <table class="table2">
@@ -124,23 +140,51 @@
               <th>100W</th>
             </tr>
             <tr>
-              <td>WPM</td>
-              <td>WPM</td>
-              <td>WPM</td>
-              <td>WPM</td>
+              @isset($wordcount10)
+                <td>{{$wordcount10->wpm}}</td>
+              @endisset
+              @isset($wordcount25)
+                <td>{{$wordcount25->wpm}}</td>
+              @endisset
+              @isset($wordcount50)
+                <td>{{$wordcount50->wpm}}</td>
+              @endisset
+              @isset($wordcount100)
+                <td>{{$wordcount100->wpm}}</td>
+              @endisset
             </tr>
             <tr>
-              <td>acc</td>
-              <td>acc</td>
-              <td>acc</td>
-              <td>acc</td>
+              @isset($wordcount10)
+                <td>{{$wordcount10->accuracy}}</td>
+              @endisset
+              @isset($wordcount25)
+                <td>{{$wordcount25->accuracy}}</td>
+              @endisset
+              @isset($wordcount50)
+                <td>{{$wordcount50->accuracy}}</td>
+              @endisset
+              @isset($wordcount100)
+                <td>{{$wordcount100->accuracy}}</td>
+              @endisset
             </tr>
           </table>
         </div>
         <div class="buttons">
-          <button><i class="fa-solid fa-trash"></i>delete account</button>
-          <button><i class="fa-solid fa-user-minus"></i>Log out</button>
-          <button><i class="fa-solid fa-file-excel"></i>Reset Data</button>
+          <form action="{{ route('delete') }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit"><i class="fa-solid fa-trash"></i>Delete Account</button>
+          </form>
+
+          <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit"><i class="fa-solid fa-user-minus"></i>Log out</button>
+          </form>
+
+          <form action="{{ route('resetdata') }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit"><i class="fa-solid fa-file-excel"></i>Reset Data</button>
+          </form>
         </div>
       </div>
     </section>

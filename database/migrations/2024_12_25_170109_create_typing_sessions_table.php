@@ -17,10 +17,7 @@ return new class extends Migration
             $table->float('wpm');
             $table->float('accuracy');
             $table->integer('time_taken');
-            $table->text('text');
-            $table->integer('correct_characters');
-            $table->integer('incorrect_characters');
-            $table->string('mode')->default('word_count'); // 'timer' or 'word_count'
+            $table->boolean('mode');
             $table->integer('duration')->nullable(); // For timer mode
             $table->integer('word_count')->nullable(); // For word count mode
             $table->boolean('include_numbers')->default(false);

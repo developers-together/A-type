@@ -43,6 +43,7 @@
       name="description"
       content="typing test website with a minimal design. Test yourself in various modes, track your progress and improve your speed."
     />
+
     <meta
       name="keywords"
       content="typing speed test, typing speedtest, typing test, speedtest, speed test, typing, test, typing-test, typing test, types, type, wpm, words per minute, typing website, minimalistic, custom typing test, customizable, customisable, themes, random words, smooth caret, smooth, new, new typing site, new typing website, minimalist typing website, minimalistic typing website, minimalist typing test"
@@ -53,6 +54,7 @@
     />
     <meta property="og:type" content="website" />
     <script type="module" src="js/home.js" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body>
     <section class="header">

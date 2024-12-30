@@ -29,6 +29,8 @@ let endTime = 0;
 
 let lastY = null;
 
+const numbers = document.getElementById("numbers");
+const punctuation = document.getElementById("punctuation");
 let backButton = document.getElementById("back-button");
 backButton.addEventListener("click", () => {
   newGame();
@@ -213,6 +215,50 @@ function statsScreen() {
   ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
   document.getElementById("acc").innerHTML = accuracy.toFixed(0);
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
+  sendData();
+}
+
+function sendData(){
+
+    let timeModeOn = isTimeButtonActive();
+    let punctuationOn = punctuation.classList.contains("active");
+    let numbersOn = numbers.classList.contains("active");
+    //===========
+    let time_taken =Math.round(time);
+    let mode = timeModeOn;
+    let duration = timerNum;
+    let word_count = wordNum;
+    let include_numbers = numbersOn;
+    let include_punctuation = punctuationOn
+    //===========
+    let data = {wpm, accuracy, time_taken, mode,
+        duration, word_count, include_punctuation, include_numbers};
+
+    fetch('http://127.0.0.1:8001/', {
+        method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data) // Convert data to JSON string
+    })
+    .then(response => {
+
+        if (!response.ok) {
+            console.log("no ok:", response.status);
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Get response as text
+    })
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // Parse JSON from the response
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error parsing JSON:', error, text); // Log error and response text
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 function checkCorrect() {
@@ -260,9 +306,9 @@ function calculateMetrics() {
   endTime = Date.now();
   time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
-  accuracy = (correct / totalLetters) * 100;
+  accuracy = Math.round((correct / totalLetters) * 100);
   rawWpm = (typed + wordNum) / ((5 * time) / 60);
-  wpm = (correct + wordNum) / 5 / (time / 60);
+  wpm = Math.round((correct + wordNum) / 5 / (time / 60));
 }
 function newGame() {
   lastY = null;
@@ -529,8 +575,7 @@ btn4.addEventListener("click", () => {
   newGame();
 });
 
-const numbers = document.getElementById("numbers");
-const punctuation = document.getElementById("punctuation");
+
 numbers.addEventListener("click", () => {
   numbers.classList.toggle("active");
   newGame();
