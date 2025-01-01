@@ -234,7 +234,7 @@ function sendData(){
     let data = {wpm, accuracy, time_taken, mode,
         duration, word_count, include_punctuation, include_numbers};
 
-    fetch('http://127.0.0.1:8001/', {
+    fetch('http://127.0.0.1:8000/', {
         method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
         headers: {
             'Content-Type': 'application/json',

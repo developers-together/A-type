@@ -78,7 +78,11 @@
           <div class="pp">
             <i class="fa-solid fa-circle-user"></i>
           </div>
-          <span class="span1">{{$username}}</span>
+          <span class="span1">
+            @isset($username)
+              {{$username}}
+            @endisset
+          </span>
           <div class="text">
             <div class="level">
               <span class="span2">1</span>
@@ -88,12 +92,12 @@
           </div>
         </div>
         <div class="record">
-          <p class="p1">Total Typing sessions: <span>{{$totalcount}}</span></p>
+          <p class="p1">Total Typing sessions: <span>@isset($totalcount) {{$totalcount}} @endisset</span></p>
           {{-- <p class="p2">Tests Finished: <span>2</span></p> --}}
           {{-- <p class="p3">Total Words: <span>3</span></p> --}}
           {{-- <p class="p4">Total Time: <span>4</span></p> --}}
-          <p class="p5">Highest WPM: <span>{{$highestwpm->wpm}}</span></p>
-          <p class="p6">Highest acc: <span>{{$hightestaccuracy->accuracy}}</span></p>
+          <p class="p5">Highest WPM: <span>@isset($highestwpm) {{$highestwpm->wpm}} @endisset</span></p>
+          <p class="p6">Highest acc: <span>@isset($hightestaccuracy) {{$hightestaccuracy->accuracy}} @endisset</span></p>
         </div>
         <div class="tables">
           <table class="table1">

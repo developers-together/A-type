@@ -83,7 +83,7 @@
             <div class="filters">
               <div class="buttons">
                 <button onclick="window.open('/leaderboard/alltime', '_parent')" >All Time</button>
-                <button onclick="window.open('/leaderboard/d', '_parent')">Daily</button>
+                <button onclick="window.open('/leaderboard/daily', '_parent')">Daily</button>
               </div>
               <select name="languages">
                 <option>English</option>
