@@ -223,7 +223,7 @@ function sendData(){
   let punctuationOn=punctuation.classList.contains("active");
   let numbersOn=numbers.classList.contains("active");
   let data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum, punctuationOn, numbersOn};
-  fetch('http://127.0.0.1:8000/typing-sessions', {
+  fetch('http://127.0.0.1:8000/', {
     method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
     headers: {
         'Content-Type': 'application/json' // Specify JSON data
@@ -460,61 +460,99 @@ function activateButton(activeButton, inactiveButton) {
 window.addEventListener("load", () => {
   //when loading page
   activateButton(timeButton, wordsButton);
+  activateButton(document.getElementById("time-mobile"), document.getElementById("words-mobile"));
   btn1.classList.add("active");
+  document.getElementById("btn1-mobile").classList.add("active");
   timerNum = 15;
   timerElement.textContent = "15s";
   btn1.textContent = "15";
   btn2.textContent = "30";
   btn3.textContent = "60";
   btn4.textContent = "120";
+  document.getElementById("btn1-mobile").textContent = "15";
+  document.getElementById("btn2-mobile").textContent = "30";
+  document.getElementById("btn3-mobile").textContent = "60";
+  document.getElementById("btn4-mobile").textContent = "120";
 });
 
-timeButton.addEventListener("click", () => {
-  //when time button is pressed
+// Remove old event listeners
+// timeButton.addEventListener("click", ...);
+// wordsButton.addEventListener("click", ...);
+// btn1.addEventListener("click", ...);
+// btn2.addEventListener("click", ...);
+// btn3.addEventListener("click", ...);
+// btn4.addEventListener("click", ...);
+// numbers.addEventListener("click", ...);
+// punctuation.addEventListener("click", ...);
+
+// Function to add shared event listeners
+function addSharedEventListener(buttonId, mobileButtonId, eventHandler) {
+  document.getElementById(buttonId).addEventListener("click", eventHandler);
+  document.getElementById(mobileButtonId).addEventListener("click", eventHandler);
+}
+
+// Shared event handlers
+function handlePunctuationClick() {
+  punctuation.classList.toggle("active");
+  document.getElementById("punctuation-mobile").classList.toggle("active");
+  newGame();
+}
+
+function handleNumbersClick() {
+  numbers.classList.toggle("active");
+  document.getElementById("numbers-mobile").classList.toggle("active");
+  newGame();
+}
+
+function handleTimeButtonClick() {
   activateButton(timeButton, wordsButton);
+  activateButton(document.getElementById("time-mobile"), document.getElementById("words-mobile"));
   newGame();
   timer.classList.remove("hidden");
-  // Reset words buttons and activate default time button
   resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
   lastTimeSetting.classList.add("active");
-  btn1.textContent = "15";
-  btn2.textContent = "30";
-  btn3.textContent = "60";
-  btn4.textContent = "120";
-});
+  document.getElementById("btn1-mobile").textContent = "15";
+  document.getElementById("btn2-mobile").textContent = "30";
+  document.getElementById("btn3-mobile").textContent = "60";
+  document.getElementById("btn4-mobile").textContent = "120";
+}
 
-wordsButton.addEventListener("click", () => {
-  // when words button is pressed
+function handleWordsButtonClick() {
   activateButton(wordsButton, timeButton);
+  activateButton(document.getElementById("words-mobile"), document.getElementById("time-mobile"));
   newGame();
-  timer.classList.add("hidden"); // hide timer
+  timer.classList.add("hidden");
   resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
   lastWordSetting.classList.add("active");
+  document.getElementById("btn1-mobile").textContent = "10";
+  document.getElementById("btn2-mobile").textContent = "25";
+  document.getElementById("btn3-mobile").textContent = "50";
+  document.getElementById("btn4-mobile").textContent = "100";
+}
 
-  btn1.textContent = "10";
-  btn2.textContent = "25";
-  btn3.textContent = "50";
-  btn4.textContent = "100";
-});
-
-btn1.addEventListener("click", () => {
+function handleBtn1Click() {
+  resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  btn1.classList.add("active");
+  document.getElementById("btn1-mobile").classList.add("active");
   if (isWordsButtonActive()) {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn1.classList.add("active");
     lastWordSetting = btn1;
     currentWordsCount = 10;
   } else {
-    resetActiveButtons([btn1, btn2, btn3, btn4]);
-    btn1.classList.add("active");
-    timerElement.textContent = "15s";
+    lastTimeSetting = btn1;
     timerNum = 15;
+    timerElement.textContent = "15s";
   }
   newGame();
-});
+}
 
-btn2.addEventListener("click", () => {
+function handleBtn2Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
   btn2.classList.add("active");
+  document.getElementById("btn2-mobile").classList.add("active");
   if (isWordsButtonActive()) {
     lastWordSetting = btn2;
     currentWordsCount = 25;
@@ -524,11 +562,13 @@ btn2.addEventListener("click", () => {
     timerElement.textContent = "30s";
   }
   newGame();
-});
+}
 
-btn3.addEventListener("click", () => {
+function handleBtn3Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
   btn3.classList.add("active");
+  document.getElementById("btn3-mobile").classList.add("active");
   if (isWordsButtonActive()) {
     lastWordSetting = btn3;
     currentWordsCount = 50;
@@ -538,34 +578,33 @@ btn3.addEventListener("click", () => {
     timerElement.textContent = "60s";
   }
   newGame();
-});
+}
 
-btn4.addEventListener("click", () => {
+function handleBtn4Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
+  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
   btn4.classList.add("active");
+  document.getElementById("btn4-mobile").classList.add("active");
   if (isWordsButtonActive()) {
     lastWordSetting = btn4;
     currentWordsCount = 100;
   } else {
-    lastTimeSetting = btn2;
+    lastTimeSetting = btn4;
     timerNum = 120;
     timerElement.textContent = "120s";
   }
   newGame();
-});
+}
 
-
-numbers.addEventListener("click", () => {
-  numbers.classList.toggle("active");
-  newGame();
-});
-punctuation.addEventListener("click", () => {
-  punctuation.classList.toggle("active");
-  newGame();
-});
-
-setInterval(moveCursor, 0);
-newGame();
+// Add shared event listeners
+addSharedEventListener("punctuation", "punctuation-mobile", handlePunctuationClick);
+addSharedEventListener("numbers", "numbers-mobile", handleNumbersClick);
+addSharedEventListener("time-button", "time-mobile", handleTimeButtonClick);
+addSharedEventListener("words-button", "words-mobile", handleWordsButtonClick);
+addSharedEventListener("btn1", "btn1-mobile", handleBtn1Click);
+addSharedEventListener("btn2", "btn2-mobile", handleBtn2Click);
+addSharedEventListener("btn3", "btn3-mobile", handleBtn3Click);
+addSharedEventListener("btn4", "btn4-mobile", handleBtn4Click);
 
 // Select the hamburger button and the mobile menu
 const mobileButton = document.querySelector(".mobile-button");
@@ -574,13 +613,17 @@ const mobileMenu = document.getElementById("mobileMenu");
 // Toggle the display of the mobile menu
 mobileButton.addEventListener("click", () => {
   mobileMenu.classList.toggle("hidden");
+
+  document.getElementById("main").classList.toggle("blurred");
 });
 
-// Example: Attach the same event logic to the mobile buttons if needed
-// (e.g., punctuation-mobile, numbers-mobile, etc.)
-document.getElementById("punctuation-mobile").addEventListener("click", () => {
-  // Do the same logic as the original punctuation button, or call the same function
-  console.log("Punctuation clicked (mobile)");
+// Hide mobile menu when screen ratio is not appropriate
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) {
+    mobileMenu.classList.add("hidden");
+    document.getElementById("main").classList.remove("blurred");
+  }
 });
 
-// ...and similarly for other mobile buttons
+setInterval(moveCursor, 0);
+newGame();

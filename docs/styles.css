@@ -39,6 +39,10 @@ body {
   overflow-y: hidden;
   animation: 0.8s ease-in-out forwards;
 }
+/* tried to make it blur everything around the mobile menu when focused, but it blurs everything instead, if you know how, fix it*/
+/* #main.blurred > *:not(.mobile-button) {
+  filter: blur(5px);
+} */
 
 .header {
   font-family: "Lexend Deca", sans-serif;
