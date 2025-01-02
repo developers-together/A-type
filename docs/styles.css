@@ -40,9 +40,10 @@ body {
   animation: 0.8s ease-in-out forwards;
 }
 /* tried to make it blur everything around the mobile menu when focused, but it blurs everything instead, if you know how, fix it*/
-/* #main.blurred > *:not(.mobile-button) {
-  filter: blur(5px);
-} */
+#container.blurred > *:not(.mobile-menu) {
+  filter: blur(4px);
+}
+
 
 .header {
   font-family: "Lexend Deca", sans-serif;
@@ -598,6 +599,8 @@ body {
 }
 
 .mobile-menu {
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: none;
   flex-direction: column;
   gap: 0.5rem;
@@ -630,7 +633,7 @@ body {
   justify-self: center;
 }
 
-.mobile-menu button:hover {
+.mobile-menu button:hover,button.active {
   color: var(--text);
   transform: scale(1.02);
 }
