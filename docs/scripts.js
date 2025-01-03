@@ -218,26 +218,35 @@ function statsScreen() {
   sendData();
 }
 
-function sendData(){
-  let timeModeOn=isTimeButtonActive();
-  let punctuationOn=punctuation.classList.contains("active");
-  let numbersOn=numbers.classList.contains("active");
-  let data = {wpm, accuracy, time, timeModeOn, timerNum, wordNum, punctuationOn, numbersOn};
-  fetch('http://127.0.0.1:8000/', {
-    method: 'POST', // Use 'GET', 'PUT', or 'DELETE' as needed
+function sendData() {
+  let timeModeOn = isTimeButtonActive();
+  let punctuationOn = punctuation.classList.contains("active");
+  let numbersOn = numbers.classList.contains("active");
+  let data = {
+    wpm,
+    accuracy,
+    time,
+    timeModeOn,
+    timerNum,
+    wordNum,
+    punctuationOn,
+    numbersOn,
+  };
+  fetch("http://127.0.0.1:8000/", {
+    method: "POST", // Use 'GET', 'PUT', or 'DELETE' as needed
     headers: {
-        'Content-Type': 'application/json' // Specify JSON data
+      "Content-Type": "application/json", // Specify JSON data
     },
-    body: JSON.stringify(data) // Convert data to JSON string
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse JSON from the response
+    body: JSON.stringify(data), // Convert data to JSON string
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Parse JSON from the response
     })
-    .then(data => console.log('Success:', data))
-    .catch(error => console.error('Error:', error));
+    .then((data) => console.log("Success:", data))
+    .catch((error) => console.error("Error:", error));
 }
 
 function checkCorrect() {
@@ -460,7 +469,10 @@ function activateButton(activeButton, inactiveButton) {
 window.addEventListener("load", () => {
   //when loading page
   activateButton(timeButton, wordsButton);
-  activateButton(document.getElementById("time-mobile"), document.getElementById("words-mobile"));
+  activateButton(
+    document.getElementById("time-mobile"),
+    document.getElementById("words-mobile")
+  );
   btn1.classList.add("active");
   document.getElementById("btn1-mobile").classList.add("active");
   timerNum = 15;
@@ -488,7 +500,9 @@ window.addEventListener("load", () => {
 // Function to add shared event listeners
 function addSharedEventListener(buttonId, mobileButtonId, eventHandler) {
   document.getElementById(buttonId).addEventListener("click", eventHandler);
-  document.getElementById(mobileButtonId).addEventListener("click", eventHandler);
+  document
+    .getElementById(mobileButtonId)
+    .addEventListener("click", eventHandler);
 }
 
 // Shared event handlers
@@ -506,59 +520,74 @@ function handleNumbersClick() {
 
 function handleTimeButtonClick() {
   activateButton(timeButton, wordsButton);
-  activateButton(document.getElementById("time-mobile"), document.getElementById("words-mobile"));
+  activateButton(
+    document.getElementById("time-mobile"),
+    document.getElementById("words-mobile")
+  );
   newGame();
   timer.classList.remove("hidden");
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
   lastTimeSetting.classList.add("active");
-  if(lastTimeSetting == btn1) {
+  if (lastTimeSetting == btn1) {
     document.getElementById("btn1-mobile").classList.add("active");
-  } 
-  else if(lastTimeSetting == btn2) {
+  } else if (lastTimeSetting == btn2) {
     document.getElementById("btn2-mobile").classList.add("active");
-  }
-  else if(lastTimeSetting == btn3) {
+  } else if (lastTimeSetting == btn3) {
     document.getElementById("btn3-mobile").classList.add("active");
-  }
-  else if(lastTimeSetting == btn4) {
+  } else if (lastTimeSetting == btn4) {
     document.getElementById("btn4-mobile").classList.add("active");
   }
-  document.getElementById("btn1-mobile").textContent=btn1.textContent = "15";
-  document.getElementById("btn2-mobile").textContent=btn2.textContent = "30";
-  document.getElementById("btn3-mobile").textContent=btn3.textContent = "60";
-  document.getElementById("btn4-mobile").textContent=btn4.textContent = "120";
+  document.getElementById("btn1-mobile").textContent = btn1.textContent = "15";
+  document.getElementById("btn2-mobile").textContent = btn2.textContent = "30";
+  document.getElementById("btn3-mobile").textContent = btn3.textContent = "60";
+  document.getElementById("btn4-mobile").textContent = btn4.textContent = "120";
 }
 
 function handleWordsButtonClick() {
   activateButton(wordsButton, timeButton);
-  activateButton(document.getElementById("words-mobile"), document.getElementById("time-mobile"));
+  activateButton(
+    document.getElementById("words-mobile"),
+    document.getElementById("time-mobile")
+  );
   newGame();
   timer.classList.add("hidden");
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
-  if(lastWordSetting == btn1) {
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
+  if (lastWordSetting == btn1) {
     document.getElementById("btn1-mobile").classList.add("active");
-  } 
-  else if(lastWordSetting == btn2) {
+  } else if (lastWordSetting == btn2) {
     document.getElementById("btn2-mobile").classList.add("active");
-  }
-  else if(lastWordSetting == btn3) {
+  } else if (lastWordSetting == btn3) {
     document.getElementById("btn3-mobile").classList.add("active");
-  }
-  else if(lastWordSetting == btn4) {
+  } else if (lastWordSetting == btn4) {
     document.getElementById("btn4-mobile").classList.add("active");
   }
   lastWordSetting.classList.add("active");
-  document.getElementById("btn1-mobile").textContent=btn1.textContent = "10";
-  document.getElementById("btn2-mobile").textContent=btn2.textContent = "25";
-  document.getElementById("btn3-mobile").textContent=btn3.textContent = "50";
-  document.getElementById("btn4-mobile").textContent=btn4.textContent = "100";
+  document.getElementById("btn1-mobile").textContent = btn1.textContent = "10";
+  document.getElementById("btn2-mobile").textContent = btn2.textContent = "25";
+  document.getElementById("btn3-mobile").textContent = btn3.textContent = "50";
+  document.getElementById("btn4-mobile").textContent = btn4.textContent = "100";
 }
 
 function handleBtn1Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
   btn1.classList.add("active");
   document.getElementById("btn1-mobile").classList.add("active");
   if (isWordsButtonActive()) {
@@ -574,7 +603,12 @@ function handleBtn1Click() {
 
 function handleBtn2Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
   btn2.classList.add("active");
   document.getElementById("btn2-mobile").classList.add("active");
   if (isWordsButtonActive()) {
@@ -590,7 +624,12 @@ function handleBtn2Click() {
 
 function handleBtn3Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
   btn3.classList.add("active");
   document.getElementById("btn3-mobile").classList.add("active");
   if (isWordsButtonActive()) {
@@ -606,7 +645,12 @@ function handleBtn3Click() {
 
 function handleBtn4Click() {
   resetActiveButtons([btn1, btn2, btn3, btn4]);
-  resetActiveButtons([document.getElementById("btn1-mobile"), document.getElementById("btn2-mobile"), document.getElementById("btn3-mobile"), document.getElementById("btn4-mobile")]);
+  resetActiveButtons([
+    document.getElementById("btn1-mobile"),
+    document.getElementById("btn2-mobile"),
+    document.getElementById("btn3-mobile"),
+    document.getElementById("btn4-mobile"),
+  ]);
   btn4.classList.add("active");
   document.getElementById("btn4-mobile").classList.add("active");
   if (isWordsButtonActive()) {
@@ -621,7 +665,11 @@ function handleBtn4Click() {
 }
 
 // Add shared event listeners
-addSharedEventListener("punctuation", "punctuation-mobile", handlePunctuationClick);
+addSharedEventListener(
+  "punctuation",
+  "punctuation-mobile",
+  handlePunctuationClick
+);
 addSharedEventListener("numbers", "numbers-mobile", handleNumbersClick);
 addSharedEventListener("time-button", "time-mobile", handleTimeButtonClick);
 addSharedEventListener("words-button", "words-mobile", handleWordsButtonClick);
@@ -649,7 +697,10 @@ window.addEventListener("resize", () => {
   }
 });
 window.addEventListener("click", (event) => {
-  if (!mobileButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+  if (
+    !mobileButton.contains(event.target) &&
+    !mobileMenu.contains(event.target)
+  ) {
     mobileMenu.classList.add("hidden");
     document.getElementById("container").classList.remove("blurred");
   }

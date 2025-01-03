@@ -39,11 +39,15 @@ body {
   overflow-y: hidden;
   animation: 0.8s ease-in-out forwards;
 }
-/* tried to make it blur everything around the mobile menu when focused, but it blurs everything instead, if you know how, fix it*/
+
+/*
+abdallah: tried to make it blur everything around the mobile menu when focused, but it blurs everything instead, if you know how, fix it
+adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, it's the main focus rn
+*/
 #container.blurred > *:not(.mobile-menu) {
   filter: blur(4px);
+  transition: all 0.2s ease-in-out;
 }
-
 
 .header {
   font-family: "Lexend Deca", sans-serif;
@@ -190,6 +194,7 @@ body {
 
 .mobile-button {
   display: none;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -215,6 +220,7 @@ body {
     border-radius: 15vw;
     cursor: pointer;
     padding: 0 10px;
+    transition: all 0.2s ease-in-out;
   }
 }
 
@@ -271,6 +277,14 @@ body {
 .buttons *.active {
   color: var(--text);
   transform: scale(0.95);
+}
+
+.mobile-menu :active {
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-button :active {
+  transition: all 0.2s ease-in-out;
 }
 
 .timer {
@@ -336,6 +350,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
+  border: none;
 }
 
 @media (max-width: 768px) {
@@ -353,6 +369,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
+  border: none;
 }
 
 .reset button i:hover {
@@ -560,6 +578,8 @@ body {
 }
 
 .back-btn {
+  outline: none;
+  border: none;
   top: 70vh;
   position: fixed;
   width: 20px;
@@ -578,6 +598,7 @@ body {
 .back-btn button {
   font-size: clamp(1.2rem, 1.6vw, 1.6rem);
   border: none;
+  outline: none;
   border-radius: 15vw;
   background-color: transparent;
   color: var(--dtext);
@@ -633,7 +654,8 @@ body {
   justify-self: center;
 }
 
-.mobile-menu button:hover,button.active {
+.mobile-menu button:hover,
+button.active {
   color: var(--text);
   transform: scale(1.02);
 }
