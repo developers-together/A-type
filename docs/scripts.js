@@ -21,6 +21,7 @@ let extra = 0;
 let missed = 0;
 let time = 0;
 
+let numberOfLettersInCorrectWords=0;
 let typed = 0;
 let totalLetters = 0;
 let rawWpm = 0;
@@ -243,18 +244,36 @@ function sendData(){
 function checkCorrect() {
   let wordSpan = document.getElementById("words");
   for (let word of wordSpan.children) {
+    let correctWord=true;
+    let touchedWord=false;
     for (let letter of word.children) {
       totalLetters++;
-      typed++;
-      if (letter.classList.contains("correct")) correct++;
+      if (letter.classList.contains("correct")){
+         typed++;
+         correct++;
+         touchedWord=true;
+      }
       else if (letter.classList.contains("extra")) {
+        typed++;
+        touchedWord=true;
+        correctWord=false;
         extra++;
       } else if (letter.classList.contains("incorrect")) {
+        typed++;
+        touchedWord=true;
+        correctWord=false;
         incorrect++;
       } else {
-        typed--;
+        correctWord=false;
         missed++;
       }
+    }
+    if (word === wordSpan.lastElementChild) {
+      numberOfLettersInCorrectWords += correctWord ? word.children.length : 0;
+    }
+    else {
+      typed+=touchedWord ?  1 : 0;
+      numberOfLettersInCorrectWords += correctWord ? word.children.length + 1 : 0;
     }
   }
 }
@@ -281,13 +300,14 @@ function calculateMetrics() {
   rawWpm = 0;
   totalLetters = 0;
   typed = 0;
-
+  numberOfLettersInCorrectWords=0;
   endTime = Date.now();
   time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
   accuracy = (correct / totalLetters) * 100;
-  rawWpm = (typed + wordNum) / ((5 * time) / 60);
-  wpm = (correct + wordNum) / 5 / (time / 60);
+  rawWpm = (typed) / 5 / ( time / 60);
+  wpm = (numberOfLettersInCorrectWords) / 5 / (time / 60);
+  // printVariables();
 }
 function newGame() {
   lastY = null;
