@@ -214,7 +214,7 @@ function statsScreen() {
   document.getElementById(
     "characters"
   ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
-  document.getElementById("acc").innerHTML = accuracy.toFixed(0);
+  document.getElementById("acc").innerHTML = accuracy.toFixed(0)+"%";
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
   sendData();
 }
