@@ -460,10 +460,11 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 }
 
 .container2 {
+  font-family: "Nunito", sans-serif;
   position: absolute;
   top: 41.5%;
   width: 90vw;
-  height: 15vh;
+  min-height: 15%;
   border-radius: 1.5vw;
   box-sizing: border-box;
   display: flex;
@@ -514,7 +515,7 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
   }
 
   .container2 {
-    height: 11vh;
+    min-height: 10%;
   }
 
   .list table,
@@ -617,11 +618,11 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 .back-btn button i:active {
   color: var(--dtext);
   transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
 }
 
 .mobile-menu {
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: none;
   flex-direction: column;
   gap: 0.5rem;
@@ -658,11 +659,13 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 button.active {
   color: var(--text);
   transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
 }
 
 .mobile-menu button:active {
   color: var(--dtext);
   transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 768px) {
