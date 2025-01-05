@@ -22,6 +22,7 @@ let missed = 0;
 let time = 0;
 
 let numberOfLettersInCorrectWords=0;
+let totalTyped=0;
 let typed = 0;
 let totalLetters = 0;
 let rawWpm = 0;
@@ -258,23 +259,27 @@ function checkCorrect() {
     for (let letter of word.children) {
       totalLetters++;
       if (letter.classList.contains("correct")){
+         totalTyped++;
          typed++;
          correct++;
          touchedWord=true;
       }
       else if (letter.classList.contains("extra")) {
+        totalTyped++;
         typed++;
         touchedWord=true;
         correctWord=false;
         extra++;
       } else if (letter.classList.contains("incorrect")) {
         typed++;
+        totalTyped++;
         touchedWord=true;
         correctWord=false;
         incorrect++;
       } else {
         correctWord=false;
-        missed++;
+        if(touchedWord)
+          missed++;
       }
     }
     if (word === wordSpan.lastElementChild) {
@@ -309,14 +314,15 @@ function calculateMetrics() {
   rawWpm = 0;
   totalLetters = 0;
   typed = 0;
+  totalTyped=0;
   numberOfLettersInCorrectWords=0;
   endTime = Date.now();
   time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
-  accuracy = (correct / totalLetters) * 100;
+  accuracy = (correct / totalTyped) * 100;
   rawWpm = (typed) / 5 / ( time / 60);
   wpm = (numberOfLettersInCorrectWords) / 5 / (time / 60);
-  // printVariables();
+  printVariables();
 }
 function newGame() {
   lastY = null;
