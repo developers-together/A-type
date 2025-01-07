@@ -1,4 +1,4 @@
-import { words } from "/data/words.js";
+import { words } from "/words.js";
 const wordCount = words.length;
 
 let cursorTimeout;
@@ -21,8 +21,8 @@ let extra = 0;
 let missed = 0;
 let time = 0;
 
-let numberOfLettersInCorrectWords=0;
-let totalTyped=0;
+let numberOfLettersInCorrectWords = 0;
+let totalTyped = 0;
 let typed = 0;
 let totalLetters = 0;
 let rawWpm = 0;
@@ -215,7 +215,7 @@ function statsScreen() {
   document.getElementById(
     "characters"
   ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
-  document.getElementById("acc").innerHTML = accuracy.toFixed(0)+"%";
+  document.getElementById("acc").innerHTML = accuracy.toFixed(0) + "%";
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
   sendData();
 }
@@ -254,40 +254,39 @@ function sendData() {
 function checkCorrect() {
   let wordSpan = document.getElementById("words");
   for (let word of wordSpan.children) {
-    let correctWord=true;
-    let touchedWord=false;
+    let correctWord = true;
+    let touchedWord = false;
     for (let letter of word.children) {
       totalLetters++;
-      if (letter.classList.contains("correct")){
-         totalTyped++;
-         typed++;
-         correct++;
-         touchedWord=true;
-      }
-      else if (letter.classList.contains("extra")) {
+      if (letter.classList.contains("correct")) {
         totalTyped++;
         typed++;
-        touchedWord=true;
-        correctWord=false;
+        correct++;
+        touchedWord = true;
+      } else if (letter.classList.contains("extra")) {
+        totalTyped++;
+        typed++;
+        touchedWord = true;
+        correctWord = false;
         extra++;
       } else if (letter.classList.contains("incorrect")) {
         typed++;
         totalTyped++;
-        touchedWord=true;
-        correctWord=false;
+        touchedWord = true;
+        correctWord = false;
         incorrect++;
       } else {
-        correctWord=false;
-        if(touchedWord)
-          missed++;
+        correctWord = false;
+        if (touchedWord) missed++;
       }
     }
     if (word === wordSpan.lastElementChild) {
       numberOfLettersInCorrectWords += correctWord ? word.children.length : 0;
-    }
-    else {
-      typed+=touchedWord ?  1 : 0;
-      numberOfLettersInCorrectWords += correctWord ? word.children.length + 1 : 0;
+    } else {
+      typed += touchedWord ? 1 : 0;
+      numberOfLettersInCorrectWords += correctWord
+        ? word.children.length + 1
+        : 0;
     }
   }
 }
@@ -314,14 +313,14 @@ function calculateMetrics() {
   rawWpm = 0;
   totalLetters = 0;
   typed = 0;
-  totalTyped=0;
-  numberOfLettersInCorrectWords=0;
+  totalTyped = 0;
+  numberOfLettersInCorrectWords = 0;
   endTime = Date.now();
   time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
   accuracy = (correct / totalTyped) * 100;
-  rawWpm = (typed) / 5 / ( time / 60);
-  wpm = (numberOfLettersInCorrectWords) / 5 / (time / 60);
+  rawWpm = typed / 5 / (time / 60);
+  wpm = numberOfLettersInCorrectWords / 5 / (time / 60);
   printVariables();
 }
 function newGame() {
