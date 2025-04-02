@@ -63,6 +63,11 @@
             <i class="fas fa-fw fa-info fa-lg"></i>
           </div>
         </button>
+        <button id="theme-toggle">
+          <div class="icon-container">
+            <i id="theme-icon" class="fas fa-fw fa-moon fa-lg"></i>
+          </div>
+        </button>
       </div>
       <div class="hebtns">
         <button onclick="window.open('/docs/login/login.html', '_parent')">
@@ -144,5 +149,103 @@
         </div>
       </div>
     </section>
+
+    <!-- Add theme transition div -->
+    <div id="theme-transition" class="theme-transition hidden"></div>
+
+    <!-- Add script for theme handling -->
+    <script>
+      // Theme handling
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      let currentTheme = localStorage.getItem("theme") || "dark";
+
+      // Apply saved theme on page load
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      if (currentTheme === "light") {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+      }
+
+      // Update CSS variables based on theme
+      updateThemeColors(currentTheme);
+
+      // Add event listener for theme toggle
+      themeToggle.addEventListener("click", (event) => {
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        // Get button position for transition origin
+        const buttonRect = themeToggle.getBoundingClientRect();
+        const buttonX = buttonRect.left + buttonRect.width / 2;
+        const buttonY = buttonRect.top + buttonRect.height / 2;
+        setTheme(newTheme, buttonX, buttonY);
+      });
+
+      function updateThemeColors(theme) {
+        const root = document.documentElement;
+        if (theme === "light") {
+          root.style.setProperty("--bgcolor", "var(--bgcolor-light, #f8faff)");
+          root.style.setProperty(
+            "--btncolor",
+            "var(--btncolor-light, #ffffff)"
+          );
+          root.style.setProperty("--dtext", "var(--dtext-light, #5a6b7c)");
+          root.style.setProperty("--text", "var(--text-light, #0d1624)");
+        } else {
+          root.style.setProperty("--bgcolor", "var(--bgcolor-dark, #111111)");
+          root.style.setProperty("--btncolor", "var(--btncolor-dark, #191919)");
+          root.style.setProperty("--dtext", "var(--dtext-dark, #444444)");
+          root.style.setProperty("--text", "var(--text-dark, #eeeeee)");
+        }
+      }
+
+      function setTheme(theme, originX, originY) {
+        // First apply the new theme colors immediately
+        updateThemeColors(theme);
+
+        // Create transition element with the new theme's background color
+        const transition = document.getElementById("theme-transition");
+        transition.classList.remove("hidden");
+        transition.style.backgroundColor = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--bgcolor");
+
+        // Set the origin point for the transition
+        if (originX && originY) {
+          const originPercentX = (originX / window.innerWidth) * 100;
+          const originPercentY = (originY / window.innerHeight) * 100;
+          transition.style.setProperty("--origin-x", `${originPercentX}%`);
+          transition.style.setProperty("--origin-y", `${originPercentY}%`);
+        }
+
+        // Force reflow to ensure animation starts
+        void transition.offsetWidth;
+
+        // Start transition
+        setTimeout(() => {
+          document.documentElement.setAttribute("data-theme", theme);
+
+          // Update icon
+          if (theme === "light") {
+            themeIcon.classList.remove("fa-moon");
+            themeIcon.classList.add("fa-sun");
+          } else {
+            themeIcon.classList.remove("fa-sun");
+            themeIcon.classList.add("fa-moon");
+          }
+
+          // Start fade out
+          transition.classList.add("out");
+
+          // Remove element after animation completes
+          setTimeout(() => {
+            transition.classList.add("hidden");
+            transition.classList.remove("out");
+          }, 600);
+
+          currentTheme = theme;
+          localStorage.setItem("theme", theme);
+        }, 10);
+      }
+    </script>
   </body>
 </html>

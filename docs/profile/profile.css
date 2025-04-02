@@ -8,6 +8,18 @@
   --btncolor: #191919; /* background color of a button */
   --dtext: #444444; /* default color of text */
   --text: #eeeeee; /* focused color of text */
+
+  /* Light theme - enhanced */
+  --bgcolor-light: #f0f5ff; /* Soft blue-tinted background */
+  --btncolor-light: #ffffff; /* Pure white buttons */
+  --dtext-light: #5a6b7c; /* Darker blueish-gray for default text */
+  --text-light: #0d1b2d; /* Dark blue-black for better contrast */
+
+  /* Dark theme (current default) */
+  --bgcolor-dark: #111111;
+  --btncolor-dark: #191919;
+  --dtext-dark: #444444;
+  --text-dark: #eeeeee;
 }
 
 html {
@@ -611,3 +623,104 @@ body {
   pointer-events: none;
   font-size: clamp(9px, 1.75vw, 15px);
 }
+
+/* Theme transition styles */
+.theme-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: var(--bgcolor);
+  animation: themeTransitionIn 0.6s ease-out forwards;
+  will-change: clip-path; /* Optimize for animation */
+  --origin-x: 50%;
+  --origin-y: 50%;
+}
+
+.theme-transition.out {
+  animation: themeTransitionOut 0.6s ease-out forwards;
+  background-color: var(--bgcolor); /* Ensure consistent color */
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes themeTransitionIn {
+  0% {
+    clip-path: circle(0% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(150% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+}
+
+@keyframes themeTransitionOut {
+  0% {
+    clip-path: circle(150% at var(--origin-x) var(--origin-y));
+    opacity: 0.8;
+  }
+  100% {
+    clip-path: circle(0% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+}
+
+/* Light theme specific styles */
+[data-theme="light"] {
+  background-color: var(--bgcolor-light);
+}
+
+[data-theme="light"] .header div img {
+  content: url("/assets/Logo/logo2.svg");
+  filter: brightness(0.8) contrast(1.2);
+}
+
+[data-theme="light"] .container,
+[data-theme="light"] .tables table,
+[data-theme="light"] .buttons button {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .container {
+  box-shadow: none;
+}
+
+[data-theme="light"] .tables th {
+  background-color: #e0e6f0;
+  color: var(--text-light);
+}
+
+[data-theme="light"] tr:nth-child(even) {
+  background-color: var(--bgcolor-light);
+}
+
+[data-theme="light"] tr:nth-child(odd) {
+  background-color: var(--btncolor-light);
+}
+
+[data-theme="light"] .buttons button:hover {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+[data-theme="light"] .buttons button:active {
+  color: #ff6b6b;
+  background-color: var(--btncolor-light);
+}
+
+[data-theme="light"] .span1:hover::after,
+[data-theme="light"] .span2:hover::after,
+[data-theme="light"] .span3:hover::after,
+[data-theme="light"] .levelbar:hover::after {
+  background-color: var(--btncolor-light);
+  color: var(--text-light);
+  border: 1px solid #e0e6f0;
+}
+
+/* Add this at the end of your CSS file */
