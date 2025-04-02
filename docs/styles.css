@@ -65,7 +65,7 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 .header {
   font-family: "Lexend Deca", sans-serif;
   user-select: none;
-  height: 70px;
+  height: 10vh;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -767,26 +767,26 @@ button.active {
   border: 1px solid #e0e6f0;
 }
 
-/* Add these new animations */
+/* Theme transition animations */
 @keyframes themeTransitionIn {
   0% {
-    clip-path: circle(0% at 50% 50%);
+    clip-path: circle(0% at var(--origin-x, 50%) var(--origin-y, 50%));
     opacity: 1;
   }
   100% {
-    clip-path: circle(150% at 50% 50%);
+    clip-path: circle(150% at var(--origin-x, 50%) var(--origin-y, 50%));
     opacity: 1;
   }
 }
 
 @keyframes themeTransitionOut {
   0% {
-    clip-path: circle(150% at 50% 50%);
-    opacity: 0.8;
+    clip-path: circle(150% at var(--origin-x, 50%) var(--origin-y, 50%));
+    opacity: 1;
   }
   100% {
-    clip-path: circle(0% at 50% 50%);
-    opacity: 1;
+    clip-path: circle(0% at var(--origin-x, 50%) var(--origin-y, 50%));
+    opacity: 0;
   }
 }
 
@@ -798,9 +798,10 @@ button.active {
   height: 100%;
   z-index: 9999;
   pointer-events: none;
-  background-color: var(--bgcolor);
   animation: themeTransitionIn 0.6s ease-out forwards;
   will-change: clip-path; /* Optimize for animation */
+  --origin-x: 50%;
+  --origin-y: 50%;
 }
 
 .theme-transition.out {
