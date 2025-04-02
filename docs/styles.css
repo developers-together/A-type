@@ -3,11 +3,24 @@
 }
 
 :root {
+  /* Default theme */
   --width: auto-fill;
-  --bgcolor: #111111; /* background color */
-  --btncolor: #191919; /* background color of a button */
-  --dtext: #444444; /* default color of text */
-  --text: #eeeeee; /* focused color of text */
+  --bgcolor: #111111;
+  --btncolor: #191919;
+  --dtext: #444444;
+  --text: #eeeeee;
+
+  /* Light theme - enhanced */
+  --bgcolor-light: #f0f5ff; /* Soft blue-tinted background */
+  --btncolor-light: #ffffff; /* Pure white buttons */
+  --dtext-light: #5a6b7c; /* Darker blueish-gray for default text */
+  --text-light: #0f1b2d; /* Dark blue-black for better contrast */
+
+  /* Dark theme (current default) */
+  --bgcolor-dark: #111111;
+  --btncolor-dark: #191919;
+  --dtext-dark: #444444;
+  --text-dark: #eeeeee;
 }
 
 html {
@@ -133,12 +146,14 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 .hebtns button:hover {
   transform: scale(1.1);
   color: var(--text);
+  transition: all 0.2s ease-in-out;
 }
 
 .hsbtns button:active,
 .hebtns button:active {
   transform: scale(0.95);
   color: var(--dtext);
+  transition: all 0.2s ease-in-out;
 }
 
 .icon-container i {
@@ -185,11 +200,13 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
   justify-content: center;
   align-items: center;
   outline: none;
+  transition: all 0.2s ease-in-out;
 }
 
 .controls button {
   padding: 0.1rem 0.7rem;
   font-size: 0.7rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .mobile-button {
@@ -201,14 +218,17 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
   .controls {
     flex-direction: column;
     align-items: center;
+    transition: all 0.2s ease-in-out;
   }
 
   .controls-line {
     top: 0px;
+    transition: all 0.2s ease-in-out;
   }
 
   .controls .buttons {
     display: none;
+    transition: all 0.2s ease-in-out;
   }
 
   .controls .mobile-button {
@@ -242,6 +262,7 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 .controls *:focus-visible,
 .controls *:focus-within {
   outline: none;
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons {
@@ -255,6 +276,7 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
   align-items: center;
   border-radius: 15vw;
   justify-content: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons button {
@@ -267,16 +289,19 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
 
 .buttons *:hover {
   transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons *:active {
   color: var(--dtext);
   transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
 }
 
 .buttons *.active {
   color: var(--text);
   transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
 }
 
 .mobile-menu :active {
@@ -301,6 +326,7 @@ adham: bro it's perfect, it's supposed to blur everything, it's a mobile menu, i
   margin-top: 5%;
   user-select: none;
   cursor: default;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -676,4 +702,108 @@ button.active {
   .controls .mobile-button {
     display: flex;
   }
+}
+
+/* Theme-specific colors */
+[data-theme="light"] #cursor {
+  background-color: #0f1b2d;
+}
+
+[data-theme="light"] .correct {
+  color: #2e7d32; /* Green for correct letters */
+}
+
+[data-theme="light"] .incorrect {
+  color: #d32f2f; /* Red for incorrect letters */
+}
+
+[data-theme="light"] .extra {
+  color: #c62828; /* Darker red for extra letters */
+}
+
+/* Add subtle shadows for light theme */
+[data-theme="light"] .typing-area,
+[data-theme="light"] .buttons,
+[data-theme="light"] .timer,
+[data-theme="light"] .container2,
+[data-theme="light"] .mobile-menu {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Light mode logo */
+[data-theme="light"] .header div img {
+  content: url("/assets/Logo/logo2.svg");
+  filter: brightness(0.8) contrast(1.2);
+}
+
+/* Enhance light theme colors */
+:root {
+  /* Keep existing dtext-light */
+  --dtext-light: #5a6b7c;
+
+  /* Enhanced light theme */
+  --bgcolor-light: #f8faff; /* Lighter blue tint */
+  --btncolor-light: #ffffff; /* Pure white */
+  --text-light: #0d1624; /* Darker text for better contrast */
+}
+
+/* Additional light mode enhancements */
+[data-theme="light"] {
+  background-color: var(--bgcolor-light);
+}
+
+[data-theme="light"] .typing-area {
+  background-color: #ffffff;
+  border: 1px solid #e0e6f0;
+}
+
+[data-theme="light"] .mobile-menu {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .container2 {
+  background-color: #ffffff;
+  border: 1px solid #e0e6f0;
+}
+
+/* Add these new animations */
+@keyframes themeTransitionIn {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+@keyframes themeTransitionOut {
+  0% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 0.8;
+  }
+  100% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+.theme-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: var(--bgcolor);
+  animation: themeTransitionIn 0.6s ease-out forwards;
+  will-change: clip-path; /* Optimize for animation */
+}
+
+.theme-transition.out {
+  animation: themeTransitionOut 0.6s ease-out forwards;
+  background-color: var(--bgcolor); /* Ensure consistent color */
 }

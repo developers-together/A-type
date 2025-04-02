@@ -21,8 +21,8 @@ let extra = 0;
 let missed = 0;
 let time = 0;
 
-let numberOfLettersInCorrectWords=0;
-let totalTyped=0;
+let numberOfLettersInCorrectWords = 0;
+let totalTyped = 0;
 let typed = 0;
 let totalLetters = 0;
 let rawWpm = 0;
@@ -215,7 +215,7 @@ function statsScreen() {
   document.getElementById(
     "characters"
   ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
-  document.getElementById("acc").innerHTML = accuracy.toFixed(0)+"%";
+  document.getElementById("acc").innerHTML = accuracy.toFixed(0) + "%";
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
   sendData();
 }
@@ -254,40 +254,39 @@ function sendData() {
 function checkCorrect() {
   let wordSpan = document.getElementById("words");
   for (let word of wordSpan.children) {
-    let correctWord=true;
-    let touchedWord=false;
+    let correctWord = true;
+    let touchedWord = false;
     for (let letter of word.children) {
       totalLetters++;
-      if (letter.classList.contains("correct")){
-         totalTyped++;
-         typed++;
-         correct++;
-         touchedWord=true;
-      }
-      else if (letter.classList.contains("extra")) {
+      if (letter.classList.contains("correct")) {
         totalTyped++;
         typed++;
-        touchedWord=true;
-        correctWord=false;
+        correct++;
+        touchedWord = true;
+      } else if (letter.classList.contains("extra")) {
+        totalTyped++;
+        typed++;
+        touchedWord = true;
+        correctWord = false;
         extra++;
       } else if (letter.classList.contains("incorrect")) {
         typed++;
         totalTyped++;
-        touchedWord=true;
-        correctWord=false;
+        touchedWord = true;
+        correctWord = false;
         incorrect++;
       } else {
-        correctWord=false;
-        if(touchedWord)
-          missed++;
+        correctWord = false;
+        if (touchedWord) missed++;
       }
     }
     if (word === wordSpan.lastElementChild) {
       numberOfLettersInCorrectWords += correctWord ? word.children.length : 0;
-    }
-    else {
-      typed+=touchedWord ?  1 : 0;
-      numberOfLettersInCorrectWords += correctWord ? word.children.length + 1 : 0;
+    } else {
+      typed += touchedWord ? 1 : 0;
+      numberOfLettersInCorrectWords += correctWord
+        ? word.children.length + 1
+        : 0;
     }
   }
 }
@@ -314,14 +313,14 @@ function calculateMetrics() {
   rawWpm = 0;
   totalLetters = 0;
   typed = 0;
-  totalTyped=0;
-  numberOfLettersInCorrectWords=0;
+  totalTyped = 0;
+  numberOfLettersInCorrectWords = 0;
   endTime = Date.now();
   time = parseFloat((endTime - startTime) / 1000);
   checkCorrect();
   accuracy = (correct / totalTyped) * 100;
-  rawWpm = (typed) / 5 / ( time / 60);
-  wpm = (numberOfLettersInCorrectWords) / 5 / (time / 60);
+  rawWpm = typed / 5 / (time / 60);
+  wpm = numberOfLettersInCorrectWords / 5 / (time / 60);
   printVariables();
 }
 function newGame() {
@@ -733,3 +732,70 @@ window.addEventListener("click", (event) => {
 });
 setInterval(moveCursor, 0);
 newGame();
+
+// Theme handling
+const themeBtn = document.getElementById("theme-btn");
+const themeIcon = themeBtn.querySelector("i");
+let currentTheme = localStorage.getItem("theme") || "dark";
+
+// Add this to your theme switching function
+function setTheme(theme) {
+  // First apply the new theme colors immediately
+  const root = document.documentElement;
+  if (theme === "light") {
+    root.style.setProperty("--bgcolor", "var(--bgcolor-light)");
+    root.style.setProperty("--btncolor", "var(--btncolor-light)");
+    root.style.setProperty("--dtext", "var(--dtext-light)");
+    root.style.setProperty("--text", "var(--text-light)");
+  } else {
+    root.style.setProperty("--bgcolor", "var(--bgcolor-dark)");
+    root.style.setProperty("--btncolor", "var(--btncolor-dark)");
+    root.style.setProperty("--dtext", "var(--dtext-dark)");
+    root.style.setProperty("--text", "var(--text-dark)");
+  }
+
+  // Create transition element with the new theme's background color
+  const transition = document.createElement("div");
+  transition.className = "theme-transition";
+  transition.style.backgroundColor =
+    getComputedStyle(root).getPropertyValue("--bgcolor");
+  document.body.appendChild(transition);
+
+  // Force reflow to ensure animation starts
+  void transition.offsetWidth;
+
+  // Start transition
+  setTimeout(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+
+    // Update icon
+    if (theme === "light") {
+      themeIcon.classList.remove("fa-moon");
+      themeIcon.classList.add("fa-sun");
+    } else {
+      themeIcon.classList.remove("fa-sun");
+      themeIcon.classList.add("fa-moon");
+    }
+
+    // Start fade out
+    transition.classList.add("out");
+
+    // Remove element after animation completes
+    setTimeout(() => {
+      transition.remove();
+    }, 600);
+
+    currentTheme = theme;
+    localStorage.setItem("theme", theme);
+  }, 10);
+}
+
+themeBtn.addEventListener("click", () => {
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  setTheme(newTheme);
+});
+
+// Initialize theme
+document.addEventListener("DOMContentLoaded", () => {
+  setTheme(currentTheme);
+});
