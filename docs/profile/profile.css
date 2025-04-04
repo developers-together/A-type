@@ -624,7 +624,27 @@ body {
   font-size: clamp(9px, 1.75vw, 15px);
 }
 
-/* Theme transition styles */
+.hidden {
+  display: none;
+}
+
+/* THEME TOGGLE BUTTON */
+#theme-toggle {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  transform: translateZ(0);
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+}
+
+/* MODE SWITCH TRANSITION (Same as global styles) */
 .theme-transition {
   position: fixed;
   top: 0;
@@ -633,20 +653,15 @@ body {
   height: 100%;
   z-index: 9999;
   pointer-events: none;
-  background-color: var(--bgcolor);
   animation: themeTransitionIn 0.6s ease-out forwards;
-  will-change: clip-path; /* Optimize for animation */
+  will-change: clip-path;
   --origin-x: 50%;
   --origin-y: 50%;
 }
 
 .theme-transition.out {
   animation: themeTransitionOut 0.6s ease-out forwards;
-  background-color: var(--bgcolor); /* Ensure consistent color */
-}
-
-.hidden {
-  display: none;
+  background-color: var(--bgcolor);
 }
 
 @keyframes themeTransitionIn {
@@ -663,11 +678,11 @@ body {
 @keyframes themeTransitionOut {
   0% {
     clip-path: circle(150% at var(--origin-x) var(--origin-y));
-    opacity: 0.8;
+    opacity: 1;
   }
   100% {
     clip-path: circle(0% at var(--origin-x) var(--origin-y));
-    opacity: 1;
+    opacity: 0;
   }
 }
 
