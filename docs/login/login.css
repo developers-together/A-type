@@ -200,9 +200,9 @@ body {
 .signup {
   margin-left: 10px;
   margin-right: 10px;
-  font-size: 18px;
+  font-size: 20px;
   width: 210px;
-  height: 300px;
+  height: 350px;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -210,9 +210,14 @@ body {
   justify-self: center;
   justify-content: center;
   text-align: start;
-  color: var(--dtext);
+  color: var(--text);
   position: static;
   left: 25%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 15px;
+  border-radius: 22px;
+  box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1);
 }
 
 .signup input {
@@ -223,7 +228,7 @@ body {
   background-color: var(--btncolor);
   color: var(--dtext);
   font-size: 15px;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 10px;
   transition: all 0.2s ease-in-out;
   outline: none;
@@ -241,8 +246,8 @@ body {
 }
 
 .signup button {
-  height: 30px;
-  width: 210px;
+  height: 35px;
+  width: 220px;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -290,7 +295,7 @@ body {
   margin-left: 10px;
   font-size: 18px;
   width: 210px;
-  height: 300px;
+  height: 350px;
   align-items: center;
   align-self: center;
   align-content: center;
@@ -298,9 +303,14 @@ body {
   justify-self: center;
   justify-content: center;
   text-align: start;
-  color: var(--dtext);
+  color: var(--text);
   position: static;
   right: 25%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  padding: 15px;
+  border-radius: 22px;
+  box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1);
 }
 
 .hr {
@@ -333,7 +343,7 @@ body {
   background-color: var(--btncolor);
   color: var(--dtext);
   font-size: 15px;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 10px;
   transition: all 0.2s ease-in-out;
   outline: none;
@@ -352,6 +362,7 @@ body {
 
 .login .rememberme {
   height: 10px;
+  color: var(--dtext);
   width: 210px;
   text-align: start;
   align-items: center;
@@ -387,7 +398,7 @@ body {
 
 .login .rememberme input:checked {
   background-color: var(--btncolor);
-  border-color: var(--dtext);
+  border-color: var(--text);
 }
 
 .login .rememberme input:checked::after {
