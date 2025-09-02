@@ -27,7 +27,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="profile.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=schedule"
@@ -39,7 +39,7 @@
       href="/assets/Logo/favicon/A-Type-Logo.ico"
     />
     <title>A-type | A minimalistic typing test website</title>
-    <script type="module" src="profile.js" defer></script>
+    <script type="module" src="/js/profile.js" defer></script>
   </head>
   <body>
     <section class="header">
@@ -47,19 +47,19 @@
         <img
           src="/assets/Logo/logo.svg"
           alt="logo"
-          onclick="window.open('/docs/index.html', '_parent')"
+          onclick="window.open('/Home', '_parent')"
         />
         <h1>A-Type</h1>
       </div>
       <div class="hsbtns">
         <button
-          onclick="window.open('/docs/leaderboard/leaderboard.html', '_parent')"
+          onclick="window.open('/Leaderboard', '_parent')"
         >
           <div class="icon-container">
             <i class="fas fa-fw fa-crown fa-lg"></i>
           </div>
         </button>
-        <button onclick="window.open('/docs/info/info.html', '_parent')">
+        <button onclick="window.open('/Info', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-info fa-lg"></i>
           </div>
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div class="hebtns">
-        <button onclick="window.open('/docs/login/login.html', '_parent')">
+        <button onclick="window.open('/Login', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-user fa-lg"></i>
           </div>

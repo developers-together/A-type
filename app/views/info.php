@@ -30,9 +30,9 @@
       rel="icon"
       type="image/x-icon"
       sizes="32x32"
-      href="/assets/Logo/favicon/A-Type-Logo.ico"
+      href="assets/Logo/favicon/A-Type-Logo.ico"
     />
-    <link rel="stylesheet" href="info.css" />
+    <link rel="stylesheet" href="/css/info.css" />
     <title>A-type | Info</title>
     <meta
       name="description"
@@ -44,7 +44,7 @@
     />
     <meta property="og:title" content="A-Type | Info" />
     <meta property="og:type" content="website" />
-    <script type="module" src="info.js" defer></script>
+    <script type="module" src="/js/info.js" defer></script>
   </head>
   <body>
     <section class="header">

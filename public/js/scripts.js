@@ -1,4 +1,4 @@
-import { words } from "/data/words.js";
+import { words } from "./words.js";
 const wordCount = words.length;
 
 let cursorTimeout;
