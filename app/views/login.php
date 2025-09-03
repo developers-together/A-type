@@ -46,36 +46,43 @@
         <img
           src="/assets/Logo/logo.svg"
           alt="logo"
-          onclick="window.open('/docs/index.html', '_parent')"
+          onclick="window.open('/Home', '_parent')"
         />
         <h1>A-Type</h1>
       </div>
       <div class="hsbtns">
         <button
-          onclick="window.open('/docs/leaderboard/leaderboard.html', '_parent')"
+          onclick="window.open('/Leaderboard', '_parent')"
         >
           <div class="icon-container">
             <i class="fas fa-fw fa-crown fa-lg"></i>
           </div>
         </button>
-        <button onclick="window.open('/docs/info/info.html', '_parent')">
+        <button onclick="window.open('/Info', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-info fa-lg"></i>
           </div>
         </button>
       </div>
       <div class="hebtns">
-        <button
+        <!-- <button
           <button
-          onclick="window.open('/docs/profile/profile.html', '_parent')"
+          onclick="window.open('/Profile', '_parent')"
         >
           <div class="icon-container">
             <i class="fa-regular fa-user"></i>
           </div>
-        </button>
-        <button onclick="window.open('/docs/login/login.html', '_parent')">
+        </button> -->
+        <button onclick="window.open('/Profile', '_parent')">
           <div class="icon-container">
-            <i class="fas fa-fw fa-user fa-lg"></i>
+            <?php
+              if(isset($_SESSION['user_id'])){
+                echo '<i class="fas fa-fw fa-user fa-lg"></i>';
+              }
+              else{
+                echo '<i class="fa-regular fa-user"></i>';
+              }
+            ?>
           </div>
         </button>
       </div>
@@ -84,13 +91,13 @@
       <div class="container">
         <div class="signup">
           <pre><i class="fa-solid fa-user-plus"></i> Register</pre>
-          <form id="signup-form">
-            <input type="text" placeholder="username" />
-            <input type="email" placeholder="Email" />
-            <input type="email" placeholder="Verify Email" />
-            <input type="password" placeholder="Password" />
-            <input type="password" placeholder="Verify Password" />
-            <button class="button" id="signup-button" type="submit" disabled>
+          <form id="signup-form" action="/Profile/register" method="post">
+            <input type="text" name="username" placeholder="username" />
+            <input type="email" name="email" placeholder="Email" />
+            <!-- <input type="email" name="verify_email" placeholder="Verify Email" /> -->
+            <input type="password" name="password" placeholder="Password" />
+            <input type="password" name="verify_password" placeholder="Verify Password" />
+            <button class="button" id="signup-button" type="submit">
               <pre><i class="fa-solid fa-user-plus"></i> Sign up</pre>
               <!-- <input type="submit" value="" hidden /> -->
             </button>
@@ -111,14 +118,14 @@
             <pre> or </pre>
             <div class="hr"></div>
           </div>
-          <form>
-            <input type="email" placeholder="Email" /> <br />
-            <input type="password" placeholder="Password" /> <br />
-            <div class="rememberme">
+          <form action="/Profile/login" method="post">
+            <input type="email" name="email" placeholder="Email" /> <br />
+            <input type="password" name="password" placeholder="Password" /> <br />
+            <!-- <div class="rememberme">
               <input type="checkbox" /> <label>Remember Me</label>
-            </div>
+            </div> -->
             <br />
-            <button class="button" id="login-button" type="submit" disabled>
+            <button class="button" id="login-button" type="submit">
               <pre><i class="fa-solid fa-right-to-bracket"></i> Sign in</pre>
             </button>
             <br />

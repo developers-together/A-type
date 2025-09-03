@@ -85,7 +85,14 @@
       <div class="hebtns">
         <button onclick="window.open('/Profile', '_parent')">
           <div class="icon-container">
-            <i class="fas fa-fw fa-user fa-lg"></i>
+            <?php
+              if(isset($_SESSION['user_id'])){
+                echo '<i class="fas fa-fw fa-user fa-lg"></i>';
+              }
+              else{
+                echo '<i class="fa-regular fa-user"></i>';
+              }
+            ?>
           </div>
         </button>
       </div>

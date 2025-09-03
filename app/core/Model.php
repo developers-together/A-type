@@ -1,6 +1,6 @@
 <?php
 
-class Model{
+ class Model{
 
     protected $table;
     protected $fillable=[];
@@ -14,6 +14,8 @@ class Model{
         $this->dbh = new PDO(DB . ':host=' . DB_URL . ';dbname=' . DB_NAME, DB_USER, DB_PASS, array(
         PDO::ATTR_PERSISTENT => true
         ));
+        
+        $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // if(array_values($this->fillable)){
         //     $n = array_count_values($this->fillable);
@@ -73,10 +75,20 @@ class Model{
 
     }
 
-        protected function query($sql)
+        public function query($sql,$params=[])
     {
         $stmt = $this->dbh->prepare($sql);
-        return $stmt->execute();
+        $n = array_count_values($params);
+
+        $placeholders=array_map(function($param){return ':'.$param;},array_keys($params));
+
+        foreach(array_keys($params)as$param){
+            $stmt->bindValue(':'.$param,$params[$param]);
+        }
+        
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
         
     }
 

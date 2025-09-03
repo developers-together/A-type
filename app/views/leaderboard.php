@@ -46,28 +46,35 @@
         <img
           src="/assets/Logo/logo.svg"
           alt="logo"
-          onclick="window.open('/docs/index.html', '_parent')"
+          onclick="window.open('/Home', '_parent')"
         />
         <h1>A-Type</h1>
       </div>
       <div class="hsbtns">
         <button
-          onclick="window.open('/docs/leaderboard/leaderboard.html', '_parent')"
+          onclick="window.open('/Leaderboard', '_parent')"
         >
           <div class="icon-container">
             <i class="fas fa-fw fa-crown fa-lg"></i>
           </div>
         </button>
-        <button onclick="window.open('/docs/info/info.html', '_parent')">
+        <button onclick="window.open('/Info', '_parent')">
           <div class="icon-container">
             <i class="fas fa-fw fa-info fa-lg"></i>
           </div>
         </button>
       </div>
       <div class="hebtns">
-        <button onclick="window.open('/docs/login/login.html', '_parent')">
+        <button onclick="window.open('/Profile', '_parent')">
           <div class="icon-container">
-            <i class="fas fa-fw fa-user fa-lg"></i>
+            <?php
+              if(isset($_SESSION['user_id'])){
+                echo '<i class="fas fa-fw fa-user fa-lg"></i>';
+              }
+              else{
+                echo '<i class="fa-regular fa-user"></i>';
+              }
+            ?>
           </div>
         </button>
       </div>

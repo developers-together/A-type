@@ -71,9 +71,16 @@
         </button>
       </div>
       <div class="hebtns">
-        <button onclick="window.open('/Login', '_parent')">
+        <button onclick="window.open('/Profile', '_parent')">
           <div class="icon-container">
-            <i class="fas fa-fw fa-user fa-lg"></i>
+            <?php
+              if(isset($_SESSION['user_id'])){
+                echo '<i class="fas fa-fw fa-user fa-lg"></i>';
+              }
+              else{
+                echo '<i class="fa-regular fa-user"></i>';
+              }
+            ?>
           </div>
         </button>
       </div>
@@ -84,7 +91,11 @@
           <div class="pp">
             <i class="fa-solid fa-circle-user"></i>
           </div>
-          <span class="span1">USERNAME</span>
+          <?php
+          echo '<span class="span1">' . $data['username'] . '</span>';
+
+          ?>
+          
           <div class="text">
             <div class="level">
               <span class="span2">1</span>
@@ -145,7 +156,11 @@
         </div>
         <div class="buttons">
           <button><i class="fa-solid fa-trash"></i>delete account</button>
-          <button><i class="fa-solid fa-user-minus"></i>Log out</button>
+
+          <form action="/Profile/logout" method="post">
+            <button><i class="fa-solid fa-user-minus"></i>Log out</button>
+          </form>
+
           <button><i class="fa-solid fa-file-excel"></i>Reset Data</button>
         </div>
       </div>

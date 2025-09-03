@@ -34,16 +34,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `typing_sessions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
-  `text_id` INT UNSIGNED NULL,
+  -- `text_id` INT UNSIGNED NULL,
   `wpm` INT NOT NULL,
   `accuracy` DECIMAL(5,2) NOT NULL,
   `session_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
+  KEY `idx_ts_user_id` (`user_id`),
   
-  CONSTRAINT `user` FOREIGN KEY (`user_id`)
+  CONSTRAINT `fk_ts_user` FOREIGN KEY (`user_id`)
     REFERENCES `users`(`id`) ON DELETE CASCADE
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Leaderboard (one row per user recommended)
