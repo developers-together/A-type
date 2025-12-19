@@ -1,0 +1,94 @@
+/* Theme-specific colors */
+[data-theme="light"] #cursor {
+  background-color: #0f1b2d;
+}
+
+[data-theme="light"] .correct {
+  color: #2e7d32; /* Green for correct letters */
+}
+
+[data-theme="light"] .incorrect {
+  color: #d32f2f; /* Red for incorrect letters */
+}
+
+[data-theme="light"] .extra {
+  color: #c62828; /* Darker red for extra letters */
+}
+
+/* Add subtle shadows for light theme */
+[data-theme="light"] .typing-area,
+[data-theme="light"] .buttons,
+[data-theme="light"] .timer,
+[data-theme="light"] .container2,
+[data-theme="light"] .mobile-menu {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Light mode logo */
+[data-theme="light"] .header div img {
+  content: url("/assets/Logo/logo2.svg");
+  filter: brightness(0.8) contrast(1.2);
+}
+
+/* Additional light mode enhancements */
+[data-theme="light"] {
+  background-color: var(--bgcolor-light);
+}
+
+[data-theme="light"] .typing-area {
+  background-color: #ffffff;
+  border: 1px solid #e0e6f0;
+}
+
+[data-theme="light"] .mobile-menu {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .container2 {
+  background-color: #ffffff;
+  border: 1px solid #e0e6f0;
+}
+
+/* MODE SWITCH TRANSITION STYLES */
+.theme-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: var(--bgcolor);
+  animation: themeTransitionIn 0.6s ease-out forwards;
+  will-change: clip-path;
+  --origin-x: 50%;
+  --origin-y: 50%;
+}
+
+.theme-transition.out {
+  animation: themeTransitionOut 0.6s ease-out forwards;
+  background-color: var(--bgcolor);
+}
+
+@keyframes themeTransitionIn {
+  0% {
+    clip-path: circle(0% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(150% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+}
+
+@keyframes themeTransitionOut {
+  0% {
+    clip-path: circle(150% at var(--origin-x) var(--origin-y));
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(0% at var(--origin-x) var(--origin-y));
+    opacity: 0;
+  }
+}

@@ -14,6 +14,9 @@ services:
       DB_NAME: atype
     networks:
       - app-network
+    volumes:
+      - ./App:/var/www/html/App
+      - ./Public:/var/www/html/Public
 
   mariadb:
     image: mariadb:10.6
@@ -27,6 +30,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./db/atype.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/words.txt:/docker-entrypoint-initdb.d/words.txt
     networks:
       - app-network
 

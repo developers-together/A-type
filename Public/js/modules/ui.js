@@ -1,0 +1,158 @@
+import { formatWord } from "./utils.js";
+import { wpm, accuracy, time, rawWpm, correct, incorrect, extra, missed, sendData } from "./stats.js";
+
+export function mainScreen() {
+  let container = document.getElementById("container");
+  let container2 = document.getElementById("container2");
+  container2.style.display = "none";
+  container.style.display = "flex";
+}
+
+export function statsScreen(timerNum, wordNum, isTimeMode) {
+  let container = document.getElementById("container");
+  let container2 = document.getElementById("container2");
+  container2.style.display = "flex";
+  container.style.display = "none";
+  document.getElementById("wpm").innerHTML = wpm.toFixed(0);
+  document.getElementById("rawwpm").innerHTML = rawWpm.toFixed(0);
+  document.getElementById(
+    "characters"
+  ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
+  document.getElementById("acc").innerHTML = accuracy.toFixed(0) + "%";
+  document.getElementById("time").innerHTML = time.toFixed(1) + "s";
+  sendData(timerNum, wordNum, isTimeMode);
+}
+
+export async function renderWords(wordNum) {
+  const numbers = document.getElementById("numbers");
+  const punctuation = document.getElementById("punctuation");
+  let wordSpan = document.getElementById("words");
+  
+  try {
+    const response = await fetch(`/home/words?amount=${wordNum}`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const data = await response.json();
+    // Assuming backend returns array of objects: [{word: "example"}, ...]
+    // or array of strings. Adjust based on actual PHP return.
+    // Based on previous context, it returns fetchAll(PDO::FETCH_ASSOC), so it is [{word: "..."}]
+    
+    for (let i = 0; i < data.length; i++) {
+        let chosenWord = data[i].word;
+        
+        // Punctuation logic (client-side or server-side? Keeping client-side for now as requested)
+        if (punctuation.classList.contains("active")) {
+          const suffix = [",", ".", "?", "!", ";", ":"];
+          if (Math.random() < 0.3) {
+            chosenWord += suffix[Math.floor(Math.random() * suffix.length)];
+          }
+        }
+
+        if (wordSpan.lastElementChild && wordSpan.lastElementChild.id == "cursor") {
+          wordSpan.lastElementChild.insertAdjacentHTML(
+            "beforebegin",
+            formatWord(chosenWord)
+          );
+          // Set attributes on the newly added word (it's before cursor)
+          const newWord = wordSpan.lastElementChild.previousElementSibling;
+          if (newWord && newWord.id !== "cursor") {
+            newWord.setAttribute("size", newWord.children.length);
+            newWord.setAttribute("typedletters", 0);
+          }
+        } else {
+          wordSpan.innerHTML += formatWord(chosenWord);
+          // Set attributes on the newly added word (it's the last element)
+          const newWord = wordSpan.lastElementChild;
+          if (newWord) {
+            newWord.setAttribute("size", newWord.children.length);
+            newWord.setAttribute("typedletters", 0);
+          }
+        }
+    }
+  } catch (error) {
+    console.error('Error fetching words:', error);
+    // Fallback or error handling
+  }
+}
+
+export function wordsAnimation() {
+  let typingLines = document.getElementById("words");
+  typingLines.classList.add("fade");
+  setTimeout(() => {
+    typingLines.classList.remove("fade");
+  }, 400);
+}
+
+export function moveCursor(currentLetter, currentWord) {
+  if (!currentLetter) return;
+
+  let cursor = document.getElementById("cursor");
+  if (!cursor) return;
+  cursor.hidden = false;
+  let wordSpan = document.getElementById("words");
+
+  const letterRect = currentLetter.getBoundingClientRect();
+  const wordsRect = wordSpan.getBoundingClientRect();
+
+  // Calculate position relative to the #words container
+  const offsetLeft = letterRect.left - wordsRect.left;
+  const offsetTop = letterRect.top - wordsRect.top + wordSpan.scrollTop; // Add scrollTop adjustment
+  const offsetRight = letterRect.right - wordsRect.left;
+
+  // Update cursor size and position
+  cursor.style.height = `${letterRect.height}px`;
+  cursor.style.top = `${offsetTop}px`; // Adjust for scrolling
+
+  if (
+    currentLetter.classList.contains("correct") ||
+    currentLetter.classList.contains("incorrect")
+  ) {
+    cursor.style.left = `${offsetRight}px`;
+  } else {
+  cursor.style.left = `${offsetLeft - 1}px`;
+  }
+
+  // Guard for missing currentWord
+  if (!currentWord) return false;
+  
+  const lineHeight = currentWord.offsetHeight;
+
+  // Calculate the current scroll position
+  const scrollTop = wordSpan.scrollTop;
+
+  // Find the closest "line" alignment
+  const alignedScrollTop = Math.round(scrollTop / lineHeight) * lineHeight;
+
+  // Set the scrollTop to align properly
+  wordSpan.scrollTop = alignedScrollTop;
+
+  // Scroll container logic (unchanged)
+  const currentLetterRect = currentLetter.getBoundingClientRect();
+  const wordSpanRect = wordSpan.getBoundingClientRect();
+  const outOfViewTop = currentLetterRect.top < wordSpanRect.top;
+  const outOfViewBottom = currentLetterRect.bottom > wordSpanRect.bottom;
+
+  if (outOfViewTop) {
+    wordSpan.scrollTop -= wordSpanRect.top - currentLetterRect.top + 10;
+  } else if (outOfViewBottom) {
+    // Note: renderWords(20) call for infinite scroll needs to be handled by caller or callback
+    // We return true to indicate need for more words
+    wordSpan.scrollTop += currentLetterRect.bottom - wordSpanRect.bottom + 10;
+    return true; 
+  }
+  return false;
+}
+
+export function resetActiveButtons(buttonGroup) {
+  buttonGroup.forEach((button) => button.classList.remove("active"));
+}
+
+export function activateButton(activeButton, inactiveButton) {
+  activeButton.classList.add("active");
+  inactiveButton.classList.remove("active");
+}
+
+export function updateTimerDisplay(value) {
+  let timerElement = document.querySelector(".timernum");
+  timerElement.textContent = `${value}s`;
+}

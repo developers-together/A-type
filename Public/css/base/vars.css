@@ -1,0 +1,20 @@
+:root {
+  /* Default theme */
+  --width: auto;
+  --bgcolor: #111111;
+  --btncolor: #191919;
+  --dtext: #444444;
+  --text: #eeeeee;
+
+  /* Light theme - enhanced */
+  --bgcolor-light: #f8faff; /* Lighter blue tint */
+  --btncolor-light: #ffffff; /* Pure white */
+  --dtext-light: #5a6b7c; /* Darker blueish-gray for default text */
+  --text-light: #0d1624; /* Darker text for better contrast */
+
+  /* Dark theme (current default) */
+  --bgcolor-dark: #111111;
+  --btncolor-dark: #191919;
+  --dtext-dark: #444444;
+  --text-dark: #eeeeee;
+}

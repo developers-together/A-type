@@ -1,0 +1,92 @@
+.typing-area {
+  margin-top: 2%;
+  background-color: var(--btncolor);
+  width: 90vw;
+  max-width: 1200px;
+  height: 120px;
+  border-radius: 1rem;
+  border-style: none;
+  display: flex;
+  position: relative;
+  align-items: center;
+  cursor: text;
+  user-select: none;
+  margin-bottom: 2%;
+  overflow-y: hidden;
+}
+
+.typing-lines {
+  padding-left: 0.05rem;
+  position: relative;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  margin: 0 25px;
+  color: var(--dtext);
+  overflow-y: hidden;
+  line-height: 7vh;
+  font-size: clamp(1.6rem, 2vw, 2rem);
+}
+
+.typing-lines.fade {
+  animation: fade 0.5s;
+}
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.highlight {
+  color: var(--text);
+}
+
+.word {
+  font-size: 2vw;
+  margin: 0.5%;
+  display: inline-flex;
+}
+
+#cursor {
+  border-radius: 5rem;
+  background-color: #eeeeee;
+  width: 0.1rem;
+  position: absolute;
+  animation: blink 0.8s steps(30) infinite;
+  transition: all 0.1s ease;
+}
+
+#cursor.no-blink {
+  animation: none;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.letter {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.correct {
+  color: #eeeeee;
+}
+.incorrect {
+  color: red;
+}
+.extra {
+  color: darkred;
+}

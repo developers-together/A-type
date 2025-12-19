@@ -1,0 +1,300 @@
+.hr {
+  border-left: 5px solid var(--bgcolor);
+  height: 40%;
+  border-radius: 10px;
+}
+
+.hr2 {
+  border-bottom: 5px solid var(--bgcolor);
+  width: 90%;
+  border-radius: 10px;
+  align-self: center;
+  justify-self: center;
+}
+
+.controls-line {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  height: 50px;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.controls button {
+  padding: 0.1rem 0.7rem;
+  font-size: 0.7rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-button {
+  display: none;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .controls-line {
+    top: 0px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .controls .buttons {
+    display: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .controls .mobile-button {
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--btncolor);
+    color: var(--dtext);
+    border-radius: 15vw;
+    cursor: pointer;
+    padding: 0 10px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.controls *:hover {
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+  transform: translateZ(0);
+}
+
+.controls *:active {
+  color: var(--dtext);
+}
+
+.controls *.active {
+  color: var(--text);
+}
+
+.controls *:focus,
+.controls *:focus-visible,
+.controls *:focus-within {
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons {
+  font-size: 0.7rem;
+  width: var(--width);
+  height: 30px;
+  padding: 0 5px;
+  background-color: var(--btncolor);
+  color: var(--dtext);
+  display: flex;
+  align-items: center;
+  border-radius: 15vw;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons button {
+  cursor: pointer;
+  border: none;
+  color: var(--dtext);
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons *:hover {
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons *:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
+}
+
+.buttons *.active {
+  color: var(--text);
+  transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-menu :active {
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-button :active {
+  transition: all 0.2s ease-in-out;
+}
+
+.reset {
+  margin-top: 28%;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .reset {
+    margin-top: 35%;
+  }
+}
+
+.reset button {
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  border: none;
+  border-radius: 15vw;
+  background-color: transparent;
+  color: var(--dtext);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+}
+
+.reset button i:hover {
+  transform: scale(1.02);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.reset button i:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+}
+
+.rotate-animation {
+  animation: rotate 0.5s ease-in-out;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.back-btn {
+  outline: none;
+  border: none;
+  top: 70vh;
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInContainer2 0.8s ease-in-out forwards;
+}
+
+@media (max-width: 768px) {
+  .back-btn {
+    top: 60vh;
+  }
+}
+
+.back-btn button {
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  border: none;
+  outline: none;
+  border-radius: 15vw;
+  background-color: transparent;
+  color: var(--dtext);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn button i:hover {
+  transform: scale(1.02);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-btn button i:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-menu {
+  transition: all 0.2s ease-in-out;
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: absolute;
+  top: 65px;
+  left: 35vw;
+  right: 35vw;
+  background-color: var(--btncolor);
+  border-radius: 1rem;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.mobile-menu:not(.hidden) {
+  display: flex;
+}
+
+.mobile-menu button {
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  align-self: center;
+  justify-self: center;
+}
+
+.mobile-menu button:hover,
+button.active {
+  color: var(--text);
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-menu button:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .controls .buttons {
+    display: none;
+  }
+
+  .controls .mobile-button {
+    display: flex;
+  }
+}

@@ -1,0 +1,114 @@
+.header {
+  font-family: "Lexend Deca", sans-serif;
+  user-select: none;
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 4%;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.header div img {
+  width: clamp(50px, 10vw, 80px);
+  height: auto;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.header div img:hover {
+  opacity: 0.6;
+}
+
+.header div h1 {
+  font-size: clamp(25px, 5vw, 40px);
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 0;
+  display: flex;
+  transition: max-width 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  opacity: 0;
+}
+
+.header div img:hover + h1 {
+  max-width: 500px;
+  opacity: 1;
+}
+
+.hsbtns,
+.hebtns {
+  padding: 12.5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.hsbtns {
+  margin-left: 10px;
+}
+
+.hsbtns button,
+.hebtns button {
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0;
+}
+
+.hebtns {
+  position: absolute;
+  right: 4%;
+}
+
+.hsbtns button:hover,
+.hebtns button:hover {
+  transform: scale(1.1);
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+}
+
+.hsbtns button:active,
+.hebtns button:active {
+  transform: scale(0.95);
+  color: var(--dtext);
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-container i {
+  pointer-events: none;
+  font-size: 1.3rem;
+}
+
+/* THEME TOGGLE BUTTON */
+#theme-toggle {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  transform: translateZ(0);
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+}

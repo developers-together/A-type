@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<?php require_once '../App/Views/includes/head.php'; ?>
+
+<body>
+
+  <?php require_once '../App/Views/includes/navbar.php'; ?>
+
+  <section class="main" id="main">
+    <div class="container" id="container">
+      <div class="controls-line">
+        <div class="controls">
+          <div class="buttons">
+            <button id="punctuation">
+              <i class="fas fa-fw fa-at"></i>
+              Punctuation
+            </button>
+            <button id="numbers">
+              <i class="fas fa-fw fa-hashtag"></i>
+              Numbers
+            </button>
+            <div class="hr"></div>
+            <button id="time-button">
+              <i class="fas fa-fw fa-clock"></i>
+              Time
+            </button>
+            <button id="words-button">
+              <i class="fas fa-fw fa-font"></i>
+              Words
+            </button>
+            <div class="hr"></div>
+            <button class="btn1" id="btn1">15</button>
+            <button class="btn2" id="btn2">30</button>
+            <button class="btn3" id="btn3">60</button>
+            <button class="btn4" id="btn4">120</button>
+          </div>
+          <div class="mobile-button">
+            <i class="fas fa-bars"></i>
+            <pre> Controls</pre>
+          </div>
+        </div>
+      </div>
+      <div class="typing-area" id="area">
+        <span class="typing-lines" id="words"> </span>
+      </div>
+      <div class="timer" id="timer">
+        <p class="timernum">15s</p>
+      </div>
+      <div class="reset">
+        <button>
+          <i id="reset-button" class="fas fa-rotate-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu hidden" id="mobileMenu">
+      <button id="punctuation-mobile">
+        <i class="fas fa-fw fa-at"></i>
+        Punctuation
+      </button>
+      <button id="numbers-mobile">
+        <i class="fas fa-fw fa-hashtag"></i>
+        Numbers
+      </button>
+      <div class="hr2"></div>
+      <button id="time-mobile">
+        <i class="fas fa-fw fa-clock"></i>
+        Time
+      </button>
+      <button id="words-mobile">
+        <i class="fas fa-fw fa-font"></i>
+        Words
+      </button>
+      <div class="hr2"></div>
+      <button id="btn1-mobile">15</button>
+      <button id="btn2-mobile">30</button>
+      <button id="btn3-mobile">60</button>
+      <button id="btn4-mobile">120</button>
+    </div>
+    <div id="container2">
+      <div class="container2">
+        <div class="list">
+          <table>
+            <tr>
+              <th>wpm</th>
+              <th>raw wpm</th>
+              <th>characters</th>
+              <th>acc</th>
+              <th>time</th>
+            </tr>
+            <tr>
+              <td id="wpm"></td>
+              <td id="rawwpm"></td>
+              <td class="hover" id="characters"></td>
+              <td id="acc"></td>
+              <td id="time"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="back-btn">
+        <button id="back-button">
+          <i class="fa-solid fa-angle-left"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <?php require_once '../App/Views/includes/footer.php'; ?>
+</body>
+
+</html>

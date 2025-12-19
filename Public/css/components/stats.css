@@ -1,0 +1,162 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+  margin-top: 0;
+  height: calc(100vh - 10vh);
+}
+
+.container {
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  gap: 0;
+  animation: fadeInContainer2 0.8s ease-in-out forwards;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  padding: 0 1rem;
+  border-radius: 15vw;
+  background-color: var(--btncolor);
+  color: var(--text);
+  position: absolute;
+  left: 5%;
+  top: calc(10vh + 80px);
+  user-select: none;
+  cursor: default;
+  transition: all 0.2s ease-in-out;
+  font-family: "Nunito", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .timer {
+    margin-top: 1.5%;
+  }
+}
+
+#container2 {
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+
+.container2 {
+  font-family: "Nunito", sans-serif;
+  position: absolute;
+  top: 41.5%;
+  width: 90vw;
+  min-height: 15%;
+  border-radius: 1.5vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5vw;
+  overflow: hidden;
+  background-color: var(--btncolor);
+  animation: fadeInContainer2 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeInContainer2 {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.list table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.list th,
+.list td {
+  padding: 5px;
+  word-wrap: nowrap;
+}
+
+.list th {
+  font-size: 40px;
+  color: var(--dtext);
+  border-bottom: 1px solid var(--dtext);
+}
+
+.list td {
+  color: var(--text);
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .container2 {
+    min-height: 10%;
+  }
+
+  .list table,
+  .list td {
+    font-size: 0.75rem;
+  }
+
+  .list th {
+    font-size: 1.5rem;
+  }
+}
+
+.hover {
+  position: relative;
+  cursor: pointer;
+}
+
+.hover:hover::after {
+  content: "correct, incorrect, extra, missed";
+  position: absolute;
+  color: var(--text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+}
+
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.list table tr:hover {
+  background-color: var(--btncolor);
+  transition: background-color 0.3s ease-in-out;
+}

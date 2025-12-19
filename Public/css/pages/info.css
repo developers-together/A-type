@@ -1,0 +1,85 @@
+.info-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.info-container h1,
+.info-container h2,
+.info-container h3 {
+  color: var(--dtext);
+  font-family: "Lexend Deca", sans-serif;
+  margin: 0;
+}
+
+.info-container h2,
+.info-container h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-container p,
+.info-container ul,
+.info-container li,
+.info-container a,
+.info-container span {
+  color: var(--text);
+  font-family: "Nunito", sans-serif;
+  line-height: 1.5;
+}
+
+.info-container ul {
+  list-style: disc;
+  padding-left: 2rem;
+  margin: 0;
+}
+
+.info-container li b {
+  color: var(--text);
+}
+
+.info-container a {
+  text-decoration: underline;
+  color: var(--text);
+}
+
+.info-container a:hover {
+  text-decoration: none;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.info-container a:active {
+  transform: scale(0.95);
+  color: var(--dtext);
+}
+
+.github-icon {
+  margin-right: 4px;
+}
+
+@media (max-width: 600px) {
+  .info-container {
+    padding: 1rem;
+  }
+}
+
+.collapsible-btn {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+.collapsible-btn:hover {
+  text-decoration: underline;
+}

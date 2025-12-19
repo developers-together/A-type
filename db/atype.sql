@@ -16,19 +16,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `uq_users_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Optional: texts table if you plan to link sessions to a specific text
--- CREATE TABLE IF NOT EXISTS `texts` (
---   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
---   `content` TEXT NOT NULL,
---   `language` VARCHAR(20) DEFAULT 'en',
---   `difficulty` ENUM('easy','medium','hard') DEFAULT 'medium',
---   `created_by` INT UNSIGNED NULL,
---   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---   PRIMARY KEY (`id`),
---   KEY `idx_texts_created_by` (`created_by`),
---   CONSTRAINT `fk_texts_user` FOREIGN KEY (`created_by`)
---     REFERENCES `users`(`id`) ON DELETE SET NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `words` (
+    
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `word` VARCHAR(150) UNIQUE 
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+LOAD DATA INFILE '/docker-entrypoint-initdb.d/words.txt' 
+INTO TABLE words 
+LINES TERMINATED BY ' ' 
+(word);
+
 
 -- Typing sessions (renamed `timestamp` -> `session_at`)
 CREATE TABLE IF NOT EXISTS `typing_sessions` (
@@ -37,6 +37,10 @@ CREATE TABLE IF NOT EXISTS `typing_sessions` (
   -- `text_id` INT UNSIGNED NULL,
   `wpm` INT NOT NULL,
   `accuracy` DECIMAL(5,2) NOT NULL,
+  `mode` ENUM('words','time') DEFAULT 'time',
+  `amount` ENUM('15','30','60','120') DEFAULT '15',
+  `numbers` BOOLEAN DEFAULT FALSE,
+  `punctuation` BOOLEAN DEFAULT FALSE,
   `session_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_ts_user_id` (`user_id`),
