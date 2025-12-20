@@ -38,72 +38,32 @@
                 <th class="col3">WPM</th>
                 <th class="col4">Date</th>
               </tr>
-              <tr>
-                <td class="col1"><i class="fas fa-fw fa-crown fa-lg"></i></td>
-                <td class="col2">usename</td>
-                <td class="col3">250</td>
-                <td class="col4">2024/12/12</td>
-              </tr>
-              <tr>
-                <td class="col1">2</td>
-                <td class="col2">usename1</td>
-                <td class="col3">240</td>
-                <td class="col4">2024/12/11</td>
-              </tr>
-              <tr>
-                <td class="col1">3</td>
-                <td class="col2">usename2</td>
-                <td class="col3">230</td>
-                <td class="col4">2024/12/10</td>
-              </tr>
-              <tr>
-                <td class="col1">4</td>
-                <td class="col2">usename3</td>
-                <td class="col3">220</td>
-                <td class="col4">2024/12/9</td>
-              </tr>
-              <tr>
-                <td class="col1">5</td>
-                <td class="col2">usename4</td>
-                <td class="col3">210</td>
-                <td class="col4">2024/12/8</td>
-              </tr>
-              <tr>
-                <td class="col1">6</td>
-                <td class="col2">usename5</td>
-                <td class="col3">200</td>
-                <td class="col4">2024/12/7</td>
-              </tr>
-              <tr>
-                <td class="col1">7</td>
-                <td class="col2">usename6</td>
-                <td class="col3">190</td>
-                <td class="col4">2024/12/6</td>
-              </tr>
-              <tr>
-                <td class="col1">8</td>
-                <td class="col2">usename7</td>
-                <td class="col3">180</td>
-                <td class="col4">2024/12/5</td>
-              </tr>
-              <tr>
-                <td class="col1">9</td>
-                <td class="col2">usename8</td>
-                <td class="col3">170</td>
-                <td class="col4">2024/12/4</td>
-              </tr>
-              <tr>
-                <td class="col1">10</td>
-                <td class="col2">usename9</td>
-                <td class="col3">160</td>
-                <td class="col4">2024/12/3</td>
-              </tr>
+              <?php
+              if (!empty($data['time'])) {
+                  $i = 1;
+                  foreach ($data['time'] as $row) {
+                      echo "<tr>";
+                      if ($i == 1) {
+                          echo "<td class='col1'><i class='fas fa-fw fa-crown fa-lg'></i></td>";
+                      } else {
+                          echo "<td class='col1'>{$i}</td>";
+                      }
+                      echo "<td class='col2'>" . htmlspecialchars($row['username']) . "</td>";
+                      echo "<td class='col3'>{$row['wpm']}</td>";
+                      echo "<td class='col4'>" . date('Y/m/d', strtotime($row['session_at'])) . "</td>";
+                      echo "</tr>";
+                      $i++;
+                  }
+              } else {
+                  echo "<tr><td colspan='4'>No data available</td></tr>";
+              }
+              ?>
             </table>
           </div>
           <div class="rlist">
             <table>
               <caption>
-                Time 60
+                Words 15
               </caption>
               <tr>
                 <th class="col1"><i class="fas fa-fw fa-hashtag"></i></th>
@@ -111,66 +71,26 @@
                 <th class="col3">WPM</th>
                 <th class="col4">Date</th>
               </tr>
-              <tr>
-                <td class="col1"><i class="fas fa-fw fa-crown fa-lg"></i></td>
-                <td class="col2">usename</td>
-                <td class="col3">150</td>
-                <td class="col4">2024/12/12</td>
-              </tr>
-              <tr>
-                <td class="col1">2</td>
-                <td class="col2">usename1</td>
-                <td class="col3">140</td>
-                <td class="col4">2024/12/11</td>
-              </tr>
-              <tr>
-                <td class="col1">3</td>
-                <td class="col2">usename2</td>
-                <td class="col3">130</td>
-                <td class="col4">2024/12/10</td>
-              </tr>
-              <tr>
-                <td class="col1">4</td>
-                <td class="col2">usename3</td>
-                <td class="col3">120</td>
-                <td class="col4">2024/12/9</td>
-              </tr>
-              <tr>
-                <td class="col1">5</td>
-                <td class="col2">usename4</td>
-                <td class="col3">110</td>
-                <td class="col4">2024/12/8</td>
-              </tr>
-              <tr>
-                <td class="col1">6</td>
-                <td class="col2">usename5</td>
-                <td class="col3">100</td>
-                <td class="col4">2024/12/7</td>
-              </tr>
-              <tr>
-                <td class="col1">7</td>
-                <td class="col2">usename6</td>
-                <td class="col3">90</td>
-                <td class="col4">2024/12/6</td>
-              </tr>
-              <tr>
-                <td class="col1">8</td>
-                <td class="col2">usename7</td>
-                <td class="col3">80</td>
-                <td class="col4">2024/12/5</td>
-              </tr>
-              <tr>
-                <td class="col1">9</td>
-                <td class="col2">usename8</td>
-                <td class="col3">70</td>
-                <td class="col4">2024/12/4</td>
-              </tr>
-              <tr>
-                <td class="col1">10</td>
-                <td class="col2">usename9</td>
-                <td class="col3">60</td>
-                <td class="col4">2024/12/3</td>
-              </tr>
+              <?php
+              if (!empty($data['words'])) {
+                  $i = 1;
+                  foreach ($data['words'] as $row) {
+                      echo "<tr>";
+                      if ($i == 1) {
+                          echo "<td class='col1'><i class='fas fa-fw fa-crown fa-lg'></i></td>";
+                      } else {
+                          echo "<td class='col1'>{$i}</td>";
+                      }
+                      echo "<td class='col2'>" . htmlspecialchars($row['username']) . "</td>";
+                      echo "<td class='col3'>{$row['wpm']}</td>";
+                      echo "<td class='col4'>" . date('Y/m/d', strtotime($row['session_at'])) . "</td>";
+                      echo "</tr>";
+                      $i++;
+                  }
+              } else {
+                  echo "<tr><td colspan='4'>No data available</td></tr>";
+              }
+              ?>
             </table>
           </div>
         </div>

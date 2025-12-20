@@ -149,6 +149,7 @@ export function sendData(timerNum, wordNum, isTimeMode) {
 
   fetch("/home/typing", {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },

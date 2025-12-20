@@ -126,7 +126,7 @@ class Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function get_all($limit)
+    public function getAll($limit)
     {
 
         $sql = "SELECT * FROM {$this->table} LIMIT :LIMIT ;";

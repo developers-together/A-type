@@ -15,6 +15,11 @@ class Home extends Controller
     public function typing()
     {
 
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+            return;
+        }
         $userid = $_SESSION['user_id'];
         $data = [
             'user_id' => $userid,

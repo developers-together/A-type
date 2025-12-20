@@ -44,12 +44,7 @@ export function startCountdown(value) {
 
   countdownInterval = setInterval(() => {
     if (currentTimerValue == 0) {
-      newGame();
-      // We need to know if time mode is active to pass to statsScreen
-      // This dependency is a bit circular, so we might need to pass it in or check DOM
-      const timeButton = document.getElementById("time-button");
-      const isTimeMode = timeButton && timeButton.classList.contains("active");
-      statsScreen(timerNum, wordNum, isTimeMode);
+      endGame();
     } 
     if (currentTimerValue > 0) {
       currentTimerValue--;
@@ -66,11 +61,22 @@ export function resetCountdown() {
   updateTimerDisplay(timerNum);
 }
 
+export function endGame() {
+  clearInterval(countdownInterval);
+  timerOn = 0;
+  calculateMetrics();
+  
+  const timeButton = document.getElementById("time-button");
+  const isTimeMode = timeButton && timeButton.classList.contains("active");
+  
+  statsScreen(timerNum, wordNum, isTimeMode);
+}
+
 export async function newGame() {
   mainScreen();
   wordsAnimation();
   resetCountdown();
-  calculateMetrics();
+  // calculateMetrics(); // Removed as it's handled in endGame or irrelevant for restart
   resetStats();
 
   // Clearing previous words
@@ -190,7 +196,7 @@ export async function handleInput(key) {
       }
       let cursor = document.getElementById("cursor");
       cursor.classList.add("no-blink");
-  
+   
       if (typedLetters > originalWordSize) {
         //extra letter
         let newSpan = document.createElement("span");
@@ -207,8 +213,7 @@ export async function handleInput(key) {
       if (currentLetter == lastLetter) {
         // End game when reaching last letter in any mode
         console.log("Game Over Triggered");
-        newGame();
-        statsScreen(timerNum, wordNum, isTimeMode);
+        endGame();
         return;
       }
       console.log("Check:", currentLetter === lastLetter, isWordsMode, currentLetter, lastLetter);
@@ -226,8 +231,7 @@ export async function handleInput(key) {
       if (currentWord.nextElementSibling && currentWord.nextElementSibling.id === "cursor") {
           // This is the last word, end the game
           console.log("Game Over Triggered (Space on last word)");
-          newGame();
-          statsScreen(timerNum, wordNum, isTimeMode);
+          endGame();
           return;
       }
 

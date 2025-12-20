@@ -41,59 +41,127 @@
 
       <div class="tables">
         <table class="table1">
-          <tr>
-            <th>15s</th>
-            <th>30s</th>
-            <th>60s</th>
-            <th>120s</th>
-          </tr>
-          <tr>
-            <td>WPM</td>
-            <td>WPM</td>
-            <td>WPM</td>
-            <td>WPM</td>
-          </tr>
-          <tr>
-            <td>acc</td>
-            <td>acc</td>
-            <td>acc</td>
-            <td>acc</td>
-          </tr>
+          <!-- <tr> -->
+          <!--   <th>15s</th> -->
+          <!--   <th>30s</th> -->
+          <!--   <th>60s</th> -->
+          <!--   <th>120s</th> -->
+          <!-- </tr> -->
+          <!-- <tr> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!-- </tr> -->
+          <!-- <tr> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!-- </tr> -->
+
+            <?php
+              // echo var_dump($data['stats']);
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'time') {
+                    echo "<th>{$time['amount']}</th>";
+                }
+            }
+            echo "</tr>";
+
+
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'time') {
+                    echo "<th>{$time['wpm']}</th>";
+                }
+            }
+            echo "</tr>";
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'time') {
+                    echo "<th>{$time['accuracy']}</th>";
+                }
+            }
+            echo "</tr>";
+            ?>
         </table>
         <table class="table2">
-          <tr>
-            <th>10W</th>
-            <th>25W</th>
-            <th>50W</th>
-            <th>100W</th>
-          </tr>
-          <tr>
-            <td>WPM</td>
-            <td>WPM</td>
-            <td>WPM</td>
-            <td>WPM</td>
-          </tr>
-          <tr>
-            <td>acc</td>
-            <td>acc</td>
-            <td>acc</td>
-            <td>acc</td>
-          </tr>
-        </table>
-      </div>
-      <div class="buttons">
-        <button><i class="fa-solid fa-trash"></i>delete account</button>
+          <!-- <tr> -->
+          <!--   <th>10W</th> -->
+          <!--   <th>25W</th> -->
+          <!--   <th>50W</th> -->
+          <!--   <th>100W</th> -->
+          <!-- </tr> -->
+          <!-- <tr> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!--   <td>WPM</td> -->
+          <!-- </tr> -->
+          <!-- <tr> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!--   <td>acc</td> -->
+          <!-- </tr> -->
 
-        <form action="/Profile/logout" method="post">
-          <button><i class="fa-solid fa-user-minus"></i>Log out</button>
-        </form>
 
-        <button><i class="fa-solid fa-file-excel"></i>Reset Data</button>
-      </div>
-    </div>
-  </section>
 
-  <?php require_once '../App/Views/includes/footer.php'; ?>
+            <?php
+
+              // echo var_dump($data['stats']);
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'words') {
+                    echo "<th>{$time['amount']}</th>";
+                }
+            }
+            echo "</tr>";
+
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'words') {
+                    echo "<th>{$time['wpm']}</th>";
+                }
+            }
+            echo "</tr>";
+
+            echo "<tr>";
+
+            foreach ($data['stats'] as $row => $time) {
+                if ($time['mode'] == 'words') {
+                    echo "<th>{$time['accuracy']}</th>";
+                }
+            }
+            echo "</tr>";
+            ?>
+            </table>
+            </div>
+            <div class = "buttons" >
+            <button > <i class = "fa-solid fa-trash" > </i> delete account </button >
+
+            <form action = "/Profile/logout" method = "post" >
+            <button> <i class = "fa-solid fa-user-minus" > </i > Log out </button >
+            </form>
+
+            <button> <i class = "fa-solid fa-file-excel" > </i> Reset Data </button >
+            </div>
+            </div>
+            </section>
+
+            <?php require_once '../App/Views/includes/footer.php'; ?>
 
 
 
