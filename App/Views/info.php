@@ -56,56 +56,6 @@
             target="_blank"><i class="fa-brands fa-github github-icon"></i>A-type</a>
         </p>
       </div>
-      <div class="stat">
-        <h2><i class="fas fa-users"></i> Usage Statistics</h2>
-        <p>Tests completed by users: <span id="test-count">0</span></p>
-      </div>
-      <div class="cost">
-        <h2><i class="fas fa-money-bill-alt"></i> Cost</h2>
-        <p>
-          This website is completely free to use. No subscriptions, no hidden
-          fees.
-        </p>
-      </div>
-      <div class="dev">
-        <h2><i class="fas fa-user-friends"></i> Developers</h2>
-        <p>Meet the team behind A-Type:</p>
-        <h3>
-          <button class="collapsible-btn" data-target="#web-project-content">
-            Web Project
-          </button>
-        </h3>
-        <div id="web-project-content" class="hidden">
-          <ul>
-            <li>Abdallah elrouby - 320230016</li>
-            <li>Adham haitham - 320230021</li>
-            <li>Ahmed mohamed - 320230062</li>
-            <li>Ezzeldin Shadi - 320220038</li>
-            <li>Mohamed adham - 320230001</li>
-            <li>Mohamed hussein - 320230008</li>
-            <li>Omar sayed - 320230020</li>
-            <li>Shehab mohamed - 320230009</li>
-            <li>Ziad elsayed - 320230025</li>
-            <li>Ziad gaber - 320230015</li>
-          </ul>
-        </div>
-        <h3>
-          <button
-            class="collapsible-btn"
-            data-target="#software-project-content">
-            Software Project
-          </button>
-        </h3>
-        <div id="software-project-content" class="hidden">
-          <ul>
-            <li>Adham haitham - 320230021</li>
-            <li>Mohamed adham - 320230001</li>
-            <li>Mohamed hussein - 320230008</li>
-            <li>Shehab mohamed - 320230009</li>
-            <li>Ziad elsayed - 320230025</li>
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 

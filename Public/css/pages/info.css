@@ -1,9 +1,18 @@
 .info-container {
+  width: 90vw;
   max-width: var(--container-md);
   margin: 0 auto;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-xl);
+  box-sizing: border-box;
+}
+
+/* Section styling - applies to all content divs */
+.info-container > div {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .info-container h1,
@@ -12,6 +21,7 @@
   color: var(--dtext);
   font-family: "Lexend Deca", sans-serif;
   margin: 0;
+  font-size: var(--font-xl);
 }
 
 .info-container h2,
@@ -19,6 +29,14 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.info-container h2 i {
+  font-size: var(--font-lg);
+  width: var(--icon-size-lg);
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .info-container p,
@@ -28,13 +46,18 @@
 .info-container span {
   color: var(--text);
   font-family: "Nunito", sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-size: var(--font-md);
 }
 
 .info-container ul {
   list-style: disc;
   padding-left: var(--space-xl);
-  margin: 0;
+  margin: var(--space-sm) 0;
+}
+
+.info-container li {
+  margin-bottom: var(--space-xs);
 }
 
 .info-container li b {
@@ -44,42 +67,108 @@
 .info-container a {
   text-decoration: underline;
   color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .info-container a:hover {
   text-decoration: none;
-  transform: scale(1.05);
-  transition: all 0.2s ease-in-out;
+  color: var(--dtext);
+  transform: translateX(2px);
 }
 
 .info-container a:active {
-  transform: scale(0.95);
+  transform: scale(0.98);
   color: var(--dtext);
 }
 
 .github-icon {
   margin-right: var(--space-xs);
+  font-size: var(--font-lg);
 }
 
-@media (max-width: 600px) {
-  .info-container {
-    padding: var(--space-md);
-  }
-}
-
+/* Collapsible buttons for developer sections */
 .collapsible-btn {
   text-decoration: underline;
   background: none;
   border: none;
   color: var(--text);
   font-family: "Lexend Deca", sans-serif;
-  font-size: 1em;
+  font-size: var(--font-md);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  padding: 0;
+  padding: var(--space-xs) 0;
+  transition: all 0.2s ease-in-out;
 }
 
 .collapsible-btn:hover {
-  text-decoration: underline;
+  color: var(--dtext);
+  transform: translateX(4px);
+}
+
+.collapsible-btn:active {
+  transform: scale(0.98);
+}
+
+/* Developer lists */
+.info-container .dev h3 {
+  font-size: var(--font-lg);
+  margin-top: var(--space-sm);
+}
+
+.info-container .dev ul {
+  margin-top: var(--space-xs);
+  padding-left: var(--space-lg);
+}
+
+/* Hidden class for collapsible sections */
+.info-container .hidden {
+  display: none;
+}
+
+/* Usage statistics counter */
+#test-count {
+  font-weight: bold;
+  color: var(--text);
+  font-size: var(--font-lg);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .info-container {
+    width: 95vw;
+    padding: var(--space-md);
+    gap: var(--space-lg);
+  }
+
+  .info-container h2 {
+    font-size: var(--font-lg);
+  }
+
+  .info-container h2 i {
+    font-size: var(--font-md);
+    width: var(--icon-size-md);
+  }
+
+  .info-container p,
+  .info-container li {
+    font-size: var(--font-sm);
+  }
+
+  .info-container ul {
+    padding-left: var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .info-container {
+    padding: var(--space-sm);
+    gap: var(--space-md);
+  }
+
+  .info-container h2 {
+    flex-wrap: wrap;
+  }
 }

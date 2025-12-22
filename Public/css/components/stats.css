@@ -4,7 +4,7 @@
   align-items: center;
   padding-bottom: var(--space-xl);
   margin-top: 0;
-  height: calc(100vh - 10vh);
+  min-height: calc(100vh - 10vh);
 }
 
 .container {

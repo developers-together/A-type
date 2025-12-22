@@ -14,7 +14,7 @@ body {
   color: var(--text);
   user-select: none;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   animation: 0.8s ease-in-out forwards;
 }
 
