@@ -27,7 +27,6 @@
 /* Light mode logo */
 [data-theme="light"] .header div img {
   content: url("/assets/Logo/logo2.svg");
-  filter: brightness(0.8) contrast(1.2);
 }
 
 /* Additional light mode enhancements */
