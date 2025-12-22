@@ -12,18 +12,18 @@
         <div class="containerhead">
           <div class="left-group">
             <span class="title">All Time Leaderboard</span>
-            <span class="span">next update:</span>
+            <!-- <span class="span">next update:</span> -->
           </div>
           <div class="filters">
             <div class="filter-buttons">
               <button>All Time</button>
               <button>Daily</button>
             </div>
-            <select name="languages">
+            <!-- <select name="languages">
               <option>English</option>
               <option>Spanish</option>
               <option>Italian</option>
-            </select>
+            </select> -->
           </div>
         </div>
         <div class="lists">

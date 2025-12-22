@@ -1,14 +1,13 @@
 .header {
-  font-family: "Lexend Deca", sans-serif;
   user-select: none;
-  height: 10vh;
+  height: 10%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-bottom: var(--space-xs);
   padding-top: var(--space-xs);
-  padding-left: 4%;
+  margin-left: 5%;
   overflow: hidden;
   overflow-x: hidden;
 }
@@ -20,7 +19,7 @@
 }
 
 .header div img {
-  width: clamp(2.5rem, 8vw, 5rem);
+  width: clamp(50px, 10vw, 80px);
   height: auto;
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
@@ -31,7 +30,7 @@
 }
 
 .header div h1 {
-  font-size: var(--font-3xl);
+  font-size: var(--font-2xl);
   margin-left: var(--space-lg);
   white-space: nowrap;
   overflow: hidden;
@@ -54,7 +53,7 @@
 }
 
 .hsbtns {
-  margin-left: var(--space-sm);
+  margin-left: var(--space-xs);
 }
 
 .hsbtns button,
@@ -62,8 +61,8 @@
   border: none;
   background-color: transparent;
   color: var(--dtext);
-  width: clamp(2.5rem, 5vw, 3.5rem);
-  height: clamp(2.5rem, 5vw, 3.5rem);
+  width: clamp(2rem, 4vw, 3rem);
+  height: clamp(2rem, 4vw, 3rem);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
@@ -75,26 +74,37 @@
 
 .hebtns {
   position: absolute;
-  right: 4%;
+  right: 5vw;
 }
 
 .hsbtns button:hover,
 .hebtns button:hover {
-  transform: scale(1.1);
   color: var(--text);
+  transform: translateY(0);
+  transform: translateX(0);
+  transform: scale(1.1);
   transition: all 0.2s ease-in-out;
 }
 
 .hsbtns button:active,
 .hebtns button:active {
-  transform: scale(0.95);
   color: var(--dtext);
+  transform: translateY(0);
+  transform: translateX(0);
+  transform: scale(0.90);
   transition: all 0.2s ease-in-out;
 }
 
 .icon-container i {
   pointer-events: none;
-  font-size: var(--icon-size-md);
+  font-size: var(--icon-size-sm);
+}
+
+.icon-container i:hover,
+.icon-container i:active {
+  transform: scale(1);
+  transform: translateY(0);
+  transform: translateX(0);
 }
 
 /* THEME TOGGLE BUTTON */
