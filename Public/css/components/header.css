@@ -1,13 +1,14 @@
 .header {
   user-select: none;
   height: 10%;
-  width: 100%;
+  width: 90%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding-bottom: var(--space-xs);
-  padding-top: var(--space-xs);
+  padding-top: var(--space-2xs);
   margin-left: 5%;
+  margin-right: 5%;
   overflow: hidden;
   overflow-x: hidden;
 }
@@ -54,6 +55,7 @@
 
 .hsbtns {
   margin-left: var(--space-xs);
+  flex-grow: 1;
 }
 
 .hsbtns button,
@@ -73,8 +75,9 @@
 }
 
 .hebtns {
-  position: absolute;
-  right: 5vw;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
 }
 
 .hsbtns button:hover,

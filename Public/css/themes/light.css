@@ -29,6 +29,10 @@
   content: url("/assets/Logo/logo2.svg");
 }
 
+[data-theme="light"] .header div h1 {
+  color: var(--dtext-light);
+}
+
 /* Additional light mode enhancements */
 [data-theme="light"] {
   background-color: var(--bgcolor-light);

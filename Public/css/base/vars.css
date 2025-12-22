@@ -19,11 +19,15 @@
   --text-dark: #eeeeee;
 
   /* Responsive spacing */
+  --space-2xs: clamp(0.1rem, 0.25vw, 0.25rem);
   --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
   --space-sm: clamp(0.5rem, 1vw, 0.75rem);
   --space-md: clamp(0.75rem, 1.5vw, 1rem);
   --space-lg: clamp(1rem, 2vw, 1.5rem);
   --space-xl: clamp(1.5rem, 3vw, 2.5rem);
+  --space-2xl: clamp(2rem, 4vw, 3rem);
+  --space-3xl: clamp(3rem, 5vw, 4rem);
+  --space-4xl: clamp(4rem, 6vw, 5rem);
 
   /* Responsive font sizes */
   --font-xs: clamp(0.625rem, 1vw, 0.75rem);
@@ -39,6 +43,7 @@
   --btn-height-sm: clamp(1.75rem, 3vh, 2.25rem);
   --btn-height-md: clamp(2rem, 4vh, 2.75rem);
   --btn-height-lg: clamp(2.5rem, 5vh, 3.25rem);
+  --btn-height-xl: clamp(3rem, 6vh, 4rem);
   --icon-size-sm: clamp(1rem, 2vw, 1.5rem);
   --icon-size-md: clamp(1.25rem, 2.5vw, 1.75rem);
   --icon-size-lg: clamp(1.5rem, 3vw, 2rem);
