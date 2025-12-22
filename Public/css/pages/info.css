@@ -1,9 +1,9 @@
 .info-container {
-  max-width: 800px;
+  max-width: var(--container-md);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: var(--space-xs);
 }
 
 .info-container h1,
@@ -18,7 +18,7 @@
 .info-container h3 {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .info-container p,
@@ -33,7 +33,7 @@
 
 .info-container ul {
   list-style: disc;
-  padding-left: 2rem;
+  padding-left: var(--space-xl);
   margin: 0;
 }
 
@@ -58,12 +58,12 @@
 }
 
 .github-icon {
-  margin-right: 4px;
+  margin-right: var(--space-xs);
 }
 
 @media (max-width: 600px) {
   .info-container {
-    padding: 1rem;
+    padding: var(--space-md);
   }
 }
 

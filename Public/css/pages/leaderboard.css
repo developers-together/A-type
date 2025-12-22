@@ -1,9 +1,9 @@
 .screen {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-lg);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-md);
   box-sizing: border-box;
 }
 
@@ -11,13 +11,13 @@
   font-family: "Nunito", sans-serif;
   width: 100%;
   background-color: var(--btncolor);
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   border-style: none;
   box-sizing: border-box;
-  padding: 2rem;
+  padding: var(--space-xl);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--space-xl);
   overflow: auto;
 }
 
@@ -27,18 +27,18 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--space-md);
   box-sizing: border-box;
 }
 
 .left-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .title {
-  font-size: clamp(25px, 5vw, 40px);
+  font-size: var(--font-3xl);
   color: var(--text);
   white-space: nowrap;
 }
@@ -50,22 +50,22 @@
 .filters {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-sm);
   align-items: flex-end;
 }
 
 .filter-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .filter-buttons button {
-  height: 30px;
-  width: 110px;
+  height: var(--btn-height-sm);
+  width: clamp(5rem, 10vw, 7rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--dtext);
   background-color: var(--btncolor);
   color: var(--text);
@@ -87,25 +87,25 @@
 }
 
 .filters select {
-  height: 30px;
-  width: 230px;
+  height: var(--btn-height-sm);
+  width: clamp(10rem, 20vw, 15rem);
   border: 1px solid var(--dtext);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background-color: var(--btncolor);
   color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  padding: 0 5px;
+  padding: 0 var(--space-xs);
   font-family: inherit;
-  font-size: 1rem;
-  line-height: 30px;
+  font-size: var(--font-md);
+  line-height: var(--btn-height-sm);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23eeeeee' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px 16px;
+  background-position: right var(--space-sm) center;
+  background-size: var(--icon-size-sm) var(--icon-size-sm);
 }
 
 .filters select option {
@@ -116,7 +116,7 @@
 .lists {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: var(--space-xl);
   justify-content: space-around;
   width: 100%;
   box-sizing: border-box;
@@ -125,7 +125,7 @@
 .llist,
 .rlist {
   width: 45%;
-  max-width: 600px;
+  max-width: var(--container-sm);
 }
 
 .llist table,
@@ -138,21 +138,21 @@
 .llist caption,
 .rlist caption {
   text-align: left;
-  font-size: 1.5rem;
+  font-size: var(--font-xl);
   color: var(--text);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-sm);
 }
 
 .llist th,
 .rlist th {
   color: var(--dtext);
   border-bottom: 1px solid var(--dtext);
-  padding: 0.5rem;
+  padding: var(--space-sm);
 }
 
 .llist td,
 .rlist td {
-  padding: 0.5rem;
+  padding: var(--space-sm);
   color: var(--text);
   word-wrap: break-word;
 }
@@ -170,7 +170,7 @@
 
 .llist td i,
 .rlist td i {
-  font-size: 15px;
+  font-size: var(--font-md);
   color: yellow;
 }
 

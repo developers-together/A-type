@@ -2,9 +2,9 @@
   margin-top: 2%;
   background-color: var(--btncolor);
   width: 90vw;
-  max-width: 1200px;
-  height: 120px;
-  border-radius: 1rem;
+  max-width: var(--container-lg);
+  height: clamp(6rem, 12vh, 8rem);
+  border-radius: var(--radius-lg);
   border-style: none;
   display: flex;
   position: relative;
@@ -16,16 +16,16 @@
 }
 
 .typing-lines {
-  padding-left: 0.05rem;
+  padding-left: var(--space-xs);
   position: relative;
   overflow: auto;
   height: 100%;
   width: 100%;
-  margin: 0 25px;
+  margin: 0 var(--space-lg);
   color: var(--dtext);
   overflow-y: hidden;
   line-height: 7vh;
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-size: var(--font-2xl);
 }
 
 .typing-lines.fade {
@@ -46,15 +46,15 @@
 }
 
 .word {
-  font-size: 2vw;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   margin: 0.5%;
   display: inline-flex;
 }
 
 #cursor {
-  border-radius: 5rem;
+  border-radius: var(--radius-full);
   background-color: #eeeeee;
-  width: 0.1rem;
+  width: clamp(0.1rem, 0.15vw, 0.15rem);
   position: absolute;
   animation: blink 0.8s steps(30) infinite;
   transition: all 0.1s ease;

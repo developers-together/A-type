@@ -6,8 +6,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding-bottom: var(--space-xs);
+  padding-top: var(--space-xs);
   padding-left: 4%;
   overflow: hidden;
   overflow-x: hidden;
@@ -20,7 +20,7 @@
 }
 
 .header div img {
-  width: clamp(50px, 10vw, 80px);
+  width: clamp(2.5rem, 8vw, 5rem);
   height: auto;
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
@@ -31,8 +31,8 @@
 }
 
 .header div h1 {
-  font-size: clamp(25px, 5vw, 40px);
-  margin-left: 20px;
+  font-size: var(--font-3xl);
+  margin-left: var(--space-lg);
   white-space: nowrap;
   overflow: hidden;
   max-width: 0;
@@ -42,19 +42,19 @@
 }
 
 .header div img:hover + h1 {
-  max-width: 500px;
+  max-width: 30rem;
   opacity: 1;
 }
 
 .hsbtns,
 .hebtns {
-  padding: 12.5px 0;
+  padding: var(--space-sm) 0;
   display: flex;
   align-items: center;
 }
 
 .hsbtns {
-  margin-left: 10px;
+  margin-left: var(--space-sm);
 }
 
 .hsbtns button,
@@ -62,8 +62,8 @@
   border: none;
   background-color: transparent;
   color: var(--dtext);
-  width: 50px;
-  height: 50px;
+  width: clamp(2.5rem, 5vw, 3.5rem);
+  height: clamp(2.5rem, 5vw, 3.5rem);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
@@ -94,14 +94,14 @@
 
 .icon-container i {
   pointer-events: none;
-  font-size: 1.3rem;
+  font-size: var(--icon-size-md);
 }
 
 /* THEME TOGGLE BUTTON */
 #theme-toggle {
   border: none;
-  border-radius: 5px;
-  padding: 8px;
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   transform: translateZ(0);

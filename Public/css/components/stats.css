@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 50px;
+  padding-bottom: var(--space-xl);
   margin-top: 0;
   height: calc(100vh - 10vh);
 }
@@ -24,14 +24,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 35px;
-  padding: 0 1rem;
-  border-radius: 15vw;
+  height: var(--btn-height-sm);
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-full);
   background-color: var(--btncolor);
   color: var(--text);
   position: absolute;
   left: 5%;
-  top: calc(10vh + 80px);
+  top: calc(10vh + clamp(4rem, 8vh, 6rem));
   user-select: none;
   cursor: default;
   transition: all 0.2s ease-in-out;
@@ -61,7 +61,7 @@
   top: 41.5%;
   width: 90vw;
   min-height: 15%;
-  border-radius: 1.5vw;
+  border-radius: clamp(1rem, 1.5vw, 1.5rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -90,24 +90,24 @@
 
 .list th,
 .list td {
-  padding: 5px;
+  padding: var(--space-xs);
   word-wrap: nowrap;
 }
 
 .list th {
-  font-size: 40px;
+  font-size: var(--font-3xl);
   color: var(--dtext);
   border-bottom: 1px solid var(--dtext);
 }
 
 .list td {
   color: var(--text);
-  padding: 15px;
+  padding: var(--space-md);
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
+    padding: var(--space-md);
   }
 
   .container2 {
@@ -116,11 +116,11 @@
 
   .list table,
   .list td {
-    font-size: 0.75rem;
+    font-size: var(--font-sm);
   }
 
   .list th {
-    font-size: 1.5rem;
+    font-size: var(--font-xl);
   }
 }
 
@@ -133,13 +133,13 @@
   content: "correct, incorrect, extra, missed";
   position: absolute;
   color: var(--text);
-  padding: 0.5rem;
-  border-radius: 5px;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
   white-space: nowrap;
   top: 50%;
   left: 50%;
   transform: translateY(-50%);
-  font-size: 0.9rem;
+  font-size: var(--font-md);
   z-index: 10;
   opacity: 0;
   animation: tooltipFadeIn 0.3s forwards ease-in-out;

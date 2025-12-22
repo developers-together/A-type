@@ -19,11 +19,11 @@
 }
 
 .signup {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 20px;
-  width: 210px;
-  height: 350px;
+  margin-left: var(--space-sm);
+  margin-right: var(--space-sm);
+  font-size: var(--font-xl);
+  width: clamp(12rem, 20vw, 14rem);
+  height: clamp(20rem, 35vh, 24rem);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -36,21 +36,21 @@
   left: 25%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  padding: 15px;
-  border-radius: 22px;
+  padding: var(--space-md);
+  border-radius: var(--radius-xl);
   box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1);
 }
 
 .signup input {
-  width: 200px;
-  border-radius: 10px;
+  width: clamp(11rem, 18vw, 13rem);
+  border-radius: var(--radius-md);
   border-width: 0px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
-  font-size: 15px;
-  padding: 10px;
-  margin-bottom: 10px;
+  font-size: var(--font-md);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
   transition: all 0.2s ease-in-out;
   outline: none;
 }
@@ -67,8 +67,8 @@
 }
 
 .signup button {
-  height: 35px;
-  width: 220px;
+  height: var(--btn-height-sm);
+  width: clamp(12rem, 20vw, 14rem);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -76,12 +76,12 @@
   justify-items: center;
   justify-self: center;
   display: flex;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border-width: 1px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--text);
-  margin-top: 10px;
+  margin-top: var(--space-sm);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
@@ -112,11 +112,11 @@
 }
 
 .login {
-  margin-right: 10px;
-  margin-left: 10px;
-  font-size: 18px;
-  width: 210px;
-  height: 350px;
+  margin-right: var(--space-sm);
+  margin-left: var(--space-sm);
+  font-size: var(--font-lg);
+  width: clamp(12rem, 20vw, 14rem);
+  height: clamp(20rem, 35vh, 24rem);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -129,21 +129,21 @@
   right: 25%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  padding: 15px;
-  border-radius: 22px;
+  padding: var(--space-md);
+  border-radius: var(--radius-xl);
   box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1);
 }
 
 .hr {
-  border-left: 80px solid var(--dtext);
+  border-left: clamp(4rem, 8vw, 5rem) solid var(--dtext);
   height: 2px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
 }
 
 .login .or-line {
   display: flex;
-  height: 30px;
-  width: 210px;
+  height: var(--btn-height-sm);
+  width: clamp(12rem, 20vw, 14rem);
   text-align: center;
   align-items: center;
   align-self: center;
@@ -152,20 +152,20 @@
   justify-items: center;
   justify-self: center;
   color: var(--text);
-  font-size: 15px;
-  margin: 5px 0px;
+  font-size: var(--font-md);
+  margin: var(--space-xs) 0;
 }
 
 .login input {
-  width: 200px;
-  border-radius: 10px;
+  width: clamp(11rem, 18vw, 13rem);
+  border-radius: var(--radius-md);
   border-width: 0px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
   color: var(--dtext);
-  font-size: 15px;
-  padding: 10px;
-  margin-bottom: 10px;
+  font-size: var(--font-md);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
   transition: all 0.2s ease-in-out;
   outline: none;
 }
@@ -182,9 +182,9 @@
 }
 
 .login .rememberme {
-  height: 10px;
+  height: var(--space-sm);
   color: var(--dtext);
-  width: 210px;
+  width: clamp(12rem, 20vw, 14rem);
   text-align: start;
   align-items: center;
   align-self: center;
@@ -193,13 +193,13 @@
   justify-items: center;
   justify-self: center;
   display: flex;
-  margin-top: 10px;
+  margin-top: var(--space-sm);
 }
 
 .login .rememberme input {
-  margin-top: 10px;
-  height: 20px;
-  width: 20px;
+  margin-top: var(--space-sm);
+  height: var(--icon-size-md);
+  width: var(--icon-size-md);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -214,7 +214,7 @@
   transition: background-color 0.3s ease, border-color 0.3s ease,
     transform 0.3s ease;
   -webkit-appearance: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
 .login .rememberme input:checked {
@@ -226,13 +226,13 @@
   content: "✓";
   display: block;
   color: white;
-  font-size: 14px;
+  font-size: var(--font-sm);
   text-align: center;
   line-height: 18px;
 }
 
 .login .rememberme label {
-  margin-left: 5px;
+  margin-left: var(--space-xs);
 }
 
 #login-button:disabled,
@@ -252,20 +252,20 @@
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  gap: 10px;
+  gap: var(--space-sm);
   overflow: hidden;
 }
 
 .login button {
-  height: 30px;
-  width: 100px;
+  height: var(--btn-height-sm);
+  width: clamp(5rem, 10vw, 6.5rem);
   align-items: center;
   align-self: center;
   align-content: center;
   justify-content: center;
   justify-items: center;
   justify-self: center;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border-width: 1px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
@@ -276,8 +276,8 @@
 }
 
 .login .button {
-  height: 30px;
-  width: 210px;
+  height: var(--btn-height-sm);
+  width: clamp(12rem, 20vw, 14rem);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -285,7 +285,7 @@
   justify-items: center;
   justify-self: center;
   display: flex;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border-width: 1px;
   border-color: var(--dtext);
   background-color: var(--btncolor);
@@ -328,9 +328,9 @@
 }
 
 .login a {
-  font-size: 12px;
-  height: 30px;
-  width: 210px;
+  font-size: var(--font-xs);
+  height: var(--btn-height-sm);
+  width: clamp(12rem, 20vw, 14rem);
   align-items: center;
   align-self: center;
   align-content: center;
@@ -338,7 +338,7 @@
   justify-items: center;
   justify-self: center;
   text-align: center;
-  margin-top: -15px;
+  margin-top: calc(var(--space-md) * -1);
   color: var(--dtext);
   outline: none;
   display: flex;

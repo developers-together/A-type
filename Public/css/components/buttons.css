@@ -1,13 +1,13 @@
 .hr {
-  border-left: 5px solid var(--bgcolor);
+  border-left: clamp(3px, 0.5vw, 5px) solid var(--bgcolor);
   height: 40%;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
 }
 
 .hr2 {
-  border-bottom: 5px solid var(--bgcolor);
+  border-bottom: clamp(3px, 0.5vw, 5px) solid var(--bgcolor);
   width: 90%;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   align-self: center;
   justify-self: center;
 }
@@ -15,19 +15,19 @@
 .controls-line {
   display: flex;
   width: 100%;
-  max-width: 1200px;
-  height: 50px;
+  max-width: var(--container-lg);
+  height: var(--btn-height-lg);
   justify-content: center;
   position: relative;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem;
+  gap: var(--space-sm);
+  padding: var(--space-md);
   justify-content: center;
   align-items: center;
   outline: none;
@@ -35,8 +35,8 @@
 }
 
 .controls button {
-  padding: 0.1rem 0.7rem;
-  font-size: 0.7rem;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-sm);
   transition: all 0.2s ease-in-out;
 }
 
@@ -63,14 +63,14 @@
   }
 
   .controls .mobile-button {
-    font-size: 0.7rem;
+    font-size: var(--font-sm);
     display: flex;
     align-items: center;
     background-color: var(--btncolor);
     color: var(--dtext);
-    border-radius: 15vw;
+    border-radius: var(--radius-full);
     cursor: pointer;
-    padding: 0 10px;
+    padding: 0 var(--space-sm);
     transition: all 0.2s ease-in-out;
   }
 }
@@ -97,15 +97,15 @@
 }
 
 .buttons {
-  font-size: 0.7rem;
+  font-size: var(--font-sm);
   width: var(--width);
-  height: 30px;
-  padding: 0 5px;
+  height: var(--btn-height-sm);
+  padding: 0 var(--space-xs);
   background-color: var(--btncolor);
   color: var(--dtext);
   display: flex;
   align-items: center;
-  border-radius: 15vw;
+  border-radius: var(--radius-full);
   justify-content: center;
   transition: all 0.2s ease-in-out;
 }
@@ -146,8 +146,8 @@
 .reset {
   margin-top: 28%;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,9 +162,9 @@
 }
 
 .reset button {
-  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  font-size: var(--font-xl);
   border: none;
-  border-radius: 15vw;
+  border-radius: var(--radius-full);
   background-color: transparent;
   color: var(--dtext);
   display: flex;
@@ -204,8 +204,8 @@
   border: none;
   top: 70vh;
   position: fixed;
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
   align-items: center;
   justify-content: center;
   animation: fadeInContainer2 0.8s ease-in-out forwards;
@@ -218,10 +218,10 @@
 }
 
 .back-btn button {
-  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  font-size: var(--font-xl);
   border: none;
   outline: none;
-  border-radius: 15vw;
+  border-radius: var(--radius-full);
   background-color: transparent;
   color: var(--dtext);
   display: flex;
@@ -246,14 +246,14 @@
   transition: all 0.2s ease-in-out;
   display: none;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-sm);
   position: absolute;
-  top: 65px;
+  top: clamp(3.5rem, 6vh, 4.5rem);
   left: 35vw;
   right: 35vw;
   background-color: var(--btncolor);
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
   z-index: 10;
 }
 
@@ -265,11 +265,11 @@
   border: none;
   background-color: transparent;
   color: var(--dtext);
-  padding: 0.3rem 0.7rem;
-  font-size: 0.8rem;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-md);
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--space-xs);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   align-self: center;
