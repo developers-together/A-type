@@ -373,7 +373,7 @@
   font-weight: 600;
 }
 
-.buttons {
+.pbuttons {
   position: absolute;
   top: 80%;
   right: 30%;
@@ -388,12 +388,12 @@
 }
 
 @media (max-width: 768px) {
-  .buttons {
+  .pbuttons {
     top: 50%;
   }
 }
 
-.buttons button {
+.pbuttons button {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -407,20 +407,20 @@
   transition: all 0.2s ease-in-out;
 }
 
-.buttons button:hover {
+.pbuttons button:hover {
   transform: scale(1.05);
   background-color: darkred;
   color: var(--text);
 }
 
-.buttons button:active {
+.pbuttons button:active {
   transform: scale(0.95);
   filter: brightness(0.8);
   color: darkred;
   background-color: var(--text);
 }
 
-.buttons button i {
+.pbuttons button i {
   pointer-events: none;
   font-size: clamp(0.5rem, 1.75vw, 1rem);
 }
@@ -428,7 +428,7 @@
 /* Light theme specific styles */
 [data-theme="light"] .container,
 [data-theme="light"] .tables table,
-[data-theme="light"] .buttons button {
+[data-theme="light"] .pbuttons button {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -449,12 +449,12 @@
   background-color: var(--btncolor-light);
 }
 
-[data-theme="light"] .buttons button:hover {
+[data-theme="light"] .pbuttons button:hover {
   background-color: #ff6b6b;
   color: white;
 }
 
-[data-theme="light"] .buttons button:active {
+[data-theme="light"] .pbuttons button:active {
   color: #ff6b6b;
   background-color: var(--btncolor-light);
 }

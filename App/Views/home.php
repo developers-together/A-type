@@ -12,24 +12,24 @@
       <div class="controls-line">
         <div class="controls">
           <div class="buttons">
-            <button id="punctuation">
+            <button class="punctuation-button" id="punctuation">
               <i class="fas fa-fw fa-at"></i>
               Punctuation
             </button>
-            <button id="numbers">
+            <button class="numbers-button" id="numbers">
               <i class="fas fa-fw fa-hashtag"></i>
               Numbers
             </button>
-            <div class="hr"></div>
-            <button id="time-button">
+            <div class="hhr"></div>
+            <button class="time-button" id="time-button">
               <i class="fas fa-fw fa-clock"></i>
               Time
             </button>
-            <button id="words-button">
+            <button class="words-button" id="words-button">
               <i class="fas fa-fw fa-font"></i>
               Words
             </button>
-            <div class="hr"></div>
+            <div class="hhr"></div>
             <button class="btn1" id="btn1">15</button>
             <button class="btn2" id="btn2">30</button>
             <button class="btn3" id="btn3">60</button>
@@ -54,24 +54,24 @@
       </div>
     </div>
     <div class="mobile-menu hidden" id="mobileMenu">
-      <button id="punctuation-mobile">
+      <button class="punctuation-mobile" id="punctuation-mobile">
         <i class="fas fa-fw fa-at"></i>
         Punctuation
       </button>
-      <button id="numbers-mobile">
+      <button class="numbers-mobile" id="numbers-mobile">
         <i class="fas fa-fw fa-hashtag"></i>
         Numbers
       </button>
-      <div class="hr2"></div>
-      <button id="time-mobile">
+      <div class="hhr2"></div>
+      <button class="time-mobile" id="time-mobile">
         <i class="fas fa-fw fa-clock"></i>
         Time
       </button>
-      <button id="words-mobile">
+      <button class="words-mobile" id="words-mobile">
         <i class="fas fa-fw fa-font"></i>
         Words
       </button>
-      <div class="hr2"></div>
+      <div class="hhr2"></div>
       <button id="btn1-mobile">15</button>
       <button id="btn2-mobile">30</button>
       <button id="btn3-mobile">60</button>

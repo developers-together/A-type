@@ -60,4 +60,7 @@
   --container-md: min(90vw, 900px);
   --container-lg: min(90vw, 1200px);
   --container-xl: min(95vw, 1400px);
+
+  /* Scroll behavior */
+  scroll-behavior: smooth;
 }

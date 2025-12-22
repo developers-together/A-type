@@ -149,7 +149,7 @@
             ?>
             </table>
             </div>
-            <div class = "buttons" >
+            <div class = "pbuttons" >
             <button > <i class = "fa-solid fa-trash" > </i> delete account </button >
 
             <form action = "/Profile/logout" method = "post" >

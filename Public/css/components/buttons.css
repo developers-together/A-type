@@ -1,13 +1,14 @@
-.hr {
+.hhr {
   border-left: clamp(3px, 0.5vw, 5px) solid var(--bgcolor);
-  height: 40%;
-  border-radius: var(--radius-md);
+  height: 60%;
+  border-radius: 10px;
+  margin: 0 5px;
 }
 
-.hr2 {
-  border-bottom: clamp(3px, 0.5vw, 5px) solid var(--bgcolor);
+.hhr2 {
+  border-bottom: 5px solid var(--bgcolor);
   width: 90%;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   align-self: center;
   justify-self: center;
 }
@@ -15,7 +16,7 @@
 .controls-line {
   display: flex;
   width: 100%;
-  max-width: var(--container-lg);
+  /* max-width: var(--container-xl); */
   height: var(--btn-height-lg);
   justify-content: center;
   position: relative;
@@ -31,35 +32,62 @@
   justify-content: center;
   align-items: center;
   outline: none;
-  transition: all 0.2s ease-in-out;
 }
 
 .controls button {
   padding: var(--space-xs) var(--space-md);
   font-size: var(--font-sm);
+  border: none;
+  background-color: transparent;
+  color: var(--dtext);
+  cursor: pointer;
+  border-radius: var(--radius-md);
   transition: all 0.2s ease-in-out;
+}
+
+/* Button hover - whole button lights up */
+.controls button:hover {
+  color: var(--text);
+  transform: scale(1.05);
+}
+
+/* Button active - pressed effect */
+.controls button:active {
+  color: var(--dtext);
+  transform: scale(0.95);
+}
+
+/* Active state for selected buttons */
+.controls button.active {
+  color: var(--text);
+}
+
+.controls button:focus,
+.controls button:focus-visible {
+  outline: none;
+}
+
+/* Prevent text/icons from having their own hover */
+.controls button * {
+  pointer-events: none;
 }
 
 .mobile-button {
   display: none;
-  transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 768px) {
   .controls {
     flex-direction: column;
     align-items: center;
-    transition: all 0.2s ease-in-out;
   }
 
   .controls-line {
     top: 0px;
-    transition: all 0.2s ease-in-out;
   }
 
   .controls .buttons {
     display: none;
-    transition: all 0.2s ease-in-out;
   }
 
   .controls .mobile-button {
@@ -70,36 +98,17 @@
     color: var(--dtext);
     border-radius: var(--radius-full);
     cursor: pointer;
-    padding: 0 var(--space-sm);
-    transition: all 0.2s ease-in-out;
+    padding: var(--space-xs) var(--space-md);
+  }
+  
+  .controls .mobile-button:hover {
+    color: var(--text);
   }
 }
 
-.controls *:hover {
-  color: var(--text);
-  transition: all 0.2s ease-in-out;
-  transform: translateZ(0);
-}
-
-.controls *:active {
-  color: var(--dtext);
-}
-
-.controls *.active {
-  color: var(--text);
-}
-
-.controls *:focus,
-.controls *:focus-visible,
-.controls *:focus-within {
-  outline: none;
-  transition: all 0.2s ease-in-out;
-}
-
-.buttons {
+.controls .buttons {
   font-size: var(--font-sm);
-  width: var(--width);
-  height: var(--btn-height-sm);
+  height: var(--btn-height-md);
   padding: 0 var(--space-xs);
   background-color: var(--btncolor);
   color: var(--dtext);
@@ -107,15 +116,25 @@
   align-items: center;
   border-radius: var(--radius-full);
   justify-content: center;
-  transition: all 0.2s ease-in-out;
+  gap: var(--space-2xs);
 }
 
-.buttons button {
+.controls .buttons button {
   cursor: pointer;
   border: none;
   color: var(--dtext);
   background-color: transparent;
-  transition: all 0.2s ease-in-out;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+}
+
+.controls .buttons button:hover {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.controls .buttons button.active {
+  color: var(--text);
 }
 
 .buttons *:hover {
@@ -297,4 +316,15 @@ button.active {
   .controls .mobile-button {
     display: flex;
   }
+}
+
+.numbers-button,
+.words-button {
+  margin: 0 0 0 5px;
+}
+
+.btn1,
+.btn2,
+.btn3 {
+  margin: 0 5px 0 0;
 }

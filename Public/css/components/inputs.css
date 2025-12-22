@@ -1,9 +1,9 @@
 .typing-area {
-  margin-top: 2%;
+  margin-top: 4%;
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
-  height: clamp(6rem, 12vh, 8rem);
+  height: 25%;
   border-radius: var(--radius-lg);
   border-style: none;
   display: flex;

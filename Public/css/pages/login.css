@@ -1,7 +1,17 @@
+.main {
+  align-items: center;
+  height: 100vh;
+  padding-top: 10vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .login-container {
   width: 100%;
   display: flex;
-  height: 90vh;
+  height: 100%;
   justify-self: center;
   justify-items: center;
   justify-content: center;
@@ -10,11 +20,18 @@
   align-content: center;
   flex-wrap: wrap;
   flex-direction: row;
-  overflow: auto;
-  overflow-y: auto;
+  overflow: hidden;
+  overflow-y: hidden;
   overflow-x: hidden;
   gap: 10vw;
-  position: fixed;
+}
+
+/* Mobile view - stack vertically */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
 }
 
 .signup {
@@ -34,10 +51,8 @@
   position: static;
   left: 25%;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
   padding: var(--space-md);
   border-radius: var(--radius-xl);
-  box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1);
 }
 
 .signup input {
