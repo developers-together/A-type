@@ -48,8 +48,13 @@ export async function renderWords(wordNum) {
     for (let i = 0; i < data.length; i++) {
         let chosenWord = data[i].word;
         
-        // Punctuation logic (client-side or server-side? Keeping client-side for now as requested)
-        if (punctuation.classList.contains("active")) {
+        // Numbers logic - 10% chance to replace word with a random number
+        if (numbers && numbers.classList.contains("active") && Math.random() < 0.1) {
+          chosenWord = String(Math.floor(Math.random() * 1000));
+        }
+        
+        // Punctuation logic - 30% chance to add punctuation
+        if (punctuation && punctuation.classList.contains("active")) {
           const suffix = [",", ".", "?", "!", ";", ":"];
           if (Math.random() < 0.3) {
             chosenWord += suffix[Math.floor(Math.random() * suffix.length)];
