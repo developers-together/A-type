@@ -31,6 +31,8 @@
   /* Line height at 2× font size for clear spacing */
   line-height: 2em;
   font-size: clamp(1.6rem, 2vw, 2rem);
+  /* Smooth scroll transition */
+  scroll-behavior: smooth;
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera */

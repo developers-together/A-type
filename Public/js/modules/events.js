@@ -133,7 +133,6 @@ function setupControlButtons() {
             numbersPill.classList.add("visible");
         }
         
-        newGame();
         resetActiveButtons(btns);
         resetActiveButtons(mobileBtns);
         
@@ -153,6 +152,9 @@ function setupControlButtons() {
         document.getElementById("btn2-mobile").textContent = "30";
         document.getElementById("btn3-mobile").textContent = "60";
         document.getElementById("btn4-mobile").textContent = "120";
+        
+        // Call newGame at the end
+        newGame();
     }
 
     function handleWordsButtonClick() {
@@ -169,7 +171,6 @@ function setupControlButtons() {
             numbersPill.classList.add("visible");
         }
         
-        newGame();
         resetActiveButtons(btns);
         resetActiveButtons(mobileBtns);
         
@@ -177,6 +178,7 @@ function setupControlButtons() {
         btn1.classList.add("active");
         document.getElementById("btn1-mobile").classList.add("active");
         
+        // Set word count BEFORE calling newGame
         setCurrentWordsCount(10);
         
         // Update button text
@@ -188,6 +190,9 @@ function setupControlButtons() {
         document.getElementById("btn2-mobile").textContent = "25";
         document.getElementById("btn3-mobile").textContent = "50";
         document.getElementById("btn4-mobile").textContent = "100";
+        
+        // Now call newGame with correct word count
+        newGame();
     }
 
     function handleBtn1Click() {

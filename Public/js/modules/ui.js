@@ -41,6 +41,7 @@ export async function renderWords(wordNum) {
     if (!response.ok) throw new Error('Network response was not ok');
     
     const data = await response.json();
+    console.log(`Requested ${wordNum} words, received ${data.length} words from backend`);
     // Assuming backend returns array of objects: [{word: "example"}, ...]
     // or array of strings. Adjust based on actual PHP return.
     // Based on previous context, it returns fetchAll(PDO::FETCH_ASSOC), so it is [{word: "..."}]

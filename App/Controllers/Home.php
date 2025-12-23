@@ -38,16 +38,19 @@ class Home extends Controller
 
     public function words()
     {
-
-        if (
-            $_GET['amount'] == 15 || $_GET['amount'] == 30 ||
-            $_GET['amount'] == 60 || $_GET['amount'] == 120
-        ) {
+        $amount = isset($_GET['amount']) ? (int)$_GET['amount'] : 15;
+        
+        // Valid amounts: Time mode (15, 30, 60, 120), Words mode (10, 25, 50, 100), and infinite scroll (90)
+        $validAmounts = [10, 15, 25, 30, 50, 60, 90, 100, 120];
+        
+        if (in_array($amount, $validAmounts)) {
             header('Content-Type: application/json');
-            echo json_encode($this->model('Word')->words((int)$_GET['amount']));
+            echo json_encode($this->model('Word')->words($amount));
         } else {
+            // For any other amount, just return that many words (with a reasonable max)
+            $amount = min($amount, 200);
             header('Content-Type: application/json');
-            echo json_encode($this->model('Word')->words(15));
+            echo json_encode($this->model('Word')->words($amount));
         }
     }
 }

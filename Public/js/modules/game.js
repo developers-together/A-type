@@ -95,8 +95,15 @@ export async function newGame() {
   const wordsButton = document.getElementById("words-button");
   const isWordsMode = wordsButton && wordsButton.classList.contains("active");
   
-  if (isWordsMode) await renderWords(currentWordsCount);
-  else await renderWords(90);
+  if (isWordsMode) {
+    // Read word count from active button to avoid timing issues with currentWordsCount
+    const activeBtn = document.querySelector('.btn1.active, .btn2.active, .btn3.active, .btn4.active');
+    const wordCount = activeBtn ? parseInt(activeBtn.textContent) : currentWordsCount;
+    console.log("Words mode - rendering", wordCount, "words");
+    await renderWords(wordCount);
+  } else {
+    await renderWords(90);
+  }
 
   for (const word of wordSpan.children) {
     //setting attribute for original size of words and typedletters
