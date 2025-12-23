@@ -226,19 +226,15 @@
 .back-btn {
   outline: none;
   border: none;
-  top: 70vh;
-  position: fixed;
+  position: relative !important;
+  top: auto !important;
   width: var(--icon-size-md);
   height: var(--icon-size-md);
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: var(--space-lg);
   animation: fadeInContainer2 0.8s ease-in-out forwards;
-}
-
-@media (max-width: 768px) {
-  .back-btn {
-    top: 60vh;
-  }
 }
 
 .back-btn button {

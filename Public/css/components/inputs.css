@@ -3,7 +3,8 @@
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
-  height: 13vw;
+  /* Height increases as width decreases - taller on mobile, shorter on desktop */
+  height: clamp(15vh, 25vw, 20vh);
   border-radius: 2.5vw;
   border-style: none;
   display: flex;
@@ -23,7 +24,8 @@
   margin: 0 25px;
   color: var(--dtext);
   overflow-y: hidden;
-  line-height: 7vh;
+  /* Line height relative to font size for consistency */
+  line-height: 2em;
   font-size: clamp(1.6rem, 2vw, 2rem);
 }
 

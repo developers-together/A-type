@@ -92,11 +92,11 @@
               <th>time</th>
             </tr>
             <tr>
-              <td id="wpm"></td>
-              <td id="rawwpm"></td>
-              <td class="hover" id="characters"></td>
-              <td id="acc"></td>
-              <td id="time"></td>
+              <td id="wpm" data-label="wpm"></td>
+              <td id="rawwpm" data-label="raw wpm"></td>
+              <td class="hover" id="characters" data-label="characters"></td>
+              <td id="acc" data-label="acc"></td>
+              <td id="time" data-label="time"></td>
             </tr>
           </table>
         </div>
