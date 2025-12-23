@@ -21,7 +21,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  gap: var(--space-md);
+  gap: 0;
   animation: fadeInContainer2 0.8s ease-in-out forwards;
 }
 
