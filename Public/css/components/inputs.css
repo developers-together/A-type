@@ -3,10 +3,9 @@
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
-  /* Height calculated to show exactly 3 lines based on font-size and line-height */
-  /* Formula: 3 lines × line-height(2em) × font-size(clamp) */
-  height: calc(3 * 2em * clamp(1.6rem, 2vw, 2rem));
-  min-height: 8rem; /* Fallback minimum */
+  /* Fixed height for 4 lines */
+  height: 11rem;
+  max-height: 11rem;
   border-radius: 2.5vw;
   border-style: none;
   display: flex;
@@ -14,7 +13,7 @@
   align-items: flex-start;
   cursor: text;
   user-select: none;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .typing-lines {

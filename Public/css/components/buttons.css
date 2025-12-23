@@ -98,9 +98,6 @@
     cursor: pointer;
     padding: var(--space-xs) var(--space-md);
   }
-  
-  .controls .mobile-button:hover {
-  }
 }
 
 .controls .buttons {

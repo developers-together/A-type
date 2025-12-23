@@ -290,13 +290,14 @@ export async function handleInput(key) {
 export async function gameLoop() {
     const needsMoreWords = moveCursor(currentLetter, currentWord);
     
-    // In time mode, add more words when reaching the bottom
+    // Add more words when reaching the bottom (except in Words mode where count matters)
     if (needsMoreWords) {
-        const timeButton = document.getElementById("time-button");
-        const isTimeMode = timeButton && timeButton.classList.contains("active");
+        const wordsButton = document.getElementById("words-button");
+        const isWordsMode = wordsButton && wordsButton.classList.contains("active");
         
-        if (isTimeMode) {
-            await renderWords(20);
+        // Generate infinite words in all modes except Words mode
+        if (!isWordsMode) {
+            await renderWords(10);
             
             // Set attributes for new words
             const wordSpan = document.getElementById("words");

@@ -149,22 +149,24 @@ export function moveCursor(currentLetter, currentWord) {
   const currentLine = Math.floor((cursorLinePosition + wordSpan.scrollTop) / lineHeight);
   
   // Calculate what the scroll should be to keep cursor on the first visible line
-  // (showing current line + 2 more lines ahead)
   const targetScrollTop = currentLine * lineHeight;
   
-  // Only scroll if we've moved to a new line (scroll is behind by one line)
+  // Only scroll if we've moved to a new line
   const currentScrollLine = Math.floor(wordSpan.scrollTop / lineHeight);
   
   if (currentLine > currentScrollLine) {
     // Smooth scroll to align the current line at the top
     wordSpan.scrollTop = targetScrollTop;
-    
-    // Return true if we need more words (approaching the end)
-    const wordSpanRect = wordSpan.getBoundingClientRect();
-    const currentLetterRect = currentLetter.getBoundingClientRect();
-    if (currentLetterRect.bottom > wordSpanRect.bottom - lineHeight) {
-      return true;
-    }
+  }
+  
+  // Check if we need more words - if cursor is within last 2 lines of content
+  const totalContentHeight = wordSpan.scrollHeight;
+  const visibleBottom = wordSpan.scrollTop + wordSpan.clientHeight;
+  const distanceFromEnd = totalContentHeight - visibleBottom;
+  
+  // Return true if less than 2 line heights from the end
+  if (distanceFromEnd < lineHeight * 2) {
+    return true;
   }
   
   return false;
