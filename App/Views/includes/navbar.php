@@ -4,9 +4,9 @@
         <section class="header">
             <div>
                 <img
+                    id="logo"
                     src="/assets/Logo/logo.svg"
-                    alt="logo"
-                    onclick="window.open('/Home', '_parent')" />
+                    alt="logo" />
                 <h1>A-Type</h1>
             </div>
             <div class="hsbtns">

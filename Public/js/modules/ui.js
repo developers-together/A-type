@@ -77,10 +77,21 @@ export async function renderWords(wordNum) {
 
 export function wordsAnimation() {
   let typingLines = document.getElementById("words");
+  let typingArea = document.querySelector(".typing-area");
+  
+  // Add fade animation to words
   typingLines.classList.add("fade");
   setTimeout(() => {
     typingLines.classList.remove("fade");
   }, 400);
+  
+  // Add fadeOnly animation to typing area (no vertical movement, just fade)
+  if (typingArea) {
+    typingArea.style.animation = "none";
+    // Force reflow to restart animation
+    void typingArea.offsetWidth;
+    typingArea.style.animation = "fadeOnly 0.5s ease-in-out";
+  }
 }
 
 export function moveCursor(currentLetter, currentWord) {
@@ -155,4 +166,25 @@ export function activateButton(activeButton, inactiveButton) {
 export function updateTimerDisplay(value) {
   let timerElement = document.querySelector(".timernum");
   timerElement.textContent = `${value}s`;
+}
+
+export function updateWordsProgress(completed, total) {
+  let timerElement = document.querySelector(".timernum");
+  timerElement.textContent = `${completed}/${total}`;
+}
+
+export function showTimer() {
+  const timer = document.getElementById("timer");
+  if (timer) {
+    timer.classList.remove("hidden");
+    timer.classList.add("visible");
+  }
+}
+
+export function hideTimer() {
+  const timer = document.getElementById("timer");
+  if (timer) {
+    timer.classList.add("hidden");
+    timer.classList.remove("visible");
+  }
 }

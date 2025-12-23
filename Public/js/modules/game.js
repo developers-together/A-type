@@ -1,4 +1,4 @@
-import { renderWords, mainScreen, statsScreen, wordsAnimation, updateTimerDisplay, moveCursor } from "./ui.js";
+import { renderWords, mainScreen, statsScreen, wordsAnimation, updateTimerDisplay, updateWordsProgress, showTimer, hideTimer, moveCursor } from "./ui.js";
 import { calculateMetrics, resetStats, setStartTime } from "./stats.js";
 
 export let timerNum = 15;
@@ -10,6 +10,7 @@ export let lastLetter;
 export let currentTimerValue = timerNum;
 export let countdownInterval;
 export let currentWordsCount = 15;
+export let completedWords = 0;
 export let cooldown = false;
 
 export function setTimerNum(val) {
@@ -64,6 +65,7 @@ export function resetCountdown() {
 export function endGame() {
   clearInterval(countdownInterval);
   timerOn = 0;
+  hideTimer();
   calculateMetrics();
   
   const timeButton = document.getElementById("time-button");
@@ -76,8 +78,13 @@ export async function newGame() {
   mainScreen();
   wordsAnimation();
   resetCountdown();
-  // calculateMetrics(); // Removed as it's handled in endGame or irrelevant for restart
   resetStats();
+  
+  // Reset completed words counter
+  completedWords = 0;
+  
+  // Hide timer until typing starts
+  hideTimer();
 
   // Clearing previous words
   let wordSpan = document.getElementById("words");
@@ -189,6 +196,12 @@ export async function handleInput(key) {
       if (timerOn == 0 && isTimeMode) {
         setStartTime(Date.now());
         startCountdown(timerNum);
+        showTimer();
+        timerOn = 1;
+      } else if (timerOn == 0 && isWordsMode) {
+        setStartTime(Date.now());
+        showTimer();
+        updateWordsProgress(completedWords, currentWordsCount);
         timerOn = 1;
       } else if (timerOn == 0) {
         setStartTime(Date.now());
@@ -229,6 +242,11 @@ export async function handleInput(key) {
       
       // Check if we are at the end (on last word) - end the game
       if (currentWord.nextElementSibling && currentWord.nextElementSibling.id === "cursor") {
+          // Increment completed words for the final word
+          completedWords++;
+          if (isWordsMode) {
+            updateWordsProgress(completedWords, currentWordsCount);
+          }
           // This is the last word, end the game
           console.log("Game Over Triggered (Space on last word)");
           endGame();
@@ -240,14 +258,23 @@ export async function handleInput(key) {
         (currentLetter.classList.contains("correct") ||
           currentLetter.classList.contains("incorrect"))
       ) {
+        // Increment completed words when moving to next word
+        completedWords++;
+        if (isWordsMode) {
+          updateWordsProgress(completedWords, currentWordsCount);
+        }
         currentWord = currentWord.nextElementSibling;
         currentLetter = currentWord.firstElementChild;
       } else if (currentLetter == currentWord.firstElementChild) return;
       else {
+        // Increment completed words when moving to next word
+        completedWords++;
+        if (isWordsMode) {
+          updateWordsProgress(completedWords, currentWordsCount);
+        }
         currentWord = currentWord.nextElementSibling;
         currentLetter = currentWord.firstElementChild;
       }
-      // currentWord.style.textDecoration = "underline";
     }
     
     // Cursor blink reset
@@ -260,6 +287,25 @@ export async function handleInput(key) {
     // Let's add it to module scope.
 }
 
-export function gameLoop() {
-    moveCursor(currentLetter, currentWord);
+export async function gameLoop() {
+    const needsMoreWords = moveCursor(currentLetter, currentWord);
+    
+    // In time mode, add more words when reaching the bottom
+    if (needsMoreWords) {
+        const timeButton = document.getElementById("time-button");
+        const isTimeMode = timeButton && timeButton.classList.contains("active");
+        
+        if (isTimeMode) {
+            await renderWords(20);
+            
+            // Set attributes for new words
+            const wordSpan = document.getElementById("words");
+            for (const word of wordSpan.children) {
+                if (!word.hasAttribute("size")) {
+                    word.setAttribute("size", word.children.length);
+                    word.setAttribute("typedletters", 0);
+                }
+            }
+        }
+    }
 }

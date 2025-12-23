@@ -15,8 +15,8 @@
 
 .controls-line {
   display: flex;
-  width: 100%;
-  /* max-width: var(--container-xl); */
+  width: 90%;
+  max-width: var(--container-xl);
   height: var(--btn-height-lg);
   justify-content: center;
   position: relative;
@@ -39,7 +39,6 @@
   font-size: var(--font-sm);
   border: none;
   background-color: transparent;
-  color: var(--dtext);
   cursor: pointer;
   border-radius: var(--radius-md);
   transition: all 0.2s ease-in-out;
@@ -47,7 +46,6 @@
 
 /* Button hover - whole button lights up */
 .controls button:hover {
-  color: var(--text);
   transform: scale(1.05);
 }
 
@@ -102,7 +100,6 @@
   }
   
   .controls .mobile-button:hover {
-    color: var(--text);
   }
 }
 
@@ -117,6 +114,21 @@
   border-radius: var(--radius-full);
   justify-content: center;
   gap: var(--space-2xs);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Secondary pill - hidden by default */
+.controls .buttons-numbers.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  position: absolute;
+}
+
+.controls .buttons-numbers.visible {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
 }
 
 .controls .buttons button {
@@ -130,7 +142,6 @@
 
 .controls .buttons button:hover {
   color: var(--text);
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .controls .buttons button.active {
@@ -163,8 +174,7 @@
 }
 
 .reset {
-  margin-top: 28%;
-  position: absolute;
+  position: relative;
   width: var(--icon-size-md);
   height: var(--icon-size-md);
   display: flex;
@@ -172,12 +182,7 @@
   justify-content: center;
   outline: none;
   border: none;
-}
-
-@media (max-width: 768px) {
-  .reset {
-    margin-top: 35%;
-  }
+  margin-top: var(--space-lg);
 }
 
 .reset button {

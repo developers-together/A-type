@@ -1,5 +1,5 @@
 .typing-area {
-  margin-top: 5%;
+  margin-top: 2%;
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
@@ -11,7 +11,6 @@
   align-items: center;
   cursor: text;
   user-select: none;
-  margin-bottom: 5%;
   overflow-y: hidden;
 }
 
@@ -38,6 +37,16 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+/* Fade only animation for game reload - no vertical movement */
+@keyframes fadeOnly {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

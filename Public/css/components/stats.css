@@ -29,23 +29,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--btn-height-sm);
+  height: var(--btn-height-md);
   padding: 0 var(--space-md);
   border-radius: var(--radius-full);
   background-color: var(--btncolor);
   color: var(--text);
-  position: relative;
-  align-self: flex-start;
-  margin-left: 5%;
-  margin-top: var(--space-md);
   user-select: none;
   cursor: default;
-  transition: all 0.2s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  font-size: var(--font-sm);
+  min-width: 3rem;
+  /* Position absolutely so it doesn't affect centering */
+  position: absolute;
+  left: 0;
+}
+
+.timer.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timer.visible {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
   .timer {
-    margin-top: var(--space-sm);
+    font-size: var(--font-xs);
+    height: var(--btn-height-sm);
   }
 }
 

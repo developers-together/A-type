@@ -25,6 +25,24 @@ export function initEvents() {
     });
   }
 
+  // Logo click - on home page: reload game, on other pages: go to home
+  const logo = document.getElementById("logo");
+  if (logo) {
+    logo.addEventListener("click", () => {
+      const isHomePage = window.location.pathname === "/" || 
+                         window.location.pathname === "/Home" || 
+                         window.location.pathname.toLowerCase() === "/home";
+      
+      if (isHomePage && typeof newGame === "function") {
+        // On home page - just reload the typing game
+        newGame();
+      } else {
+        // On other pages - navigate to home
+        window.location.href = "/Home";
+      }
+    });
+  }
+
   // Mobile menu
   const mobileButton = document.querySelector(".mobile-button");
   const mobileMenu = document.getElementById("mobileMenu");
@@ -107,8 +125,15 @@ function setupControlButtons() {
             document.getElementById("time-mobile"),
             document.getElementById("words-mobile")
         );
+        
+        // Show numbers pill
+        const numbersPill = document.getElementById("buttons-numbers");
+        if (numbersPill) {
+            numbersPill.classList.remove("hidden");
+            numbersPill.classList.add("visible");
+        }
+        
         newGame();
-        timer.classList.remove("hidden");
         resetActiveButtons(btns);
         resetActiveButtons(mobileBtns);
         
@@ -136,26 +161,33 @@ function setupControlButtons() {
             document.getElementById("words-mobile"),
             document.getElementById("time-mobile")
         );
+        
+        // Show numbers pill
+        const numbersPill = document.getElementById("buttons-numbers");
+        if (numbersPill) {
+            numbersPill.classList.remove("hidden");
+            numbersPill.classList.add("visible");
+        }
+        
         newGame();
-        timer.classList.add("hidden");
         resetActiveButtons(btns);
         resetActiveButtons(mobileBtns);
         
-        // Default to first option (15 words)
+        // Default to first option (10 words)
         btn1.classList.add("active");
         document.getElementById("btn1-mobile").classList.add("active");
         
-        setCurrentWordsCount(15);
+        setCurrentWordsCount(10);
         
         // Update button text
-        btn1.textContent = "15";
-        btn2.textContent = "30";
-        btn3.textContent = "60";
-        btn4.textContent = "120";
-        document.getElementById("btn1-mobile").textContent = "15";
-        document.getElementById("btn2-mobile").textContent = "30";
-        document.getElementById("btn3-mobile").textContent = "60";
-        document.getElementById("btn4-mobile").textContent = "120";
+        btn1.textContent = "10";
+        btn2.textContent = "25";
+        btn3.textContent = "50";
+        btn4.textContent = "100";
+        document.getElementById("btn1-mobile").textContent = "10";
+        document.getElementById("btn2-mobile").textContent = "25";
+        document.getElementById("btn3-mobile").textContent = "50";
+        document.getElementById("btn4-mobile").textContent = "100";
     }
 
     function handleBtn1Click() {
@@ -165,7 +197,7 @@ function setupControlButtons() {
         document.getElementById("btn1-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
-            setCurrentWordsCount(15);
+            setCurrentWordsCount(10);
         } else {
             setTimerNum(15);
             document.querySelector(".timernum").textContent = "15s";
@@ -180,7 +212,7 @@ function setupControlButtons() {
         document.getElementById("btn2-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
-            setCurrentWordsCount(30);
+            setCurrentWordsCount(25);
         } else {
             setTimerNum(30);
             document.querySelector(".timernum").textContent = "30s";
@@ -195,7 +227,7 @@ function setupControlButtons() {
         document.getElementById("btn3-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
-            setCurrentWordsCount(60);
+            setCurrentWordsCount(50);
         } else {
             setTimerNum(60);
             document.querySelector(".timernum").textContent = "60s";
@@ -210,7 +242,7 @@ function setupControlButtons() {
         document.getElementById("btn4-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
-            setCurrentWordsCount(120);
+            setCurrentWordsCount(100);
         } else {
             setTimerNum(120);
             document.querySelector(".timernum").textContent = "120s";

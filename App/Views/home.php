@@ -10,8 +10,12 @@
   <section class="main" id="main">
     <div class="container" id="container">
       <div class="controls-line">
+        <div class="timer hidden" id="timer">
+          <p class="timernum">15s</p>
+        </div>
         <div class="controls">
-          <div class="buttons">
+          <!-- Pill 1: Mode buttons (always visible) -->
+          <div class="buttons buttons-main">
             <button class="punctuation-button" id="punctuation">
               <i class="fas fa-fw fa-at"></i>
               Punctuation
@@ -29,7 +33,9 @@
               <i class="fas fa-fw fa-font"></i>
               Words
             </button>
-            <div class="hhr"></div>
+          </div>
+          <!-- Pill 2: Number options (hidden by default, shows when Time/Words clicked) -->
+          <div class="buttons buttons-numbers hidden" id="buttons-numbers">
             <button class="btn1" id="btn1">15</button>
             <button class="btn2" id="btn2">30</button>
             <button class="btn3" id="btn3">60</button>
@@ -43,9 +49,6 @@
       </div>
       <div class="typing-area" id="area">
         <span class="typing-lines" id="words"> </span>
-      </div>
-      <div class="timer" id="timer">
-        <p class="timernum">15s</p>
       </div>
       <div class="reset">
         <button>
