@@ -1,16 +1,18 @@
 export function initTheme() {
   const themeToggle = document.getElementById('theme-toggle') || document.getElementById('theme-btn');
   const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
-  
-  // Always start with dark theme on page load/refresh
-  let currentTheme = 'dark';
-  localStorage.setItem('theme', 'dark');
+  let currentTheme = localStorage.getItem('theme') || 'dark';
 
-  // Apply dark theme on page load
+  // Apply saved theme on page load
   document.documentElement.setAttribute('data-theme', currentTheme);
   if (themeIcon) {
-    themeIcon.classList.remove('fa-sun');
-    themeIcon.classList.add('fa-moon');
+    if (currentTheme === 'light') {
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    } else {
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+    }
   }
 
   // Add event listener for theme toggle

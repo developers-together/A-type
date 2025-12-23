@@ -1,31 +1,31 @@
 .typing-area {
-  margin-top: 4%;
+  margin-top: 5%;
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
-  height: 25%;
-  border-radius: var(--radius-lg);
+  height: 13vw;
+  border-radius: 2.5vw;
   border-style: none;
   display: flex;
   position: relative;
   align-items: center;
   cursor: text;
   user-select: none;
-  margin-bottom: 2%;
+  margin-bottom: 5%;
   overflow-y: hidden;
 }
 
 .typing-lines {
-  padding-left: var(--space-xs);
+  padding-left: 0.05rem;
   position: relative;
   overflow: auto;
   height: 100%;
   width: 100%;
-  margin: 0;
+  margin: 0 25px;
   color: var(--dtext);
   overflow-y: hidden;
-  line-height: 100%;
-  font-size: var(--font-2xl);
+  line-height: 7vh;
+  font-size: clamp(1.6rem, 2vw, 2rem);
 }
 
 .typing-lines.fade {
