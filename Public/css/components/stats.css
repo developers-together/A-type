@@ -32,12 +32,13 @@
   height: var(--btn-height-md);
   padding: 0 var(--space-md);
   border-radius: var(--radius-full);
-  background-color: var(--btncolor);
-  color: var(--text);
+  background-color: var(--text);
+  color: var(--btncolor);
   user-select: none;
   cursor: default;
   transition: opacity 0.3s ease-in-out;
   font-size: var(--font-sm);
+  font-weight: 700;
   min-width: 3rem;
   /* Position absolutely so it doesn't affect centering */
   position: absolute;
@@ -81,7 +82,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  overflow: hidden;
+  overflow: visible;
   background: var(--btncolor);
   color: var(--dtext);
   animation: fadeInContainer2 0.8s ease-in-out forwards;
@@ -116,8 +117,11 @@
 .list td {
   padding: clamp(0.25rem, 2%, 1rem);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+/* Override for characters cell to allow tooltip overflow */
+.list td.hover {
+  overflow: visible;
 }
 
 .list th {
@@ -200,53 +204,33 @@
 .hover {
   position: relative;
   cursor: help;
+  display: inline-block;
+  overflow: visible !important;
+  margin-top: 18px;
 }
 
-/* Tooltip for characters breakdown */
-.hover::after {
-  content: "✓ correct  ✗ incorrect  + extra  − missed";
+/* Tooltip for characters - appears below the number */
+.hover .tooltip {
   position: absolute;
-  background-color: var(--bgcolor);
-  color: var(--dtext);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  background-color: #222;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
   white-space: nowrap;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--font-sm);
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  z-index: 10;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  margin-top: var(--space-xs);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 1000;
 }
 
-.hover:hover::after {
+.hover:hover .tooltip {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Hide tooltip animation */
-.hover::before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: var(--bgcolor);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  margin-top: calc(var(--space-xs) - 6px);
-}
-
-.hover:hover::before {
-  opacity: 1;
+  visibility: visible;
 }
 
 .list table tr:hover {

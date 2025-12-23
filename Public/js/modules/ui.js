@@ -15,9 +15,17 @@ export function statsScreen(timerNum, wordNum, isTimeMode) {
   container.style.display = "none";
   document.getElementById("wpm").innerHTML = wpm.toFixed(0);
   document.getElementById("rawwpm").innerHTML = rawWpm.toFixed(0);
-  document.getElementById(
-    "characters"
-  ).innerHTML = `${correct}/${incorrect}/${extra}/${missed}`;
+  
+  // Set characters with tooltip preserved
+  const charactersEl = document.getElementById("characters");
+  const tooltip = charactersEl.querySelector('.tooltip');
+  const value = `${correct}/${incorrect}/${extra}/${missed}`;
+  if (tooltip) {
+    charactersEl.innerHTML = value + tooltip.outerHTML;
+  } else {
+    charactersEl.innerHTML = value;
+  }
+  
   document.getElementById("acc").innerHTML = accuracy.toFixed(0) + "%";
   document.getElementById("time").innerHTML = time.toFixed(1) + "s";
   sendData(timerNum, wordNum, isTimeMode);

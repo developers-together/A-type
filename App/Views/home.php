@@ -94,7 +94,9 @@
             <tr>
               <td id="wpm" data-label="wpm"></td>
               <td id="rawwpm" data-label="raw wpm"></td>
-              <td class="hover" id="characters" data-label="characters"></td>
+              <td class="hover" id="characters" data-label="characters">
+                <span class="tooltip">correct / incorrect / extra / missed</span>
+              </td>
               <td id="acc" data-label="acc"></td>
               <td id="time" data-label="time"></td>
             </tr>

@@ -1,12 +1,12 @@
 .hhr {
-  border-left: clamp(3px, 0.5vw, 5px) solid var(--bgcolor);
+  border-left: clamp(3px, 0.5vw, 5px) solid var(--dtext);
   height: 60%;
   border-radius: 10px;
   margin: 0 5px;
 }
 
 .hhr2 {
-  border-bottom: 5px solid var(--bgcolor);
+  border-bottom: 5px solid var(--dtext);
   width: 90%;
   border-radius: 10px;
   align-self: center;
@@ -195,17 +195,16 @@
   align-items: center;
   justify-content: center;
   outline: none;
-  border: none;
-}
-
-.reset button i:hover {
-  transform: scale(1.02);
-  color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
-.reset button i:active {
+.reset button:hover {
+  transform: scale(1.1);
+  color: var(--text);
+}
+
+.reset button:active {
   color: var(--dtext);
   transform: scale(0.95);
 }
