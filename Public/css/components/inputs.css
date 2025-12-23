@@ -3,13 +3,15 @@
   background-color: var(--btncolor);
   width: 90%;
   max-width: var(--container-xl);
-  /* Height increases as width decreases - taller on mobile, shorter on desktop */
-  height: clamp(15vh, 25vw, 20vh);
+  /* Height calculated to show exactly 3 lines based on font-size and line-height */
+  /* Formula: 3 lines × line-height(2em) × font-size(clamp) */
+  height: calc(3 * 2em * clamp(1.6rem, 2vw, 2rem));
+  min-height: 8rem; /* Fallback minimum */
   border-radius: 2.5vw;
   border-style: none;
   display: flex;
   position: relative;
-  align-items: center;
+  align-items: flex-start;
   cursor: text;
   user-select: none;
   overflow-y: hidden;
@@ -17,16 +19,24 @@
 
 .typing-lines {
   padding-left: 0.05rem;
+  padding-top: 0.5em;
   position: relative;
   overflow: auto;
   height: 100%;
   width: 100%;
   margin: 0 25px;
   color: var(--dtext);
-  overflow-y: hidden;
-  /* Line height relative to font size for consistency */
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  /* Line height at 2× font size for clear spacing */
   line-height: 2em;
   font-size: clamp(1.6rem, 2vw, 2rem);
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.typing-lines::-webkit-scrollbar {
+  display: none;
 }
 
 .typing-lines.fade {

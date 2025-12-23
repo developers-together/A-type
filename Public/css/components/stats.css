@@ -199,34 +199,54 @@
 
 .hover {
   position: relative;
-  cursor: pointer;
+  cursor: help;
+}
+
+/* Tooltip for characters breakdown */
+.hover::after {
+  content: "✓ correct  ✗ incorrect  + extra  − missed";
+  position: absolute;
+  background-color: var(--bgcolor);
+  color: var(--dtext);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-sm);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  margin-top: var(--space-xs);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .hover:hover::after {
-  content: "correct, incorrect, extra, missed";
-  position: absolute;
-  color: var(--text);
-  padding: var(--space-sm);
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%);
-  font-size: var(--font-md);
-  z-index: 10;
-  opacity: 0;
-  animation: tooltipFadeIn 0.3s forwards ease-in-out;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
-@keyframes tooltipFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+/* Hide tooltip animation */
+.hover::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--bgcolor);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-top: calc(var(--space-xs) - 6px);
+}
+
+.hover:hover::before {
+  opacity: 1;
 }
 
 .list table tr:hover {

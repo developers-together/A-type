@@ -110,9 +110,11 @@ export function moveCursor(currentLetter, currentWord) {
   const offsetTop = letterRect.top - wordsRect.top + wordSpan.scrollTop; // Add scrollTop adjustment
   const offsetRight = letterRect.right - wordsRect.left;
 
-  // Update cursor size and position
-  cursor.style.height = `${letterRect.height}px`;
-  cursor.style.top = `${offsetTop}px`; // Adjust for scrolling
+  // Update cursor size and position (2x letter height for better visibility)
+  const cursorHeight = letterRect.height * 0.6;
+  cursor.style.height = `${cursorHeight}px`;
+  // Center cursor vertically on the letter
+  cursor.style.top = `${offsetTop - (cursorHeight - letterRect.height) / 2}px`;
 
   if (
     currentLetter.classList.contains("correct") ||
@@ -120,37 +122,38 @@ export function moveCursor(currentLetter, currentWord) {
   ) {
     cursor.style.left = `${offsetRight}px`;
   } else {
-  cursor.style.left = `${offsetLeft - 1}px`;
+    cursor.style.left = `${offsetLeft - 1}px`;
   }
 
   // Guard for missing currentWord
   if (!currentWord) return false;
   
+  // Get line height from current word (accounts for font size + line-height)
   const lineHeight = currentWord.offsetHeight;
-
-  // Calculate the current scroll position
-  const scrollTop = wordSpan.scrollTop;
-
-  // Find the closest "line" alignment
-  const alignedScrollTop = Math.round(scrollTop / lineHeight) * lineHeight;
-
-  // Set the scrollTop to align properly
-  wordSpan.scrollTop = alignedScrollTop;
-
-  // Scroll container logic (unchanged)
-  const currentLetterRect = currentLetter.getBoundingClientRect();
-  const wordSpanRect = wordSpan.getBoundingClientRect();
-  const outOfViewTop = currentLetterRect.top < wordSpanRect.top;
-  const outOfViewBottom = currentLetterRect.bottom > wordSpanRect.bottom;
-
-  if (outOfViewTop) {
-    wordSpan.scrollTop -= wordSpanRect.top - currentLetterRect.top + 10;
-  } else if (outOfViewBottom) {
-    // Note: renderWords(20) call for infinite scroll needs to be handled by caller or callback
-    // We return true to indicate need for more words
-    wordSpan.scrollTop += currentLetterRect.bottom - wordSpanRect.bottom + 10;
-    return true; 
+  
+  // Calculate which line the cursor is on (0-indexed)
+  const cursorLinePosition = letterRect.top - wordsRect.top;
+  const currentLine = Math.floor((cursorLinePosition + wordSpan.scrollTop) / lineHeight);
+  
+  // Calculate what the scroll should be to keep cursor on the first visible line
+  // (showing current line + 2 more lines ahead)
+  const targetScrollTop = currentLine * lineHeight;
+  
+  // Only scroll if we've moved to a new line (scroll is behind by one line)
+  const currentScrollLine = Math.floor(wordSpan.scrollTop / lineHeight);
+  
+  if (currentLine > currentScrollLine) {
+    // Smooth scroll to align the current line at the top
+    wordSpan.scrollTop = targetScrollTop;
+    
+    // Return true if we need more words (approaching the end)
+    const wordSpanRect = wordSpan.getBoundingClientRect();
+    const currentLetterRect = currentLetter.getBoundingClientRect();
+    if (currentLetterRect.bottom > wordSpanRect.bottom - lineHeight) {
+      return true;
+    }
   }
+  
   return false;
 }
 
