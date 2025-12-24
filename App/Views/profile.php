@@ -3,169 +3,141 @@
 <?php require_once '../App/Views/includes/head.php'; ?>
 
 <body>
-
   <?php require_once '../App/Views/includes/navbar.php'; ?>
 
-  <section class="main">
-    <div class="profile-container">
-      <div class="personalinfo">
-        <div class="pp">
+  <section class="pmain">
+    <div class="profile-layout">
+      
+      <!-- Left Sidebar - Profile Info -->
+      <aside class="profile-sidebar">
+        <div class="profile-avatar">
           <i class="fa-solid fa-circle-user"></i>
         </div>
-        <span class="span1"><?php echo $data['user']['username']; ?></span>
+        <h1 class="profile-username"><?php echo htmlspecialchars($data['user']['username']); ?></h1>
+        <?php /* Level section - commented out for now
+        <div class="profile-level">
+          <span class="level-badge">Lvl 1</span>
+          <div class="level-progress">
+            <div class="level-bar"></div>
+          </div>
+          <span class="level-xp">0/100</span>
+        </div>
+        <div class="profile-joined">
+          <i class="fa-solid fa-calendar"></i>
+          <span>Joined Dec 2024</span>
+        </div>
+        */ ?>
+      </aside>
 
-        <div class="text">
-          <div class="level">
-            <span class="span2">1</span>
-            <div class="levelbar">--------------------</div>
-            <span class="span3">0/100</span>
+      <!-- Center Content - Stats & Scores -->
+      <main class="profile-content">
+        
+        <!-- Lifetime Stats -->
+        <div class="stats-card">
+          <h2 class="section-title">lifetime stats</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-number"><?php echo $data['avg'][0]['total_tests'] ?? '0'; ?></span>
+              <span class="stat-name">tests</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number"><?php echo number_format($data['avg'][0]['total_words'] ?? 0); ?></span>
+              <span class="stat-name">words</span>
+            </div>
+            <div class="stat-box">
+              <?php 
+                $totalTime = $data['avg'][0]['total_time'] ?? 0;
+                $hours = floor($totalTime / 3600);
+                $minutes = floor(($totalTime % 3600) / 60);
+                $timeDisplay = $hours > 0 ? "{$hours}h {$minutes}m" : "{$minutes}m";
+              ?>
+              <span class="stat-number"><?php echo $timeDisplay; ?></span>
+              <span class="stat-name">time</span>
+            </div>
+            <div class="stat-box highlight">
+              <span class="stat-number"><?php echo round($data['avg'][0]['avg_wpm'] ?? 0); ?></span>
+              <span class="stat-name">avg wpm</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number"><?php echo round($data['avg'][0]['avg_acc'] ?? 0); ?>%</span>
+              <span class="stat-name">accuracy</span>
+            </div>
           </div>
         </div>
-      </div>
+
+        <!-- Best Scores -->
         <?php
-        echo "<div class='record'";
-
-        // echo '<p class="p1"' . var_dump($data) . '</p>';
-        echo "<p class='p1'>Total tests: <span>{$data['avg'][0]['total_tests']}</span></p>";
-
-        echo "<p class='p2'>Total words: <span>{$data['avg'][0]['total_words']}</span></p>";
-
-        echo "<p class='p3' Total Time: <span>{$data['avg'][0]['total_time']}</span></p>";
-
-        echo "<p class='p4' Average WPM: <span> {$data['avg'][0]['avg_wpm']}</span></p>";
-
-        echo "<p class='p4' Average acc: <span> {$data['avg'][0]['avg_acc']}</span></p>";
-
-        echo "</div>";
+          $timeStats = [];
+          $wordsStats = [];
+          if (isset($data['stats']) && is_array($data['stats'])) {
+            foreach ($data['stats'] as $stat) {
+              if ($stat['mode'] == 'time') {
+                $timeStats[$stat['amount']] = $stat;
+              } else if ($stat['mode'] == 'words') {
+                $wordsStats[$stat['amount']] = $stat;
+              }
+            }
+          }
+          $timeAmounts = [15, 30, 60, 120];
+          $wordsAmounts = [10, 25, 50, 100];
         ?>
-
-      <div class="tables">
-        <table class="table1">
-          <!-- <tr> -->
-          <!--   <th>15s</th> -->
-          <!--   <th>30s</th> -->
-          <!--   <th>60s</th> -->
-          <!--   <th>120s</th> -->
-          <!-- </tr> -->
-          <!-- <tr> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!-- </tr> -->
-          <!-- <tr> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!-- </tr> -->
-
-            <?php
-              // echo var_dump($data['stats']);
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'time') {
-                    echo "<th>{$time['amount']}</th>";
-                }
-            }
-            echo "</tr>";
-
-
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'time') {
-                    echo "<th>{$time['wpm']}</th>";
-                }
-            }
-            echo "</tr>";
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'time') {
-                    echo "<th>{$time['accuracy']}</th>";
-                }
-            }
-            echo "</tr>";
-            ?>
-        </table>
-        <table class="table2">
-          <!-- <tr> -->
-          <!--   <th>10W</th> -->
-          <!--   <th>25W</th> -->
-          <!--   <th>50W</th> -->
-          <!--   <th>100W</th> -->
-          <!-- </tr> -->
-          <!-- <tr> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!--   <td>WPM</td> -->
-          <!-- </tr> -->
-          <!-- <tr> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!--   <td>acc</td> -->
-          <!-- </tr> -->
-
-
-
-            <?php
-
-              // echo var_dump($data['stats']);
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'words') {
-                    echo "<th>{$time['amount']}</th>";
-                }
-            }
-            echo "</tr>";
-
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'words') {
-                    echo "<th>{$time['wpm']}</th>";
-                }
-            }
-            echo "</tr>";
-
-            echo "<tr>";
-
-            foreach ($data['stats'] as $row => $time) {
-                if ($time['mode'] == 'words') {
-                    echo "<th>{$time['accuracy']}</th>";
-                }
-            }
-            echo "</tr>";
-            ?>
-            </table>
+        
+        <div class="scores-row">
+          <!-- Time Mode -->
+          <div class="scores-card">
+            <h3 class="scores-title"><i class="fa-solid fa-stopwatch"></i> time mode</h3>
+            <div class="scores-items">
+              <?php foreach ($timeAmounts as $amount): ?>
+                <div class="score-box">
+                  <span class="score-label"><?php echo $amount; ?>s</span>
+                  <span class="score-wpm"><?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['wpm']) : '-'; ?></span>
+                  <span class="score-acc"><?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['accuracy']) . '%' : '-'; ?></span>
+                </div>
+              <?php endforeach; ?>
             </div>
-            <div class = "pbuttons" >
-            <button > <i class = "fa-solid fa-trash" > </i> delete account </button >
+          </div>
 
-            <form action = "/Profile/logout" method = "post" >
-            <button> <i class = "fa-solid fa-user-minus" > </i > Log out </button >
+          <!-- Words Mode -->
+          <div class="scores-card">
+            <h3 class="scores-title"><i class="fa-solid fa-align-left"></i> words mode</h3>
+            <div class="scores-items">
+              <?php foreach ($wordsAmounts as $amount): ?>
+                <div class="score-box">
+                  <span class="score-label"><?php echo $amount; ?></span>
+                  <span class="score-wpm"><?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['wpm']) : '-'; ?></span>
+                  <span class="score-acc"><?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['accuracy']) . '%' : '-'; ?></span>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+          <h3 class="danger-title">danger zone</h3>
+          <div class="danger-buttons">
+            <button class="danger-btn reset-btn">
+              <i class="fa-solid fa-rotate-left"></i>
+              reset data
+            </button>
+            <button class="danger-btn delete-btn">
+              <i class="fa-solid fa-trash"></i>
+              delete account
+            </button>
+            <form action="/Profile/logout" method="post">
+              <button type="submit" class="danger-btn logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                log out
+              </button>
             </form>
+          </div>
+        </div>
 
-            <button> <i class = "fa-solid fa-file-excel" > </i> Reset Data </button >
-            </div>
-            </div>
-            </section>
+      </main>
+    </div>
+  </section>
 
-            <?php require_once '../App/Views/includes/footer.php'; ?>
-
-
-
-  <!-- Add theme transition div -->
+  <?php require_once '../App/Views/includes/footer.php'; ?>
   <div id="theme-transition" class="theme-transition hidden"></div>
 </body>
 
