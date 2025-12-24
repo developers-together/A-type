@@ -92,7 +92,7 @@ class Profile extends Controller
         $data['user'] = $user->get($_SESSION["user_id"]);
         // $data['username']='s';
         $stats = $this->model('Typing');
-        $data['stats'] = $stats->totalTests($_SESSION["user_id"]);
+        $data['stats'] = $stats->getBestScores($_SESSION["user_id"]);
         $data['avg'] = $stats->avg($_SESSION["user_id"]);
         unset($data['user']['password_hash']);
         $this->view('profile', $data);

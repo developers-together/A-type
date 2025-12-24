@@ -147,6 +147,8 @@ export function sendData(timerNum, wordNum, isTimeMode) {
   formData.append('punctuation', punctuationOn);
   formData.append('numbers', numbersOn);
 
+  console.log("Home Page | Save Data | Request | Mode: " + (timeModeOn ? 'time' : 'words') + ", Amount: " + (timeModeOn ? timerNum : wordNum));
+
   fetch("/home/typing", {
     method: "POST",
     credentials: "include",

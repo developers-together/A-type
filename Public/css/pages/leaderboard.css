@@ -58,7 +58,7 @@
 
 .filter-buttons {
   display: flex;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 .filter-buttons button {
@@ -74,23 +74,36 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;
+  font-weight: 500;
 }
 
 .filter-buttons button:hover {
+  transition: all 0.2s ease-in-out;
   background-color: var(--text);
+  font-weight: 600;
   color: var(--btncolor);
   transform: scale(1);
 }
 
 .filter-buttons button:active {
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
   color: var(--text);
   background-color: var(--btncolor);
   transform: scale(0.95);
 }
 
+a{
+  border: none;
+  text-decoration: none;
+}
+
 .filter-buttons a.active button {
+  transform: scale(1.05);
+  font-weight: 800;
   background-color: var(--text);
   color: var(--btncolor);
+  transition: all 0.2s ease-in-out;
 }
 
 /* .filters select {

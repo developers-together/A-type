@@ -240,3 +240,30 @@
 .list table tr {
   background-color: var(--btncolor) !important;
 }
+
+/* Focus Mode - Hides elements when typing starts */
+body.focus-mode .header,
+body.focus-mode .controls,
+body.focus-mode .reset,
+body.focus-mode .mobile-button,
+body.focus-mode .mobile-menu {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Elements that should always be visible during focus */
+body.focus-mode .typing-area,
+body.focus-mode .timer {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Default state - ensure elements are visible with transition */
+.header,
+.controls,
+.reset,
+.mobile-button,
+.mobile-menu {
+  transition: opacity 0.3s ease;
+}

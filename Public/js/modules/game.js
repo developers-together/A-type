@@ -1,4 +1,4 @@
-import { renderWords, mainScreen, statsScreen, wordsAnimation, updateTimerDisplay, updateWordsProgress, showTimer, hideTimer, moveCursor } from "./ui.js";
+import { renderWords, mainScreen, statsScreen, wordsAnimation, updateTimerDisplay, updateWordsProgress, showTimer, hideTimer, moveCursor, enterFocusMode, exitFocusMode, isFocusModeActive } from "./ui.js";
 import { calculateMetrics, resetStats, setStartTime } from "./stats.js";
 
 export let timerNum = 15;
@@ -66,11 +66,16 @@ export function endGame() {
   clearInterval(countdownInterval);
   timerOn = 0;
   hideTimer();
+  exitFocusMode();
   calculateMetrics();
   
   const timeButton = document.getElementById("time-button");
   const isTimeMode = timeButton && timeButton.classList.contains("active");
   
+  console.log("Home Page | Game End | Stats | WPM: " + calculateMetrics().wpm);
+  console.log("Home Page | Game End | Mode | " + (isTimeMode ? "Time" : "Words"));
+  console.log("Home Page | Game End | Amount | " + (isTimeMode ? timerNum : wordNum));
+
   statsScreen(timerNum, wordNum, isTimeMode);
 }
 
@@ -79,6 +84,9 @@ export async function newGame() {
   wordsAnimation();
   resetCountdown();
   resetStats();
+  exitFocusMode();
+  
+  console.log("Home Page | Game Start | Init | New Game");
   
   // Reset completed words counter
   completedWords = 0;
@@ -142,10 +150,17 @@ export async function handleInput(key) {
     const isTimeMode = timeButton && timeButton.classList.contains("active");
 
     if (key.key == "Tab") {
-      //quick reset
       key.preventDefault();
       if (cooldown) return;
-      newGame();
+      
+      // If in focus mode, first Tab press exits focus mode
+      // Second Tab press (when not in focus mode) resets the game
+      if (isFocusModeActive()) {
+        exitFocusMode();
+      } else {
+        newGame();
+      }
+      
       cooldown = true; 
       setTimeout(() => {
         cooldown = false; 
@@ -204,14 +219,17 @@ export async function handleInput(key) {
         setStartTime(Date.now());
         startCountdown(timerNum);
         showTimer();
+        enterFocusMode();
         timerOn = 1;
       } else if (timerOn == 0 && isWordsMode) {
         setStartTime(Date.now());
         showTimer();
         updateWordsProgress(completedWords, currentWordsCount);
+        enterFocusMode();
         timerOn = 1;
       } else if (timerOn == 0) {
         setStartTime(Date.now());
+        enterFocusMode();
         timerOn = 1;
       }
       let cursor = document.getElementById("cursor");

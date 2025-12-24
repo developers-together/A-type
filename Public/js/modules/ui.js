@@ -207,3 +207,41 @@ export function hideTimer() {
     timer.classList.remove("visible");
   }
 }
+
+// Focus Mode - hides everything except typing area and timer when typing starts
+let focusModeDebounceTimer = null;
+
+export function enterFocusMode() {
+  // Clear any pending debounce
+  if (focusModeDebounceTimer) {
+    clearTimeout(focusModeDebounceTimer);
+  }
+  
+  document.body.classList.add("focus-mode");
+  
+  // Add mousemove listener after a short delay to prevent immediate exit
+  focusModeDebounceTimer = setTimeout(() => {
+    document.addEventListener("mousemove", handleMouseMoveExit);
+  }, 100);
+}
+
+export function exitFocusMode() {
+  // Clear debounce timer
+  if (focusModeDebounceTimer) {
+    clearTimeout(focusModeDebounceTimer);
+    focusModeDebounceTimer = null;
+  }
+  
+  document.body.classList.remove("focus-mode");
+  // Remove mousemove listener when exiting focus mode
+  document.removeEventListener("mousemove", handleMouseMoveExit);
+}
+
+export function isFocusModeActive() {
+  return document.body.classList.contains("focus-mode");
+}
+
+// Handler for mouse movement to exit focus mode
+function handleMouseMoveExit() {
+  exitFocusMode();
+}

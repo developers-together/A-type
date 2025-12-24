@@ -81,6 +81,7 @@ export function initEvents() {
 function setupControlButtons() {
     const timeButton = document.getElementById("time-button");
     const wordsButton = document.getElementById("words-button");
+    console.log("Home Page | Init | Controls | Setup");
     const punctuation = document.getElementById("punctuation");
     const numbers = document.getElementById("numbers");
     const timer = document.getElementById("timer");
@@ -140,6 +141,8 @@ function setupControlButtons() {
         btn1.classList.add("active");
         document.getElementById("btn1-mobile").classList.add("active");
         
+        console.log("Home Page | Mode Click | Time Button | Active");
+        
         setTimerNum(15);
         document.querySelector(".timernum").textContent = "15s";
         
@@ -180,6 +183,9 @@ function setupControlButtons() {
         
         // Set word count BEFORE calling newGame
         setCurrentWordsCount(10);
+        setWordNum(10);
+        console.log("Home Page | Mode Click | Words Button | Active");
+        console.log("Home Page | Setting Value | Words | 10");
         
         // Update button text
         btn1.textContent = "10";
@@ -202,8 +208,11 @@ function setupControlButtons() {
         document.getElementById("btn1-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
+            console.log("Home Page | Button Click | Words Option 1 | 10");
             setCurrentWordsCount(10);
+            setWordNum(10);
         } else {
+            console.log("Home Page | Button Click | Time Option 1 | 15s");
             setTimerNum(15);
             document.querySelector(".timernum").textContent = "15s";
         }
@@ -217,8 +226,11 @@ function setupControlButtons() {
         document.getElementById("btn2-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
+            console.log("Home Page | Button Click | Words Option 2 | 25");
             setCurrentWordsCount(25);
+            setWordNum(25);
         } else {
+            console.log("Home Page | Button Click | Time Option 2 | 30s");
             setTimerNum(30);
             document.querySelector(".timernum").textContent = "30s";
         }
@@ -232,8 +244,11 @@ function setupControlButtons() {
         document.getElementById("btn3-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
+            console.log("Home Page | Button Click | Words Option 3 | 50");
             setCurrentWordsCount(50);
+            setWordNum(50);
         } else {
+            console.log("Home Page | Button Click | Time Option 3 | 60s");
             setTimerNum(60);
             document.querySelector(".timernum").textContent = "60s";
         }
@@ -247,8 +262,11 @@ function setupControlButtons() {
         document.getElementById("btn4-mobile").classList.add("active");
         
         if (wordsButton.classList.contains("active")) {
+            console.log("Home Page | Button Click | Words Option 4 | 100");
             setCurrentWordsCount(100);
+            setWordNum(100);
         } else {
+            console.log("Home Page | Button Click | Time Option 4 | 120s");
             setTimerNum(120);
             document.querySelector(".timernum").textContent = "120s";
         }
@@ -263,4 +281,40 @@ function setupControlButtons() {
     addSharedEventListener("btn2", "btn2-mobile", handleBtn2Click);
     addSharedEventListener("btn3", "btn3-mobile", handleBtn3Click);
     addSharedEventListener("btn4", "btn4-mobile", handleBtn4Click);
+    
+    // Initialize default mode: Words with 10 button active
+    if (wordsButton) {
+        // Set up Words mode as default
+        wordsButton.classList.add("active");
+        if (document.getElementById("words-mobile")) {
+            document.getElementById("words-mobile").classList.add("active");
+        }
+        
+        // Show numbers pill
+        const numbersPill = document.getElementById("buttons-numbers");
+        if (numbersPill) {
+            numbersPill.classList.remove("hidden");
+            numbersPill.classList.add("visible");
+        }
+        
+        // Set btn1 as active (10 words)
+        btn1.classList.add("active");
+        if (document.getElementById("btn1-mobile")) {
+            document.getElementById("btn1-mobile").classList.add("active");
+        }
+        
+        // Set button text for Words mode
+        btn1.textContent = "10";
+        btn2.textContent = "25";
+        btn3.textContent = "50";
+        btn4.textContent = "100";
+        if (document.getElementById("btn1-mobile")) document.getElementById("btn1-mobile").textContent = "10";
+        if (document.getElementById("btn2-mobile")) document.getElementById("btn2-mobile").textContent = "25";
+        if (document.getElementById("btn3-mobile")) document.getElementById("btn3-mobile").textContent = "50";
+        if (document.getElementById("btn4-mobile")) document.getElementById("btn4-mobile").textContent = "100";
+        
+        // Set default word count
+        setCurrentWordsCount(10);
+        setWordNum(10);
+    }
 }

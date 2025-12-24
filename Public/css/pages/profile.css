@@ -342,3 +342,35 @@
 [data-theme="light"] .score-box:hover {
   background: rgba(0, 0, 0, 0.04);
 }
+
+/* Tooltip Utility */
+.has-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.has-tooltip .tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+  background: var(--bgcolor);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+  z-index: 100;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.has-tooltip:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}

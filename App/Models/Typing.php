@@ -44,6 +44,28 @@ class Typing extends Model
         return $data;
     }
 
+    public function getBestScores($user_id)
+    {
+        // Get best score (highest WPM) for each mode+amount combination
+        // Using a simpler query that groups by mode and amount
+        $sql = "SELECT t1.mode, t1.amount, t1.wpm, t1.accuracy
+                FROM {$this->table} t1
+                INNER JOIN (
+                    SELECT mode, amount, MAX(wpm) as max_wpm
+                    FROM {$this->table}
+                    WHERE user_id = :user_id
+                    GROUP BY mode, amount
+                ) t2 ON t1.mode = t2.mode AND t1.amount = t2.amount AND t1.wpm = t2.max_wpm
+                WHERE t1.user_id = :user_id2
+                GROUP BY t1.mode, t1.amount;";
+
+        $params = ['user_id' => $user_id, 'user_id2' => $user_id];
+
+        $data = $this->query($sql, $params);
+
+        return $data;
+    }
+
     public function leaderboard($filter = 'all_time')
     {
         $dateCondition = "";

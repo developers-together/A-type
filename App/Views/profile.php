@@ -34,15 +34,30 @@
         
         <!-- Lifetime Stats -->
         <div class="stats-card">
-          <h2 class="section-title">lifetime stats</h2>
+          <h2 class="section-title has-tooltip">
+            lifetime stats
+            <span class="tooltip">Your all-time typing statistics</span>
+          </h2>
           <div class="stats-grid">
             <div class="stat-box">
-              <span class="stat-number"><?php echo $data['avg'][0]['total_tests'] ?? '0'; ?></span>
-              <span class="stat-name">tests</span>
+              <span class="stat-number has-tooltip">
+                <?php echo $data['avg'][0]['total_tests'] ?? '0'; ?>
+                <span class="tooltip">Total tests completed</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                tests
+                <span class="tooltip">Count of finished tests</span>
+              </span>
             </div>
             <div class="stat-box">
-              <span class="stat-number"><?php echo number_format($data['avg'][0]['total_words'] ?? 0); ?></span>
-              <span class="stat-name">words</span>
+              <span class="stat-number has-tooltip">
+                <?php echo number_format($data['avg'][0]['total_words'] ?? 0); ?>
+                <span class="tooltip">Total words typed</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                words
+                <span class="tooltip">Accumulated word count</span>
+              </span>
             </div>
             <div class="stat-box">
               <?php 
@@ -51,22 +66,45 @@
                 $minutes = floor(($totalTime % 3600) / 60);
                 $timeDisplay = $hours > 0 ? "{$hours}h {$minutes}m" : "{$minutes}m";
               ?>
-              <span class="stat-number"><?php echo $timeDisplay; ?></span>
-              <span class="stat-name">time</span>
+              <span class="stat-number has-tooltip">
+                <?php echo $timeDisplay; ?>
+                <span class="tooltip">Total time spent typing</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                time
+                <span class="tooltip">Accumulated duration</span>
+              </span>
             </div>
             <div class="stat-box highlight">
-              <span class="stat-number"><?php echo round($data['avg'][0]['avg_wpm'] ?? 0); ?></span>
-              <span class="stat-name">avg wpm</span>
+              <span class="stat-number has-tooltip">
+                <?php echo round($data['avg'][0]['avg_wpm'] ?? 0); ?>
+                <span class="tooltip">Average Words Per Minute</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                avg wpm
+                <span class="tooltip">Mean typing speed</span>
+              </span>
             </div>
             <div class="stat-box">
-              <span class="stat-number"><?php echo round($data['avg'][0]['avg_acc'] ?? 0); ?>%</span>
-              <span class="stat-name">accuracy</span>
+              <span class="stat-number has-tooltip">
+                <?php echo round($data['avg'][0]['avg_acc'] ?? 0); ?>%
+                <span class="tooltip">Average Accuracy</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                accuracy
+                <span class="tooltip">Mean hitting precision</span>
+              </span>
             </div>
           </div>
         </div>
+        
+        <script>
+          console.log("Profile Page | Load | Stats | <?php echo json_encode($data['stats']); ?>");
+        </script>
 
         <!-- Best Scores -->
         <?php
+          // Build lookup arrays for quick access
           $timeStats = [];
           $wordsStats = [];
           if (isset($data['stats']) && is_array($data['stats'])) {
@@ -78,6 +116,7 @@
               }
             }
           }
+          // Standard amounts to display
           $timeAmounts = [15, 30, 60, 120];
           $wordsAmounts = [10, 25, 50, 100];
         ?>
@@ -85,13 +124,25 @@
         <div class="scores-row">
           <!-- Time Mode -->
           <div class="scores-card">
-            <h3 class="scores-title"><i class="fa-solid fa-stopwatch"></i> time mode</h3>
+            <h3 class="scores-title has-tooltip">
+              <i class="fa-solid fa-stopwatch"></i> time mode
+              <span class="tooltip">Test your typing speed based on time</span>
+            </h3>
             <div class="scores-items">
               <?php foreach ($timeAmounts as $amount): ?>
                 <div class="score-box">
-                  <span class="score-label"><?php echo $amount; ?>s</span>
-                  <span class="score-wpm"><?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['wpm']) : '-'; ?></span>
-                  <span class="score-acc"><?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['accuracy']) . '%' : '-'; ?></span>
+                  <span class="score-label has-tooltip">
+                    <?php echo $amount; ?>s
+                    <span class="tooltip">Time Duration</span>
+                  </span>
+                  <span class="score-wpm has-tooltip">
+                    <?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['wpm']) : '-'; ?>
+                    <span class="tooltip">Words Per Minute</span>
+                  </span>
+                  <span class="score-acc has-tooltip">
+                    <?php echo isset($timeStats[$amount]) ? round($timeStats[$amount]['accuracy']) . '%' : '-'; ?>
+                    <span class="tooltip">Accuracy</span>
+                  </span>
                 </div>
               <?php endforeach; ?>
             </div>
@@ -99,13 +150,25 @@
 
           <!-- Words Mode -->
           <div class="scores-card">
-            <h3 class="scores-title"><i class="fa-solid fa-align-left"></i> words mode</h3>
+            <h3 class="scores-title has-tooltip">
+              <i class="fa-solid fa-align-left"></i> words mode
+              <span class="tooltip">Test your typing speed based on words</span>
+            </h3>
             <div class="scores-items">
               <?php foreach ($wordsAmounts as $amount): ?>
                 <div class="score-box">
-                  <span class="score-label"><?php echo $amount; ?></span>
-                  <span class="score-wpm"><?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['wpm']) : '-'; ?></span>
-                  <span class="score-acc"><?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['accuracy']) . '%' : '-'; ?></span>
+                  <span class="score-label has-tooltip">
+                    <?php echo $amount; ?>
+                    <span class="tooltip">Word Count</span>
+                  </span>
+                  <span class="score-wpm has-tooltip">
+                    <?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['wpm']) : '-'; ?>
+                    <span class="tooltip">Words Per Minute</span>
+                  </span>
+                  <span class="score-acc has-tooltip">
+                    <?php echo isset($wordsStats[$amount]) ? round($wordsStats[$amount]['accuracy']) . '%' : '-'; ?>
+                    <span class="tooltip">Accuracy</span>
+                  </span>
                 </div>
               <?php endforeach; ?>
             </div>

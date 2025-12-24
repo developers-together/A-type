@@ -29,17 +29,17 @@
               <i class="fas fa-fw fa-clock"></i>
               Time
             </button>
-            <button class="words-button" id="words-button">
+            <button class="words-button active" id="words-button">
               <i class="fas fa-fw fa-font"></i>
               Words
             </button>
           </div>
-          <!-- Pill 2: Number options (hidden by default, shows when Time/Words clicked) -->
-          <div class="buttons buttons-numbers hidden" id="buttons-numbers">
-            <button class="btn1" id="btn1">15</button>
-            <button class="btn2" id="btn2">30</button>
-            <button class="btn3" id="btn3">60</button>
-            <button class="btn4" id="btn4">120</button>
+          <!-- Pill 2: Number options (visible for Words mode by default) -->
+          <div class="buttons buttons-numbers visible" id="buttons-numbers">
+            <button class="btn1 active" id="btn1">10</button>
+            <button class="btn2" id="btn2">25</button>
+            <button class="btn3" id="btn3">50</button>
+            <button class="btn4" id="btn4">100</button>
           </div>
           <div class="mobile-button">
             <i class="fas fa-bars"></i>
