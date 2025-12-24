@@ -16,8 +16,8 @@
           </div>
           <div class="filters">
             <div class="filter-buttons">
-              <button>All Time</button>
-              <button>Daily</button>
+              <a href="?filter=all_time" class="<?php echo ($data['current_filter'] == 'all_time') ? 'active' : ''; ?>"><button>All Time</button></a>
+              <a href="?filter=daily" class="<?php echo ($data['current_filter'] == 'daily') ? 'active' : ''; ?>"><button>Daily</button></a>
             </div>
             <!-- <select name="languages">
               <option>English</option>
@@ -36,6 +36,7 @@
                 <th class="col1"><i class="fas fa-fw fa-hashtag"></i></th>
                 <th class="col2">Name</th>
                 <th class="col3">WPM</th>
+                <th class="col3">Accuracy</th>
                 <th class="col4">Date</th>
               </tr>
               <?php
@@ -50,6 +51,7 @@
                       }
                       echo "<td class='col2'>" . htmlspecialchars($row['username']) . "</td>";
                       echo "<td class='col3'>{$row['wpm']}</td>";
+                      echo "<td class='col3'>{$row['accuracy']}%</td>";
                       echo "<td class='col4'>" . date('Y/m/d', strtotime($row['session_at'])) . "</td>";
                       echo "</tr>";
                       $i++;
@@ -63,12 +65,13 @@
           <div class="rlist">
             <table>
               <caption>
-                Words 15
+                Words 10
               </caption>
               <tr>
                 <th class="col1"><i class="fas fa-fw fa-hashtag"></i></th>
                 <th class="col2">Name</th>
                 <th class="col3">WPM</th>
+                <th class="col3">Accuracy</th>
                 <th class="col4">Date</th>
               </tr>
               <?php
@@ -83,6 +86,7 @@
                       }
                       echo "<td class='col2'>" . htmlspecialchars($row['username']) . "</td>";
                       echo "<td class='col3'>{$row['wpm']}</td>";
+                      echo "<td class='col3'>{$row['accuracy']}%</td>";
                       echo "<td class='col4'>" . date('Y/m/d', strtotime($row['session_at'])) . "</td>";
                       echo "</tr>";
                       $i++;

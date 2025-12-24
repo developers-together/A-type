@@ -44,22 +44,34 @@ class Typing extends Model
         return $data;
     }
 
-    public function leaderboard()
+    public function leaderboard($filter = 'all_time')
     {
-         $sql = "SELECT wpm, accuracy, mode, session_at, users.username
-            FROM {$this->table}
-            JOIN users ON {$this->table}.user_id = users.id
-            WHERE mode = :mode 
-              AND amount = :amount
-            ORDER BY wpm DESC, accuracy DESC
-            LIMIT 10";
+        $dateCondition = "";
+        if ($filter === 'daily') {
+            $dateCondition = "AND session_at >= CURRENT_DATE()";
+        }
 
-
+        $sql = "SELECT t.wpm, t.accuracy, t.mode, t.session_at, users.username
+                FROM {$this->table} t
+                JOIN users ON t.user_id = users.id
+                WHERE t.wpm = (
+                    SELECT MAX(t2.wpm)
+                    FROM {$this->table} t2
+                    WHERE t2.user_id = t.user_id
+                    AND t2.mode = :mode
+                    AND t2.amount = :amount
+                    {$dateCondition}
+                )
+                AND t.mode = :mode 
+                AND t.amount = :amount
+                {$dateCondition}
+                GROUP BY t.user_id
+                ORDER BY t.wpm DESC, t.accuracy DESC
+                LIMIT 10";
 
          $data = ['time' => $this->query($sql, ['mode' => 'time','amount' => '15']),
              'words' => $this->query($sql, ['mode' => 'words','amount' => '15'])
             ];
-
 
             return $data;
     }

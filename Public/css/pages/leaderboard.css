@@ -88,6 +88,11 @@
   transform: scale(0.95);
 }
 
+.filter-buttons a.active button {
+  background-color: var(--text);
+  color: var(--btncolor);
+}
+
 /* .filters select {
   height: var(--btn-height-xs);
   width: clamp(9rem, 18vw, 12.7rem);
