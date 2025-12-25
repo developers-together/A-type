@@ -1,0 +1,66 @@
+:root {
+  /* Default theme */
+  --width: auto;
+  --bgcolor: #111111;
+  --btncolor: #191919;
+  --dtext: #444444;
+  --text: #eeeeee;
+
+  /* Light theme - enhanced */
+  --bgcolor-light: #f8faff; /* Lighter blue tint */
+  --btncolor-light: #ffffff; /* Pure white */
+  --dtext-light: #5a6b7c; /* Darker blueish-gray for default text */
+  --text-light: #0d1624; /* Darker text for better contrast */
+
+  /* Dark theme (current default) */
+  --bgcolor-dark: #111111;
+  --btncolor-dark: #191919;
+  --dtext-dark: #444444;
+  --text-dark: #eeeeee;
+
+  /* Responsive spacing */
+  --space-2xs: clamp(0.1rem, 0.25vw, 0.25rem);
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --space-md: clamp(0.75rem, 1.5vw, 1rem);
+  --space-lg: clamp(1rem, 2vw, 1.5rem);
+  --space-xl: clamp(1.5rem, 3vw, 2.5rem);
+  --space-2xl: clamp(2rem, 4vw, 3rem);
+  --space-3xl: clamp(3rem, 5vw, 4rem);
+  --space-4xl: clamp(4rem, 6vw, 5rem);
+
+  /* Responsive font sizes */
+  --font-xs: clamp(0.625rem, 1vw, 0.75rem);
+  --font-sm: clamp(0.75rem, 1.2vw, 0.875rem);
+  --font-md: clamp(0.875rem, 1.5vw, 1rem);
+  --font-lg: clamp(1rem, 2vw, 1.25rem);
+  --font-xl: clamp(1.25rem, 2.5vw, 1.75rem);
+  --font-2xl: clamp(1.5rem, 3vw, 2.25rem);
+  --font-3xl: clamp(2rem, 4vw, 3rem);
+
+  /* Responsive sizing */
+  --btn-height-xs: clamp(1.5rem, 3vh, 2rem);
+  --btn-height-sm: clamp(1.75rem, 3vh, 2.25rem);
+  --btn-height-md: clamp(2rem, 4vh, 2.75rem);
+  --btn-height-lg: clamp(2.5rem, 5vh, 3.25rem);
+  --btn-height-xl: clamp(3rem, 6vh, 4rem);
+  --icon-size-sm: clamp(1rem, 2vw, 1.5rem);
+  --icon-size-md: clamp(1.25rem, 2.5vw, 1.75rem);
+  --icon-size-lg: clamp(1.5rem, 3vw, 2rem);
+  
+  /* Responsive border radius */
+  --radius-sm: clamp(0.25rem, 0.5vw, 0.5rem);
+  --radius-md: clamp(0.5rem, 1vw, 0.75rem);
+  --radius-lg: clamp(0.75rem, 1.5vw, 1.25rem);
+  --radius-xl: clamp(1rem, 2vw, 1.5rem);
+  --radius-full: 15vw;
+
+  /* Container widths */
+  --container-sm: min(90vw, 600px);
+  --container-md: min(90vw, 900px);
+  --container-lg: min(90vw, 1200px);
+  --container-xl: min(95vw, 1400px);
+
+  /* Scroll behavior */
+  scroll-behavior: smooth;
+}

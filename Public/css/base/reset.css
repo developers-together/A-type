@@ -1,0 +1,23 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bgcolor);
+  color: var(--text);
+  user-select: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  animation: 0.8s ease-in-out forwards;
+}
+
+.hidden {
+  display: none;
+}
