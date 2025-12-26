@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⌨️ A-Type
+# A-Type
 
 [![PHP](https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![MariaDB](https://img.shields.io/badge/MariaDB-10.6-003545?style=for-the-badge&logo=mariadb&logoColor=white)](https://mariadb.org)
@@ -13,7 +13,7 @@
 
 **A minimalistic, browser-based typing speed test with a custom-built PHP MVC framework**
 
-[Live Demo](https://developers-together.github.io/A-type/) • [Features](#-features) • [Documentation](#-documentation) • [Quick Start](#-quick-start)
+[Features](#-features) • [Documentation](#-documentation) • [Quick Start](#-quick-start)
 
 <img src="Public/assets/Logo/logo.svg" alt="A-Type Logo" width="150">
 
