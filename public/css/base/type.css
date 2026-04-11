@@ -1,0 +1,90 @@
+/* ========================================
+   TYPOGRAPHY STYLES
+   Centralized font definitions for A-Type
+   ======================================== */
+
+/* Google Fonts are imported in head.php */
+
+/* Base typography */
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+/* Headings - Use Lexend Deca for titles and headers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lexend Deca", sans-serif;
+  margin: 0;
+}
+
+/* Heading sizes using responsive variables */
+h1 {
+  font-size: var(--font-3xl);
+}
+
+h2 {
+  font-size: var(--font-2xl);
+}
+
+h3 {
+  font-size: var(--font-xl);
+}
+
+h4 {
+  font-size: var(--font-lg);
+}
+
+h5, h6 {
+  font-size: var(--font-md);
+}
+
+/* Body text - Use Nunito for readability */
+p, span, li, td, th, label, input, button, a {
+  font-family: "Nunito", sans-serif;
+}
+
+/* Header/Navigation text uses Lexend Deca */
+.header,
+.header h1 {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+/* Containers and main sections */
+.container,
+.container2,
+.leaderboard-container,
+.login-container,
+.profile-container,
+.info-container p,
+.info-container ul,
+.info-container li,
+.info-container a,
+.info-container span {
+  font-family: "Nunito", sans-serif;
+}
+
+/* Info page headings */
+.info-container h1,
+.info-container h2,
+.info-container h3 {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+/* Profile personal info */
+.personalinfo {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+/* Timer component */
+.timer {
+  font-family: "Nunito", sans-serif;
+}
+
+/* Collapsible buttons */
+.collapsible-btn {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+/* Profile buttons */
+.buttons button {
+  font-family: "Nunito", sans-serif;
+}
