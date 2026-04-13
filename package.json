@@ -3,9 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "bootstrap": "bash scripts/setup.sh",
     "build": "vite build",
     "dev": "vite",
-    "typecheck": "tsc --noEmit"
+    "dev:full": "bash scripts/dev-full.sh",
+    "typecheck": "tsc --noEmit",
+    "verify": "bash scripts/verify.sh"
   },
   "devDependencies": {
     "laravel-vite-plugin": "^3.0.0",
