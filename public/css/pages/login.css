@@ -27,6 +27,34 @@
   transition: all 0.3s ease;
 }
 
+.auth-theme-toggle {
+  position: fixed;
+  top: var(--space-2xs);
+  right: var(--space-3xl);
+  width: clamp(2.5rem, 5vw, 3.5rem);
+  height: clamp(2.5rem, 5vw, 3.5rem);
+  border: none;
+  background-color: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: var(--font-xl);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+}
+
+.auth-theme-toggle:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-theme-toggle:active {
+  transform: scale(0.95);
+}
+
 .back-btn-auth:hover {
   transform: scale(1.1);
   background-color: rgba(255, 255, 255, 0.1);
@@ -305,6 +333,11 @@
   .back-btn-auth {
     top: var(--space-md);
     left: var(--space-md);
+  }
+
+  .auth-theme-toggle {
+    top: var(--space-md);
+    right: var(--space-md);
   }
 }
 
