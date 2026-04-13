@@ -28,6 +28,27 @@ class AuthCrudTest extends TestCase
         ]);
     }
 
+    public function test_user_can_register_with_json_request(): void
+    {
+        $response = $this
+            ->withHeaders([
+                'Accept' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+            ])
+            ->postJson('/auth/register', [
+                'username' => 'react_user',
+                'email' => 'react-user@example.com',
+                'password' => 'password123',
+                'password_confirmation' => 'password123',
+            ]);
+
+        $response
+            ->assertCreated()
+            ->assertJson([
+                'status' => 'success',
+            ]);
+    }
+
     public function test_user_can_login_and_logout(): void
     {
         $user = User::factory()->create([
@@ -47,6 +68,32 @@ class AuthCrudTest extends TestCase
 
         $logoutResponse->assertRedirect(route('home'));
         $this->assertGuest();
+    }
+
+    public function test_user_can_login_with_json_request(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'json-login@example.com',
+            'password' => 'password123',
+        ]);
+
+        $response = $this
+            ->withHeaders([
+                'Accept' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+            ])
+            ->postJson('/auth/login', [
+                'email' => 'json-login@example.com',
+                'password' => 'password123',
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertJson([
+                'status' => 'success',
+            ]);
+
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test_user_can_update_profile_information(): void

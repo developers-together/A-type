@@ -1,10 +1,11 @@
-# A-Type (Laravel + TypeScript)
+# A-Type (Laravel + React + TypeScript)
 
-A-Type rewritten with Laravel 13 + TypeScript + pnpm.
+A-Type rewritten with Laravel 13 + React + TypeScript + pnpm.
 
 ## What’s Included
 
 - Full login/signup flow
+- Login/signup UI built in React
 - Profile CRUD (read, update, delete account)
 - Logout
 - Typing game frontend in TypeScript
@@ -33,6 +34,8 @@ pnpm bootstrap
 - SQLite initialization
 - app key generation
 - fresh migrations + seed
+
+Note: `bootstrap` here is a setup command name, not Bootstrap CSS.
 
 ### 3. Run app for full manual testing
 
