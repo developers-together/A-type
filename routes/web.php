@@ -19,6 +19,8 @@ Route::middleware('guest')->group(function (): void {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/auth/register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('/Profile/login', [AuthController::class, 'login']);
+    Route::post('/Profile/register', [AuthController::class, 'register']);
 });
 
 Route::middleware('auth')->group(function (): void {
@@ -26,6 +28,7 @@ Route::middleware('auth')->group(function (): void {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::post('/Profile/logout', [AuthController::class, 'logout']);
 });
 
 // Legacy path compatibility

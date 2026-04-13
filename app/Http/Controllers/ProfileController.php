@@ -47,7 +47,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $validated = $request->validate([
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_dash', 'unique:users,username,' . $user->id],
+            'username' => ['required', 'string', 'min:3', 'max:50', 'unique:users,username,' . $user->id],
             'email' => ['required', 'email', 'max:100', 'unique:users,email,' . $user->id],
             'password' => ['nullable', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);

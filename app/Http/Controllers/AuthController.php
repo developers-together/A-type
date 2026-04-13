@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,10 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function register(Request $request): RedirectResponse
+    public function register(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_dash', 'unique:users,username'],
+            'username' => ['required', 'string', 'min:3', 'max:50', 'unique:users,username'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);
@@ -31,10 +32,17 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'status' => 'success',
+                'redirect' => route('profile.show'),
+            ], 201);
+        }
+
         return redirect()->route('profile.show');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(Request $request): JsonResponse|RedirectResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -42,12 +50,25 @@ class AuthController extends Controller
         ]);
 
         if (! Auth::attempt($credentials)) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'The provided credentials do not match our records.',
+                ], 422);
+            }
+
             return back()->withErrors([
                 'email' => 'The provided credentials do not match our records.',
             ])->onlyInput('email');
         }
 
         $request->session()->regenerate();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'status' => 'success',
+                'redirect' => route('profile.show'),
+            ]);
+        }
 
         return redirect()->intended(route('profile.show'));
     }

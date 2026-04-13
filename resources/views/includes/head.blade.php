@@ -40,5 +40,5 @@
         property="og:title"
         content="A-Type | A minimalistic typing test website" />
     <meta property="og:type" content="website" />
-    @vite('resources/ts/app.ts')
+    @vite('resources/ts/app.tsx')
 </head>
