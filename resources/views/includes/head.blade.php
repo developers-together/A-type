@@ -40,5 +40,6 @@
         property="og:title"
         content="A-Type | A minimalistic typing test website" />
     <meta property="og:type" content="website" />
+    @viteReactRefresh
     @vite('resources/ts/app.tsx')
 </head>
