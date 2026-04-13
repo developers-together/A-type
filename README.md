@@ -1,64 +1,51 @@
-# A-Type (With Frameworks)
+# A-Type (Laravel + TypeScript)
 
-Laravel + TypeScript rewrite of A-Type with pnpm + Vite.
+A-Type rewritten with Laravel 13 + TypeScript + pnpm.
 
-## Stack
+## What’s Included
 
-- Backend: Laravel 13 (PHP 8.5)
-- Frontend: TypeScript modules bundled with Vite
-- Package manager: pnpm
-- Database: SQLite by default (easy local run)
-
-## Implemented
-
-- Typing home page with the original game flow
-- Words API (`GET /home/words?amount=...`)
-- Typing session save API (`POST /home/typing`)
-- Auth + account CRUD
-- Register
-- Login
-- Read profile/stats
-- Update profile (username/email/password)
-- Delete account
+- Full login/signup flow
+- Profile CRUD (read, update, delete account)
 - Logout
-- Leaderboard (all-time + daily)
-- Words seed loader from `database/data/words.txt`
+- Typing game frontend in TypeScript
+- `GET /home/words` endpoint
+- `POST /home/typing` endpoint
+- Leaderboard + info pages
+- Seeded words list (`database/data/words.txt`)
 
-## Run Locally
+## Quick Start
 
-1. Install PHP/composer if missing (or use `pkgx`):
-
-```bash
-pkgx php -v
-pkgx composer --version
-```
-
-2. Install dependencies:
+### 1. Install JS deps
 
 ```bash
-pkgx composer install
-pnpm install --ignore-workspace
+pnpm install
 ```
 
-3. Prepare DB + seed words:
+### 2. Bootstrap backend + database + seed
 
 ```bash
-pkgx php artisan migrate:fresh --seed
+pnpm bootstrap
 ```
 
-4. Start app:
+`pnpm bootstrap` does:
+- `.env` creation (if missing)
+- `composer install` (uses local `composer` or `pkgx composer`)
+- SQLite initialization
+- app key generation
+- fresh migrations + seed
+
+### 3. Run app for full manual testing
 
 ```bash
-pkgx php artisan serve
-pnpm dev
+pnpm dev:full
 ```
 
-## Validation / Tests
+Then open: `http://127.0.0.1:8000`
+
+## Verification
 
 ```bash
-pnpm typecheck
-pnpm build
-pkgx php artisan test
+pnpm verify
 ```
 
-All of the above pass on this branch.
+This runs type-check, build, and Laravel tests.
