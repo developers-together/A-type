@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bootstrap": "bash scripts/setup.sh",
+    "init:project": "bash scripts/setup.sh",
     "build": "vite build",
     "dev": "vite",
     "dev:full": "bash scripts/dev-full.sh",

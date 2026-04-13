@@ -22,20 +22,18 @@ A-Type rewritten with Laravel 13 + React + TypeScript + pnpm.
 pnpm install
 ```
 
-### 2. Bootstrap backend + database + seed
+### 2. Initialize backend + database + seed
 
 ```bash
-pnpm bootstrap
+pnpm init:project
 ```
 
-`pnpm bootstrap` does:
+`pnpm init:project` does:
 - `.env` creation (if missing)
 - `composer install` (uses local `composer` or `pkgx composer`)
 - SQLite initialization
 - app key generation
 - fresh migrations + seed
-
-Note: `bootstrap` here is a setup command name, not Bootstrap CSS.
 
 ### 3. Run app for full manual testing
 
