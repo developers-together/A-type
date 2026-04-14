@@ -23,7 +23,6 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'avatar_path',
     ];
 
     /**
@@ -62,14 +61,5 @@ class User extends Authenticatable
     public function themePreference(): HasOne
     {
         return $this->hasOne(ThemePreference::class);
-    }
-
-    public function getAvatarUrlAttribute(): ?string
-    {
-        if (! $this->avatar_path) {
-            return null;
-        }
-
-        return '/storage/'.$this->avatar_path;
     }
 }

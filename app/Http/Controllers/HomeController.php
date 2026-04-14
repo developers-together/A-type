@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Concerns\BuildsFrontendProps;
 use App\Models\TypingSession;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
@@ -10,16 +9,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    use BuildsFrontendProps;
-
-    public function index(Request $request)
+    public function index()
     {
-        return $this->renderAppPage($request, 'home', [
-            'defaults' => [
-                'mode' => 'words',
-                'amount' => 10,
-            ],
-        ], 'Home');
+        return view('home');
     }
 
     public function words(Request $request): JsonResponse
