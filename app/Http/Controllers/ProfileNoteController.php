@@ -17,7 +17,9 @@ class ProfileNoteController extends Controller
             ->profileNotes()
             ->orderByDesc('is_pinned')
             ->orderByDesc('updated_at')
-            ->get();
+            ->get()
+            ->map(fn (ProfileNote $note) => $this->serializeNote($note))
+            ->values();
 
         return response()->json(['data' => $notes]);
     }
@@ -26,7 +28,7 @@ class ProfileNoteController extends Controller
     {
         $this->authorizeNote($request, $profileNote);
 
-        return response()->json(['data' => $profileNote]);
+        return response()->json(['data' => $this->serializeNote($profileNote)]);
     }
 
     public function store(StoreProfileNoteRequest $request): JsonResponse|RedirectResponse
@@ -38,7 +40,7 @@ class ProfileNoteController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
-                'data' => $note,
+                'data' => $this->serializeNote($note),
             ], 201);
         }
 
@@ -56,7 +58,7 @@ class ProfileNoteController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'status' => 'success',
-                'data' => $profileNote->fresh(),
+                'data' => $this->serializeNote($profileNote->fresh()),
             ]);
         }
 
@@ -83,5 +85,16 @@ class ProfileNoteController extends Controller
     private function authorizeNote(Request $request, ProfileNote $profileNote): void
     {
         abort_unless($profileNote->user_id === $request->user()?->id, 403);
+    }
+
+    private function serializeNote(ProfileNote $note): array
+    {
+        return [
+            'id' => $note->id,
+            'title' => $note->title,
+            'body' => $note->body,
+            'isPinned' => (bool) $note->is_pinned,
+            'updatedAt' => optional($note->updated_at)->toIso8601String(),
+        ];
     }
 }
