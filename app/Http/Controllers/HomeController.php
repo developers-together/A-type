@@ -6,12 +6,14 @@ use App\Models\TypingSession;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
-        return view('home');
+        return Inertia::render('Home');
     }
 
     public function words(Request $request): JsonResponse
