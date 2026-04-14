@@ -6,10 +6,12 @@ use App\Models\TypingSession;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class LeaderboardController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $filter = $request->query('filter', 'all_time');
 
@@ -17,9 +19,21 @@ class LeaderboardController extends Controller
             $filter = 'all_time';
         }
 
-        return view('leaderboard', [
-            'time' => $this->topScores('time', 15, $filter),
-            'words' => $this->topScores('words', 10, $filter),
+        return Inertia::render('Leaderboard', [
+            'time' => $this->topScores('time', 15, $filter)->map(fn ($row): array => [
+                'user_id' => (int) $row->user_id,
+                'username' => (string) $row->username,
+                'wpm' => (int) $row->wpm,
+                'accuracy' => (float) $row->accuracy,
+                'session_at' => (string) $row->session_at,
+            ])->values(),
+            'words' => $this->topScores('words', 10, $filter)->map(fn ($row): array => [
+                'user_id' => (int) $row->user_id,
+                'username' => (string) $row->username,
+                'wpm' => (int) $row->wpm,
+                'accuracy' => (float) $row->accuracy,
+                'session_at' => (string) $row->session_at,
+            ])->values(),
             'current_filter' => $filter,
         ]);
     }
