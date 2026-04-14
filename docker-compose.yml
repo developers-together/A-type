@@ -1,0 +1,67 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: atype-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: atype
+      MYSQL_USER: atype
+      MYSQL_PASSWORD: atype
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: atype-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    working_dir: /var/www/html
+    env_file:
+      - .env
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: atype
+      DB_USERNAME: atype
+      DB_PASSWORD: atype
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:8000"
+    command: >
+      bash -lc "composer install &&
+      pnpm install &&
+      php artisan key:generate --force &&
+      php artisan migrate --force &&
+      php artisan serve --host=0.0.0.0 --port=8000"
+
+  vite:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: atype-vite
+    depends_on:
+      - app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "5173:5173"
+    command: >
+      bash -lc "pnpm install &&
+      pnpm dev --host 0.0.0.0 --port 5173"
+
+volumes:
+  mysql-data:

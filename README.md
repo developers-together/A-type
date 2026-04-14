@@ -60,3 +60,19 @@ This runs:
 - TypeScript check
 - Vite production build
 - Laravel test suite (MySQL test DB)
+
+## Docker (Dev-First)
+
+Use the included Docker Compose stack (`app + mysql + vite`):
+
+```bash
+pnpm docker:bootstrap
+pnpm docker:up
+```
+
+Useful commands:
+
+- `pnpm docker:logs`
+- `pnpm docker:test`
+- `pnpm docker:seed`
+- `pnpm docker:down`

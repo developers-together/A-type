@@ -8,7 +8,13 @@
     "dev": "vite",
     "dev:full": "bash scripts/dev-full.sh",
     "typecheck": "tsc --noEmit",
-    "verify": "bash scripts/verify.sh"
+    "verify": "bash scripts/verify.sh",
+    "docker:bootstrap": "bash scripts/docker/bootstrap.sh",
+    "docker:up": "bash scripts/docker/up.sh",
+    "docker:down": "bash scripts/docker/down.sh",
+    "docker:logs": "bash scripts/docker/logs.sh",
+    "docker:test": "bash scripts/docker/test.sh",
+    "docker:seed": "bash scripts/docker/seed.sh"
   },
   "devDependencies": {
     "@types/react": "^19.2.2",

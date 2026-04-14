@@ -1,0 +1,23 @@
+FROM php:8.3-cli
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+      curl \
+      git \
+      unzip \
+      libicu-dev \
+      libonig-dev \
+      libzip-dev \
+      default-mysql-client \
+    && docker-php-ext-install pdo_mysql mbstring intl zip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && corepack enable \
+    && corepack prepare pnpm@10.25.0 --activate \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
