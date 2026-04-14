@@ -1,9 +1,14 @@
 <head>
+    @php
+        $serverTheme = auth()->check() ? auth()->user()->themePreference?->theme : '';
+    @endphp
     <meta charset="UTF-8" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.00, minimum-scale=1.00, maximum-scale=1.00, user-scalable=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="user-authenticated" content="{{ auth()->check() ? '1' : '0' }}" />
+    <meta name="server-theme" content="{{ $serverTheme }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

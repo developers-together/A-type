@@ -1,11 +1,27 @@
 type Theme = 'dark' | 'light';
 
-function resolveTheme(savedTheme: string | null): Theme {
-  return savedTheme === 'light' ? 'light' : 'dark';
+function resolveTheme(candidate: string | null): Theme | null {
+  if (candidate === 'light') return 'light';
+  if (candidate === 'dark') return 'dark';
+  return null;
+}
+
+function getServerTheme(): Theme | null {
+  const serverTheme = document.querySelector<HTMLMetaElement>('meta[name="server-theme"]')?.content ?? null;
+  return resolveTheme(serverTheme);
+}
+
+function isAuthenticatedUser(): boolean {
+  return document.querySelector<HTMLMetaElement>('meta[name="user-authenticated"]')?.content === '1';
+}
+
+function getCsrfToken(): string | null {
+  return document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? null;
 }
 
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute('data-theme', theme);
+
   const icons = document.querySelectorAll('#theme-toggle i, #theme-btn i');
   icons.forEach((icon) => {
     icon.classList.remove('fa-moon', 'fa-sun');
@@ -15,8 +31,31 @@ function applyTheme(theme: Theme) {
   localStorage.setItem('theme', theme);
 }
 
+async function persistThemePreference(theme: Theme): Promise<void> {
+  if (!isAuthenticatedUser()) return;
+
+  const csrfToken = getCsrfToken();
+  if (!csrfToken) return;
+
+  try {
+    await fetch('/profile/theme', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify({ theme }),
+    });
+  } catch (error) {
+    console.warn('Unable to persist theme preference', error);
+  }
+}
+
 export function initTheme() {
-  let currentTheme: Theme = resolveTheme(localStorage.getItem('theme'));
+  const localTheme = resolveTheme(localStorage.getItem('theme'));
+  let currentTheme: Theme = localTheme ?? getServerTheme() ?? 'dark';
 
   applyTheme(currentTheme);
 
@@ -29,6 +68,7 @@ export function initTheme() {
       toggle.addEventListener('click', () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         applyTheme(currentTheme);
+        void persistThemePreference(currentTheme);
       });
 
       toggle.dataset.themeBound = 'true';
@@ -44,6 +84,5 @@ export function initTheme() {
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Keep observer short-lived to avoid unnecessary DOM work.
   setTimeout(() => observer.disconnect(), 10000);
 }
