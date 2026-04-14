@@ -11,10 +11,12 @@
     "verify": "bash scripts/verify.sh"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.2.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.0",
     "laravel-vite-plugin": "^3.0.0",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5.8.3",
     "vite": "^8.0.0"
   },
