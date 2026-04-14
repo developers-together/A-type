@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdateThemePreferenceRequest;
 use App\Models\TypingSession;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,22 +38,23 @@ class ProfileController extends Controller
             ->selectRaw('COUNT(id) AS total_tests')
             ->first();
 
+        $notes = $user->profileNotes()
+            ->orderByDesc('is_pinned')
+            ->orderByDesc('updated_at')
+            ->get();
+
         return view('profile', [
             'user' => $user,
             'stats' => $bestScores,
             'avg' => $stats,
+            'notes' => $notes,
         ]);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(UpdateProfileRequest $request): RedirectResponse
     {
         $user = $request->user();
-
-        $validated = $request->validate([
-            'username' => ['required', 'string', 'min:3', 'max:50', 'unique:users,username,' . $user->id],
-            'email' => ['required', 'email', 'max:100', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'string', 'min:8', 'max:255', 'confirmed'],
-        ]);
+        $validated = $request->validated();
 
         $user->username = $validated['username'];
         $user->email = $validated['email'];
@@ -87,5 +91,15 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home')->with('status', 'Account deleted.');
+    }
+
+    public function updateTheme(UpdateThemePreferenceRequest $request): JsonResponse
+    {
+        $request->user()->themePreference()->updateOrCreate(
+            ['user_id' => $request->user()->id],
+            ['theme' => $request->validated('theme')]
+        );
+
+        return response()->json(['status' => 'success']);
     }
 }
