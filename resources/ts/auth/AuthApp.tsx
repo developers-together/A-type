@@ -127,17 +127,7 @@ export function AuthApp() {
       </button>
 
       {error ? (
-        <div
-          className="auth-errors"
-          style={{
-            position: 'fixed',
-            top: '1rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: '9999',
-            color: '#ff6b6b',
-          }}
-        >
+        <div className="auth-errors" role="alert" aria-live="assertive">
           {error}
         </div>
       ) : null}

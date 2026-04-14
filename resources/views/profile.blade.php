@@ -34,12 +34,16 @@
       </aside>
 
       <main class="profile-content">
-        @if (session('status'))
-          <div class="profile-flash success">{{ session('status') }}</div>
-        @endif
+        @if (session('status') || $errors->any())
+          <div class="profile-toast-stack" aria-live="polite">
+            @if (session('status'))
+              <div class="profile-flash success">{{ session('status') }}</div>
+            @endif
 
-        @if ($errors->any())
-          <div class="profile-flash error">{{ $errors->first() }}</div>
+            @if ($errors->any())
+              <div class="profile-flash error" role="alert" aria-live="assertive">{{ $errors->first() }}</div>
+            @endif
+          </div>
         @endif
 
         <div class="stats-card">
