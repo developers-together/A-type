@@ -25,12 +25,18 @@
 }
 
 /* Light mode logo */
-[data-theme="light"] .header div img {
+[data-theme="light"] .header .brand-link img {
   content: url("/assets/Logo/logo2.svg");
 }
 
-[data-theme="light"] .header div h1 {
+[data-theme="light"] .header .brand-link h1 {
   color: var(--dtext-light);
+}
+
+[data-theme="light"] .header {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(12, 24, 44, 0.14);
+  box-shadow: 0 10px 22px rgba(12, 24, 44, 0.1);
 }
 
 /* Additional light mode enhancements */

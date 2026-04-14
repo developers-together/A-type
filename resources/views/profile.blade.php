@@ -8,19 +8,38 @@
   <section class="pmain">
     <div class="profile-layout">
       <aside class="profile-sidebar">
-        <div class="profile-avatar">
-          <i class="fa-solid fa-circle-user"></i>
+        <div class="profile-sidebar-card profile-identity">
+          <div class="profile-avatar">
+            <i class="fa-solid fa-circle-user"></i>
+          </div>
+          <h1 class="profile-username">{{ $user->username }}</h1>
+          <p class="profile-joined">
+            <i class="fa-regular fa-calendar"></i>
+            joined {{ optional($user->created_at)->format('M j, Y') }}
+          </p>
         </div>
-        <h1 class="profile-username">{{ $user->username }}</h1>
+
+        <div class="profile-sidebar-card">
+          <h2 class="section-title sidebar-title">account settings</h2>
+          <form action="{{ route('profile.update') }}" method="post" class="profile-form">
+            @csrf
+            @method('PUT')
+            <input class="form-input" type="text" name="username" value="{{ old('username', $user->username) }}" placeholder="Username" required />
+            <input class="form-input" type="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Email" required />
+            <input class="form-input" type="password" name="password" placeholder="New password (optional)" />
+            <input class="form-input" type="password" name="password_confirmation" placeholder="Confirm new password" />
+            <button type="submit" class="primary-btn">Update Profile</button>
+          </form>
+        </div>
       </aside>
 
       <main class="profile-content">
         @if (session('status'))
-          <div style="margin-bottom: 1rem; color: #7ef29a;">{{ session('status') }}</div>
+          <div class="profile-flash success">{{ session('status') }}</div>
         @endif
 
         @if ($errors->any())
-          <div style="margin-bottom: 1rem; color: #ff6b6b;">{{ $errors->first() }}</div>
+          <div class="profile-flash error">{{ $errors->first() }}</div>
         @endif
 
         <div class="stats-card">
@@ -156,17 +175,58 @@
           </div>
         </div>
 
-        <div class="stats-card" style="margin-top: 1.5rem;">
-          <h2 class="section-title">Account Settings</h2>
-          <form action="{{ route('profile.update') }}" method="post" style="display: grid; gap: 0.75rem; max-width: 520px;">
+        <div class="stats-card notes-card">
+          <h2 class="section-title">quick notes</h2>
+          <p class="notes-helper">Create, edit, and delete profile notes. This is full CRUD on the `profile_notes` model.</p>
+
+          <form action="{{ route('profile.notes.store') }}" method="post" class="profile-form note-create-form">
             @csrf
-            @method('PUT')
-            <input type="text" name="username" value="{{ old('username', $user->username) }}" required />
-            <input type="email" name="email" value="{{ old('email', $user->email) }}" required />
-            <input type="password" name="password" placeholder="New password (optional)" />
-            <input type="password" name="password_confirmation" placeholder="Confirm new password" />
-            <button type="submit" class="danger-btn reset-btn">Update Profile</button>
+            <input class="form-input" type="text" name="title" placeholder="Note title" required maxlength="120" />
+            <textarea class="form-input form-textarea" name="body" placeholder="Write a note..." rows="3" required maxlength="2000"></textarea>
+            <label class="inline-toggle">
+              <input type="hidden" name="is_pinned" value="0" />
+              <input type="checkbox" name="is_pinned" value="1" />
+              pin this note
+            </label>
+            <button type="submit" class="primary-btn">Add Note</button>
           </form>
+
+          <div class="notes-list">
+            @forelse ($notes as $note)
+              <article class="note-item {{ $note->is_pinned ? 'is-pinned' : '' }}">
+                <form action="{{ route('profile.notes.update', $note) }}" method="post" class="profile-form note-update-form">
+                  @csrf
+                  @method('PUT')
+                  <input class="form-input" type="text" name="title" value="{{ $note->title }}" required maxlength="120" />
+                  <textarea class="form-input form-textarea" name="body" rows="4" required maxlength="2000">{{ $note->body }}</textarea>
+
+                  <div class="note-meta">
+                    <span class="note-date">updated {{ optional($note->updated_at)->diffForHumans() }}</span>
+                    <label class="inline-toggle">
+                      <input type="hidden" name="is_pinned" value="0" />
+                      <input type="checkbox" name="is_pinned" value="1" @checked($note->is_pinned) />
+                      pinned
+                    </label>
+                  </div>
+
+                  <div class="note-actions">
+                    <button type="submit" class="primary-btn">Save</button>
+                  </div>
+                </form>
+
+                <form action="{{ route('profile.notes.destroy', $note) }}" method="post" class="note-delete-form">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="danger-btn delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                    delete
+                  </button>
+                </form>
+              </article>
+            @empty
+              <p class="notes-empty">No notes yet. Add your first one above.</p>
+            @endforelse
+          </div>
         </div>
 
         <div class="danger-zone">
@@ -180,10 +240,10 @@
               </button>
             </form>
 
-            <form action="{{ route('profile.destroy') }}" method="post" style="display: grid; gap: 0.5rem;">
+            <form action="{{ route('profile.destroy') }}" method="post" class="profile-form">
               @csrf
               @method('DELETE')
-              <input type="password" name="current_password" placeholder="Current password" required />
+              <input class="form-input" type="password" name="current_password" placeholder="Current password" required />
               <button type="submit" class="danger-btn delete-btn">
                 <i class="fa-solid fa-trash"></i>
                 delete account

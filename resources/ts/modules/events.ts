@@ -25,24 +25,6 @@ export function initEvents() {
     });
   }
 
-  // Logo click - on home page: reload game, on other pages: go to home
-  const logo = document.getElementById("logo");
-  if (logo) {
-    logo.addEventListener("click", () => {
-      const isHomePage = window.location.pathname === "/" || 
-                         window.location.pathname === "/Home" || 
-                         window.location.pathname.toLowerCase() === "/home";
-      
-      if (isHomePage && typeof newGame === "function") {
-        // On home page - just reload the typing game
-        newGame();
-      } else {
-        // On other pages - navigate to home
-        window.location.href = "/home";
-      }
-    });
-  }
-
   // Mobile menu
   const mobileButton = document.querySelector(".mobile-button");
   const mobileMenu = document.getElementById("mobileMenu");

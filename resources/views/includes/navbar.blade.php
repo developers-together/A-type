@@ -1,11 +1,11 @@
 <section class="header">
-    <div>
+    <a class="brand-link" href="{{ route('home') }}" aria-label="Go to home page">
         <img
             id="logo"
             src="/assets/Logo/logo.svg"
             alt="logo" />
         <h1>A-Type</h1>
-    </div>
+    </a>
     <div class="hsbtns">
         <button onclick="window.open('{{ route('leaderboard') }}', '_parent')">
             <div class="icon-container">
