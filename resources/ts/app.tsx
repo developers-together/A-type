@@ -1,22 +1,23 @@
-import { initTheme } from './modules/theme';
-import { initEvents } from './modules/events';
-import { newGame } from './modules/game';
-import { initInfo } from './modules/pages/info';
+import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
-import { AuthApp } from './auth/AuthApp';
+import type { ComponentType } from 'react';
 
-window.addEventListener('load', () => {
-    const authRoot = document.getElementById('auth-root');
+createInertiaApp({
+  resolve: (name) => {
+    const pages = import.meta.glob('./pages/**/*.tsx', { eager: true }) as Record<string, { default: ComponentType }>;
+    const page = pages[`./pages/${name}.tsx`];
 
-    if (authRoot) {
-        createRoot(authRoot).render(<AuthApp />);
+    if (!page) {
+      throw new Error(`Inertia page not found: ${name}`);
     }
 
-    initTheme();
-    initInfo();
-
-    if (document.getElementById('words')) {
-        initEvents();
-        newGame();
-    }
+    return page;
+  },
+  setup({ el, App, props }) {
+    createRoot(el).render(<App {...props} />);
+  },
+  progress: {
+    color: '#22c55e',
+    delay: 150,
+  },
 });
