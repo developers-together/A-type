@@ -31,9 +31,10 @@ if [ ! -f .env ]; then
 fi
 
 run_composer install --no-interaction --prefer-dist
+mkdir -p database
+: > database/database.sqlite
 run_php artisan key:generate --force --ansi
 run_php artisan migrate:fresh --seed --force --ansi
-run_php artisan storage:link --ansi || true
 pnpm install
 
 echo "Setup complete."

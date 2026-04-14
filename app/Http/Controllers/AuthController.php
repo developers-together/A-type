@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Concerns\BuildsFrontendProps;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -11,15 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    use BuildsFrontendProps;
-
-    public function showLogin(Request $request)
+    public function showLogin()
     {
         if (Auth::check()) {
             return redirect()->route('profile.show');
         }
 
-        return $this->renderAppPage($request, 'login', [], 'Login');
+        return view('login');
     }
 
     public function register(Request $request): JsonResponse|RedirectResponse
@@ -76,19 +73,12 @@ class AuthController extends Controller
         return redirect()->intended(route('profile.show'));
     }
 
-    public function logout(Request $request): JsonResponse|RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        if ($request->expectsJson()) {
-            return response()->json([
-                'status' => 'success',
-                'redirect' => route('home'),
-            ]);
-        }
 
         return redirect()->route('home');
     }
