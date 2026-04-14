@@ -27,6 +27,9 @@ Route::middleware('guest')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+    Route::delete('/profile/data', [ProfileController::class, 'clearData'])->name('profile.data.clear');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::put('/profile/theme', [ProfileController::class, 'updateTheme'])->name('profile.theme.update');
     Route::get('/profile/notes', [ProfileNoteController::class, 'index'])->name('profile.notes.index');

@@ -3,48 +3,37 @@
         $serverTheme = auth()->check() ? auth()->user()->themePreference?->theme : '';
     @endphp
     <meta charset="UTF-8" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.00, minimum-scale=1.00, maximum-scale=1.00, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="user-authenticated" content="{{ auth()->check() ? '1' : '0' }}" />
     <meta name="server-theme" content="{{ $serverTheme }}" />
+    <meta name="user-authenticated" content="{{ auth()->check() ? '1' : '0' }}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap"
-        rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=info" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
-        rel="stylesheet" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <link rel="stylesheet" href="/css/styles.css?v=2.0" />
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=schedule" />
-    <link
-        rel="icon"
-        type="image/x-icon"
-        sizes="32x32"
-        href="/assets/Logo/favicon/A-Type-Logo.ico" />
-    <title>A-type | A minimalistic typing test website</title>
-    <meta
-        name="description"
-        content="typing test website with a minimal design. Test yourself in various modes, track your progress and improve your speed." />
-    <meta
-        name="keywords"
-        content="typing speed test, typing speedtest, typing test, speedtest, speed test, typing, test, typing-test, typing test, types, type, wpm, words per minute, typing website, minimalistic, custom typing test, customizable, customisable, themes, random words, smooth caret, smooth, new, new typing site, new typing website, minimalist typing website, minimalistic typing website, minimalist typing test" />
-    <meta
-        property="og:title"
-        content="A-Type | A minimalistic typing test website" />
-    <meta property="og:type" content="website" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="/assets/Logo/favicon/A-Type-Logo.ico" />
+
+    <title>A-Type | React + Laravel Typing Platform</title>
+    <meta name="description" content="A-Type typing platform built with Laravel, React, TypeScript, Tailwind, and MySQL-ready configuration." />
+
+    <script>
+        (function () {
+            try {
+                var storageKey = 'atype.theme';
+                var savedTheme = localStorage.getItem(storageKey);
+                var serverTheme = document.querySelector('meta[name="server-theme"]')?.getAttribute('content');
+                var theme = savedTheme || serverTheme || 'dark';
+                if (theme !== 'dark' && theme !== 'light') {
+                    theme = 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
     @viteReactRefresh
     @vite('resources/ts/app.tsx')
 </head>
