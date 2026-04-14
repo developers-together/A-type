@@ -10,10 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    public function show(Request $request)
+    public function show(Request $request): Response
     {
         $user = $request->user();
 
@@ -43,11 +45,34 @@ class ProfileController extends Controller
             ->orderByDesc('updated_at')
             ->get();
 
-        return view('profile', [
-            'user' => $user,
-            'stats' => $bestScores,
-            'avg' => $stats,
-            'notes' => $notes,
+        return Inertia::render('Profile', [
+            'profile' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'email' => $user->email,
+                'created_at' => optional($user->created_at)?->toIso8601String(),
+            ],
+            'stats' => $bestScores->map(fn (TypingSession $session): array => [
+                'mode' => $session->mode,
+                'amount' => $session->amount,
+                'wpm' => (float) $session->wpm,
+                'accuracy' => (float) $session->accuracy,
+                'session_at' => optional($session->session_at)?->toIso8601String(),
+            ])->values(),
+            'summary' => [
+                'avg_acc' => (float) ($stats->avg_acc ?? 0),
+                'avg_wpm' => (float) ($stats->avg_wpm ?? 0),
+                'total_words' => (int) ($stats->total_words ?? 0),
+                'total_time' => (int) ($stats->total_time ?? 0),
+                'total_tests' => (int) ($stats->total_tests ?? 0),
+            ],
+            'notes' => $notes->map(fn ($note): array => [
+                'id' => $note->id,
+                'title' => $note->title,
+                'body' => $note->body,
+                'is_pinned' => (bool) $note->is_pinned,
+                'updated_at' => optional($note->updated_at)?->toIso8601String(),
+            ])->values(),
         ]);
     }
 

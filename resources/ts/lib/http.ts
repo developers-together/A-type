@@ -2,10 +2,25 @@ export async function fetchJson<TResponse>(
   url: string,
   options: RequestInit = {},
 ): Promise<TResponse> {
+  const method = (options.method ?? 'GET').toUpperCase();
   const headers = new Headers(options.headers ?? {});
 
   if (!headers.has('Accept')) {
     headers.set('Accept', 'application/json');
+  }
+
+  if (!headers.has('X-Requested-With')) {
+    headers.set('X-Requested-With', 'XMLHttpRequest');
+  }
+
+  if (method !== 'GET' && method !== 'HEAD' && !headers.has('X-CSRF-TOKEN')) {
+    const token = document
+      .querySelector('meta[name=\"csrf-token\"]')
+      ?.getAttribute('content');
+
+    if (token) {
+      headers.set('X-CSRF-TOKEN', token);
+    }
   }
 
   const response = await fetch(url, {
