@@ -1,11 +1,140 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source '../views/**/*.blade.php';
+@source '../ts/**/*.{ts,tsx}';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+:root {
+  color-scheme: light;
+  --bg: 248 250 252;
+  --surface: 255 255 255;
+  --surface-soft: 241 245 249;
+  --surface-strong: 203 213 225;
+  --text: 15 23 42;
+  --text-soft: 71 85 105;
+  --brand: 15 118 110;
+  --brand-soft: 13 148 136;
+  --success: 22 163 74;
+  --warning: 217 119 6;
+  --danger: 220 38 38;
+  --focus: 14 165 233;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: 2 6 23;
+  --surface: 15 23 42;
+  --surface-soft: 30 41 59;
+  --surface-strong: 51 65 85;
+  --text: 241 245 249;
+  --text-soft: 148 163 184;
+  --brand: 45 212 191;
+  --brand-soft: 20 184 166;
+  --success: 74 222 128;
+  --warning: 251 191 36;
+  --danger: 248 113 113;
+  --focus: 56 189 248;
+}
+
+html,
+body,
+#app-root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  @apply antialiased;
+}
+
+::selection {
+  background: rgb(var(--brand) / 0.28);
+  color: rgb(var(--text));
+}
+
+@layer components {
+  .atype-shell {
+    @apply min-h-screen;
+    background: radial-gradient(circle at 10% -20%, rgb(var(--brand) / 0.09), transparent 45%),
+      radial-gradient(circle at 90% -10%, rgb(var(--brand-soft) / 0.08), transparent 40%),
+      rgb(var(--bg));
+  }
+
+  .atype-card {
+    @apply rounded-2xl border p-4 shadow-sm;
+    background: rgb(var(--surface));
+    border-color: rgb(var(--surface-strong) / 0.55);
+  }
+
+  .atype-card-soft {
+    @apply rounded-2xl border p-3;
+    background: rgb(var(--surface-soft));
+    border-color: rgb(var(--surface-strong) / 0.4);
+  }
+
+  .atype-input {
+    @apply w-full rounded-xl border px-3 py-2 text-sm transition outline-none;
+    border-color: rgb(var(--surface-strong) / 0.7);
+    color: rgb(var(--text));
+    background: rgb(var(--surface));
+  }
+
+  .atype-input::placeholder {
+    color: rgb(var(--text-soft));
+  }
+
+  .atype-input:focus {
+    border-color: rgb(var(--focus));
+    box-shadow: 0 0 0 3px rgb(var(--focus) / 0.18);
+  }
+
+  .atype-btn {
+    @apply inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold transition;
+  }
+
+  .atype-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold transition;
+    color: rgb(255 255 255);
+    background: linear-gradient(145deg, rgb(var(--brand-soft)), rgb(var(--brand)));
+  }
+
+  .atype-btn-primary:hover {
+    filter: brightness(1.06);
+  }
+
+  .atype-btn-muted {
+    @apply inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold transition;
+    border-color: rgb(var(--surface-strong) / 0.7);
+    color: rgb(var(--text));
+    background: rgb(var(--surface));
+  }
+
+  .atype-btn-muted:hover {
+    background: rgb(var(--surface-soft));
+  }
+
+  .atype-btn-danger {
+    @apply inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold transition;
+    border-color: rgb(var(--danger) / 0.7);
+    color: rgb(var(--danger));
+    background: rgb(var(--danger) / 0.1);
+  }
+
+  .atype-btn-danger:hover {
+    background: rgb(var(--danger) / 0.2);
+  }
+
+  .atype-section-title {
+    @apply text-xs font-semibold tracking-[0.2em] uppercase;
+    color: rgb(var(--text-soft));
+  }
+
+  .note-bubble {
+    @apply rounded-2xl border px-3 py-2 text-xs leading-relaxed shadow-sm;
+    color: rgb(var(--text));
+    background: rgb(var(--surface));
+    border-color: rgb(var(--surface-strong) / 0.7);
+  }
 }
