@@ -37,9 +37,16 @@ pnpm local:bootstrap
 `pnpm local:bootstrap` will:
 
 - create `.env` if missing
-- enforce MySQL env defaults
+- set MySQL env defaults only if missing (keeps your existing local DB creds)
 - install Composer + pnpm dependencies
-- run fresh migrations + seed
+- generate app key
+- run migrations + seed if MySQL is reachable
+
+If MySQL is not running yet, bootstrap still succeeds and prints the next step:
+
+```bash
+pnpm local:db:prepare
+```
 
 ### 2. Run app
 

@@ -5,6 +5,7 @@
   "scripts": {
     "init:project": "bash scripts/local/bootstrap.sh",
     "local:bootstrap": "bash scripts/local/bootstrap.sh",
+    "local:db:prepare": "bash scripts/local/db-prepare.sh",
     "local:up": "bash scripts/local/up.sh",
     "build": "vite build",
     "dev": "vite",
