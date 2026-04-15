@@ -26,15 +26,15 @@ Create MySQL databases:
 
 with credentials matching `.env.example` (or update env vars).
 
-## Quick Start
+## Quick Start (No Docker)
 
 ### 1. Install and initialize
 
 ```bash
-pnpm init:project
+pnpm local:bootstrap
 ```
 
-`pnpm init:project` will:
+`pnpm local:bootstrap` will:
 
 - create `.env` if missing
 - enforce MySQL env defaults
@@ -44,10 +44,15 @@ pnpm init:project
 ### 2. Run app
 
 ```bash
-pnpm dev:full
+pnpm local:up
 ```
 
 Open: `http://127.0.0.1:8000`
+
+Compatibility aliases:
+
+- `pnpm init:project` -> `pnpm local:bootstrap`
+- `pnpm dev:full` -> `pnpm local:up`
 
 ## Verification
 
@@ -61,7 +66,7 @@ This runs:
 - Vite production build
 - Laravel test suite (MySQL test DB)
 
-## Docker (Dev-First)
+## Docker (Dev-First, Existing Way)
 
 Use the included Docker Compose stack (`app + mysql + vite`):
 
