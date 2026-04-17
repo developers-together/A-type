@@ -6,7 +6,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment:
       DB_HOST: mariadb
       DB_USER: root
@@ -17,6 +18,7 @@ services:
     volumes:
       - ./App:/var/www/html/App
       - ./Public:/var/www/html/Public
+    restart: on-failure
 
   mariadb:
     image: mariadb:10.6
@@ -26,7 +28,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: atype
-
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./db/atype.sql:/docker-entrypoint-initdb.d/init.sql
@@ -40,4 +47,3 @@ networks:
 
 volumes:
   mariadb_data:
-
