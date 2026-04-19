@@ -23,11 +23,17 @@ export async function fetchJson<TResponse>(
     }
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-    credentials: options.credentials ?? 'same-origin',
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+      credentials: options.credentials ?? 'same-origin',
+    });
+  } catch {
+    throw new Error(`Network request failed for ${url}`);
+  }
 
   const data = (await response.json().catch(() => null)) as TResponse | null;
 

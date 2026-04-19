@@ -7,6 +7,7 @@
 
     <title inertia>{{ config('app.name', 'A-Type') }}</title>
 
+    @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/ts/app.tsx'])
     @inertiaHead
 </head>

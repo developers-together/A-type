@@ -118,6 +118,7 @@ export default function HomePage() {
   const [finished, setFinished] = useState(false);
   const [result, setResult] = useState<TypingResult | null>(null);
   const [saveState, setSaveState] = useState<string>('');
+  const [networkStatus, setNetworkStatus] = useState<string>('');
 
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -136,12 +137,16 @@ export default function HomePage() {
     setStartedAt(null);
     setTimerLeft(mode === 'time' ? amount : 0);
     setSaveState('');
+    setNetworkStatus('');
 
     const targetCount = mode === 'time' ? 120 : amount;
 
     try {
       const response = await fetchJson<WordItem[]>(`/home/words?amount=${targetCount}`);
       setWords(response.map((entry) => decorateWord(entry.word, punctuation, numbers)));
+    } catch {
+      setWords([]);
+      setNetworkStatus('Unable to load words right now. Please verify the backend is running, then retry.');
     } finally {
       setLoading(false);
     }
@@ -236,6 +241,8 @@ export default function HomePage() {
           ...previous,
           ...response.map((entry) => decorateWord(entry.word, punctuation, numbers)),
         ]);
+      } catch {
+        setNetworkStatus('Unable to load additional words. You can continue typing or reset to retry.');
       } finally {
         setLoadingMore(false);
       }
@@ -369,6 +376,12 @@ export default function HomePage() {
             Reset
           </button>
         </div>
+
+        {networkStatus ? (
+          <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+            {networkStatus}
+          </p>
+        ) : null}
 
         {!finished ? (
           <div className="space-y-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-5" onClick={focusInput}>
