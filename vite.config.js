@@ -13,12 +13,17 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: '127.0.0.1',
-        hmr: {
-            host: '127.0.0.1',
-        },
+        host: true,
+        port: 5173,
+        strictPort: true,
         watch: {
-            ignored: ['**/storage/**', '**/bootstrap/cache/**', '**/public/build/**'],
+            ignored: [
+                '**/storage/**',
+                '**/bootstrap/cache/**',
+                '**/public/build/**',
+                '**/public/hot',
+                '**/atype',
+            ],
         },
     },
 });
