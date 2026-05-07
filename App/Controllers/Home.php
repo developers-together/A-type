@@ -40,8 +40,14 @@ class Home extends Controller
     {
         $amount = isset($_GET['amount']) ? (int)$_GET['amount'] : 15;
         
-        // Valid amounts: Time mode (15, 30, 60, 120), Words mode (10, 25, 50, 100), and infinite scroll (90)
-        $validAmounts = [10, 15, 25, 30, 50, 60, 90, 100, 120];
+        $validAmounts = [];
+        if($_GET['mode']==='words'){
+            $validAmounts = [10,25,50,100];
+        }
+
+        else if($_GET["mode"]==='time'){
+            $amount = 200;
+        }
         
         if (in_array($amount, $validAmounts)) {
             header('Content-Type: application/json');

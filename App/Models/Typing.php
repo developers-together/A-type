@@ -94,7 +94,7 @@ class Typing extends Model
                 LIMIT 10";
 
          $data = ['time' => $this->query($sql, ['mode' => 'time','amount' => '15']),
-             'words' => $this->query($sql, ['mode' => 'words','amount' => '15'])
+             'words' => $this->query($sql, ['mode' => 'words','amount' => '10'])
             ];
 
             return $data;

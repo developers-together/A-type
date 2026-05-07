@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `typing_sessions` (
   `wpm` INT NOT NULL,
   `accuracy` DECIMAL(5,2) NOT NULL,
   `mode` ENUM('words','time') DEFAULT 'time',
-  `amount` ENUM('15','30','60','120') DEFAULT '15',
+  `amount` ENUM('10','15','25','30','50','60','100','120') DEFAULT '15',
   `numbers` BOOLEAN DEFAULT FALSE,
   `punctuation` BOOLEAN DEFAULT FALSE,
   `session_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
