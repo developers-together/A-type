@@ -49,14 +49,15 @@
                 <span class="tooltip">Count of finished tests</span>
               </span>
             </div>
-            <div class="stat-box">
+            <?php if (false): ?>
+              <div class="stat-box">
               <span class="stat-number has-tooltip">
                 <?php echo number_format($data['avg'][0]['total_words'] ?? 0); ?>
-                <span class="tooltip">Total words typed</span>
+                <span class="tooltip">Total words tests completed</span>
               </span>
               <span class="stat-name has-tooltip">
                 total words
-                <span class="tooltip">Accumulated word count</span>
+                <span class="tooltip">Count of finished word tests</span>
               </span>
             </div>
             <div class="stat-box">
@@ -75,14 +76,15 @@
                 <span class="tooltip">Accumulated duration</span>
               </span>
             </div>
-            <div class="stat-box highlight">
+            <?php endif; ?>
+            <div class="stat-box">
               <span class="stat-number has-tooltip">
                 <?php echo round($data['avg'][0]['avg_wpm'] ?? 0); ?>
                 <span class="tooltip">Average Words Per Minute</span>
               </span>
               <span class="stat-name has-tooltip">
                 avg wpm
-                <span class="tooltip">Mean typing speed</span>
+                <span class="tooltip">Average typing speed</span>
               </span>
             </div>
             <div class="stat-box">
@@ -92,10 +94,10 @@
               </span>
               <span class="stat-name has-tooltip">
                 avg accuracy
-                <span class="tooltip">Mean hitting precision</span>
+                <span class="tooltip">Average hitting precision</span>
               </span>
             </div>
-            <div class="stat-box">
+            <div class="stat-box highlight">
               <span class="stat-number has-tooltip">
                 <?php echo isset($data['avg'][0]['best_wpm']) ? round($data['avg'][0]['best_wpm']) : 0; ?>
                 <span class="tooltip">Highest WPM in a single test</span>
@@ -105,7 +107,7 @@
                 <span class="tooltip">Personal best speed</span>
               </span>
             </div>
-            <div class="stat-box">
+            <div class="stat-box highlight">
               <span class="stat-number has-tooltip">
                 <?php echo isset($data['avg'][0]['best_acc']) ? round($data['avg'][0]['best_acc']) : 0; ?>%
                 <span class="tooltip">Highest accuracy in a single test</span>
@@ -201,15 +203,15 @@
         <div class="danger-zone">
           <h3 class="danger-title">danger zone</h3>
           <div class="danger-buttons">
-            <button class="danger-btn reset-btn">
+            <!-- <button class="danger-btn reset-btn">
               <i class="fa-solid fa-rotate-left"></i>
               reset data
-            </button>
+            </button> -->
             <form action="/Profile/delete" method="delete">
-            <button class="danger-btn delete-btn">
-              <i class="fa-solid fa-trash"></i>
-              delete account
-            </button>
+              <button class="danger-btn delete-btn">
+                <i class="fa-solid fa-trash"></i>
+                delete account
+              </button>
             </form>
             <form action="/Profile/logout" method="post">
               <button type="submit" class="danger-btn logout-btn">
