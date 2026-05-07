@@ -106,12 +106,14 @@ class Profile extends Controller
     }
 
     public function delete(){
+    if($_SESSION['user_id']){
+        $used_id= $_SESSION["user_id"];
+        $user= $this->model("User");
+        $user->delete($used_id);
 
-    $used_id= $_SESSION["user_id"];
-    $user= $this->model("User");
-    $user->delete($used_id);
-
-    unset($_SESSION['user_id']);
-    $this->view('home');
-}
+        unset($_SESSION['user_id']);
+        $this->view('home');
+    
+    }
+    }
 }
