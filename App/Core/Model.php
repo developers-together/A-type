@@ -3,10 +3,10 @@
 namespace App\Core;
 
 define("DB", "mysql");
-define("DB_NAME", getenv('DB_NAME'));
-define("DB_USER", getenv('DB_USER'));
-define("DB_PASS", getenv('DB_PASSWORD'));
-define("DB_URL", getenv('DB_HOST'));
+define("DB_NAME", getenv('DB_NAME') ?: 'atype');
+define("DB_USER", getenv('DB_USER') ?: 'root');
+define("DB_PASS", getenv('DB_PASSWORD') ?: '');
+define("DB_URL", getenv('DB_HOST') ?: 'mariadb');
 
 class Model
 {
@@ -21,9 +21,25 @@ class Model
 
         // include_once 'App/Core/dbconnect.php';
 
-        $this->dbh = new \PDO(DB . ':host=' . DB_URL . ';dbname=' . DB_NAME, DB_USER, DB_PASS, array(
-        \PDO::ATTR_PERSISTENT => true
-        ));
+        $dsn = DB . ':host=' . DB_URL . ';dbname=' . DB_NAME;
+        $options = array(
+            \PDO::ATTR_PERSISTENT => true,
+        );
+
+        $lastException = null;
+        for ($attempt = 1; $attempt <= 10; $attempt++) {
+            try {
+                $this->dbh = new \PDO($dsn, DB_USER, DB_PASS, $options);
+                break;
+            } catch (\PDOException $e) {
+                $lastException = $e;
+                usleep(300000);
+            }
+        }
+
+        if (!$this->dbh && $lastException) {
+            throw $lastException;
+        }
 
         $this->dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 

@@ -1,0 +1,5 @@
+[mysqld]
+local_infile=1
+secure_file_priv=/docker-entrypoint-initdb.d
+character-set-server=utf8mb4
+collation-server=utf8mb4_general_ci
