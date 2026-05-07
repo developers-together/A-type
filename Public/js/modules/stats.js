@@ -61,6 +61,20 @@ export function calculateMetrics() {
   rawWpm = typed / 5 / (time / 60);
   wpm = numberOfLettersInCorrectWords / 5 / (time / 60);
   printVariables();
+  return {
+    wpm,
+    accuracy,
+    correct,
+    incorrect,
+    extra,
+    missed,
+    time,
+    rawWpm,
+    totalTyped,
+    typed,
+    totalLetters,
+    numberOfLettersInCorrectWords,
+  };
 }
 
 function checkCorrect() {

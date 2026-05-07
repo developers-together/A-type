@@ -67,12 +67,12 @@ export function endGame() {
   timerOn = 0;
   hideTimer();
   exitFocusMode();
-  calculateMetrics();
+  const metrics = calculateMetrics();
   
   const timeButton = document.getElementById("time-button");
   const isTimeMode = timeButton && timeButton.classList.contains("active");
   
-  console.log("Home Page | Game End | Stats | WPM: " + calculateMetrics().wpm);
+  console.log("Home Page | Game End | Stats | WPM: " + metrics.wpm);
   console.log("Home Page | Game End | Mode | " + (isTimeMode ? "Time" : "Words"));
   console.log("Home Page | Game End | Amount | " + (isTimeMode ? timerNum : wordNum));
 
