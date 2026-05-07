@@ -45,7 +45,7 @@
                 <span class="tooltip">Total tests completed</span>
               </span>
               <span class="stat-name has-tooltip">
-                tests
+                total tests
                 <span class="tooltip">Count of finished tests</span>
               </span>
             </div>
@@ -55,7 +55,7 @@
                 <span class="tooltip">Total words typed</span>
               </span>
               <span class="stat-name has-tooltip">
-                words
+                total words
                 <span class="tooltip">Accumulated word count</span>
               </span>
             </div>
@@ -71,7 +71,7 @@
                 <span class="tooltip">Total time spent typing</span>
               </span>
               <span class="stat-name has-tooltip">
-                time
+                total time
                 <span class="tooltip">Accumulated duration</span>
               </span>
             </div>
@@ -88,11 +88,31 @@
             <div class="stat-box">
               <span class="stat-number has-tooltip">
                 <?php echo round($data['avg'][0]['avg_acc'] ?? 0); ?>%
-                <span class="tooltip">Average Accuracy</span>
+              <span class="tooltip">Average Accuracy</span>
               </span>
               <span class="stat-name has-tooltip">
-                accuracy
+                avg accuracy
                 <span class="tooltip">Mean hitting precision</span>
+              </span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number has-tooltip">
+                <?php echo isset($data['avg'][0]['best_wpm']) ? round($data['avg'][0]['best_wpm']) : 0; ?>
+                <span class="tooltip">Highest WPM in a single test</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                best wpm
+                <span class="tooltip">Personal best speed</span>
+              </span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number has-tooltip">
+                <?php echo isset($data['avg'][0]['best_acc']) ? round($data['avg'][0]['best_acc']) : 0; ?>%
+                <span class="tooltip">Highest accuracy in a single test</span>
+              </span>
+              <span class="stat-name has-tooltip">
+                best accuracy
+                <span class="tooltip">Personal best precision</span>
               </span>
             </div>
           </div>
@@ -102,6 +122,7 @@
           console.log("Profile Page | Load | Stats | <?php echo json_encode($data['stats']); ?>");
         </script>
 
+        <?php if (false): ?>
         <!-- Best Scores -->
         <?php
           // Build lookup arrays for quick access
@@ -174,6 +195,7 @@
             </div>
           </div>
         </div>
+        <?php endif; ?>
 
         <!-- Danger Zone -->
         <div class="danger-zone">

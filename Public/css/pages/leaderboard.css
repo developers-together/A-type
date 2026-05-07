@@ -9,7 +9,7 @@
 }
 
 .leaderboard-container {
-  /* margin-top: 1rem; */
+  margin-top: 1rem; 
   width: 95%;
   background-color: var(--btncolor);
   border-radius: var(--radius-xl);

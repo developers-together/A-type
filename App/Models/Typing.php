@@ -19,6 +19,8 @@ class Typing extends Model
         $sql = "SELECT 
             AVG(accuracy) AS avg_acc, 
             AVG(wpm) AS avg_wpm,
+            MAX(wpm) AS best_wpm,
+            MAX(accuracy) AS best_acc,
             SUM(CASE WHEN mode = 'words' THEN 1 ELSE 0 END) AS total_words, 
             SUM(CASE WHEN mode = 'time' THEN 1 ELSE 0 END) AS total_time,
             COUNT(id) AS total_tests 
