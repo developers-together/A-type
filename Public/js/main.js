@@ -8,6 +8,7 @@
 
 import { Profiler } from './renderer/Profiler.js';
 import { PointerNode } from './renderer/PointerNode.js';
+import { Renderer } from './renderer/Renderer.js';
 import { AnimationQueue } from './core/AnimationQueue.js';
 import { EventBus, EVENTS } from './core/EventBus.js';
 
@@ -206,9 +207,9 @@ async function boot() {
     // Phase 7:  SoundEngine.init()     (suspended)
     // Phase 12: AccessibilityLayer.init()
 
-    // Step 12 - mount Renderer (Phase 1 - Renderer.js next commit)
+    // Step 12 - mount Renderer
     drawBootScreen('launching…', 1.0);
-    // Phase 1 (next): Renderer.mount(canvas, { refreshRate, logicalW, logicalH, dpr })
+    Renderer.mount(canvas, { refreshRate });
 
     // Step 13 - initialize Router and mount view (Phase 10)
     // Phase 10: Router.init()
