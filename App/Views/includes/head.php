@@ -42,7 +42,32 @@
         property="og:title"
         content="A-Type | A minimalistic typing test website" />
     <meta property="og:type" content="website" />
-    <script type="module" src="/js/scripts.js" defer></script>
+    <?php
+    $useCanvasScript = isset($LOAD_CANVAS_SCRIPT) && $LOAD_CANVAS_SCRIPT === true;
+    $scriptPath = ($useCanvasScript && defined('CANVAS_RENDERER') && CANVAS_RENDERER)
+        ? '/js/main.js'
+        : '/js/scripts.js';
+    ?>
+    <?php if ($useCanvasScript): ?>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+      }
+
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 700;
+        font-display: block;
+      }
+    </style>
+    <?php endif; ?>
+    <script type="module" src="<?php echo $scriptPath; ?>" defer></script>
 </head>
 
 </html>

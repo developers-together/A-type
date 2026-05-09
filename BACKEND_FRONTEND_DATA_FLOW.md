@@ -2,6 +2,8 @@
 
 This document describes, at implementation level, how the current custom PHP MVC backend exchanges data with the frontend in A-Type.
 
+Last verified against `master` through commit `59aa72f` (May 8, 2026).
+
 Scope:
 - Runtime request path from browser to controller/model/view.
 - JSON endpoints consumed by frontend JS modules.
@@ -69,6 +71,7 @@ Everything else is standard HTML navigation/forms:
 - `POST /Profile/login`
 - `POST /Profile/register`
 - `POST /Profile/logout`
+- `GET /Profile/delete` (currently triggered from profile danger-zone form)
 - `GET /Profile`
 - `GET /Leaderboard?filter=all_time|daily`
 - `GET /Info`
@@ -94,8 +97,8 @@ Transport:
 
 Server logic (`Home::words`):
 - `amount` defaults to `15` if missing.
-- If in valid set `[10, 15, 25, 30, 50, 60, 90, 100, 120]`, used as-is.
-- Else clamped with `min(amount, 200)`.
+- Fast-path "valid set" is currently `[10, 25, 50, 100]` (word-mode presets).
+- Any other value falls back to `min(amount, 200)` (so `15/30/60/90/120` still work).
 - Model query: `SELECT word FROM words ORDER BY RAND() LIMIT :amount`.
 
 Response schema:
@@ -164,7 +167,7 @@ Important behavior notes:
 
 ---
 
-## 3.3 Auth form endpoints (`/Profile/login`, `/Profile/register`, `/Profile/logout`)
+## 3.3 Auth/profile actions (`/Profile/login`, `/Profile/register`, `/Profile/logout`, `/Profile/delete`)
 
 These are full-page form submissions, not XHR/fetch APIs.
 
@@ -200,6 +203,19 @@ Backend behavior:
 - `unset($_SESSION['user_id'])`
 - Renders home view.
 
+### Delete account: `GET /Profile/delete`
+
+Triggered by:
+- Profile danger-zone delete form (`action="/Profile/delete"`).
+
+Backend behavior:
+- If `$_SESSION['user_id']` exists:
+  - Deletes user row via `User::delete(id)`.
+  - DB cascade removes related `typing_sessions` rows (`ON DELETE CASCADE`).
+  - Unsets session and renders home view.
+- If session user id is missing:
+  - Method returns without rendering a fallback view/JSON payload.
+
 ---
 
 ## 3.4 Read endpoints used for page rendering
@@ -210,6 +226,8 @@ If authenticated:
 - Loads `User::get(user_id)`.
 - Loads `Typing::getBestScores(user_id)`.
 - Loads `Typing::avg(user_id)`.
+- Profile view currently renders aggregate cards from `avg` (`total_tests`, `avg_wpm`, `avg_acc`, `best_wpm`, `best_acc`).
+- The mode+amount best-scores table is currently disabled in the view (`if (false)` guard), although backend data is still fetched.
 - Renders `profile` view with `$data`.
 
 If not authenticated:
@@ -272,7 +290,8 @@ Fields written from frontend gameplay:
 - `session_at` auto timestamp
 
 Fields read back into frontend-rendered pages:
-- Profile best scores (`mode`, `amount`, `wpm`, `accuracy`)
+- Profile aggregate cards (`avg_acc`, `avg_wpm`, `best_wpm`, `best_acc`, `total_tests`)
+- Profile best-by-mode data (`mode`, `amount`, `wpm`, `accuracy`) is still queried but not currently rendered in active UI
 - Leaderboard (`username`, `wpm`, `accuracy`, `session_at`, mode-specific filtering)
 
 ---
@@ -307,23 +326,27 @@ Normal happy-path sequence:
 - Frontend currently logs error only; no user prompt/redirect.
 
 4. `typing_sessions.amount` schema mismatch risk:
-- SQL schema defines `amount` enum as `('15','30','60','120')`.
-- Frontend posts word-mode amounts `10/25/50/100`.
-- Depending on DB SQL mode/migration drift, inserts may fail or coerce unexpectedly.
-- Frontend should assume this needs backend/schema normalization.
+- Latest DB schema now includes both word and time presets:
+  - `ENUM('10','15','25','30','50','60','100','120')`.
+- Existing environments that did not apply the updated migration may still drift.
 
 5. Profile aggregate semantic mismatch:
 - `Typing::avg` fields `total_words` and `total_time` are currently counts of sessions by mode, not literal words/time units.
-- Profile UI labels imply true words/time totals.
-- Do not treat these values as trustworthy absolute units without backend fix.
+- These cards are currently hidden in `profile.php` (`if (false)`), but values remain semantically non-literal if re-enabled.
 
 6. Leaderboard mode/amount hardcoding:
-- Query is hardcoded to mode+amount combinations (`time+15`, `words+15`) while UI labels show `Words 10`.
-- Frontend display can diverge from backend query intent.
+- Query is intentionally hardcoded to benchmark buckets:
+  - `time + amount=15`
+  - `words + amount=10`
+- UI should keep labels aligned with these backend constants unless query logic is expanded.
 
 7. Register form parity gap:
 - `verify_password` exists in UI but backend ignores it.
 - Frontend-side validation is currently the only guard.
+
+8. Destructive action routed through GET:
+- Profile delete form uses `method="delete"` (not a standard HTML form method), so browsers effectively submit GET.
+- Account deletion is therefore currently reachable through a GET route and has no CSRF protection.
 
 ---
 
@@ -355,9 +378,9 @@ Normal happy-path sequence:
 
 1. Set explicit response headers for all JSON endpoints.
 2. Add request validation and structured error payloads.
-3. Align `typing_sessions.amount` DB type with both time and words modes.
+3. Validate `mode`/`amount` combinations server-side (e.g., strict presets by mode).
 4. Add dedicated JSON endpoints for profile/leaderboard to decouple from HTML views.
-5. Add CSRF protection for form and write endpoints.
+5. Add CSRF protection for form and write endpoints, especially account deletion.
 6. Introduce consistent response envelope with error codes.
 
 ---
@@ -371,7 +394,7 @@ Normal happy-path sequence:
 | Login | login form submit | `Profile::login()` | HTML view render |
 | Register | signup form submit | `Profile::register()` | HTML view render |
 | Logout | logout form submit | `Profile::logout()` | HTML view render |
+| Delete account | danger-zone delete action | `Profile::delete()` | HTML view render (home) |
 | Profile page | browser nav `/Profile` | `Profile::index()/profile()` | HTML view render |
 | Leaderboard page | browser nav `/Leaderboard` | `Leaderboard::index()` | HTML view render |
 | Info page | browser nav `/Info` | `Info::index()` | HTML view render |
-
