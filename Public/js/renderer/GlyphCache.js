@@ -1,26 +1,5 @@
 // Public/js/renderer/GlyphCache.js
-// Glyph atlas cache. Maps (char, size, weight) → atlas position.
-// ONE atlas canvas per weight. All atlases are DPR-aware.
-//
-// State machine:
-//   UNINITIALIZED → init() → BUILDING → READY
-//                                     ↘ ERROR (font failed)
-//   READY → rebuild() → BUILDING → READY
-//   READY → validate() → READY (no-op if valid) | → rebuild()
-//
-// Rules:
-//   - GlyphCache never reads from the main canvas context
-//   - All atlas draws happen on dedicated OffscreenCanvas per weight
-//   - Cache key: `${char}_${size}_${weight}`
-//   - DPR baked into atlas at build time (rebuild required on DPR change)
-//   - During BUILDING state: Painter.paintText() falls back to ctx.fillText()
-//
-// Phase 3 delivers:
-//   - Per-weight atlas building
-//   - Glyph measurement with ligature support
-//   - DPR-aware atlas sizing
-//   - Cache validation on resize
-//   - Rebuild on font/DPR change
+// Glyph atlas cache for fast text rendering with ligature-aware measurement.
 
 const STATE = {
   UNINITIALIZED: 0,
@@ -29,38 +8,58 @@ const STATE = {
   ERROR: 3,
 };
 
-// -- State --------------------------------------------------------------------
+const LIGATURES = ['ffi', 'ffl', 'fi', 'fl', 'ff'];
+const DEFAULT_COLOR = '#d1d0c5';
 
 let _state = STATE.UNINITIALIZED;
 let _dpr = 1;
 let _font = 'JetBrains Mono';
-let _sizes = [12, 14, 16, 18, 20, 24, 32]; // Common sizes
-let _weights = [400, 600, 700]; // Regular, Semibold, Bold
-let _chars = ''; // All chars to cache
+let _sizes = [20];
+let _weights = [400, 600, 700];
+let _chars = buildDefaultCharSet();
+let _color = DEFAULT_COLOR;
 let _onProgress = null;
 
-// Atlas storage: weight → { canvas, ctx, cells: Map<char_size, {x,y,w,h}> }
+// atlasKey(weight, size) -> { canvas, cells }
 let _atlases = new Map();
-
-// Metrics storage: key → { advance, ascent, descent }
-// Survives context loss - only atlas canvases need rebuild
+// cacheKey(char, size, weight) -> { advance, ascent, descent }
 let _metrics = new Map();
 
-// Ligatures to handle
-const LIGATURES = ['fi', 'fl', 'ff', 'ffi', 'ffl'];
+function cacheKey(char, size, weight) {
+  return `${char}\x00${size}\x00${weight}`;
+}
 
-// -- Init ---------------------------------------------------------------------
+function atlasKey(weight, size) {
+  return `${weight}_${size}`;
+}
 
-function init(options = {}) {
+function yieldToUI() {
+  return new Promise(resolve => setTimeout(resolve, 0));
+}
+
+function buildDefaultCharSet() {
+  const chars = new Set();
+
+  for (let i = 97; i <= 122; i++) chars.add(String.fromCharCode(i));
+  for (let i = 65; i <= 90; i++) chars.add(String.fromCharCode(i));
+  for (let i = 48; i <= 57; i++) chars.add(String.fromCharCode(i));
+
+  const punct = ' .,;:!?\'"()-[]{}/@#$%^&*+=_~`|\\<>';
+  for (const c of punct) chars.add(c);
+
+  return Array.from(chars);
+}
+
+async function init(options = {}) {
   if (_state === STATE.BUILDING) {
-    console.warn('[GlyphCache] init() called while BUILDING - ignoring');
     return;
   }
 
   _font = options.font ?? 'JetBrains Mono';
-  _sizes = options.sizes ?? [12, 14, 16, 18, 20, 24, 32];
+  _sizes = options.sizes ?? [20];
   _weights = options.weights ?? [400, 600, 700];
   _chars = options.chars ?? buildDefaultCharSet();
+  _color = options.color ?? DEFAULT_COLOR;
   _onProgress = options.onProgress ?? null;
   _dpr = window.devicePixelRatio || 1;
 
@@ -68,96 +67,103 @@ function init(options = {}) {
   _atlases.clear();
   _metrics.clear();
 
-  console.log(`[GlyphCache] init - font:${_font} dpr:${_dpr} weights:${_weights.length} sizes:${_sizes.length} chars:${_chars.length}`);
-
-  // Build atlases asynchronously
-  buildAtlases()
-    .then(() => {
-      _state = STATE.READY;
-      console.log('[GlyphCache] ready');
-    })
-    .catch(err => {
-      _state = STATE.ERROR;
-      console.error('[GlyphCache] build failed:', err);
-    });
+  try {
+    await buildAtlases();
+    _state = STATE.READY;
+  } catch (err) {
+    _state = STATE.ERROR;
+    console.error('[GlyphCache] build failed:', err);
+    throw err;
+  }
 }
-
-// -- Build default character set ----------------------------------------------
-
-function buildDefaultCharSet() {
-  const chars = new Set();
-
-  // a-z
-  for (let i = 97; i <= 122; i++) chars.add(String.fromCharCode(i));
-  // A-Z
-  for (let i = 65; i <= 90; i++) chars.add(String.fromCharCode(i));
-  // 0-9
-  for (let i = 48; i <= 57; i++) chars.add(String.fromCharCode(i));
-  // Common punctuation
-  const punct = ' .,;:!?\'"()-[]{}/@#$%^&*+=_~`|\\<>';
-  for (const c of punct) chars.add(c);
-
-  // Ligatures
-  for (const lig of LIGATURES) chars.add(lig);
-
-  return Array.from(chars).join('');
-}
-
-// -- Build atlases ------------------------------------------------------------
 
 async function buildAtlases() {
-  const totalSteps = _weights.length;
-  let completed = 0;
+  const total = _weights.length * _sizes.length;
+  let done = 0;
 
   for (const weight of _weights) {
-    await buildAtlasForWeight(weight);
-    completed++;
-    if (_onProgress) {
-      _onProgress(completed, totalSteps);
+    for (const size of _sizes) {
+      buildAtlasForWeightSize(weight, size);
+      done++;
+      if (_onProgress) {
+        _onProgress(done, total);
+      }
+      await yieldToUI();
     }
   }
 }
 
-async function buildAtlasForWeight(weight) {
-  // Phase 3: Implement atlas packing
-  // For now: stub that creates empty atlas
-  
-  // Estimate atlas size based on char count and max size
-  const maxSize = Math.max(..._sizes);
-  const cellSize = Math.ceil(maxSize * _dpr * 1.5); // padding for descenders
-  const cols = Math.ceil(Math.sqrt(_chars.length * _sizes.length));
-  const atlasWidth = cols * cellSize;
-  const atlasHeight = cols * cellSize;
+function buildAtlasForWeightSize(weight, size) {
+  const measureCanvas = new OffscreenCanvas(1, 1);
+  const measureCtx = measureCanvas.getContext('2d');
+  measureCtx.font = `${weight} ${size}px "${_font}", monospace`;
+  measureCtx.textBaseline = 'alphabetic';
 
-  // Create offscreen canvas for this weight
-  const canvas = new OffscreenCanvas(atlasWidth, atlasHeight);
-  const ctx = canvas.getContext('2d');
-
-  // Store atlas
-  _atlases.set(weight, {
-    canvas,
-    ctx,
-    cells: new Map(),
-    width: atlasWidth,
-    height: atlasHeight,
+  const allGlyphs = [..._chars, ...LIGATURES];
+  const measured = allGlyphs.map(char => {
+    const m = measureCtx.measureText(char);
+    return {
+      char,
+      w: Math.ceil(m.width) + 2,
+      h: Math.ceil(size * 1.5) + 2,
+      advance: m.width,
+      ascent: m.actualBoundingBoxAscent ?? size * 0.8,
+      descent: m.actualBoundingBoxDescent ?? size * 0.2,
+    };
   });
 
-  // Phase 3: Render all glyphs to atlas and store metrics
-  // For now: just log
-  console.log(`[GlyphCache] built atlas for weight ${weight}: ${atlasWidth}x${atlasHeight}`);
-}
+  const cellW = measured.reduce((max, g) => Math.max(max, g.w), 0);
+  const cellH = measured.reduce((max, g) => Math.max(max, g.h), 0);
 
-// -- Get glyph from cache -----------------------------------------------------
+  const COLS = 16;
+  const rows = Math.ceil(measured.length / COLS);
+
+  const atlasCanvas = new OffscreenCanvas(
+    Math.ceil(COLS * cellW * _dpr),
+    Math.ceil(rows * cellH * _dpr)
+  );
+  const atlasCtx = atlasCanvas.getContext('2d');
+  atlasCtx.scale(_dpr, _dpr);
+  atlasCtx.font = `${weight} ${size}px "${_font}", monospace`;
+  atlasCtx.textBaseline = 'alphabetic';
+  atlasCtx.fillStyle = DEFAULT_COLOR;
+
+  const cells = new Map();
+
+  measured.forEach(({ char, advance, ascent, descent }, i) => {
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const sx = col * cellW;
+    const sy = row * cellH;
+    const baseline = sy + size;
+
+    atlasCtx.fillText(char, sx + 1, baseline);
+
+    const key = cacheKey(char, size, weight);
+    const cell = {
+      sx: Math.round(sx * _dpr),
+      sy: Math.round(sy * _dpr),
+      sw: Math.ceil(cellW * _dpr),
+      sh: Math.ceil(cellH * _dpr),
+      advance,
+      ascent,
+      descent,
+    };
+
+    cells.set(key, cell);
+    _metrics.set(key, { advance, ascent, descent });
+  });
+
+  _atlases.set(atlasKey(weight, size), { canvas: atlasCanvas, cells });
+}
 
 function get(char, size, weight = 400) {
   if (_state !== STATE.READY) return null;
 
-  const key = `${char}_${size}_${weight}`;
-  const atlas = _atlases.get(weight);
-  
+  const atlas = _atlases.get(atlasKey(weight, size));
   if (!atlas) return null;
 
-  const cell = atlas.cells.get(key);
+  const cell = atlas.cells.get(cacheKey(char, size, weight));
   if (!cell) return null;
 
   return {
@@ -166,85 +172,71 @@ function get(char, size, weight = 400) {
   };
 }
 
-// -- Measure text -------------------------------------------------------------
-
 function measure(text, size, weight = 400) {
   if (_state !== STATE.READY) return null;
 
-  let totalAdvance = 0;
-  let maxAscent = 0;
-  let maxDescent = 0;
+  let width = 0;
+  let ascent = 0;
+  let descent = 0;
+  let i = 0;
 
-  // Phase 3: Implement ligature-aware measurement
-  // For now: simple char-by-char
-  for (const char of text) {
-    const key = `${char}_${size}_${weight}`;
-    const metrics = _metrics.get(key);
-    
-    if (metrics) {
-      totalAdvance += metrics.advance;
-      maxAscent = Math.max(maxAscent, metrics.ascent);
-      maxDescent = Math.max(maxDescent, metrics.descent);
+  while (i < text.length) {
+    let matched = false;
+
+    for (const lig of LIGATURES) {
+      if (text.startsWith(lig, i)) {
+        const glyph = GlyphCache.get(lig, size, weight);
+        if (glyph) {
+          width += glyph.advance;
+          ascent = Math.max(ascent, glyph.ascent);
+          descent = Math.max(descent, glyph.descent);
+          i += lig.length;
+          matched = true;
+          break;
+        }
+      }
+    }
+
+    if (!matched) {
+      const glyph = GlyphCache.get(text[i], size, weight);
+      if (glyph) {
+        width += glyph.advance;
+        ascent = Math.max(ascent, glyph.ascent);
+        descent = Math.max(descent, glyph.descent);
+      }
+      i++;
     }
   }
 
   return {
-    width: totalAdvance,
-    height: maxAscent + maxDescent,
-    ascent: maxAscent,
-    descent: maxDescent,
+    width,
+    height: ascent + descent,
+    ascent,
+    descent,
   };
 }
 
-// -- Validate cache -----------------------------------------------------------
-
 function validate() {
   if (_state !== STATE.READY) return false;
-
   const currentDpr = window.devicePixelRatio || 1;
-  
-  // Rebuild required if DPR changed
-  if (Math.abs(currentDpr - _dpr) > 0.01) {
-    console.log(`[GlyphCache] DPR changed ${_dpr} → ${currentDpr}, rebuild required`);
-    return false;
-  }
-
-  // Phase 3: Add font validation (check if font still loaded)
-  
-  return true;
+  return Math.abs(currentDpr - _dpr) <= 0.01;
 }
 
-// -- Rebuild cache ------------------------------------------------------------
-
-function rebuild() {
-  if (_state === STATE.BUILDING) {
-    console.warn('[GlyphCache] rebuild() called while BUILDING - ignoring');
-    return;
-  }
-
-  console.log('[GlyphCache] rebuild triggered');
-  
-  // Re-init with current settings
-  init({
+async function rebuild() {
+  if (_state === STATE.BUILDING) return;
+  await init({
     font: _font,
     sizes: _sizes,
     weights: _weights,
     chars: _chars,
+    color: _color,
     onProgress: _onProgress,
   });
 }
 
-// -- State queries ------------------------------------------------------------
-
 function isReady() {
   return _state === STATE.READY;
 }
-
-function getState() {
-  return _state;
-}
-
-// -- Export -------------------------------------------------------------------
 
 export const GlyphCache = {
   init,
@@ -253,6 +245,4 @@ export const GlyphCache = {
   validate,
   rebuild,
   isReady,
-  getState,
-  STATE, // Export for tests
 };
