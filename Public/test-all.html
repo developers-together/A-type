@@ -30,15 +30,17 @@
   <div id="results">Running tests...</div>
   
   <script type="module">
-    // Cache buster to force reload of test files
-    const cacheBuster = Date.now();
-    const { runTests } = await import(`./js/tests/runner.js?v=${cacheBuster}`);
-    const { signalTests } = await import(`./js/tests/Signal.test.js?v=${cacheBuster}`);
-    const { storeTests } = await import(`./js/tests/Store.test.js?v=${cacheBuster}`);
-    const { routerTests } = await import(`./js/tests/Router.test.js?v=${cacheBuster}`);
-    
-    // Redirect console to results div
     const resultsDiv = document.getElementById('results');
+    
+    if (window.location.protocol === 'file:') {
+      resultsDiv.textContent = [
+        '❌ This page must be served over HTTP, not opened as a file.',
+        'Run from your local server and open:',
+        'http://localhost:<port>/test-all.html',
+      ].join('\n');
+      throw new Error('test-all.html opened via file://');
+    }
+
     const originalLog = console.log;
     const originalError = console.error;
     const originalWarn = console.warn;
@@ -57,12 +59,25 @@
       originalWarn(...args);
       resultsDiv.textContent += '⚠️  ' + args.join(' ') + '\n';
     };
-    
-    // Clear results
-    resultsDiv.textContent = '';
-    
-    // Run all tests
-    runTests([signalTests, storeTests, routerTests]);
+
+    async function main() {
+      try {
+        // Clear results
+        resultsDiv.textContent = '';
+
+        const { runTests } = await import('./js/tests/runner.js');
+        const { signalTests } = await import('./js/tests/Signal.test.js');
+        const { storeTests } = await import('./js/tests/Store.test.js');
+        const { routerTests } = await import('./js/tests/Router.test.js');
+        const { glyphCacheTests } = await import('./js/tests/GlyphCache.test.js');
+
+        await runTests([signalTests, storeTests, routerTests, glyphCacheTests]);
+      } catch (err) {
+        console.error('Test runner bootstrap failed:', err?.message ?? String(err));
+      }
+    }
+
+    await main();
   </script>
 </body>
 </html>

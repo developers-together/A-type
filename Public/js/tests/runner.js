@@ -9,7 +9,7 @@ const results = {
 };
 
 let currentSuite = '';
-let currentTest = '';
+let runQueue = Promise.resolve();
 
 export function describe(name, fn) {
   currentSuite = name;
@@ -19,19 +19,25 @@ export function describe(name, fn) {
 }
 
 export function it(name, fn) {
-  currentTest = name;
-  try {
-    fn();
-    results.passed++;
-    results.tests.push({ suite: currentSuite, test: name, passed: true });
-    console.log(`  ✅ ${name}`);
-  } catch (err) {
-    results.failed++;
-    results.tests.push({ suite: currentSuite, test: name, passed: false, error: err.message });
-    console.error(`  ❌ ${name}`);
-    console.error(`     ${err.message}`);
-  }
-  currentTest = '';
+  const suiteName = currentSuite;
+  runQueue = runQueue.then(async () => {
+    try {
+      await fn();
+      results.passed++;
+      results.tests.push({ suite: suiteName, test: name, passed: true });
+      console.log(`  ✅ ${name}`);
+    } catch (err) {
+      results.failed++;
+      results.tests.push({
+        suite: suiteName,
+        test: name,
+        passed: false,
+        error: err?.message ?? String(err),
+      });
+      console.error(`  ❌ ${name}`);
+      console.error(`     ${err?.message ?? String(err)}`);
+    }
+  });
 }
 
 export function expect(actual) {
@@ -80,15 +86,18 @@ export function expect(actual) {
   };
 }
 
-export function runTests(testModules) {
+export async function runTests(testModules) {
   console.log('🧪 Running A-Type Canvas Renderer Tests\n');
   results.passed = 0;
   results.failed = 0;
   results.tests = [];
+  runQueue = Promise.resolve();
 
   for (const module of testModules) {
-    module();
+    await module();
   }
+  
+  await runQueue;
 
   console.log('\n' + '='.repeat(50));
   console.log(`✅ Passed: ${results.passed}`);
