@@ -22,6 +22,8 @@
 import { Profiler } from './Profiler.js';
 import { AnimationQueue } from '../core/AnimationQueue.js';
 import { EventBus, EVENTS } from '../core/EventBus.js';
+import { SceneGraph } from './SceneGraph.js';
+import { Painter } from './Painter.js';
 
 // -- State --------------------------------------------------------------------
 
@@ -69,6 +71,7 @@ function applySurface() {
 
 function handleResize() {
   applySurface();
+  Painter.setSize(_logicalW, _logicalH); // Update Painter dimensions (ctx unchanged)
   // Phase 4: LayoutEngine.invalidateAll()
   // Phase 3: GlyphCache.validate()
   DirtyRegions.markFull();
@@ -103,33 +106,42 @@ function watchDPR() {
 // -- Refresh rate re-validation ------------------------------------------------
 // Rule 32: re-measure on focus. Large drift updates profiler + delta clamp.
 
+let _revalidating = false; // Guard against concurrent measurements
+
 async function revalidateRefreshRate() {
-  // Lightweight - counts rAF callbacks over 500ms instead of full 1s
-  const start = performance.now();
-  let frames = 0;
+  if (_revalidating) return; // Skip if already measuring
+  _revalidating = true;
+  
+  try {
+    // Lightweight - counts rAF callbacks over 500ms instead of full 1s
+    const start = performance.now();
+    let frames = 0;
 
-  await new Promise(resolve => {
-    function tick(ts) {
-      frames++;
-      if (ts - start < 500) requestAnimationFrame(tick);
-      else resolve();
+    await new Promise(resolve => {
+      function tick(ts) {
+        frames++;
+        if (ts - start < 500) requestAnimationFrame(tick);
+        else resolve();
+      }
+      requestAnimationFrame(tick);
+    });
+
+    const STANDARD = [30, 60, 90, 120, 144, 165, 240];
+    const measured = Math.round(frames / 0.5);
+    const snapped = STANDARD.reduce((a, b) =>
+      Math.abs(b - measured) < Math.abs(a - measured) ? b : a
+    );
+
+    const drift = Math.abs(snapped - _refreshRate);
+    if (drift > 20) {
+      console.log(`[Renderer] refresh rate changed: ${_refreshRate}fps -> ${snapped}fps`);
+      _refreshRate = snapped;
+      _maxDelta = (1 / _refreshRate) * 2;
+      Profiler.init(_refreshRate);
+      EventBus.emit(EVENTS.REFRESH_RATE_CHANGED, { rate: _refreshRate });
     }
-    requestAnimationFrame(tick);
-  });
-
-  const STANDARD = [30, 60, 90, 120, 144, 165, 240];
-  const measured = Math.round(frames / 0.5);
-  const snapped = STANDARD.reduce((a, b) =>
-    Math.abs(b - measured) < Math.abs(a - measured) ? b : a
-  );
-
-  const drift = Math.abs(snapped - _refreshRate);
-  if (drift > 20) {
-    console.log(`[Renderer] refresh rate changed: ${_refreshRate}fps -> ${snapped}fps`);
-    _refreshRate = snapped;
-    _maxDelta = (1 / _refreshRate) * 2;
-    Profiler.init(_refreshRate);
-    EventBus.emit(EVENTS.REFRESH_RATE_CHANGED, { rate: _refreshRate });
+  } finally {
+    _revalidating = false;
   }
 }
 
@@ -186,14 +198,17 @@ function loop(timestamp) {
 
   Profiler.begin();
 
-  // -- Phase 1: clear + frame counter -----------------------------------------
-  // Phases 2-9 replace this with: snapshot -> diff -> layout -> Painter.applyPatches()
-  _ctx.clearRect(0, 0, _logicalW, _logicalH);
-
-  // Dark background so counter is visible
-  _ctx.fillStyle = '#0a0a0a';
-  _ctx.fillRect(0, 0, _logicalW, _logicalH);
-
+  // -- Phase 2: SceneGraph + Painter ------------------------------------------
+  // Phase 5 will add: snapshot -> diff -> layout -> Painter.applyPatches()
+  // For now: full repaint every frame
+  
+  Painter.clear('#0a0a0a');
+  
+  const root = SceneGraph.getRoot();
+  if (root) {
+    Painter.paint(root);
+  }
+  
   drawFrameCounter();
   _frameCount++;
 
@@ -223,22 +238,31 @@ function mount(canvas, options = {}) {
   _refreshRate = options.refreshRate ?? 60;
   _maxDelta = (1 / _refreshRate) * 2; // Rule 21
 
+  // Note: applySurface() sets canvas.width/height which implicitly resets
+  // the context state (including any boot screen scaling). This setTransform
+  // is defensive but the real reset happens via canvas.width assignment.
+  _ctx.setTransform(1, 0, 0, 1, 0, 0);
+  
   applySurface();
+  
+  // Initialize Painter with canvas context
+  Painter.init(_ctx, _logicalW, _logicalH);
   watchDPR();
   window.addEventListener('resize', onWindowResize);
   window.addEventListener('focus', revalidateRefreshRate);
   EventBus.on(EVENTS.APP_FOREGROUNDED, onAppForegrounded);
 
-  // Context loss handling
-  canvas.addEventListener('webglcontextlost', e => {
+  // Context loss handling (2D canvas events, not WebGL)
+  canvas.addEventListener('contextlost', e => {
     e.preventDefault();
     EventBus.emit(EVENTS.RENDERER_CONTEXT_LOST);
     console.error('[Renderer] Canvas context lost');
   });
 
-  canvas.addEventListener('webglcontextrestored', () => {
+  canvas.addEventListener('contextrestored', () => {
     EventBus.emit(EVENTS.RENDERER_CONTEXT_RESTORED);
     applySurface();
+    Painter.setSize(_logicalW, _logicalH); // Update dimensions after restore
     DirtyRegions.markFull();
   });
 
@@ -273,4 +297,8 @@ function invalidate() {
   // Phase 1: no-op - loop always redraws
 }
 
-export const Renderer = { mount, destroy, invalidate };
+function getLogicalSize() {
+  return { w: _logicalW, h: _logicalH };
+}
+
+export const Renderer = { mount, destroy, invalidate, getLogicalSize };
