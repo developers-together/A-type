@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Type Tests</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      background: #0a0a0a;
+      color: #d1d0c5;
+    }
+    h1 {
+      color: #e2b714;
+    }
+    #results {
+      margin-top: 20px;
+      padding: 20px;
+      background: #2c2e31;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>A-Type Test Suite</h1>
+  <div id="results">Running tests...</div>
+  
+  <script type="module">
+    // Cache buster to force reload of test files
+    const cacheBuster = Date.now();
+    const { runTests } = await import(`./js/tests/runner.js?v=${cacheBuster}`);
+    const { signalTests } = await import(`./js/tests/Signal.test.js?v=${cacheBuster}`);
+    const { storeTests } = await import(`./js/tests/Store.test.js?v=${cacheBuster}`);
+    const { routerTests } = await import(`./js/tests/Router.test.js?v=${cacheBuster}`);
+    
+    // Redirect console to results div
+    const resultsDiv = document.getElementById('results');
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    console.log = (...args) => {
+      originalLog(...args);
+      resultsDiv.textContent += args.join(' ') + '\n';
+    };
+    
+    console.error = (...args) => {
+      originalError(...args);
+      resultsDiv.textContent += '❌ ' + args.join(' ') + '\n';
+    };
+    
+    console.warn = (...args) => {
+      originalWarn(...args);
+      resultsDiv.textContent += '⚠️  ' + args.join(' ') + '\n';
+    };
+    
+    // Clear results
+    resultsDiv.textContent = '';
+    
+    // Run all tests
+    runTests([signalTests, storeTests, routerTests]);
+  </script>
+</body>
+</html>
