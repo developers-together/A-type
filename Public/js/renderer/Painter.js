@@ -11,9 +11,13 @@
 // Phase 3 upgrades text rendering to use GlyphCache.
 // Phase 5 adds patch-based painting.
 
+import { GlyphCache } from './GlyphCache.js';
+
 let _ctx = null;
 let _logicalW = 0;
 let _logicalH = 0;
+let _dpr = 1;
+const LIGATURES = ['ffi', 'ffl', 'fi', 'fl', 'ff'];
 
 // -- Init ----------------------------------------------------------------------
 
@@ -21,6 +25,7 @@ function init(ctx, logicalWidth, logicalHeight) {
   _ctx = ctx;
   _logicalW = logicalWidth;
   _logicalH = logicalHeight;
+  _dpr = window.devicePixelRatio || 1;
 }
 
 // -- Resize (dimensions change, context unchanged) ----------------------------
@@ -28,6 +33,7 @@ function init(ctx, logicalWidth, logicalHeight) {
 function setSize(logicalWidth, logicalHeight) {
   _logicalW = logicalWidth;
   _logicalH = logicalHeight;
+  _dpr = window.devicePixelRatio || 1;
 }
 
 // -- Clear ---------------------------------------------------------------------
@@ -131,32 +137,107 @@ function paintRect(node) {
   }
 }
 
-// -- Text painting (Phase 2 fallback) -----------------------------------------
-// Phase 3 will replace this with GlyphCache rendering
+// -- Text painting -------------------------------------------------------------
 // IMPORTANT: Painter must NOT mutate nodes - bounds computed in LayoutEngine (Phase 4)
 
 function paintText(node) {
-  const { text, x, y, font, size, weight, color, align, baseline } = node;
-  
+  if (GlyphCache.isReady() && node.color === '#d1d0c5') {
+    paintTextFromCache(node);
+  } else {
+    paintTextFallback(node);
+  }
+}
+
+function getBaselineY(y, baseline, metrics) {
+  const textBaseline = baseline ?? 'alphabetic';
+
+  switch (textBaseline) {
+    case 'top':
+    case 'hanging':
+      return y + metrics.ascent;
+    case 'middle':
+      return y + metrics.height / 2 - metrics.descent;
+    case 'bottom':
+    case 'ideographic':
+      return y - metrics.descent;
+    case 'alphabetic':
+    default:
+      return y;
+  }
+}
+
+function getStartX(x, align, metrics) {
+  const textAlign = align ?? 'left';
+  if (textAlign === 'center') return x - metrics.width / 2;
+  if (textAlign === 'right' || textAlign === 'end') return x - metrics.width;
+  return x;
+}
+
+function paintTextFromCache(node) {
+  const { text, x, y: originalY, size, weight, align, baseline } = node;
+
   if (!text) return;
-  
-  // Pixel-snapped baseline for crisp text
+
+  const fontSize = size ?? 16;
+  const fontWeight = weight ?? 400;
+  const metrics = GlyphCache.measure(text, fontSize, fontWeight);
+  if (!metrics) {
+    paintTextFallback(node);
+    return;
+  }
+
+  const y = getBaselineY(originalY, baseline, metrics);
+  let currentX = getStartX(x, align, metrics);
+
+  let i = 0;
+  while (i < text.length) {
+    let glyph = null;
+    let consumed = 1;
+
+    for (const lig of LIGATURES) {
+      if (text.startsWith(lig, i)) {
+        const ligGlyph = GlyphCache.get(lig, fontSize, fontWeight);
+        if (ligGlyph) {
+          glyph = ligGlyph;
+          consumed = lig.length;
+          break;
+        }
+      }
+    }
+
+    if (!glyph) {
+      glyph = GlyphCache.get(text[i], fontSize, fontWeight);
+    }
+
+    if (glyph) {
+      _ctx.drawImage(
+        glyph.atlas,
+        glyph.sx, glyph.sy, glyph.sw, glyph.sh,
+        Math.round(currentX), Math.round(y - glyph.ascent),
+        glyph.sw / _dpr, glyph.sh / _dpr
+      );
+      currentX += glyph.advance;
+    }
+
+    i += consumed;
+  }
+}
+
+function paintTextFallback(node) {
+  const { text, x, y, font, size, weight, color, align, baseline } = node;
+
+  if (!text) return;
+
   const px = Math.round(x);
   const py = Math.round(y);
-  
-  // Build font string
   const fontStr = `${weight ?? 400} ${size ?? 16}px "${font ?? 'JetBrains Mono'}", monospace`;
-  
+
   _ctx.font = fontStr;
   _ctx.fillStyle = color ?? '#d1d0c5';
   _ctx.textAlign = align ?? 'left';
   _ctx.textBaseline = baseline ?? 'alphabetic';
-  
+
   _ctx.fillText(text, px, py);
-  
-  // Phase 4: LayoutEngine will compute bounds before paint
-  // For now: bounds must be pre-computed by caller or left null
-  // Painter NEVER mutates scene nodes (unidirectional flow invariant)
 }
 
 // -- Debug helpers -------------------------------------------------------------
