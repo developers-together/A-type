@@ -117,4 +117,4 @@ function mount(path) {
 
 // -- Export -------------------------------------------------------------------
 
-export const Router = { init, navigate };
+export const Router = { init, navigate, isPhpRoute };
