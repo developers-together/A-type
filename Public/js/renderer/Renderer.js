@@ -24,6 +24,7 @@ import { AnimationQueue } from '../core/AnimationQueue.js';
 import { EventBus, EVENTS } from '../core/EventBus.js';
 import { SceneGraph } from './SceneGraph.js';
 import { Painter } from './Painter.js';
+import { GlyphCache } from './GlyphCache.js';
 
 // -- State --------------------------------------------------------------------
 
@@ -72,8 +73,10 @@ function applySurface() {
 function handleResize() {
   applySurface();
   Painter.setSize(_logicalW, _logicalH); // Update Painter dimensions (ctx unchanged)
+  if (GlyphCache.isReady() && !GlyphCache.validate()) {
+    GlyphCache.rebuild();
+  }
   // Phase 4: LayoutEngine.invalidateAll()
-  // Phase 3: GlyphCache.validate()
   DirtyRegions.markFull();
   console.log(`[Renderer] resize -> ${_logicalW}x${_logicalH} @${_dpr}dpr`);
 }
