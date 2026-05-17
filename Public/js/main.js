@@ -9,12 +9,12 @@
 import { Profiler } from './renderer/Profiler.js';
 import { PointerNode } from './renderer/PointerNode.js';
 import { Renderer } from './renderer/Renderer.js';
+import { GlyphCache } from './renderer/GlyphCache.js';
 import { AnimationQueue } from './core/AnimationQueue.js';
 import { EventBus, EVENTS } from './core/EventBus.js';
 import { Store } from './core/Store.js';
 import { Router } from './core/Router.js';
 import { ThemeRegistry } from './themes/index.js';
-import { mountHomeView } from './views/HomeView.js';
 
 // -- Constants ----------------------------------------------------------------
 
@@ -200,10 +200,14 @@ async function boot() {
 
     // Step 8 - initialize GlyphCache
     drawBootScreen('building glyph cache…', 0.50);
-    // Phase 3: GlyphCache.init({ font, sizes, chars })
-    //   GlyphCache.onProgress = (loaded, total) => {
-    //     drawBootScreen('building glyph cache…', 0.50 + (loaded/total) * 0.25);
-    //   };
+    await GlyphCache.init({
+      sizes: [20],
+      weights: [400, 600, 700],
+      color: '#d1d0c5',
+      onProgress: (done, total) => {
+        drawBootScreen('building glyph cache…', 0.50 + (done / total) * 0.25);
+      },
+    });
 
     // Step 9 - initialize PointerNode
     drawBootScreen('wiring input…', 0.78);
