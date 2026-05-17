@@ -207,8 +207,8 @@
               <i class="fa-solid fa-rotate-left"></i>
               reset data
             </button> -->
-            <form action="/Profile/delete" method="delete">
-              <button class="danger-btn delete-btn">
+            <form action="/Profile/delete" method="post">
+              <button type="submit" class="danger-btn delete-btn">
                 <i class="fa-solid fa-trash"></i>
                 delete account
               </button>
