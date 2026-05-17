@@ -129,6 +129,12 @@ export const EVENTS = {
   // Theme
   THEME_CHANGED: 'THEME_CHANGED',
 
+  // Store
+  STORE_CHANGED: 'STORE_CHANGED',
+
+  // Router
+  ROUTE_CHANGED: 'ROUTE_CHANGED',
+
   // Sound
   SOUND_CORRECT: 'SOUND_CORRECT',
   SOUND_ERROR: 'SOUND_ERROR',
