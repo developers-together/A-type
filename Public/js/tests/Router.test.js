@@ -2,38 +2,28 @@
 // Tests for Router.js client-side routing
 
 import { describe, it, expect } from './runner.js';
-import { Router } from '../core/Router.js';
+
+const routerModulePromise = import(`../core/Router.js?v=${Date.now()}`);
+
+async function getRouter() {
+  const { Router } = await routerModulePromise;
+  return Router;
+}
 
 export function routerTests() {
   describe('Router', () => {
-    it('navigate() to known PHP route does not throw', () => {
-      // PHP routes delegate to window.location — we cannot intercept that in browser
-      // but we can verify the router does not crash and does not call mountHomeView
-      // by checking no canvas-mount log appears for a PHP path
-      
-      const originalLog = console.log;
-      let mountCalled = false;
-      
-      console.log = (msg, ...rest) => {
-        if (typeof msg === 'string' && msg.includes('mounting view')) {
-          mountCalled = true;
-        }
-        originalLog(msg, ...rest);
-      };
-
-      try {
-        Router.navigate('/profile');
-      } catch (e) {
-        // window.location change may throw in test environment — acceptable
-      }
-
-      console.log = originalLog;
-
-      // A PHP route must never trigger a canvas view mount
-      expect(mountCalled).toBeFalsy();
+    it('isPhpRoute() recognizes php routes and profile subroutes', async () => {
+      const Router = await getRouter();
+      expect(Router.isPhpRoute('/profile')).toBeTruthy();
+      expect(Router.isPhpRoute('/Profile')).toBeTruthy();
+      expect(Router.isPhpRoute('/Profile/settings')).toBeTruthy();
+      expect(Router.isPhpRoute('/leaderboard')).toBeTruthy();
+      expect(Router.isPhpRoute('/info')).toBeTruthy();
+      expect(Router.isPhpRoute('/')).toBeFalsy();
     });
 
-    it('navigate() to unknown route logs warning, stays on current view', () => {
+    it('navigate() to unknown route logs warning, stays on current view', async () => {
+      const Router = await getRouter();
       // Capture console.warn
       const originalWarn = console.warn;
       let warnCalled = false;
@@ -53,7 +43,8 @@ export function routerTests() {
       console.warn = originalWarn;
     });
 
-    it('navigate() to current path is no-op', () => {
+    it('navigate() to current path is no-op', async () => {
+      const Router = await getRouter();
       // Capture console.log
       const originalLog = console.log;
       let logCalled = false;
