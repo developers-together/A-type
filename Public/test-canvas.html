@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Renderer Test</title>
+  <style>
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+      font-style: normal;
+      font-weight: 700;
+      font-display: block;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #renderer-host {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="renderer-host">
+    <canvas id="atype-canvas"></canvas>
+  </div>
+  
+  <script type="module">
+    import { Profiler } from './js/renderer/Profiler.js';
+    import { PointerNode } from './js/renderer/PointerNode.js';
+    import { Renderer } from './js/renderer/Renderer.js';
+    import { AnimationQueue } from './js/core/AnimationQueue.js';
+    import { mountHomeView } from './js/views/HomeView.js';
+    
+    const canvas = document.getElementById('atype-canvas');
+    
+    // Note: DPR scaling handled entirely by Renderer.mount()
+    // Do NOT scale context here or it will be double-scaled (dpr²)
+    
+    console.log('Canvas test - initializing...');
+    
+    Profiler.init(60);
+    PointerNode.init(canvas);
+    AnimationQueue.init();
+    Renderer.mount(canvas, { refreshRate: 60 });
+    
+    // Get dimensions from Renderer after mount (not stale pre-mount values)
+    const { w, h } = Renderer.getLogicalSize();
+    mountHomeView(w, h);
+    
+    console.log('Canvas test - ready!');
+  </script>
+</body>
+</html>
