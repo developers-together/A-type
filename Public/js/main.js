@@ -11,6 +11,10 @@ import { PointerNode } from './renderer/PointerNode.js';
 import { Renderer } from './renderer/Renderer.js';
 import { AnimationQueue } from './core/AnimationQueue.js';
 import { EventBus, EVENTS } from './core/EventBus.js';
+import { Store } from './core/Store.js';
+import { Router } from './core/Router.js';
+import { ThemeRegistry } from './themes/index.js';
+import { mountHomeView } from './views/HomeView.js';
 
 // -- Constants ----------------------------------------------------------------
 
@@ -39,17 +43,21 @@ if (!canvas) {
   throw new Error('[main] #atype-canvas not found - is CANVAS_RENDERER enabled?');
 }
 
-// DPR-correct surface sizing - Rule 3 (DPR only at surface)
-const dpr = window.devicePixelRatio || 1;
-const rect = canvas.getBoundingClientRect();
-canvas.width = Math.round(rect.width * dpr);
-canvas.height = Math.round(rect.height * dpr);
-const ctx = canvas.getContext('2d');
-ctx.scale(dpr, dpr);
+// Note: DPR scaling is handled entirely by Renderer.mount() - do NOT scale here
+// or context will be scaled dpr² (double-scaled)
 
-// Logical dimensions (what all layout code uses)
-let logicalW = rect.width;
-let logicalH = rect.height;
+// Boot screen context - get once, apply DPR for crisp Retina rendering
+// Rule 26: This is the ONLY pre-mount raw canvas path. Renderer.mount() will
+// reset transform via setTransform(1,0,0,1,0,0) before applying its own DPR.
+const _bootCtx = canvas.getContext('2d');
+const _bootDpr = window.devicePixelRatio || 1;
+
+// Apply DPR to boot screen for crisp rendering on Retina
+// Renderer.mount() will reset this via ctx.setTransform() before its own scaling
+const rect = canvas.getBoundingClientRect();
+canvas.width = Math.round(rect.width * _bootDpr);
+canvas.height = Math.round(rect.height * _bootDpr);
+_bootCtx.scale(_bootDpr, _bootDpr);
 
 // -- Boot screen ---------------------------------------------------------------
 // Rule 26: raw canvas calls sanctioned here only, pre-mount.
@@ -58,43 +66,48 @@ let logicalH = rect.height;
 function drawBootScreen(label, progress = 0, options = {}) {
   const { error = false, message = '' } = options;
 
-  ctx.clearRect(0, 0, logicalW, logicalH);
+  // Get current logical dimensions
+  const rect = canvas.getBoundingClientRect();
+  const w = rect.width;
+  const h = rect.height;
+  
+  _bootCtx.clearRect(0, 0, w, h);
 
   // Background
-  ctx.fillStyle = BOOT_COLORS.background;
-  ctx.fillRect(0, 0, logicalW, logicalH);
+  _bootCtx.fillStyle = BOOT_COLORS.background;
+  _bootCtx.fillRect(0, 0, w, h);
 
   // Wordmark
-  ctx.font = `600 24px ${BOOT_FONT}`;
-  ctx.fillStyle = BOOT_COLORS.text;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'alphabetic';
-  ctx.fillText('a-type', logicalW / 2, logicalH / 2 - 32);
+  _bootCtx.font = `600 24px ${BOOT_FONT}`;
+  _bootCtx.fillStyle = BOOT_COLORS.text;
+  _bootCtx.textAlign = 'center';
+  _bootCtx.textBaseline = 'alphabetic';
+  _bootCtx.fillText('a-type', w / 2, h / 2 - 32);
 
   // Status label
-  ctx.font = `400 13px ${BOOT_FONT}`;
-  ctx.fillStyle = error ? BOOT_COLORS.error : BOOT_COLORS.dim;
-  ctx.fillText(error ? message || 'boot failed' : label, logicalW / 2, logicalH / 2 + 4);
+  _bootCtx.font = `400 13px ${BOOT_FONT}`;
+  _bootCtx.fillStyle = error ? BOOT_COLORS.error : BOOT_COLORS.dim;
+  _bootCtx.fillText(error ? message || 'boot failed' : label, w / 2, h / 2 + 4);
 
   // Progress bar
   const barW = 160;
   const barH = 2;
-  const barX = logicalW / 2 - barW / 2;
-  const barY = logicalH / 2 + 24;
+  const barX = w / 2 - barW / 2;
+  const barY = h / 2 + 24;
 
   // Track
-  ctx.fillStyle = BOOT_COLORS.trackBg;
-  ctx.fillRect(Math.floor(barX), barY, barW, barH);
+  _bootCtx.fillStyle = BOOT_COLORS.trackBg;
+  _bootCtx.fillRect(Math.floor(barX), barY, barW, barH);
 
   // Fill
-  ctx.fillStyle = error ? BOOT_COLORS.error : BOOT_COLORS.accent;
-  ctx.fillRect(Math.floor(barX), barY, Math.floor(barW * Math.min(progress, 1)), barH);
+  _bootCtx.fillStyle = error ? BOOT_COLORS.error : BOOT_COLORS.accent;
+  _bootCtx.fillRect(Math.floor(barX), barY, Math.floor(barW * Math.min(progress, 1)), barH);
 
   // Error detail message
   if (error && message) {
-    ctx.font = `400 11px ${BOOT_FONT}`;
-    ctx.fillStyle = BOOT_COLORS.error;
-    ctx.fillText(message, logicalW / 2, logicalH / 2 + 44);
+    _bootCtx.font = `400 11px ${BOOT_FONT}`;
+    _bootCtx.fillStyle = BOOT_COLORS.error;
+    _bootCtx.fillText(message, w / 2, h / 2 + 44);
   }
 }
 
@@ -170,7 +183,7 @@ async function boot() {
 
     // Step 4 - initialize Store and persisted settings
     drawBootScreen('loading settings…', 0.25);
-    // Phase 10: Store.init() - reads localStorage, validates keys
+    Store.init();
 
     // Step 5 - auth bootstrap
     drawBootScreen('checking session…', 0.30);
@@ -179,7 +192,7 @@ async function boot() {
 
     // Step 6 - validate theme registry
     drawBootScreen('loading themes…', 0.35);
-    // Phase 10: ThemeRegistry.validateAll() - throws on schema/contrast error
+    ThemeRegistry.init();
 
     // Step 7 - load JetBrains Mono
     drawBootScreen('loading font…', 0.45);
@@ -211,8 +224,9 @@ async function boot() {
     drawBootScreen('launching…', 1.0);
     Renderer.mount(canvas, { refreshRate });
 
-    // Step 13 - initialize Router and mount view (Phase 10)
-    // Phase 10: Router.init()
+    // Step 13 - init Router (after canvas ready)
+    // Router.init() calls mountHomeView which needs Renderer mounted first
+    Router.init();
 
     // -- Boot complete ---------------------------------------------------------
     // Rule 26: drawBootScreen is decommissioned after Renderer.mount().
