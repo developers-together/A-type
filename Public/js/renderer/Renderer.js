@@ -25,6 +25,7 @@ import { EventBus, EVENTS } from '../core/EventBus.js';
 import { SceneGraph } from './SceneGraph.js';
 import { Painter } from './Painter.js';
 import { GlyphCache } from './GlyphCache.js';
+import { LayoutEngine } from './LayoutEngine.js';
 
 // -- State --------------------------------------------------------------------
 
@@ -76,9 +77,9 @@ function handleResize() {
   if (GlyphCache.isReady() && !GlyphCache.validate()) {
     GlyphCache.rebuild();
   }
-  // Phase 4: LayoutEngine.invalidateAll()
-  DirtyRegions.markFull();
   console.log(`[Renderer] resize -> ${_logicalW}x${_logicalH} @${_dpr}dpr`);
+  LayoutEngine.invalidateAll();
+  DirtyRegions.markFull();
 }
 
 function onWindowResize() {
@@ -205,9 +206,12 @@ function loop(timestamp) {
   // Phase 5 will add: snapshot -> diff -> layout -> Painter.applyPatches()
   // For now: full repaint every frame
   
-  Painter.clear('#0a0a0a');
-  
   const root = SceneGraph.getRoot();
+  if (root) {
+    LayoutEngine.layout(root);
+  }
+
+  Painter.clear('#0a0a0a');
   if (root) {
     Painter.paint(root);
   }

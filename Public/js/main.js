@@ -10,6 +10,8 @@ import { Profiler } from './renderer/Profiler.js';
 import { PointerNode } from './renderer/PointerNode.js';
 import { Renderer } from './renderer/Renderer.js';
 import { GlyphCache } from './renderer/GlyphCache.js';
+import { ResponsiveConfig } from './renderer/ResponsiveConfig.js';
+import { LayoutEngine } from './renderer/LayoutEngine.js';
 import { AnimationQueue } from './core/AnimationQueue.js';
 import { EventBus, EVENTS } from './core/EventBus.js';
 import { Store } from './core/Store.js';
@@ -177,9 +179,9 @@ async function boot() {
     Profiler.init(refreshRate);
 
     // Step 3 - validate responsive config
-    // ResponsiveConfig added in Phase 4 - stub check for now
     drawBootScreen('validating config…', 0.20);
-    // Phase 4: ResponsiveConfig.validateConfig() - throws on missing keys
+    ResponsiveConfig.validateConfig();
+    console.log(`[main] responsive config valid - breakpoint: ${ResponsiveConfig.getBreakpoint()}`);
 
     // Step 4 - initialize Store and persisted settings
     drawBootScreen('loading settings…', 0.25);
@@ -208,6 +210,7 @@ async function boot() {
         drawBootScreen('building glyph cache…', 0.50 + (done / total) * 0.25);
       },
     });
+    LayoutEngine.init();
 
     // Step 9 - initialize PointerNode
     drawBootScreen('wiring input…', 0.78);
