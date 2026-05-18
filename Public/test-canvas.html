@@ -46,6 +46,10 @@
     import { Profiler } from './js/renderer/Profiler.js';
     import { PointerNode } from './js/renderer/PointerNode.js';
     import { Renderer } from './js/renderer/Renderer.js';
+    import { GlyphCache } from './js/renderer/GlyphCache.js';
+    import { ResponsiveConfig } from './js/renderer/ResponsiveConfig.js';
+    import { LayoutEngine } from './js/renderer/LayoutEngine.js';
+    import { SceneGraph } from './js/renderer/SceneGraph.js';
     import { AnimationQueue } from './js/core/AnimationQueue.js';
     import { mountHomeView } from './js/views/HomeView.js';
     
@@ -55,17 +59,36 @@
     // Do NOT scale context here or it will be double-scaled (dpr²)
     
     console.log('Canvas test - initializing...');
-    
-    Profiler.init(60);
-    PointerNode.init(canvas);
-    AnimationQueue.init();
-    Renderer.mount(canvas, { refreshRate: 60 });
-    
-    // Get dimensions from Renderer after mount (not stale pre-mount values)
-    const { w, h } = Renderer.getLogicalSize();
-    mountHomeView(w, h);
-    
-    console.log('Canvas test - ready!');
+
+    // Expose for acceptance check: SceneGraph.findById('button-label').bounds
+    window.SceneGraph = SceneGraph;
+
+    async function bootCanvasTest() {
+      ResponsiveConfig.validateConfig();
+      console.log(`[main] responsive config valid - breakpoint: ${ResponsiveConfig.getBreakpoint()}`);
+
+      await GlyphCache.init({
+        sizes: [20],
+        weights: [400, 600, 700],
+        color: '#d1d0c5',
+      });
+      LayoutEngine.init();
+
+      Profiler.init(60);
+      PointerNode.init(canvas);
+      AnimationQueue.init();
+      Renderer.mount(canvas, { refreshRate: 60 });
+
+      // Get dimensions from Renderer after mount (not stale pre-mount values)
+      const { w, h } = Renderer.getLogicalSize();
+      mountHomeView(w, h);
+
+      console.log('Canvas test - ready!');
+    }
+
+    bootCanvasTest().catch(err => {
+      console.error('[test-canvas] boot failed:', err);
+    });
   </script>
 </body>
 </html>
