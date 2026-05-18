@@ -70,8 +70,17 @@
         const { storeTests } = await import('./js/tests/Store.test.js');
         const { routerTests } = await import('./js/tests/Router.test.js');
         const { glyphCacheTests } = await import('./js/tests/GlyphCache.test.js');
+        const { responsiveConfigTests } = await import('./js/tests/ResponsiveConfig.test.js');
+        const { layoutEngineTests } = await import('./js/tests/LayoutEngine.test.js');
 
-        await runTests([signalTests, storeTests, routerTests, glyphCacheTests]);
+        await runTests([
+          signalTests,
+          storeTests,
+          routerTests,
+          glyphCacheTests,
+          responsiveConfigTests,
+          layoutEngineTests,
+        ]);
       } catch (err) {
         console.error('Test runner bootstrap failed:', err?.message ?? String(err));
       }
