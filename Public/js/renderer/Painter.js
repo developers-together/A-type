@@ -141,6 +141,8 @@ function paintRect(node) {
 // IMPORTANT: Painter must NOT mutate nodes - bounds computed in LayoutEngine (Phase 4)
 
 function paintText(node) {
+  // TODO Phase 6: drop color guard and implement per-draw tinting so all
+  // text colors use the atlas path. Currently only '#d1d0c5' uses GlyphCache.
   if (GlyphCache.isReady() && node.color === '#d1d0c5') {
     paintTextFromCache(node);
   } else {
@@ -174,7 +176,8 @@ function getStartX(x, align, metrics) {
 }
 
 function paintTextFromCache(node) {
-  const { text, x, y: originalY, size, weight, align, baseline } = node;
+  const dpr = window.devicePixelRatio || 1;
+  const { text, x, y: nodeY, size, weight, align, baseline } = node;
 
   if (!text) return;
 
@@ -186,7 +189,25 @@ function paintTextFromCache(node) {
     return;
   }
 
-  const y = getBaselineY(originalY, baseline, metrics);
+  let baselineY;
+  switch (baseline ?? 'alphabetic') {
+    case 'top':
+    case 'hanging':
+      baselineY = nodeY + metrics.ascent;
+      break;
+    case 'middle':
+      baselineY = nodeY + metrics.ascent - metrics.height / 2;
+      break;
+    case 'bottom':
+    case 'ideographic':
+      baselineY = nodeY - metrics.descent;
+      break;
+    case 'alphabetic':
+    default:
+      baselineY = nodeY;
+      break;
+  }
+
   let currentX = getStartX(x, align, metrics);
 
   let i = 0;
@@ -210,11 +231,13 @@ function paintTextFromCache(node) {
     }
 
     if (glyph) {
+      const destX = Math.round(currentX * dpr) / dpr;
+      const destY = Math.round((baselineY - glyph.ascent) * dpr) / dpr;
       _ctx.drawImage(
         glyph.atlas,
         glyph.sx, glyph.sy, glyph.sw, glyph.sh,
-        Math.round(currentX), Math.round(y - glyph.ascent),
-        glyph.sw / _dpr, glyph.sh / _dpr
+        destX, destY,
+        glyph.sw / dpr, glyph.sh / dpr
       );
       currentX += glyph.advance;
     }
