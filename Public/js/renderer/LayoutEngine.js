@@ -58,16 +58,6 @@ function needsBounds(node) {
   return node && (node.type === 'text' || node.type === 'rect');
 }
 
-function hasNullBounds(node) {
-  if (!node) return false;
-  if (needsBounds(node) && node.bounds == null) return true;
-  if (!node.children || !Array.isArray(node.children)) return false;
-  for (const child of node.children) {
-    if (hasNullBounds(child)) return true;
-  }
-  return false;
-}
-
 function traverseDepthFirst(node, fn) {
   if (!node) return;
   fn(node);
@@ -81,9 +71,9 @@ function traverseDepthFirst(node, fn) {
 function layout(root) {
   if (!root) return;
 
-  if (!_dirty && !hasNullBounds(root)) {
-    return;
-  }
+  // Clean-frame short-circuit: trust that layout() sets bounds correctly.
+  // hasNullBounds() must not run in the hot path — it walks the entire tree every frame.
+  if (!_dirty) return;
 
   if (!GlyphCache.isReady() && !_warnedGlyphNotReady) {
     console.warn('[LayoutEngine] GlyphCache not ready - text bounds set to null');
