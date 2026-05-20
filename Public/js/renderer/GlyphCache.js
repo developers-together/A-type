@@ -135,9 +135,10 @@ function buildAtlasForWeightSize(weight, size) {
     const row = Math.floor(i / COLS);
     const sx = col * cellW;
     const sy = row * cellH;
-    const baseline = sy + size;
+    const baseline = Math.round((sy + size) * _dpr) / _dpr;
+    const drawX = Math.round((sx + 1) * _dpr) / _dpr;
 
-    atlasCtx.fillText(char, sx + 1, baseline);
+    atlasCtx.fillText(char, drawX, baseline);
 
     const key = cacheKey(char, size, weight);
     const cell = {
