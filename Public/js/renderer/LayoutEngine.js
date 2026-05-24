@@ -29,6 +29,18 @@ function computeBounds(node, _ctx) {
     return bounds;
   }
 
+  if (node.type === 'scroll-container') {
+    if (node.bounds) return node.bounds;
+    const bounds = {
+      x: node.x ?? 0,
+      y: node.y ?? 0,
+      width: node.width ?? 0,
+      height: node.height ?? 0,
+    };
+    node.bounds = bounds;
+    return bounds;
+  }
+
   if (node.type === 'text') {
     if (!GlyphCache.isReady()) {
       node.bounds = null;
@@ -55,7 +67,7 @@ function computeBounds(node, _ctx) {
 }
 
 function needsBounds(node) {
-  return node && (node.type === 'text' || node.type === 'rect');
+  return node && (node.type === 'text' || node.type === 'rect' || node.type === 'scroll-container');
 }
 
 function traverseDepthFirst(node, fn) {
@@ -89,7 +101,35 @@ function layout(root) {
     computeBounds(node, null);
   });
 
+  // Layout scroll-container children after computing their bounds
+  traverseDepthFirst(root, node => {
+    if (node.type === 'scroll-container') {
+      layoutScrollContainer(node);
+    }
+  });
+
   _dirty = false;
+}
+
+function layoutScrollContainer(node) {
+  // Stack children top-to-bottom inside the scroll container.
+  // Children receive absolute canvas coordinates, offset by -scrollOffset.
+  let cursor = node.y - node.scrollOffset;
+  let totalHeight = 0;
+
+  for (const child of (node.children ?? [])) {
+    child.x = node.x;
+    child.y = cursor;
+    child.width = node.width;
+    child.bounds = null;
+    computeBounds(child, null);
+
+    const childHeight = child.height ?? 0;
+    cursor      += childHeight + (child.marginBottom ?? 0);
+    totalHeight += childHeight + (child.marginBottom ?? 0);
+  }
+
+  node.contentHeight = totalHeight;
 }
 
 function invalidateAll() {
