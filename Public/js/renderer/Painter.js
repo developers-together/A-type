@@ -293,6 +293,61 @@ function drawDebugBounds(node) {
   _ctx.strokeRect(x, y, width, height);
 }
 
+// -- Patch-based painting (Phase 5) -------------------------------------------
+// Paints only nodes that intersect each dirty region.
+// Regions come from DirtyRegions.getRegions().
+
+function rectsIntersect(ax, ay, aw, ah, bx, by, bw, bh) {
+  return !(ax + aw < bx || bx + bw < ax || ay + ah < by || by + bh < ay);
+}
+
+function paintNodeIfIntersects(node, rx, ry, rw, rh) {
+  if (!node || !node.visible) return;
+  const b = node.bounds ?? node.getBounds?.() ?? null;
+  if (b && !rectsIntersect(b.x, b.y, b.width, b.height, rx, ry, rw, rh)) return;
+
+  _ctx.save();
+  if (node.opacity !== undefined && node.opacity < 1) {
+    _ctx.globalAlpha = node.opacity;
+  }
+
+  switch (node.type) {
+    case 'rect':            paintRect(node); break;
+    case 'text':            paintText(node); break;
+    case 'scroll-container': paintScrollContainer(node); break;
+    case 'container':       break;
+    default: break;
+  }
+
+  if (node.children && Array.isArray(node.children)) {
+    const sorted = [...node.children].sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0));
+    for (const child of sorted) {
+      paintNodeIfIntersects(child, rx, ry, rw, rh);
+    }
+  }
+  _ctx.restore();
+}
+
+/**
+ * Paint only the dirty regions. Each region is clipped, then only intersecting
+ * nodes are visited. Falls back to full repaint if regions array is empty and
+ * fullRepaint flag is set — but that decision is made by the caller (Renderer).
+ *
+ * @param {Array<{x,y,width,height}>} regions - from DirtyRegions.getRegions()
+ * @param {object} root - SceneGraph root
+ */
+function paintPatches(regions, root) {
+  for (const region of regions) {
+    const { x, y, width, height } = region;
+    _ctx.save();
+    _ctx.beginPath();
+    _ctx.rect(Math.round(x), Math.round(y), Math.round(width), Math.round(height));
+    _ctx.clip();
+    paintNodeIfIntersects(root, x, y, width, height);
+    _ctx.restore();
+  }
+}
+
 // -- Export --------------------------------------------------------------------
 
 export const Painter = {
@@ -300,5 +355,6 @@ export const Painter = {
   setSize,
   clear,
   paint,
+  paintPatches,
   drawDebugBounds,
 };
