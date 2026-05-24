@@ -19,15 +19,15 @@
 //
 // Phases 2-9 fill in: SceneGraph snapshot, Differ, LayoutEngine, Painter patches.
 
-import { Profiler } from './Profiler.js';
-import { AnimationQueue } from '../core/AnimationQueue.js';
-import { EventBus, EVENTS } from '../core/EventBus.js';
-import { SceneGraph } from './SceneGraph.js';
-import { Painter } from './Painter.js';
-import { GlyphCache } from './GlyphCache.js';
-import { LayoutEngine } from './LayoutEngine.js';
-import { Differ } from './Differ.js';
-import { DirtyRegions } from './DirtyRegions.js';
+import { Profiler } from "./Profiler.js";
+import { AnimationQueue } from "../core/AnimationQueue.js";
+import { EventBus, EVENTS } from "../core/EventBus.js";
+import { SceneGraph } from "./SceneGraph.js";
+import { Painter } from "./Painter.js";
+import { GlyphCache } from "./GlyphCache.js";
+import { LayoutEngine } from "./LayoutEngine.js";
+import { Differ } from "./Differ.js";
+import { DirtyRegions } from "./DirtyRegions.js";
 
 // -- State --------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ let _resizeTimer = null;
 let _dprMediaQuery = null;
 let _dprListener = null;
 let _forceRepaint = false;
-let _bgColor = '#0a0a0a';
+let _bgColor = "#0a0a0a";
 
 // -- Surface sizing ------------------------------------------------------------
 
@@ -89,7 +89,7 @@ function onWindowResize() {
 
 function watchDPR() {
   if (_dprMediaQuery && _dprListener) {
-    _dprMediaQuery.removeEventListener('change', _dprListener);
+    _dprMediaQuery.removeEventListener("change", _dprListener);
   }
 
   _dprMediaQuery = window.matchMedia(`(resolution: ${_dpr}dppx)`);
@@ -97,7 +97,7 @@ function watchDPR() {
     handleResize(); // immediate, no debounce
     watchDPR(); // re-register for new DPR value
   };
-  _dprMediaQuery.addEventListener('change', _dprListener);
+  _dprMediaQuery.addEventListener("change", _dprListener);
 }
 
 // -- Refresh rate re-validation ------------------------------------------------
@@ -108,13 +108,13 @@ let _revalidating = false; // Guard against concurrent measurements
 async function revalidateRefreshRate() {
   if (_revalidating) return; // Skip if already measuring
   _revalidating = true;
-  
+
   try {
     // Lightweight - counts rAF callbacks over 500ms instead of full 1s
     const start = performance.now();
     let frames = 0;
 
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       function tick(ts) {
         frames++;
         if (ts - start < 500) requestAnimationFrame(tick);
@@ -126,12 +126,14 @@ async function revalidateRefreshRate() {
     const STANDARD = [30, 60, 90, 120, 144, 165, 240];
     const measured = Math.round(frames / 0.5);
     const snapped = STANDARD.reduce((a, b) =>
-      Math.abs(b - measured) < Math.abs(a - measured) ? b : a
+      Math.abs(b - measured) < Math.abs(a - measured) ? b : a,
     );
 
     const drift = Math.abs(snapped - _refreshRate);
     if (drift > 20) {
-      console.log(`[Renderer] refresh rate changed: ${_refreshRate}fps -> ${snapped}fps`);
+      console.log(
+        `[Renderer] refresh rate changed: ${_refreshRate}fps -> ${snapped}fps`,
+      );
       _refreshRate = snapped;
       _maxDelta = (1 / _refreshRate) * 2;
       Profiler.init(_refreshRate);
@@ -150,7 +152,7 @@ function onAppForegrounded() {
 // -- Frame counter (Phase 1 only, dev visual) ---------------------------------
 
 function drawFrameCounter() {
-  const DEBUG = typeof __DEBUG__ !== 'undefined' ? __DEBUG__ : true;
+  const DEBUG = typeof __DEBUG__ !== "undefined" ? __DEBUG__ : true;
   if (!DEBUG) return;
 
   const { avg, p99 } = Profiler.report();
@@ -159,18 +161,18 @@ function drawFrameCounter() {
     `${_refreshRate}hz`,
     `${_logicalW.toFixed(0)}x${_logicalH.toFixed(0)}`,
     `@${_dpr}dpr`,
-    avg > 0 ? `avg:${avg.toFixed(2)}ms p99:${p99.toFixed(2)}ms` : '',
+    avg > 0 ? `avg:${avg.toFixed(2)}ms p99:${p99.toFixed(2)}ms` : "",
   ]
     .filter(Boolean)
-    .join('  ');
+    .join("  ");
 
   _ctx.save();
   _ctx.font = '11px "JetBrains Mono", monospace';
-  _ctx.fillStyle = 'rgba(0,0,0,0.55)';
+  _ctx.fillStyle = "rgba(0,0,0,0.55)";
   _ctx.fillRect(8, 8, label.length * 6.8, 18);
-  _ctx.fillStyle = '#e2b714';
-  _ctx.textBaseline = 'top';
-  _ctx.textAlign = 'left';
+  _ctx.fillStyle = "#e2b714";
+  _ctx.textBaseline = "top";
+  _ctx.textAlign = "left";
   _ctx.fillText(label, 12, 11);
   _ctx.restore();
 }
@@ -210,6 +212,8 @@ function loop(timestamp) {
   DirtyRegions.compute(patches, logicalW, logicalH);
   Differ.recyclePatchList(patches);
 
+  Profiler.begin();
+
   // 9. Paint — patch-based or full repaint
   if (_forceRepaint || DirtyRegions.needsFullRepaint()) {
     Painter.clear(_bgColor);
@@ -221,8 +225,11 @@ function loop(timestamp) {
 
   // 10. Reset dirty regions
   DirtyRegions.reset();
-}
 
+  drawFrameCounter();
+  _frameCount++;
+  Profiler.end();
+}
 
 // -- Error containment ---------------------------------------------------------
 // A throwing frame must never kill the loop.
@@ -232,7 +239,7 @@ function safeLoop(timestamp) {
   try {
     loop(timestamp);
   } catch (err) {
-    console.error('[Renderer] Frame error:', err);
+    console.error("[Renderer] Frame error:", err);
     DirtyRegions.reset(); // prevent infinite dirty error loop
     requestAnimationFrame(safeLoop); // keep loop alive
   }
@@ -242,7 +249,7 @@ function safeLoop(timestamp) {
 
 function mount(canvas, options = {}) {
   _canvas = canvas;
-  _ctx = canvas.getContext('2d');
+  _ctx = canvas.getContext("2d");
   _refreshRate = options.refreshRate ?? 60;
   _maxDelta = (1 / _refreshRate) * 2; // Rule 21
 
@@ -250,24 +257,24 @@ function mount(canvas, options = {}) {
   // the context state (including any boot screen scaling). This setTransform
   // is defensive but the real reset happens via canvas.width assignment.
   _ctx.setTransform(1, 0, 0, 1, 0, 0);
-  
+
   applySurface();
-  
+
   // Initialize Painter with canvas context
   Painter.init(_ctx, _logicalW, _logicalH);
   watchDPR();
-  window.addEventListener('resize', onWindowResize);
-  window.addEventListener('focus', revalidateRefreshRate);
+  window.addEventListener("resize", onWindowResize);
+  window.addEventListener("focus", revalidateRefreshRate);
   EventBus.on(EVENTS.APP_FOREGROUNDED, onAppForegrounded);
 
   // Context loss handling (2D canvas events, not WebGL)
-  canvas.addEventListener('contextlost', e => {
+  canvas.addEventListener("contextlost", (e) => {
     e.preventDefault();
     EventBus.emit(EVENTS.RENDERER_CONTEXT_LOST);
-    console.error('[Renderer] Canvas context lost');
+    console.error("[Renderer] Canvas context lost");
   });
 
-  canvas.addEventListener('contextrestored', () => {
+  canvas.addEventListener("contextrestored", () => {
     EventBus.emit(EVENTS.RENDERER_CONTEXT_RESTORED);
     applySurface();
     Painter.setSize(_logicalW, _logicalH); // Update dimensions after restore
@@ -278,27 +285,28 @@ function mount(canvas, options = {}) {
   _running = true;
   _lastTs = null;
   _frameCount = 0;
+  _forceRepaint = true; // guarantee first frame is always a full clear+paint
 
   console.log(
-    `[Renderer] mounted - ${_logicalW}x${_logicalH} @${_dpr}dpr ${_refreshRate}fps`
+    `[Renderer] mounted - ${_logicalW}x${_logicalH} @${_dpr}dpr ${_refreshRate}fps`,
   );
   requestAnimationFrame(safeLoop);
 }
 
 function destroy() {
   _running = false;
-  window.removeEventListener('resize', onWindowResize);
-  window.removeEventListener('focus', revalidateRefreshRate);
+  window.removeEventListener("resize", onWindowResize);
+  window.removeEventListener("focus", revalidateRefreshRate);
   EventBus.off(EVENTS.APP_FOREGROUNDED, onAppForegrounded);
   clearTimeout(_resizeTimer);
   if (_dprMediaQuery && _dprListener) {
-    _dprMediaQuery.removeEventListener('change', _dprListener);
+    _dprMediaQuery.removeEventListener("change", _dprListener);
   }
   _dprMediaQuery = null;
   _dprListener = null;
   _canvas = null;
   _ctx = null;
-  console.log('[Renderer] destroyed');
+  console.log("[Renderer] destroyed");
 }
 
 function invalidate() {
