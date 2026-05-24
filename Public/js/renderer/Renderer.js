@@ -26,6 +26,8 @@ import { SceneGraph } from './SceneGraph.js';
 import { Painter } from './Painter.js';
 import { GlyphCache } from './GlyphCache.js';
 import { LayoutEngine } from './LayoutEngine.js';
+import { Differ } from './Differ.js';
+import { DirtyRegions } from './DirtyRegions.js';
 
 // -- State --------------------------------------------------------------------
 
@@ -42,18 +44,8 @@ let _frameCount = 0;
 let _resizeTimer = null;
 let _dprMediaQuery = null;
 let _dprListener = null;
-
-// -- DirtyRegions stub ---------------------------------------------------------
-// Real implementation in Phase 5.
-// For Phase 1: always dirty so frame counter redraws every frame.
-
-const DirtyRegions = {
-  isClean() {
-    return false;
-  }, // Phase 1: never skip
-  markFull() {},
-  clear() {},
-};
+let _forceRepaint = false;
+let _bgColor = '#0a0a0a';
 
 // -- Surface sizing ------------------------------------------------------------
 
@@ -79,7 +71,8 @@ function handleResize() {
   }
   console.log(`[Renderer] resize -> ${_logicalW}x${_logicalH} @${_dpr}dpr`);
   LayoutEngine.invalidateAll();
-  DirtyRegions.markFull();
+  _forceRepaint = true;
+  Differ.invalidateAll();
 }
 
 function onWindowResize() {
@@ -150,7 +143,8 @@ async function revalidateRefreshRate() {
 }
 
 function onAppForegrounded() {
-  DirtyRegions.markFull(); // repaint on tab return
+  _forceRepaint = true;
+  Differ.invalidateAll(); // repaint on tab return
 }
 
 // -- Frame counter (Phase 1 only, dev visual) ---------------------------------
@@ -196,32 +190,39 @@ function loop(timestamp) {
   // Tick animations before dirty check (Rule 33)
   AnimationQueue.tick(deltaSeconds);
 
-  // Clean-frame short-circuit (Rule 16)
-  // Phase 1: DirtyRegions.isClean() always returns false - loop always paints
-  if (DirtyRegions.isClean()) return;
+  const _root = SceneGraph.getRoot();
 
-  Profiler.begin();
+  // 5. Layout
+  LayoutEngine.layout(_root);
 
-  // -- Phase 2: SceneGraph + Painter ------------------------------------------
-  // Phase 5 will add: snapshot -> diff -> layout -> Painter.applyPatches()
-  // For now: full repaint every frame
-  
-  const root = SceneGraph.getRoot();
-  if (root) {
-    LayoutEngine.layout(root);
+  // 6. Diff
+  const patches = Differ.diff(_root);
+
+  // 7. If no patches and no forced repaint, skip paint entirely
+  if (patches.length === 0 && !_forceRepaint) {
+    Differ.recyclePatchList(patches);
+    return;
   }
 
-  Painter.clear('#0a0a0a');
-  if (root) {
-    Painter.paint(root);
-  }
-  
-  drawFrameCounter();
-  _frameCount++;
+  // 8. Compute dirty regions
+  const logicalW = _canvas.width / (window.devicePixelRatio || 1);
+  const logicalH = _canvas.height / (window.devicePixelRatio || 1);
+  DirtyRegions.compute(patches, logicalW, logicalH);
+  Differ.recyclePatchList(patches);
 
-  DirtyRegions.clear();
-  Profiler.end();
+  // 9. Paint — patch-based or full repaint
+  if (_forceRepaint || DirtyRegions.needsFullRepaint()) {
+    Painter.clear(_bgColor);
+    Painter.paint(_root);
+    _forceRepaint = false;
+  } else {
+    Painter.paintPatches(DirtyRegions.getRegions(), _root);
+  }
+
+  // 10. Reset dirty regions
+  DirtyRegions.reset();
 }
+
 
 // -- Error containment ---------------------------------------------------------
 // A throwing frame must never kill the loop.
@@ -232,7 +233,7 @@ function safeLoop(timestamp) {
     loop(timestamp);
   } catch (err) {
     console.error('[Renderer] Frame error:', err);
-    DirtyRegions.clear(); // prevent infinite dirty error loop
+    DirtyRegions.reset(); // prevent infinite dirty error loop
     requestAnimationFrame(safeLoop); // keep loop alive
   }
 }
@@ -270,7 +271,8 @@ function mount(canvas, options = {}) {
     EventBus.emit(EVENTS.RENDERER_CONTEXT_RESTORED);
     applySurface();
     Painter.setSize(_logicalW, _logicalH); // Update dimensions after restore
-    DirtyRegions.markFull();
+    _forceRepaint = true;
+    Differ.invalidateAll();
   });
 
   _running = true;
@@ -308,4 +310,13 @@ function getLogicalSize() {
   return { w: _logicalW, h: _logicalH };
 }
 
-export const Renderer = { mount, destroy, invalidate, getLogicalSize };
+export const Renderer = {
+  mount,
+  destroy,
+  invalidate,
+  getLogicalSize,
+  forceRepaint() {
+    _forceRepaint = true;
+    Differ.invalidateAll();
+  },
+};
