@@ -189,7 +189,7 @@ function paintTextFromCache(node) {
   const fontSize = size ?? 16;
   const fontWeight = weight ?? 400;
   const metrics = GlyphCache.measure(text, fontSize, fontWeight);
-  if (!metrics) {
+  if (!metrics || (text && (metrics.width <= 0 || metrics.height <= 0))) {
     paintTextFallback(node);
     return;
   }
