@@ -145,15 +145,24 @@ function measureRefreshRate() {
 // -- Font loading --------------------------------------------------------------
 
 function loadFont() {
-  return Promise.race([
-    document.fonts.load(`20px ${BOOT_FONT}`),
-    new Promise(resolve =>
-      setTimeout(() => {
-        console.warn('[main] JetBrains Mono load timeout - falling back to system monospace');
-        resolve(null); // non-fatal, boot continues
-      }, FONT_LOAD_TIMEOUT_MS)
-    ),
-  ]);
+  if (!document.fonts?.load) return Promise.resolve(null);
+
+  return new Promise(resolve => {
+    let settled = false;
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      console.warn('[main] JetBrains Mono load timeout - falling back to system monospace');
+      resolve(null); // non-fatal, boot continues
+    }, FONT_LOAD_TIMEOUT_MS);
+
+    document.fonts.load(`20px ${BOOT_FONT}`).then(fonts => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(fonts);
+    });
+  });
 }
 
 // -- Auth bootstrap ------------------------------------------------------------
