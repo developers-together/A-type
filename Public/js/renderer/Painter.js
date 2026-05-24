@@ -66,6 +66,9 @@ function paint(node) {
     case 'text':
       paintText(node);
       break;
+    case 'scroll-container':
+      paintScrollContainer(node);
+      break;
     default:
       // Unknown node type - skip but paint children
       if (typeof __DEBUG__ !== 'undefined' && __DEBUG__) {
@@ -261,6 +264,21 @@ function paintTextFallback(node) {
   _ctx.textBaseline = baseline ?? 'alphabetic';
 
   _ctx.fillText(text, px, py);
+}
+
+// -- Scroll container painting ------------------------------------------------
+// Sets up clipping for children. Actual child painting happens in the
+// automatic paint loop after the switch statement.
+
+function paintScrollContainer(node) {
+  const { x, y, width, height } = node.getBounds();
+  const px = Math.round(x);
+  const py = Math.round(y);
+  const pw = Math.round(width);
+  const ph = Math.round(height);
+  _ctx.beginPath();
+  _ctx.rect(px, py, pw, ph);
+  _ctx.clip();
 }
 
 // -- Debug helpers -------------------------------------------------------------
