@@ -169,7 +169,7 @@ function drawFrameCounter() {
   _ctx.save();
   _ctx.font = '11px "JetBrains Mono", monospace';
   _ctx.fillStyle = "rgba(0,0,0,0.55)";
-  _ctx.fillRect(8, 8, label.length * 6.8, 18);
+  _ctx.fillRect(8, 8, Math.max(360, label.length * 6.8), 18);
   _ctx.fillStyle = "#e2b714";
   _ctx.textBaseline = "top";
   _ctx.textAlign = "left";
@@ -200,9 +200,13 @@ function loop(timestamp) {
   // 6. Diff
   const patches = Differ.diff(_root);
 
-  // 7. If no patches and no forced repaint, skip paint entirely
+  // 7. If no scene patches and no forced repaint, keep the debug counter alive.
   if (patches.length === 0 && !_forceRepaint) {
     Differ.recyclePatchList(patches);
+    Profiler.begin();
+    drawFrameCounter();
+    _frameCount++;
+    Profiler.end();
     return;
   }
 
