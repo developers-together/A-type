@@ -4,9 +4,14 @@
 //
 // Full HomeView with mode selection, settings, etc. comes in Phase 6+.
 
+import { EventBus, EVENTS } from "../core/EventBus.js";
 import { SceneGraph } from "../renderer/SceneGraph.js";
+import { LayoutEngine } from "../renderer/LayoutEngine.js";
+import { Renderer } from "../renderer/Renderer.js";
 import { createRectNode } from "../renderer/nodes/RectNode.js";
 import { createTextNode } from "../renderer/nodes/TextNode.js";
+
+let unsubscribeTestButtonClick = null;
 
 export function mountHomeView(logicalW, logicalH) {
   // Build a simple scene tree
@@ -93,6 +98,23 @@ export function mountHomeView(logicalW, logicalH) {
   };
 
   SceneGraph.setRoot(root);
+
+  if (unsubscribeTestButtonClick) {
+    unsubscribeTestButtonClick();
+  }
+
+  unsubscribeTestButtonClick = EventBus.on(EVENTS.NODE_CLICK, ({ node }) => {
+    if (node?.id !== "test-button") return;
+
+    const label = SceneGraph.findById("button-label");
+    if (label) {
+      label.text = label.text === "Clicked!" ? "Click me" : "Clicked!";
+    }
+
+    node.fill = node.fill === "#2c2e31" ? "#3a3c40" : "#2c2e31";
+    LayoutEngine.invalidateAll();
+    Renderer.forceRepaint();
+  });
 
   console.log("[HomeView] mounted - scene tree:", root);
   console.log(
