@@ -15,16 +15,7 @@ services:
       - ./db/words.txt:/docker-entrypoint-initdb.d/words.txt:ro
       - ./db/mariadb.cnf:/etc/mysql/conf.d/99-atype.cnf:ro
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mariadb-admin",
-          "ping",
-          "-h",
-          "127.0.0.1",
-          "-uroot",
-          "-prootpass",
-        ]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-uroot", "-prootpass"]
       interval: 5s
       timeout: 3s
       retries: 30
@@ -47,7 +38,7 @@ services:
       DB_PASSWORD: rootpass
       DB_NAME: atype
     ports:
-      - "8090:80"
+      - "80:80"
     volumes:
       - ./App:/var/www/html/App
       - ./Public:/var/www/html/Public
@@ -55,20 +46,6 @@ services:
     stop_grace_period: 20s
     networks:
       - app-network
-
-  caddy:
-    image: caddy:2-alpine
-    container_name: atype-caddy
-    restart: unless-stopped
-    network_mode: host
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - atype_caddy_data:/data
-      - atype_caddy_config:/config
-
-volumes:
-  atype_caddy_data:
-  atype_caddy_config:
 
 networks:
   app-network:
