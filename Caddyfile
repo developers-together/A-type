@@ -1,0 +1,3 @@
+atype.adhamhaithameid.is-a.dev {
+	reverse_proxy php-app:80
+}
