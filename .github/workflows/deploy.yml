@@ -29,6 +29,4 @@ jobs:
             git fetch origin
             git checkout "${{ github.ref_name }}"
             git pull --ff-only origin "${{ github.ref_name }}"
-            docker compose stop caddy || true
-            docker compose rm -f caddy || true
-            docker compose up -d --build mariadb php-app
+            docker compose up -d --build
